@@ -1,0 +1,7 @@
+time-series-analysis-with-r
+objectives
+lectures
+home-work
+assessment
+syllabus-and-readings
+further-information-and-support
