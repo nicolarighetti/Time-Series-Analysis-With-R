@@ -17,7 +17,7 @@ It will introduce students to:
 *   The free statistical software R to conduct time series analysis;
 *   Some of the main univariate and multivariate techniques to analyze time series data.
 
-At the end of the course students should know the specificity of time series data and should be able to use R to perform simple time series analysis by applying the techniques described in the course.
+At the end of the course, the students should know the specificity of time series data and should be able to use R to perform simple time series analysis by applying the techniques described in the course.
 
 ## Lectures
 
