@@ -17,17 +17,17 @@ It will introduce students to:
 *   The free statistical software R to conduct time series analysis;
 *   Some of the main univariate and multivariate techniques to analyze time series data.
 
-At the end of the course, the students should know the specificity of time series data and should be able to use R to perform simple time series analysis by applying the techniques described in the course.
+At the end of the course, the students are expected to know the specificity of time series data and to be able to use R to perform simple time series analysis by applying the techniques described during the course.
 
 ## Lectures
 
-12 lectures (Thursday 11:30-13:00): https://ufind.univie.ac.at/de/course.html?lv=220050&semester=2021S 
+[12 lectures (Thursday 11:30-13:00)](https://ufind.univie.ac.at/de/course.html?lv=220050&semester=2021S).
 
 Structure of the lectures:
 
-*   *Theoretical concepts*: this part of the lectures consists will introduce students to the main theoretical concepts of time series analysis;
-*   *R Tutorial*: this part of the lectures consists in a hands-on tutorial on the R functions necessary to perform time series analysis. Every part of a time series analysis project will be taken into account, including data wrangling, visual representation, and statistical analysis;
-*   *Individual/Group work*: this part of the lectures consists in individual and group work based on the application of the theoretical and practical knowledge described in the previous part of the lectures.
+*   **Theoretical concepts**: this part of the lectures consists will introduce students to the main theoretical concepts of time series analysis;
+*   **R Tutorial**: this part of the lectures consists in a hands-on tutorial on the R functions necessary to perform time series analysis. Every part of a time series analysis project will be taken into account, including data wrangling, visual representation, and statistical analysis;
+*   **Individual/Group work**: this part of the lectures consists in individual and group work based on the application of the theoretical and practical knowledge described in the previous part of the lectures.
 
 ## Home Work
 
@@ -43,6 +43,7 @@ Theoretical concepts can be studied, but you have to practice in order to learn 
 This open book is specifically created for the *220050-1 SE SE Advanced Data Analysis 2 (2021S)* course. It includes both theoretical concepts and the R tutorial with the necessary code to perform all the operations we are going to learn. 
 
 The book also includes hyperlinks to additional free resources and readings. 
+The mandatory readings will be listed on the *Readings* section of the book.
 
 A new part of the book will be uploaded online every weeks, following the program of the lessons. 
 
