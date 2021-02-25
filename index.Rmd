@@ -27,7 +27,7 @@ At the end of the course, the students are expected to know the specificity of t
 
 Structure of the lectures:
 
-*   **Theoretical concepts**: this part of the lectures consists will introduce students to the main theoretical concepts of time series analysis;
+*   **Theoretical concepts**: this part of the lectures will introduce students to the main theoretical concepts of time series analysis;
 *   **R Tutorial**: this part of the lectures consists in a hands-on tutorial on the R functions necessary to perform time series analysis. Every part of a time series analysis project will be taken into account, including data wrangling, visual representation, and statistical analysis;
 *   **Individual/Group work**: this part of the lectures consists in individual and group work based on the application of the theoretical and practical knowledge described in the previous part of the lectures.
 
