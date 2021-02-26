@@ -49,7 +49,7 @@ The mandatory readings will be listed on the *Readings* section of the book.
 
 A new part of the book will be uploaded online every weeks, following the program of the lessons. 
 
-The link of this book is the following: [Time-Series-Analysis-With-R](https://nicolarighetti.github.io/Time-Series-Analysis-With-R/).
+The link to this book is the following: [Time-Series-Analysis-With-R](https://nicolarighetti.github.io/Time-Series-Analysis-With-R/).
 
 ## Further information and support
 For any information, communication, or request for clarification, you can reach out to me at [my University of Vienna address](https://ufind.univie.ac.at/de/person.html?id=113451).

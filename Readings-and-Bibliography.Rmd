@@ -1,0 +1,10 @@
+# Readings
+
+*This page will be updated as the course goes on.*
+
+Wells, C., Shah, D. V., Pevehouse, J. C., Foley, J., Lukito, J., Pelled, A., & Yang, J. (2019). [The Temporal Turn in Communication Research: Time Series Analyses Using Computational Approaches](https://ijoc.org/index.php/ijoc/article/view/10635). International Journal of Communication (19328036), 13.
+
+
+## Other Bibliographical References
+
+Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://methods.sagepub.com/Book/a-survivors-guide-to-r). SAGE Publications.
