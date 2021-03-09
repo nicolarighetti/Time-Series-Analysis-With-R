@@ -7,7 +7,7 @@ Part of the course will be spent talking about the specificity of time series da
 Computer applications will focus on R statistical language. A moderate knowledge of R and R programming is useful but not necessary, since the course includes a hands-on training on the functions necessary to conduct the analyses described during the lessons.
 
 The lectures are structured as follows:
-*   **Theoretical concepts**: this part of the lectures consists will introduce students to the main theoretical concepts of time series analysis;
+*   **Theoretical concepts**: this part of the lectures will introduce students to the main theoretical concepts of time series analysis;
 *   **R Tutorial**: this part of the lectures consists in a hands-on tutorial on the R functions necessary to perform time series analysis. Every part of a time series analysis project will be taken into account, including data wrangling, visual representation, and statistical analysis;
 *   **Individual/Group work**: this part of the lectures consists in individual and group work based on the application of the theoretical and practical knowledge described in the previous part of the lectures.
 
