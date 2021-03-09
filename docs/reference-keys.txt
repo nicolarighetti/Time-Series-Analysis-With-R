@@ -6,3 +6,4 @@ assessment
 syllabus-and-readings
 further-information-and-support
 readings
+bibliographical-references
