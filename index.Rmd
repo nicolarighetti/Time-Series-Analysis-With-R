@@ -45,7 +45,7 @@ Theoretical concepts can be studied, but you have to practice in order to learn 
 This open book is specifically created for the *220050-1 SE SE Advanced Data Analysis 2 (2021S)* course. It includes both theoretical concepts and the R tutorial with the necessary code to perform all the operations we are going to learn. 
 
 The book also includes hyperlinks to additional free resources and readings. 
-The mandatory readings will be listed on the *Readings* section of the book.
+The mandatory readings will be listed in the *Readings* section of the book.
 
 A new part of the book will be uploaded online every weeks, following the program of the lessons. 
 
