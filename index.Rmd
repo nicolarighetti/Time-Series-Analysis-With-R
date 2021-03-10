@@ -25,11 +25,11 @@ At the end of the course, the students are expected to know the specificity of t
 
 [12 lectures (Thursday 11:30-13:00)](https://ufind.univie.ac.at/de/course.html?lv=220050&semester=2021S).
 
-Structure of the lectures:
+Structure of the course:
 
-*   **Theoretical concepts**: this part of the lectures will introduce students to the main theoretical concepts of time series analysis;
-*   **R Tutorial**: this part of the lectures consists in a hands-on tutorial on the R functions necessary to perform time series analysis. Every part of a time series analysis project will be taken into account, including data wrangling, visual representation, and statistical analysis;
-*   **Individual/Group work**: this part of the lectures consists in individual and group work based on the application of the theoretical and practical knowledge described in the previous part of the lectures.
+*   **Theoretical concepts**: this part of the course will introduce students to the main theoretical concepts of time series analysis;
+*   **R Tutorial**: this part of the course consists in a hands-on tutorial on the R functions necessary to perform time series analysis. Every part of a time series analysis project will be taken into account, including data wrangling, visual representation, and statistical analysis;
+*   **Individual/Group work**: this part of the course consists in individual and group work based on the application of the theoretical and practical knowledge described in the previous part of the course
 
 ## Home Work
 
