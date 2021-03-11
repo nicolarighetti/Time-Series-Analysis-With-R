@@ -5,5 +5,12 @@ home-work
 assessment
 syllabus-and-readings
 further-information-and-support
+getting-started-with-r
+rstudio-interface-and-data
+download-and-install-rstudio
+create-a-rstudio-project-and-import-data
+create-a-script
+the-rstudio-user-interface
+load-and-save-data
 readings
 bibliographical-references
