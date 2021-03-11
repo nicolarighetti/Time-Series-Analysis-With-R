@@ -1,0 +1,93 @@
+# Getting started with R
+
+## RStudio Interface and Data
+
+### Download and Install RStudio 
+
+This course is based on the statistical software R. R is easier to use in the development environment RStudio (it works on both Windows, Apple, and other OS).
+
+It is possible to [download a free version of RStudio Desktop](https://rstudio.com/products/rstudio/download/) from the official websites.
+
+You might also use a free *online* version of RStudio by registering to the [RStudio Cloud free plan](https://rstudio.cloud). However, the free plan gives you just 15 hours per months. Our lessons take 4.5 hours per month, and since you also need to practice, the best choice is to install RStudio and R on your computer. 
+
+Now we are going to see how to get started with RStudio Desktop.
+
+First,  [download and install a free version of RStudio Desktop](https://rstudio.com/products/rstudio/download/) and open the software.
+
+### Create a RStudio Project and Import data
+
+When starting a data analysis project with RStudio, we create a new dedicated environment where we will keep all the scripts (files containing the code to perform the analysis), data sets, and outputs of the analysis (such as plots and tables). This dedicated work-space is simply called a *project*. 
+
+To create a new project with RStudio, follows these steps:
+
+*   click on *File* (on the top left); 
+*   then, click on *New Project*;
+*   select *New Directory*, and *New Project*;
+*   choose a folder for the project, and give a name to your project. You can use the name *Time-Series-Analysis-With-R*;
+
+In this way, it will be created a new folder for the project, in the main folder specified in the previous step. In this folder, you will find a file **.Rproj**, the name of which is the name you assigned to your project. To work on this project, you just need to open the *.Rproj* file.
+
+```{r}
+knitr::include_graphics("images/r-studio-project-creation.png")
+```
+
+### Create a Script 
+
+Once the project has been created, we can open a new **script** and save it.
+
+A script is a file containing code. We can create a first script named *basic-r-syntax*, where you will test the basic code we are going to see. The script will be saved with extension *.r*. 
+
+You can open, change, and save the file every time you work on it.
+To save your code is important, otherwise you would have to write the same code every time you work on the project!
+
+```{r}
+knitr::include_graphics("images/create-script.png")
+```
+
+### The RStudio User Interface
+
+The interface of RStudio is organized in four main quadrants:
+
+*   The top-left quadrant is the editor. Here you can create or open a script and compose the R commands. 
+* The top-right quadrant shows the R workspace, which holds the data and other objects you have created in the current R session. The bottom-right quadrant is a window for graphics output, but it also has tabs to manage your file directories, R packages, and the R Help facility.
+*   On the bottom left is the R Console window, where the code gets executed and the output is produced. You can run the commands, sending the code from the editor to the console, by highlighting it and hitting the *Run* button, or the Ctrl-Enter key combination. It is also possible to type and run commands directly into the console window (in this case, nothing will be saved).
+*   The top-right quadrant shows the R workspace, which holds the data and other objects you have created in the current R session. There is the *file* tab, where you can navigate files and folders and find, for instance, the data sets you want to upload.
+*   The bottom-right quadrant is a window for graphics output. Here you can visualize your plots. There is also a tab for the R packages, and the R Help facility.
+
+```{r}
+knitr::include_graphics("images/r-environment.png")
+```
+
+### Load and Save Data
+
+To load data into R you can click on the **file** window in the top-right quadrant, navigate your files/folders, and once you have found your data set file, you can just click it and follow the semi-automated import procedure.
+
+```{r}
+knitr::include_graphics("images/load-data.png")
+```
+
+Otherwise, you can upload a data set by using a function. For instance, to import a *csv* file, one of the most common format for data sets, it can be employed the function **read.csv**. The main argument of this function is the *path* of the file you want to upload. 
+To specify the file path, consider that you are working within a specific environment, that is, your *working directory* is the folder of the project (you can double check the working directory you are working in, by running the command **getwd()**). Thus, to indicate the path of the data set you want to upload, you can write a dot followed by a slash **./**, followed by the path of the data set *inside the working directory*. For instance, in the case below, the data set is saved in a folder named *data* inside the working directory. The name of the data set is *tweets_vienna* and its extension is *.csv*. Therefore, the code to upload the file is as follows:
+
+```{r}
+tweets_vienna <- read.csv("./data/tweets_vienna.csv")
+```
+
+To save data there are a few options. Generally, if you want to save a data set, you can opt for the *.csv* or the *.rds* format. The *.rds* format is only readable by R, while the *.csv* is a "universal" format (you can read it with Excel, for instance).
+
+To save file as *.csv* it can be employed the function **write.csv**. The main arguments of this function are the name of the object to be saved, and the name of the file where the object has to be saved.
+
+```{r}
+write.csv(tweets_vienna, file = "./data/tweets_vienna.csv")
+```
+
+To save *.rds* file the procedure is similar, except that the **saveRDS** function has to be employed.
+Instead, to read an *rds* file, the appropriate function is **readRDS**.
+
+```{r}
+saveRDS(tweets_vienna, file = "./data/tweets_vienna.csv")
+
+readRDS("./data/tweets_vienna.csv")   # read a .rds file
+```
+
+
