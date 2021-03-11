@@ -81,13 +81,12 @@ To save file as *.csv* it can be employed the function **write.csv**. The main a
 write.csv(tweets_vienna, file = "./data/tweets_vienna.csv")
 ```
 
-To save *.rds* file the procedure is similar, except that the **saveRDS** function has to be employed.
-Instead, to read an *rds* file, the appropriate function is **readRDS**.
+To save *.rds* file the procedure is similar, except that the **saveRDS** function has to be employed. Instead, to read an *rds* file, the appropriate function is **readRDS**.
 
 ```{r}
-saveRDS(tweets_vienna, file = "./data/tweets_vienna.csv")
+saveRDS(tweets_vienna, file = "./data/tweets_vienna.rds")
 
-readRDS("./data/tweets_vienna.csv")   # read a .rds file
+tweets_vienna <- readRDS("./data/tweets_vienna.rds")   # read a .rds file
 ```
 
 
