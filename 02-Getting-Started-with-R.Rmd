@@ -75,13 +75,13 @@ fake_news <- read.csv("./data/fake-news-stories-over-time-20210111144200.csv")
 
 To save data there are a few options. Generally, if you want to save a data set, you can opt for the *.csv* or the *.rds* format. The *.rds* format is only readable by R, while the *.csv* is a "universal" format (you can read it with Excel, for instance).
 
-To save file as *.csv* it can be employed the function **write.csv**. The main arguments of this function are the name of the object to be saved, and the name of the file where the object has to be saved.
+To save a file as *.csv* it can be used the function **write.csv**. The main arguments of this function are the name of the object that has to be saved, the path to the folder where the object will be saved, and the name we want to assign to the file.
 
 ```{r}
 write.csv(fake_news, file = "./data/fake_news.csv")
 ```
 
-To save *.rds* file the procedure is similar, except that the **saveRDS** function has to be employed. Instead, to read an *rds* file, the appropriate function is **readRDS**.
+To save *.rds* file the procedure is similar, but the **saveRDS** function has to be employed. Instead, to read an *rds* file, the appropriate function is **readRDS**.
 
 ```{r}
 saveRDS(fake_news, file = "./data/fake_news.rds")
