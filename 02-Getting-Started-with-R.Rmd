@@ -70,7 +70,7 @@ Otherwise, you can upload a data set by using a function. For instance, to impor
 To specify the file path, consider that you are working within a specific environment, that is, your *working directory* is the folder of the project (you can double check the working directory you are working in, by running the command **getwd()**). Thus, to indicate the path of the data set you want to upload, you can write a dot followed by a slash **./**, followed by the path of the data set *inside the working directory*. For instance, in the case below, the data set is saved in a folder named *data* inside the working directory. The name of the data set is *tweets_vienna* and its extension is *.csv*. Therefore, the code to upload the file is as follows:
 
 ```{r}
-tweets_vienna <- read.csv("./data/tweets_vienna.csv")
+fake_news <- read.csv("./data/fake-news-stories-over-time-20210111144200.csv")
 ```
 
 To save data there are a few options. Generally, if you want to save a data set, you can opt for the *.csv* or the *.rds* format. The *.rds* format is only readable by R, while the *.csv* is a "universal" format (you can read it with Excel, for instance).
@@ -78,15 +78,15 @@ To save data there are a few options. Generally, if you want to save a data set,
 To save file as *.csv* it can be employed the function **write.csv**. The main arguments of this function are the name of the object to be saved, and the name of the file where the object has to be saved.
 
 ```{r}
-write.csv(tweets_vienna, file = "./data/tweets_vienna.csv")
+write.csv(fake_news, file = "./data/fake_news.csv")
 ```
 
 To save *.rds* file the procedure is similar, except that the **saveRDS** function has to be employed. Instead, to read an *rds* file, the appropriate function is **readRDS**.
 
 ```{r}
-saveRDS(tweets_vienna, file = "./data/tweets_vienna.rds")
+saveRDS(fake_news, file = "./data/fake_news.rds")
 
-tweets_vienna <- readRDS("./data/tweets_vienna.rds")   # read a .rds file
+fake_news <- readRDS("./data/fake_news.rds")   # read a .rds file
 ```
 
 
