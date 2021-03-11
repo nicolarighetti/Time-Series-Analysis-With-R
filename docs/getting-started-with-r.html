@@ -198,7 +198,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>choose a folder for the project, and give a name to your project. You can use the name <em>Time-Series-Analysis-With-R</em>;</li>
 </ul>
 <p>In this way, it will be created a new folder for the project, in the main folder specified in the previous step. In this folder, you will find a file <strong>.Rproj</strong>, the name of which is the name you assigned to your project. To work on this project, you just need to open the <em>.Rproj</em> file.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="getting-started-with-r.html#cb1-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;images/r-studio-project-creation.png&quot;</span>)</span></code></pre></div>
 <p><img src="images/r-studio-project-creation.png" width="1208" /></p>
 </div>
 <div id="create-a-script" class="section level3">
@@ -207,7 +206,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A script is a file containing code. We can create a first script named <em>basic-r-syntax</em>, where you will test the basic code we are going to see. The script will be saved with extension <em>.r</em>.</p>
 <p>You can open, change, and save the file every time you work on it.
 To save your code is important, otherwise you would have to write the same code every time you work on the project!</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="getting-started-with-r.html#cb2-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;images/create-script.png&quot;</span>)</span></code></pre></div>
 <p><img src="images/create-script.png" width="1076" /></p>
 </div>
 <div id="the-rstudio-user-interface" class="section level3">
@@ -220,24 +218,22 @@ To save your code is important, otherwise you would have to write the same code 
 <li>The top-right quadrant shows the R workspace, which holds the data and other objects you have created in the current R session. There is the <em>file</em> tab, where you can navigate files and folders and find, for instance, the data sets you want to upload.</li>
 <li>The bottom-right quadrant is a window for graphics output. Here you can visualize your plots. There is also a tab for the R packages, and the R Help facility.</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="getting-started-with-r.html#cb3-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;images/r-environment.png&quot;</span>)</span></code></pre></div>
 <p><img src="images/r-environment.png" width="1278" /></p>
 </div>
 <div id="load-and-save-data" class="section level3">
 <h3><span class="header-section-number">2.1.5</span> Load and Save Data</h3>
 <p>To load data into R you can click on the <strong>file</strong> window in the top-right quadrant, navigate your files/folders, and once you have found your data set file, you can just click it and follow the semi-automated import procedure.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="getting-started-with-r.html#cb4-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;images/load-data.png&quot;</span>)</span></code></pre></div>
 <p><img src="images/load-data.png" width="1166" /></p>
 <p>Otherwise, you can upload a data set by using a function. For instance, to import a <em>csv</em> file, one of the most common format for data sets, it can be employed the function <strong>read.csv</strong>. The main argument of this function is the <em>path</em> of the file you want to upload.
 To specify the file path, consider that you are working within a specific environment, that is, your <em>working directory</em> is the folder of the project (you can double check the working directory you are working in, by running the command <strong>getwd()</strong>). Thus, to indicate the path of the data set you want to upload, you can write a dot followed by a slash <strong>./</strong>, followed by the path of the data set <em>inside the working directory</em>. For instance, in the case below, the data set is saved in a folder named <em>data</em> inside the working directory. The name of the data set is <em>tweets_vienna</em> and its extension is <em>.csv</em>. Therefore, the code to upload the file is as follows:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="getting-started-with-r.html#cb5-1"></a>fake_news &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/fake-news-stories-over-time-20210111144200.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="getting-started-with-r.html#cb1-1"></a>fake_news &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/fake-news-stories-over-time-20210111144200.csv&quot;</span>)</span></code></pre></div>
 <p>To save data there are a few options. Generally, if you want to save a data set, you can opt for the <em>.csv</em> or the <em>.rds</em> format. The <em>.rds</em> format is only readable by R, while the <em>.csv</em> is a “universal” format (you can read it with Excel, for instance).</p>
 <p>To save file as <em>.csv</em> it can be employed the function <strong>write.csv</strong>. The main arguments of this function are the name of the object to be saved, and the name of the file where the object has to be saved.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="getting-started-with-r.html#cb6-1"></a><span class="kw">write.csv</span>(fake_news, <span class="dt">file =</span> <span class="st">&quot;./data/fake_news.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="getting-started-with-r.html#cb2-1"></a><span class="kw">write.csv</span>(fake_news, <span class="dt">file =</span> <span class="st">&quot;./data/fake_news.csv&quot;</span>)</span></code></pre></div>
 <p>To save <em>.rds</em> file the procedure is similar, except that the <strong>saveRDS</strong> function has to be employed. Instead, to read an <em>rds</em> file, the appropriate function is <strong>readRDS</strong>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="getting-started-with-r.html#cb7-1"></a><span class="kw">saveRDS</span>(fake_news, <span class="dt">file =</span> <span class="st">&quot;./data/fake_news.rds&quot;</span>)</span>
-<span id="cb7-2"><a href="getting-started-with-r.html#cb7-2"></a></span>
-<span id="cb7-3"><a href="getting-started-with-r.html#cb7-3"></a>fake_news &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/fake_news.rds&quot;</span>)   <span class="co"># read a .rds file</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="getting-started-with-r.html#cb3-1"></a><span class="kw">saveRDS</span>(fake_news, <span class="dt">file =</span> <span class="st">&quot;./data/fake_news.rds&quot;</span>)</span>
+<span id="cb3-2"><a href="getting-started-with-r.html#cb3-2"></a></span>
+<span id="cb3-3"><a href="getting-started-with-r.html#cb3-3"></a>fake_news &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/fake_news.rds&quot;</span>)   <span class="co"># read a .rds file</span></span></code></pre></div>
 
 </div>
 </div>

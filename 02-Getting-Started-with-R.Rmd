@@ -27,7 +27,7 @@ To create a new project with RStudio, follows these steps:
 
 In this way, it will be created a new folder for the project, in the main folder specified in the previous step. In this folder, you will find a file **.Rproj**, the name of which is the name you assigned to your project. To work on this project, you just need to open the *.Rproj* file.
 
-```{r}
+```{r echo=FALSE}
 knitr::include_graphics("images/r-studio-project-creation.png")
 ```
 
@@ -40,7 +40,7 @@ A script is a file containing code. We can create a first script named *basic-r-
 You can open, change, and save the file every time you work on it.
 To save your code is important, otherwise you would have to write the same code every time you work on the project!
 
-```{r}
+```{r echo=FALSE}
 knitr::include_graphics("images/create-script.png")
 ```
 
@@ -54,7 +54,7 @@ The interface of RStudio is organized in four main quadrants:
 *   The top-right quadrant shows the R workspace, which holds the data and other objects you have created in the current R session. There is the *file* tab, where you can navigate files and folders and find, for instance, the data sets you want to upload.
 *   The bottom-right quadrant is a window for graphics output. Here you can visualize your plots. There is also a tab for the R packages, and the R Help facility.
 
-```{r}
+```{r echo=FALSE}
 knitr::include_graphics("images/r-environment.png")
 ```
 
@@ -62,7 +62,7 @@ knitr::include_graphics("images/r-environment.png")
 
 To load data into R you can click on the **file** window in the top-right quadrant, navigate your files/folders, and once you have found your data set file, you can just click it and follow the semi-automated import procedure.
 
-```{r}
+```{r echo=FALSE}
 knitr::include_graphics("images/load-data.png")
 ```
 
