@@ -102,11 +102,7 @@ How to perform data wrangling operations in R:
 
 In R, a **library (or "package")** is a coherent collection of functions, usually created for a specific purposes.
 
-To work with the *tidyverse* library, it is necessary to install it first using the following command: 
-
-```{r message=FALSE, warning=FALSE, include=FALSE}
-install.packages("tidyverse")
-```
+To work with the *tidyverse* library, it is necessary to install it first using the following command: *install.packages("tidyverse")*.
 
 ### Objects 
 
