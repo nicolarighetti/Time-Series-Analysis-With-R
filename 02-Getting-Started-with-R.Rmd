@@ -89,4 +89,303 @@ saveRDS(fake_news, file = "./data/fake_news.rds")
 fake_news <- readRDS("./data/fake_news.rds")   # read a .rds file
 ```
 
+In the code above you can notice an hash mark sign followed by some text. It is a **comment**. Comments are textual content used to describe the code in order to make it easier to understand and reuse it. Comments are written after the **hash mark sign (#)**, because the text written after the hash mark sign is ignored by R: you can read the comments, but R does not consider them as code. 
+
+## Basic R and Data Wrangling
+
+[Data wrangling](https://en.wikipedia.org/wiki/Data_wrangling) *is the process of transforming and mapping data from one "raw" data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.*
+
+How to perform data wrangling operations in R: 
+*   use basic R function 
+*   employ specific libraries such as **tidyverse**. Tidyverse is a collection of libraries and functions for data science [https://www.tidyverse.org](https://www.tidyverse.org). 
+
+In R, a **library (or "package")** is a coherent collection of functions, usually created for a specific purposes.
+
+To work with the *tidyverse* library, it is necessary to install it first using the following command: 
+
+```{r}
+install.packages("tidyverse")
+```
+
+### Objects 
+
+An *object* is an R entity composed of a name and a value.
+
+The **arrow <-** sign is used to *create objects* and *assign a value* to an object (or to change ("update") its previous value).
+
+Example: create an object with name "object_consisting_of_a_number" and value equal 2:
+
+```{r}
+
+object_consisting_of_a_number <- 2
+```
+
+Enter the name of the object in the console and run the command: the value assigned to the object will be printed.
+
+```{r}
+object_consisting_of_a_number
+```
+
+The object is equal to its value. Therefore, for instance, an object with a numerical value can be used to perform arithmetical operation.
+
+```{r}
+object_consisting_of_a_number * 10
+```
+
+The value of an object can be transformed:
+
+```{r}
+object_consisting_of_a_number <- object_consisting_of_a_number * 10
+
+object_consisting_of_a_number
+```
+
+An object can also represent a **function**. 
+
+Example: create an object for the *sum* (addition) function:
+
+```{r}
+function_sum <- function(x, y){
+  result <- x + y
+  return(result)
+}
+```
+
+The function can now be applied to two numerical values: 
+
+```{r}
+function_sum(5, 2)
+```
+
+Actually, we don't need this function, since mathematical functions are already implemented in R.
+
+```{r}
+sum(5, 2)
+```
+
+```{r}
+5 + 7
+```
+
+```{r}
+2 * 3
+```
+
+```{r}
+3^2
+```
+
+```{r}
+sqrt(9)
+```
+
+The value of an object can be a number, a function, but also a **vector**.
+Vectors are sequences of values.
+
+```{r}
+vector_of_numbers <- c(1,2,3,4,5,6,7,8,9,10) 
+```
+
+```{r}
+vector_of_numbers
+```
+
+A vector of numbers can be the argument of mathematical operations.
+
+```{r}
+vector_of_numbers * 2
+```
+
+```{r}
+vector_of_numbers + 3
+```
+
+Other R objects are *matrix*, *list*, and *data.frame.* 
+
+A **matrix** is a table composed of rows and columns containing only numerical values.
+
+```{r}
+a_matrix <- matrix(data = 1:50, nrow = 10, ncol = 5)
+
+a_matrix
+```
+
+A **list** is just a list of other objects.
+
+```{r}
+a_list <- list(object_consisting_of_a_number, vector_of_numbers, a_matrix)
+
+a_list
+```
+
+A **data.frame** is like a matrix that can contain *numbers* but also other types of data, such as *characters* (a textual type of data), or *factors* (unordered categorical variables, such as gender, or ordered categories, such as low, medium, high).
+
+Data sets are usually stored in data.frame. For instance, if you import a *csv* or an *Excel* file in R, the corresponding R object is a *data.frame*.
+
+```{r}
+# this is an object (vector) consisting of a series of numerical values
+numerical_vector <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)
+numerical_vector
+```
+
+```{r}
+# this is another object (vector) consisting of a series of categorical values
+categorical_vector <- c("Monday", "Tuesday", "Monday", "Tuesday", "Monday", "Wednesday","Thursday", "Wednesday", "Thursday", "Saturday", "Sunday", "Friday", "Saturday", "Sunday")
+categorical_vector
+```
+
+```{r}
+# this is an object consisting of a data.frame, created combining vectors through the function "data.frame"
+a_dataframe <- data.frame("first_variable" = numerical_vector,
+                          "second_variable" = categorical_vector)
+a_dataframe
+```
+
+To access a specific column of a data.frame, you can use the name of the data.frame, the dollar symbol **$**, and the name of the column.
+
+```{r}
+a_dataframe$first_variable
+```
+
+```{r}
+a_dataframe$second_variable
+```
+
+It is possible to add columns to a data.frame by writing:
+*   the name of the data.frame
+*   the dollar sign
+*   a name for the new column
+*   the *arrow sign <-*
+*   a vector of values to be stored in the new column (it has to have length equal to the other vectors composing the data.frame)
+
+```{r}
+a_dataframe$a_new_variable <- c(12, 261, 45, 29, 54, 234, 45, 42, 6, 267, 87, 3, 12, 9)
+```
+
+```{r}
+a_dataframe
+```
+
+### Functions
+
+A **function** is a coded operation that applies to an object (e.g.: a number, a textual feature etc.) to transform it based on specified rules. A function has a name (the name of the function) and some *arguments*. Among the arguments of a function there is always an *object* or a value, for instance a numerical value, which is the content the function is applied to, and other possible arguments (either mandatory or optional).
+
+Functions are operations applied to objects that give a certain output. E.g.: the arithmetical operation "addition" is a function that applies to two or more numbers to give, as its output, their sum. The *arguments* of the "sum" function are the numbers that are added together.
+
+The name of the function is written out of *parentheses*, and the arguments of the function inside the parentheses:
+
+```{r}
+sum(5, 3)
+```
+
+Arguments of functions can be numbers but also textual features. For instance, the function *paste* creates a string composed of the strings that it takes as arguments.
+
+```{r}
+paste("the", "cat", "is", "at", "home")
+```
+
+In R you can sometimes find a "nested" syntax, which can be confusing. The best practice is to keep things as simple as possible.
+
+```{r}
+# this comment, written after the hash mark, describe what is going on here: two "paste" function nested together have been used (improperly! because they make the code more complicated than necessary) to show how functions can be nested together. It would have been better to use the "paste" function just one time!
+paste(paste("the", "cat", "is", "at", "home"), "and", "sleeps", "on", "the", "sofa")
+```
+
+To sum up, functions manipulate and transform objects. Data wrangling, data visualization, as well as data analysis, are performed through functions.
+
+### Tidyverse
+
+Tidyverse is an R library composed of functions that allow users to perform basic and advanced data science operations. 
+
+Tidyverse has a peculiar syntax that includes the so-called [**pipe**](https://style.tidyverse.org/pipes.html) operator: **%>%**.
+
+To manipulate data sets are useful the functions included in [**dplyr**](https://dplyr.tidyverse.org): *a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges*.
+
+Since we have already installed tidyverse, we have to load it, so as we can work with its functions in the current R session:
+
+```{r warning=FALSE}
+# to load a library used the command library(NAME-OF-THE-LIBRARY)
+library(tidyverse)
+```
+
+#### Mutate 
+
+The function **mutate** adds new variables to a data.frame or overwrite existing variables.
+
+```{r}
+new_dataframe <- a_dataframe %>%
+  mutate(just_another_variable = a_new_variable / 3)
+  
+new_dataframe
+```
+
+#### Rename
+
+Rename is a function to change the name of columns (sometimes it can be useful).
+
+```{r}
+new_dataframe <- new_dataframe %>%
+  # rename (new_name = old_name)
+  rename(ID = first_variable,
+         Day = second_variable,
+         Tweets = a_new_variable,
+         Users = just_another_variable)
+
+new_dataframe
+```
+
+The previous two steps can be performed at the same time, by concatenating the operations through the *pipe %>%* operator.
+
+```{r}
+new_dataframe <- a_dataframe %>%
+  # this is "mutate", the first function we applied
+  mutate(just_another_variable = a_new_variable / 3) %>%
+  # this is "rename", the second function we applied
+  rename(ID = first_variable,
+         Day = second_variable,
+         Tweets = a_new_variable,
+         Users = just_another_variable) 
+  
+new_dataframe
+```
+
+#### Data format
+
+Variable can have many different *formats*, such as:
+
+*   **double** is for numbers that includes decimals, and is therefore more appropriate to *continuous variables*;
+*   **integer** is suitable for count data or  *discrete variables*;
+*   **factors** are used for categorical varibales. Factors can be ordered (e.g.: level of agreement: "high", "medium", "low") or not (e.g.: hair colors "blond", "dark brown", "brown");
+*   **characters** for textual labels;
+*   **logicals** for logical values (i.e.: TRUE and FALSE)
+*   **dates** to represent days;
+*   **POSIX**, a particular R format to represent date and times.
+
+To check the data format of the variables stored in the data.frame can be used the following command ("num" means "numeric"):
+
+```{r}
+str(new_dataframe)
+```
+
+Sometimes variables are stored in the data.frame in the wrong format and we want to convert them into a new data format. For this purpose we can use, again, the function **mutate**, along with other functions such *as.integer*, *as.numeric*, *as.character*, *as.factors*, or *as.logical*, *as.Date*, or *as.POSIXct()* based on the desired data format.
+
+```{r fig.cap="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications.[Google Trends](https://trends.google.com)", echo=FALSE}
+knitr::include_graphics("images/r-data-format.png")
+```
+
+```{r}
+new_dataframe <- new_dataframe %>%
+  # as.character to transform the "ID" column in a character variable
+  mutate(ID = as.character(ID),
+         # as.integer to transform the values of the "Tweets" and "Users" column from numeric to integer
+         Tweets = as.integer(Tweets),
+         Users = as.integer(Users))
+
+new_dataframe
+```
+```{r}
+str(new_dataframe)
+```
+
+
 

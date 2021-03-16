@@ -1,3 +1,4 @@
+fig:unnamed-chunk-131
 time-series-analysis-with-r
 objectives
 lectures
@@ -12,5 +13,12 @@ create-a-rstudio-project-and-import-data
 create-a-script
 the-rstudio-user-interface
 load-and-save-data
+basic-r-and-data-wrangling
+objects
+functions
+tidyverse
+mutate
+rename
+data-format
 readings
 bibliographical-references

@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-03-11" />
+<meta name="date" content="2021-03-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -152,6 +152,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-rstudio-user-interface"><i class="fa fa-check"></i><b>2.1.4</b> The RStudio User Interface</a></li>
 <li class="chapter" data-level="2.1.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#load-and-save-data"><i class="fa fa-check"></i><b>2.1.5</b> Load and Save Data</a></li>
 </ul></li>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r-and-data-wrangling"><i class="fa fa-check"></i><b>2.2</b> Basic R and Data Wrangling</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#objects"><i class="fa fa-check"></i><b>2.2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#functions"><i class="fa fa-check"></i><b>2.2.2</b> Functions</a></li>
+<li class="chapter" data-level="2.2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#tidyverse"><i class="fa fa-check"></i><b>2.2.3</b> Tidyverse</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>3</b> Readings</a><ul>
 <li class="chapter" data-level="3.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>3.1</b> Bibliographical References</a></li>
@@ -234,7 +239,339 @@ To specify the file path, consider that you are working within a specific enviro
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="getting-started-with-r.html#cb3-1"></a><span class="kw">saveRDS</span>(fake_news, <span class="dt">file =</span> <span class="st">&quot;./data/fake_news.rds&quot;</span>)</span>
 <span id="cb3-2"><a href="getting-started-with-r.html#cb3-2"></a></span>
 <span id="cb3-3"><a href="getting-started-with-r.html#cb3-3"></a>fake_news &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;./data/fake_news.rds&quot;</span>)   <span class="co"># read a .rds file</span></span></code></pre></div>
+<p>In the code above you can notice an hash mark sign followed by some text. It is a <strong>comment</strong>. Comments are textual content used to describe the code in order to make it easier to understand and reuse it. Comments are written after the <strong>hash mark sign (#)</strong>, because the text written after the hash mark sign is ignored by R: you can read the comments, but R does not consider them as code.</p>
+</div>
+</div>
+<div id="basic-r-and-data-wrangling" class="section level2">
+<h2><span class="header-section-number">2.2</span> Basic R and Data Wrangling</h2>
+<p><a href="https://en.wikipedia.org/wiki/Data_wrangling">Data wrangling</a> <em>is the process of transforming and mapping data from one “raw” data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.</em></p>
+<p>How to perform data wrangling operations in R:
+* use basic R function
+* employ specific libraries such as <strong>tidyverse</strong>. Tidyverse is a collection of libraries and functions for data science <a href="https://www.tidyverse.org">https://www.tidyverse.org</a>.</p>
+<p>In R, a <strong>library (or “package”)</strong> is a coherent collection of functions, usually created for a specific purposes.</p>
+<p>To work with the <em>tidyverse</em> library, it is necessary to install it first using the following command:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="getting-started-with-r.html#cb4-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in install.packages : Updating loaded packages</code></pre>
+<div id="objects" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Objects</h3>
+<p>An <em>object</em> is an R entity composed of a name and a value.</p>
+<p>The <strong>arrow &lt;-</strong> sign is used to <em>create objects</em> and <em>assign a value</em> to an object (or to change (“update”) its previous value).</p>
+<p>Example: create an object with name “object_consisting_of_a_number” and value equal 2:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="getting-started-with-r.html#cb6-1"></a>object_consisting_of_a_number &lt;-<span class="st"> </span><span class="dv">2</span></span></code></pre></div>
+<p>Enter the name of the object in the console and run the command: the value assigned to the object will be printed.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="getting-started-with-r.html#cb7-1"></a>object_consisting_of_a_number</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>The object is equal to its value. Therefore, for instance, an object with a numerical value can be used to perform arithmetical operation.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="getting-started-with-r.html#cb9-1"></a>object_consisting_of_a_number <span class="op">*</span><span class="st"> </span><span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1] 20</code></pre>
+<p>The value of an object can be transformed:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="getting-started-with-r.html#cb11-1"></a>object_consisting_of_a_number &lt;-<span class="st"> </span>object_consisting_of_a_number <span class="op">*</span><span class="st"> </span><span class="dv">10</span></span>
+<span id="cb11-2"><a href="getting-started-with-r.html#cb11-2"></a></span>
+<span id="cb11-3"><a href="getting-started-with-r.html#cb11-3"></a>object_consisting_of_a_number</span></code></pre></div>
+<pre><code>## [1] 20</code></pre>
+<p>An object can also represent a <strong>function</strong>.</p>
+<p>Example: create an object for the <em>sum</em> (addition) function:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="getting-started-with-r.html#cb13-1"></a>function_sum &lt;-<span class="st"> </span><span class="cf">function</span>(x, y){</span>
+<span id="cb13-2"><a href="getting-started-with-r.html#cb13-2"></a>  result &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span>y</span>
+<span id="cb13-3"><a href="getting-started-with-r.html#cb13-3"></a>  <span class="kw">return</span>(result)</span>
+<span id="cb13-4"><a href="getting-started-with-r.html#cb13-4"></a>}</span></code></pre></div>
+<p>The function can now be applied to two numerical values:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="getting-started-with-r.html#cb14-1"></a><span class="kw">function_sum</span>(<span class="dv">5</span>, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<p>Actually, we don’t need this function, since mathematical functions are already implemented in R.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="getting-started-with-r.html#cb16-1"></a><span class="kw">sum</span>(<span class="dv">5</span>, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="getting-started-with-r.html#cb18-1"></a><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">7</span></span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="getting-started-with-r.html#cb20-1"></a><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="getting-started-with-r.html#cb22-1"></a><span class="dv">3</span><span class="op">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="getting-started-with-r.html#cb24-1"></a><span class="kw">sqrt</span>(<span class="dv">9</span>)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>The value of an object can be a number, a function, but also a <strong>vector</strong>.
+Vectors are sequences of values.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="getting-started-with-r.html#cb26-1"></a>vector_of_numbers &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="getting-started-with-r.html#cb27-1"></a>vector_of_numbers</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>A vector of numbers can be the argument of mathematical operations.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="getting-started-with-r.html#cb29-1"></a>vector_of_numbers <span class="op">*</span><span class="st"> </span><span class="dv">2</span></span></code></pre></div>
+<pre><code>##  [1]  2  4  6  8 10 12 14 16 18 20</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="getting-started-with-r.html#cb31-1"></a>vector_of_numbers <span class="op">+</span><span class="st"> </span><span class="dv">3</span></span></code></pre></div>
+<pre><code>##  [1]  4  5  6  7  8  9 10 11 12 13</code></pre>
+<p>Other R objects are <em>matrix</em>, <em>list</em>, and <em>data.frame.</em></p>
+<p>A <strong>matrix</strong> is a table composed of rows and columns containing only numerical values.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="getting-started-with-r.html#cb33-1"></a>a_matrix &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">50</span>, <span class="dt">nrow =</span> <span class="dv">10</span>, <span class="dt">ncol =</span> <span class="dv">5</span>)</span>
+<span id="cb33-2"><a href="getting-started-with-r.html#cb33-2"></a></span>
+<span id="cb33-3"><a href="getting-started-with-r.html#cb33-3"></a>a_matrix</span></code></pre></div>
+<pre><code>##       [,1] [,2] [,3] [,4] [,5]
+##  [1,]    1   11   21   31   41
+##  [2,]    2   12   22   32   42
+##  [3,]    3   13   23   33   43
+##  [4,]    4   14   24   34   44
+##  [5,]    5   15   25   35   45
+##  [6,]    6   16   26   36   46
+##  [7,]    7   17   27   37   47
+##  [8,]    8   18   28   38   48
+##  [9,]    9   19   29   39   49
+## [10,]   10   20   30   40   50</code></pre>
+<p>A <strong>list</strong> is just a list of other objects.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="getting-started-with-r.html#cb35-1"></a>a_list &lt;-<span class="st"> </span><span class="kw">list</span>(object_consisting_of_a_number, vector_of_numbers, a_matrix)</span>
+<span id="cb35-2"><a href="getting-started-with-r.html#cb35-2"></a></span>
+<span id="cb35-3"><a href="getting-started-with-r.html#cb35-3"></a>a_list</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 20
+## 
+## [[2]]
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## [[3]]
+##       [,1] [,2] [,3] [,4] [,5]
+##  [1,]    1   11   21   31   41
+##  [2,]    2   12   22   32   42
+##  [3,]    3   13   23   33   43
+##  [4,]    4   14   24   34   44
+##  [5,]    5   15   25   35   45
+##  [6,]    6   16   26   36   46
+##  [7,]    7   17   27   37   47
+##  [8,]    8   18   28   38   48
+##  [9,]    9   19   29   39   49
+## [10,]   10   20   30   40   50</code></pre>
+<p>A <strong>data.frame</strong> is like a matrix that can contain <em>numbers</em> but also other types of data, such as <em>characters</em> (a textual type of data), or <em>factors</em> (unordered categorical variables, such as gender, or ordered categories, such as low, medium, high).</p>
+<p>Data sets are usually stored in data.frame. For instance, if you import a <em>csv</em> or an <em>Excel</em> file in R, the corresponding R object is a <em>data.frame</em>.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="getting-started-with-r.html#cb37-1"></a><span class="co"># this is an object (vector) consisting of a series of numerical values</span></span>
+<span id="cb37-2"><a href="getting-started-with-r.html#cb37-2"></a>numerical_vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">14</span>)</span>
+<span id="cb37-3"><a href="getting-started-with-r.html#cb37-3"></a>numerical_vector</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="getting-started-with-r.html#cb39-1"></a><span class="co"># this is another object (vector) consisting of a series of categorical values</span></span>
+<span id="cb39-2"><a href="getting-started-with-r.html#cb39-2"></a>categorical_vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>,<span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>, <span class="st">&quot;Friday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>)</span>
+<span id="cb39-3"><a href="getting-started-with-r.html#cb39-3"></a>categorical_vector</span></code></pre></div>
+<pre><code>##  [1] &quot;Monday&quot;    &quot;Tuesday&quot;   &quot;Monday&quot;    &quot;Tuesday&quot;   &quot;Monday&quot;   
+##  [6] &quot;Wednesday&quot; &quot;Thursday&quot;  &quot;Wednesday&quot; &quot;Thursday&quot;  &quot;Saturday&quot; 
+## [11] &quot;Sunday&quot;    &quot;Friday&quot;    &quot;Saturday&quot;  &quot;Sunday&quot;</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="getting-started-with-r.html#cb41-1"></a><span class="co"># this is an object consisting of a data.frame, created combining vectors through the function &quot;data.frame&quot;</span></span>
+<span id="cb41-2"><a href="getting-started-with-r.html#cb41-2"></a>a_dataframe &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;first_variable&quot;</span> =<span class="st"> </span>numerical_vector,</span>
+<span id="cb41-3"><a href="getting-started-with-r.html#cb41-3"></a>                          <span class="st">&quot;second_variable&quot;</span> =<span class="st"> </span>categorical_vector)</span>
+<span id="cb41-4"><a href="getting-started-with-r.html#cb41-4"></a>a_dataframe</span></code></pre></div>
+<pre><code>##    first_variable second_variable
+## 1               1          Monday
+## 2               2         Tuesday
+## 3               3          Monday
+## 4               4         Tuesday
+## 5               5          Monday
+## 6               6       Wednesday
+## 7               7        Thursday
+## 8               8       Wednesday
+## 9               9        Thursday
+## 10             10        Saturday
+## 11             11          Sunday
+## 12             12          Friday
+## 13             13        Saturday
+## 14             14          Sunday</code></pre>
+<p>To access a specific column of a data.frame, you can use the name of the data.frame, the dollar symbol <strong>$</strong>, and the name of the column.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="getting-started-with-r.html#cb43-1"></a>a_dataframe<span class="op">$</span>first_variable</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="getting-started-with-r.html#cb45-1"></a>a_dataframe<span class="op">$</span>second_variable</span></code></pre></div>
+<pre><code>##  [1] Monday    Tuesday   Monday    Tuesday   Monday    Wednesday
+##  [7] Thursday  Wednesday Thursday  Saturday  Sunday    Friday   
+## [13] Saturday  Sunday   
+## 7 Levels: Friday Monday Saturday Sunday Thursday ... Wednesday</code></pre>
+<p>It is possible to add columns to a data.frame by writing:
+* the name of the data.frame
+* the dollar sign
+* a name for the new column
+* the <em>arrow sign &lt;-</em>
+* a vector of values to be stored in the new column (it has to have length equal to the other vectors composing the data.frame)</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="getting-started-with-r.html#cb47-1"></a>a_dataframe<span class="op">$</span>a_new_variable &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">261</span>, <span class="dv">45</span>, <span class="dv">29</span>, <span class="dv">54</span>, <span class="dv">234</span>, <span class="dv">45</span>, <span class="dv">42</span>, <span class="dv">6</span>, <span class="dv">267</span>, <span class="dv">87</span>, <span class="dv">3</span>, <span class="dv">12</span>, <span class="dv">9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="getting-started-with-r.html#cb48-1"></a>a_dataframe</span></code></pre></div>
+<pre><code>##    first_variable second_variable a_new_variable
+## 1               1          Monday             12
+## 2               2         Tuesday            261
+## 3               3          Monday             45
+## 4               4         Tuesday             29
+## 5               5          Monday             54
+## 6               6       Wednesday            234
+## 7               7        Thursday             45
+## 8               8       Wednesday             42
+## 9               9        Thursday              6
+## 10             10        Saturday            267
+## 11             11          Sunday             87
+## 12             12          Friday              3
+## 13             13        Saturday             12
+## 14             14          Sunday              9</code></pre>
+</div>
+<div id="functions" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Functions</h3>
+<p>A <strong>function</strong> is a coded operation that applies to an object (e.g.: a number, a textual feature etc.) to transform it based on specified rules. A function has a name (the name of the function) and some <em>arguments</em>. Among the arguments of a function there is always an <em>object</em> or a value, for instance a numerical value, which is the content the function is applied to, and other possible arguments (either mandatory or optional).</p>
+<p>Functions are operations applied to objects that give a certain output. E.g.: the arithmetical operation “addition” is a function that applies to two or more numbers to give, as its output, their sum. The <em>arguments</em> of the “sum” function are the numbers that are added together.</p>
+<p>The name of the function is written out of <em>parentheses</em>, and the arguments of the function inside the parentheses:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="getting-started-with-r.html#cb50-1"></a><span class="kw">sum</span>(<span class="dv">5</span>, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<p>Arguments of functions can be numbers but also textual features. For instance, the function <em>paste</em> creates a string composed of the strings that it takes as arguments.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="getting-started-with-r.html#cb52-1"></a><span class="kw">paste</span>(<span class="st">&quot;the&quot;</span>, <span class="st">&quot;cat&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;at&quot;</span>, <span class="st">&quot;home&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;the cat is at home&quot;</code></pre>
+<p>In R you can sometimes find a “nested” syntax, which can be confusing. The best practice is to keep things as simple as possible.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="getting-started-with-r.html#cb54-1"></a><span class="co"># this comment, written after the hash mark, describe what is going on here: two &quot;paste&quot; function nested together have been used (improperly! because they make the code more complicated than necessary) to show how functions can be nested together. It would have been better to use the &quot;paste&quot; function just one time!</span></span>
+<span id="cb54-2"><a href="getting-started-with-r.html#cb54-2"></a><span class="kw">paste</span>(<span class="kw">paste</span>(<span class="st">&quot;the&quot;</span>, <span class="st">&quot;cat&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;at&quot;</span>, <span class="st">&quot;home&quot;</span>), <span class="st">&quot;and&quot;</span>, <span class="st">&quot;sleeps&quot;</span>, <span class="st">&quot;on&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;sofa&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;the cat is at home and sleeps on the sofa&quot;</code></pre>
+<p>To sum up, functions manipulate and transform objects. Data wrangling, data visualization, as well as data analysis, are performed through functions.</p>
+</div>
+<div id="tidyverse" class="section level3">
+<h3><span class="header-section-number">2.2.3</span> Tidyverse</h3>
+<p>Tidyverse is an R library composed of functions that allow users to perform basic and advanced data science operations.</p>
+<p>Tidyverse has a peculiar syntax that includes the so-called <a href="https://style.tidyverse.org/pipes.html"><strong>pipe</strong></a> operator: <strong>%&gt;%</strong>.</p>
+<p>To manipulate data sets are useful the functions included in <a href="https://dplyr.tidyverse.org"><strong>dplyr</strong></a>: <em>a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges</em>.</p>
+<p>Since we have already installed tidyverse, we have to load it, so as we can work with its functions in the current R session:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="getting-started-with-r.html#cb56-1"></a><span class="co"># to load a library used the command library(NAME-OF-THE-LIBRARY)</span></span>
+<span id="cb56-2"><a href="getting-started-with-r.html#cb56-2"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<div id="mutate" class="section level4">
+<h4><span class="header-section-number">2.2.3.1</span> Mutate</h4>
+<p>The function <strong>mutate</strong> adds new variables to a data.frame or overwrite existing variables.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="getting-started-with-r.html#cb57-1"></a>new_dataframe &lt;-<span class="st"> </span>a_dataframe <span class="op">%&gt;%</span></span>
+<span id="cb57-2"><a href="getting-started-with-r.html#cb57-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">just_another_variable =</span> a_new_variable <span class="op">/</span><span class="st"> </span><span class="dv">3</span>)</span>
+<span id="cb57-3"><a href="getting-started-with-r.html#cb57-3"></a>  </span>
+<span id="cb57-4"><a href="getting-started-with-r.html#cb57-4"></a>new_dataframe</span></code></pre></div>
+<pre><code>##    first_variable second_variable a_new_variable
+## 1               1          Monday             12
+## 2               2         Tuesday            261
+## 3               3          Monday             45
+## 4               4         Tuesday             29
+## 5               5          Monday             54
+## 6               6       Wednesday            234
+## 7               7        Thursday             45
+## 8               8       Wednesday             42
+## 9               9        Thursday              6
+## 10             10        Saturday            267
+## 11             11          Sunday             87
+## 12             12          Friday              3
+## 13             13        Saturday             12
+## 14             14          Sunday              9
+##    just_another_variable
+## 1               4.000000
+## 2              87.000000
+## 3              15.000000
+## 4               9.666667
+## 5              18.000000
+## 6              78.000000
+## 7              15.000000
+## 8              14.000000
+## 9               2.000000
+## 10             89.000000
+## 11             29.000000
+## 12              1.000000
+## 13              4.000000
+## 14              3.000000</code></pre>
+</div>
+<div id="rename" class="section level4">
+<h4><span class="header-section-number">2.2.3.2</span> Rename</h4>
+<p>Rename is a function to change the name of columns (sometimes it can be useful).</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="getting-started-with-r.html#cb59-1"></a>new_dataframe &lt;-<span class="st"> </span>new_dataframe <span class="op">%&gt;%</span></span>
+<span id="cb59-2"><a href="getting-started-with-r.html#cb59-2"></a><span class="st">  </span><span class="co"># rename (new_name = old_name)</span></span>
+<span id="cb59-3"><a href="getting-started-with-r.html#cb59-3"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">ID =</span> first_variable,</span>
+<span id="cb59-4"><a href="getting-started-with-r.html#cb59-4"></a>         <span class="dt">Day =</span> second_variable,</span>
+<span id="cb59-5"><a href="getting-started-with-r.html#cb59-5"></a>         <span class="dt">Tweets =</span> a_new_variable,</span>
+<span id="cb59-6"><a href="getting-started-with-r.html#cb59-6"></a>         <span class="dt">Users =</span> just_another_variable)</span>
+<span id="cb59-7"><a href="getting-started-with-r.html#cb59-7"></a></span>
+<span id="cb59-8"><a href="getting-started-with-r.html#cb59-8"></a>new_dataframe</span></code></pre></div>
+<pre><code>##    ID       Day Tweets     Users
+## 1   1    Monday     12  4.000000
+## 2   2   Tuesday    261 87.000000
+## 3   3    Monday     45 15.000000
+## 4   4   Tuesday     29  9.666667
+## 5   5    Monday     54 18.000000
+## 6   6 Wednesday    234 78.000000
+## 7   7  Thursday     45 15.000000
+## 8   8 Wednesday     42 14.000000
+## 9   9  Thursday      6  2.000000
+## 10 10  Saturday    267 89.000000
+## 11 11    Sunday     87 29.000000
+## 12 12    Friday      3  1.000000
+## 13 13  Saturday     12  4.000000
+## 14 14    Sunday      9  3.000000</code></pre>
+<p>The previous two steps can be performed at the same time, by concatenating the operations through the <em>pipe %&gt;%</em> operator.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="getting-started-with-r.html#cb61-1"></a>new_dataframe &lt;-<span class="st"> </span>a_dataframe <span class="op">%&gt;%</span></span>
+<span id="cb61-2"><a href="getting-started-with-r.html#cb61-2"></a><span class="st">  </span><span class="co"># this is &quot;mutate&quot;, the first function we applied</span></span>
+<span id="cb61-3"><a href="getting-started-with-r.html#cb61-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">just_another_variable =</span> a_new_variable <span class="op">/</span><span class="st"> </span><span class="dv">3</span>) <span class="op">%&gt;%</span></span>
+<span id="cb61-4"><a href="getting-started-with-r.html#cb61-4"></a><span class="st">  </span><span class="co"># this is &quot;rename&quot;, the second function we applied</span></span>
+<span id="cb61-5"><a href="getting-started-with-r.html#cb61-5"></a><span class="st">  </span><span class="kw">rename</span>(<span class="dt">ID =</span> first_variable,</span>
+<span id="cb61-6"><a href="getting-started-with-r.html#cb61-6"></a>         <span class="dt">Day =</span> second_variable,</span>
+<span id="cb61-7"><a href="getting-started-with-r.html#cb61-7"></a>         <span class="dt">Tweets =</span> a_new_variable,</span>
+<span id="cb61-8"><a href="getting-started-with-r.html#cb61-8"></a>         <span class="dt">Users =</span> just_another_variable) </span>
+<span id="cb61-9"><a href="getting-started-with-r.html#cb61-9"></a>  </span>
+<span id="cb61-10"><a href="getting-started-with-r.html#cb61-10"></a>new_dataframe</span></code></pre></div>
+<pre><code>##    ID       Day Tweets     Users
+## 1   1    Monday     12  4.000000
+## 2   2   Tuesday    261 87.000000
+## 3   3    Monday     45 15.000000
+## 4   4   Tuesday     29  9.666667
+## 5   5    Monday     54 18.000000
+## 6   6 Wednesday    234 78.000000
+## 7   7  Thursday     45 15.000000
+## 8   8 Wednesday     42 14.000000
+## 9   9  Thursday      6  2.000000
+## 10 10  Saturday    267 89.000000
+## 11 11    Sunday     87 29.000000
+## 12 12    Friday      3  1.000000
+## 13 13  Saturday     12  4.000000
+## 14 14    Sunday      9  3.000000</code></pre>
+</div>
+<div id="data-format" class="section level4">
+<h4><span class="header-section-number">2.2.3.3</span> Data format</h4>
+<p>Variable can have many different <em>formats</em>, such as:</p>
+<ul>
+<li><strong>double</strong> is for numbers that includes decimals, and is therefore more appropriate to <em>continuous variables</em>;</li>
+<li><strong>integer</strong> is suitable for count data or <em>discrete variables</em>;</li>
+<li><strong>factors</strong> are used for categorical varibales. Factors can be ordered (e.g.: level of agreement: “high”, “medium”, “low”) or not (e.g.: hair colors “blond”, “dark brown”, “brown”);</li>
+<li><strong>characters</strong> for textual labels;</li>
+<li><strong>logicals</strong> for logical values (i.e.: TRUE and FALSE)</li>
+<li><strong>dates</strong> to represent days;</li>
+<li><strong>POSIX</strong>, a particular R format to represent date and times.</li>
+</ul>
+<p>To check the data format of the variables stored in the data.frame can be used the following command (“num” means “numeric”):</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="getting-started-with-r.html#cb63-1"></a><span class="kw">str</span>(new_dataframe)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    14 obs. of  4 variables:
+##  $ ID    : num  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Day   : Factor w/ 7 levels &quot;Friday&quot;,&quot;Monday&quot;,..: 2 6 2 6 2 7 5 7 5 3 ...
+##  $ Tweets: num  12 261 45 29 54 234 45 42 6 267 ...
+##  $ Users : num  4 87 15 9.67 18 ...</code></pre>
+<p>Sometimes variables are stored in the data.frame in the wrong format and we want to convert them into a new data format. For this purpose we can use, again, the function <strong>mutate</strong>, along with other functions such <em>as.integer</em>, <em>as.numeric</em>, <em>as.character</em>, <em>as.factors</em>, or <em>as.logical</em>, <em>as.Date</em>, or <em>as.POSIXct()</em> based on the desired data format.</p>
+<div class="figure"><span id="fig:unnamed-chunk-131"></span>
+<img src="images/r-data-format.png" alt="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications.[Google Trends](https://trends.google.com)" width="1208" />
+<p class="caption">
+Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607">A Survivor’s Guide to R: An Introduction for the Uninitiated and the Unnerved</a>. SAGE Publications.<a href="https://trends.google.com">Google Trends</a>
+</p>
+</div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="getting-started-with-r.html#cb65-1"></a>new_dataframe &lt;-<span class="st"> </span>new_dataframe <span class="op">%&gt;%</span></span>
+<span id="cb65-2"><a href="getting-started-with-r.html#cb65-2"></a><span class="st">  </span><span class="co"># as.character to transform the &quot;ID&quot; column in a character variable</span></span>
+<span id="cb65-3"><a href="getting-started-with-r.html#cb65-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ID =</span> <span class="kw">as.character</span>(ID),</span>
+<span id="cb65-4"><a href="getting-started-with-r.html#cb65-4"></a>         <span class="co"># as.integer to transform the values of the &quot;Tweets&quot; and &quot;Users&quot; column from numeric to integer</span></span>
+<span id="cb65-5"><a href="getting-started-with-r.html#cb65-5"></a>         <span class="dt">Tweets =</span> <span class="kw">as.integer</span>(Tweets),</span>
+<span id="cb65-6"><a href="getting-started-with-r.html#cb65-6"></a>         <span class="dt">Users =</span> <span class="kw">as.integer</span>(Users))</span>
+<span id="cb65-7"><a href="getting-started-with-r.html#cb65-7"></a></span>
+<span id="cb65-8"><a href="getting-started-with-r.html#cb65-8"></a>new_dataframe</span></code></pre></div>
+<pre><code>##    ID       Day Tweets Users
+## 1   1    Monday     12     4
+## 2   2   Tuesday    261    87
+## 3   3    Monday     45    15
+## 4   4   Tuesday     29     9
+## 5   5    Monday     54    18
+## 6   6 Wednesday    234    78
+## 7   7  Thursday     45    15
+## 8   8 Wednesday     42    14
+## 9   9  Thursday      6     2
+## 10 10  Saturday    267    89
+## 11 11    Sunday     87    29
+## 12 12    Friday      3     1
+## 13 13  Saturday     12     4
+## 14 14    Sunday      9     3</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="getting-started-with-r.html#cb67-1"></a><span class="kw">str</span>(new_dataframe)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    14 obs. of  4 variables:
+##  $ ID    : chr  &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  $ Day   : Factor w/ 7 levels &quot;Friday&quot;,&quot;Monday&quot;,..: 2 6 2 6 2 7 5 7 5 3 ...
+##  $ Tweets: int  12 261 45 29 54 234 45 42 6 267 ...
+##  $ Users : int  4 87 15 9 18 78 15 14 2 89 ...</code></pre>
 
+</div>
 </div>
 </div>
 </div>
