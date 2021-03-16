@@ -358,7 +358,7 @@ Variable can have many different *formats*, such as:
 *   **characters** for textual labels;
 *   **logicals** for logical values (i.e.: TRUE and FALSE)
 *   **dates** to represent days;
-*   **POSIX**, a particular R format to represent date and times.
+*   **POSIX**, a particular R format to represent dates and times.
 
 To check the data format of the variables stored in the data.frame can be used the following command ("num" means "numeric"):
 
