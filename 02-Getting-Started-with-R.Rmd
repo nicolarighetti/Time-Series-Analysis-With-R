@@ -108,7 +108,7 @@ To work with the *tidyverse* library, it is necessary to install it first using 
 
 An *object* is an R entity composed of a name and a value.
 
-The **arrow <-** sign is used to *create objects* and *assign a value* to an object (or to change ("update") its previous value).
+The **arrow <-** sign is used to *create objects* and *assign a value* to an object (or to change or "update" its previous value).
 
 Example: create an object with name "object_consisting_of_a_number" and value equal 2:
 
@@ -123,7 +123,7 @@ Enter the name of the object in the console and run the command: the value assig
 object_consisting_of_a_number
 ```
 
-The object is equal to its value. Therefore, for instance, an object with a numerical value can be used to perform arithmetical operation.
+The object is equal to its value. Therefore, for instance, an object with a numerical value can be used to perform arithmetical operations.
 
 ```{r}
 object_consisting_of_a_number * 10
@@ -208,6 +208,7 @@ a_matrix
 ```
 
 A **list** is just a list of other objects.
+For instance, this list includes a numerical value, a vectors of numbers, and a matrix.
 
 ```{r}
 a_list <- list(object_consisting_of_a_number, vector_of_numbers, a_matrix)
@@ -249,6 +250,7 @@ a_dataframe$second_variable
 ```
 
 It is possible to add columns to a data.frame by writing:
+
 *   the name of the data.frame
 *   the dollar sign
 *   a name for the new column
