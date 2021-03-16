@@ -102,13 +102,13 @@ How to perform data wrangling operations in R:
 
 In R, a **library (or "package")** is a coherent collection of functions, usually created for specific purposes.
 
-To work with the *tidyverse* library, it is necessary to install it first using the following command: *install.packages("tidyverse")*.
+To work with the *tidyverse* library, it is necessary to install it first, by using the following command: *install.packages("tidyverse")*.
 
 ### Objects 
 
 An *object* is an R entity composed of a name and a value.
 
-The **arrow <-** sign is used to *create objects* and *assign a value* to an object (or to change or "update" its previous value).
+The **arrow (<-)** sign is used to *create objects* and *assign a value* to an object (or to change or "update" its previous value).
 
 Example: create an object with name "object_consisting_of_a_number" and value equal 2:
 
