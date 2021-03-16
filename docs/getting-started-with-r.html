@@ -247,11 +247,11 @@ To specify the file path, consider that you are working within a specific enviro
 <p><a href="https://en.wikipedia.org/wiki/Data_wrangling">Data wrangling</a> <em>is the process of transforming and mapping data from one “raw” data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.</em></p>
 <p>How to perform data wrangling operations in R:</p>
 <ul>
-<li>use basic R function</li>
+<li>use basic R functions;</li>
 <li>employ specific libraries such as <strong>tidyverse</strong>. Tidyverse is a collection of libraries and functions for data science <a href="https://www.tidyverse.org">https://www.tidyverse.org</a>.</li>
 </ul>
 <p>In R, a <strong>library (or “package”)</strong> is a coherent collection of functions, usually created for a specific purposes.</p>
-<p>To work with the <em>tidyverse</em> library, it is necessary to install it first using the following command:</p>
+<p>To work with the <em>tidyverse</em> library, it is necessary to install it first using the following command: <em>install.packages(“tidyverse”)</em>.</p>
 <div id="objects" class="section level3">
 <h3><span class="header-section-number">2.2.1</span> Objects</h3>
 <p>An <em>object</em> is an R entity composed of a name and a value.</p>
@@ -518,7 +518,7 @@ Vectors are sequences of values.</p>
 ##  $ Tweets: num  12 261 45 29 54 234 45 42 6 267 ...
 ##  $ Users : num  4 87 15 9.67 18 ...</code></pre>
 <p>Sometimes variables are stored in the data.frame in the wrong format and we want to convert them into a new data format. For this purpose we can use, again, the function <strong>mutate</strong>, along with other functions such <em>as.integer</em>, <em>as.numeric</em>, <em>as.character</em>, <em>as.factors</em>, or <em>as.logical</em>, <em>as.Date</em>, or <em>as.POSIXct()</em> based on the desired data format.</p>
-<div class="figure"><span id="fig:unnamed-chunk-41"></span>
+<div class="figure"><span id="fig:unnamed-chunk-40"></span>
 <img src="images/r-data-format.png" alt="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications.[Google Trends](https://trends.google.com)" width="1208" />
 <p class="caption">
 Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607">A Survivor’s Guide to R: An Introduction for the Uninitiated and the Unnerved</a>. SAGE Publications.<a href="https://trends.google.com">Google Trends</a>
