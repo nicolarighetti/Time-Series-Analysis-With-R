@@ -281,6 +281,22 @@ paste(paste("the", "cat", "is", "at", "home"), "and", "sleeps", "on", "the", "so
 
 To sum up, functions manipulate and transform objects. Data wrangling, data visualization, as well as data analysis, are performed through functions.
 
+### Data Types
+
+Variable can have many different *formats*, such as:
+
+*   **double** is for numbers that includes decimals, and is therefore more appropriate to *continuous variables*;
+*   **integer** is suitable for count data or  *discrete variables*;
+*   **factors** are used for categorical varibales. Factors can be ordered (e.g.: level of agreement: "high", "medium", "low") or not (e.g.: hair colors "blond", "dark brown", "brown");
+*   **characters** for textual labels;
+*   **logicals** for logical values (i.e.: TRUE and FALSE)
+*   **dates** to represent days;
+*   **POSIX**, a particular R format to represent dates and times.
+
+```{r fig.cap="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications.[Google Trends](https://trends.google.com)", echo=FALSE}
+knitr::include_graphics("images/r-data-format.png")
+```
+
 ## Data Wrangling with Tidyverse
 
 [Data wrangling](https://en.wikipedia.org/wiki/Data_wrangling) *is the process of transforming and mapping data from one "raw" data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.*
@@ -330,7 +346,6 @@ new_dataframe <- new_dataframe %>%
 
 new_dataframe
 ```
-
 The previous two steps can be performed at the same time, by concatenating the operations through the *pipe %>%* operator.
 
 ```{r}
@@ -345,30 +360,13 @@ new_dataframe <- a_dataframe %>%
   
 new_dataframe
 ```
-
-#### Data format
-
-Variable can have many different *formats*, such as:
-
-*   **double** is for numbers that includes decimals, and is therefore more appropriate to *continuous variables*;
-*   **integer** is suitable for count data or  *discrete variables*;
-*   **factors** are used for categorical varibales. Factors can be ordered (e.g.: level of agreement: "high", "medium", "low") or not (e.g.: hair colors "blond", "dark brown", "brown");
-*   **characters** for textual labels;
-*   **logicals** for logical values (i.e.: TRUE and FALSE)
-*   **dates** to represent days;
-*   **POSIX**, a particular R format to represent dates and times.
-
-To check the data format of the variables stored in the data.frame can be used the following command ("num" means "numeric"):
+To check the data format of the variables stored in the data.frame can be used the command *str()*:
 
 ```{r}
 str(new_dataframe)
 ```
 
-Sometimes variables are stored in the data.frame in the wrong format and we want to convert them into a new data format. For this purpose we can use, again, the function **mutate**, along with other functions such *as.integer*, *as.numeric*, *as.character*, *as.factors*, or *as.logical*, *as.Date*, or *as.POSIXct()* based on the desired data format.
-
-```{r fig.cap="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications.[Google Trends](https://trends.google.com)", echo=FALSE}
-knitr::include_graphics("images/r-data-format.png")
-```
+Sometimes variables are stored in the data.frame in the wrong format (see the paragraph "data type") and we want to convert them into a new data format. For this purpose we can use, again, the function **mutate**, along with other functions such *as.integer*, *as.numeric*, *as.character*, *as.factors*, or *as.logical*, *as.Date*, or *as.POSIXct()* based on the desired data format (it is possible and advisable to upload the data by paying attention to the type of data so as this step is not necessary).
 
 ```{r}
 new_dataframe <- new_dataframe %>%
