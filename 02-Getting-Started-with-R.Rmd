@@ -96,6 +96,7 @@ In the code above you can notice an hash mark sign followed by some text. It is 
 [Data wrangling](https://en.wikipedia.org/wiki/Data_wrangling) *is the process of transforming and mapping data from one "raw" data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.*
 
 How to perform data wrangling operations in R: 
+
 *   use basic R function 
 *   employ specific libraries such as **tidyverse**. Tidyverse is a collection of libraries and functions for data science [https://www.tidyverse.org](https://www.tidyverse.org). 
 
