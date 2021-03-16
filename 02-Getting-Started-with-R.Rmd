@@ -450,7 +450,7 @@ new_dataframe %>%
 
 A useful operation to perform when summarizing data, is to count the occurrences of a certain variable (mostly qualitative). For instance, to count how many times the name of each day occurs it can be used the function **n()** inside the *summarize* function.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 new_dataframe %>%
   group_by(Day) %>%
   summarize(average_tweets = mean(Tweets),
