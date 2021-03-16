@@ -13,10 +13,10 @@ create-a-rstudio-project-and-import-data
 create-a-script
 the-rstudio-user-interface
 load-and-save-data
-basic-r-and-data-wrangling
+basic-r
 objects
 functions
-tidyverse
+data-wrangling-with-tidyverse
 mutate
 rename
 data-format

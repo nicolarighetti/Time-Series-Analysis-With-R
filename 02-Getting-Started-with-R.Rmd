@@ -91,18 +91,7 @@ fake_news <- readRDS("./data/fake_news.rds")   # read a .rds file
 
 In the code above you can notice an hash mark sign followed by some text. It is a **comment**. Comments are textual content used to describe the code in order to make it easier to understand and reuse it. Comments are written after the **hash mark sign (#)**, because the text written after the hash mark sign is ignored by R: you can read the comments, but R does not consider them as code. 
 
-## Basic R and Data Wrangling
-
-[Data wrangling](https://en.wikipedia.org/wiki/Data_wrangling) *is the process of transforming and mapping data from one "raw" data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.*
-
-How to perform data wrangling operations in R: 
-
-*   use basic R functions; 
-*   employ specific libraries such as **tidyverse**. Tidyverse is a collection of libraries and functions for data science [https://www.tidyverse.org](https://www.tidyverse.org). 
-
-In R, a **library (or "package")** is a coherent collection of functions, usually created for specific purposes.
-
-To work with the *tidyverse* library, it is necessary to install it first, by using the following command: *install.packages("tidyverse")*.
+## Basic R  
 
 ### Objects 
 
@@ -292,20 +281,29 @@ paste(paste("the", "cat", "is", "at", "home"), "and", "sleeps", "on", "the", "so
 
 To sum up, functions manipulate and transform objects. Data wrangling, data visualization, as well as data analysis, are performed through functions.
 
-### Tidyverse
+## Data Wrangling with Tidyverse
 
-Tidyverse is an R library composed of functions that allow users to perform basic and advanced data science operations. 
+[Data wrangling](https://en.wikipedia.org/wiki/Data_wrangling) *is the process of transforming and mapping data from one "raw" data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.*
 
-Tidyverse has a peculiar syntax that includes the so-called [**pipe**](https://style.tidyverse.org/pipes.html) operator: **%>%**.
+How to perform data wrangling operations in R: 
 
-To manipulate data sets are useful the functions included in [**dplyr**](https://dplyr.tidyverse.org): *a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges*.
+*   use basic R functions; 
+*   employ specific libraries such as **tidyverse**. Tidyverse is an R library composed of functions that allow users to perform basic and advanced data science operations.  [https://www.tidyverse.org](https://www.tidyverse.org). 
 
-Since we have already installed tidyverse, we have to load it, so as we can work with its functions in the current R session:
+In R, a **library (or "package")** is a coherent collection of functions, usually created for specific purposes.
+
+To work with the *tidyverse* library, it is necessary to install it first, by using the following command: *install.packages("tidyverse")*.
+
+After having installed tidyverse (or any other library), it is necessary to load it, so as we can work with its functions in the current R session:
 
 ```{r warning=FALSE}
 # to load a library used the command library(NAME-OF-THE-LIBRARY)
 library(tidyverse)
 ```
+
+Tidyverse has a peculiar syntax that includes the so-called [**pipe**](https://style.tidyverse.org/pipes.html) operator: **%>%**.
+
+To manipulate data sets are useful the functions included in [**dplyr**](https://dplyr.tidyverse.org): *a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges*, such as *mutate*, *rename*, *summarize*.
 
 #### Mutate 
 
