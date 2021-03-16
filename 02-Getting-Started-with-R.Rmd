@@ -321,7 +321,7 @@ Tidyverse has a peculiar syntax that includes the so-called [**pipe**](https://s
 
 To manipulate data sets are useful the functions included in [**dplyr**](https://dplyr.tidyverse.org): *a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges*, such as *mutate*, *rename*, *summarize*.
 
-#### Mutate 
+### Mutate 
 
 The function **mutate** adds new variables to a data.frame or overwrite existing variables.
 
@@ -332,7 +332,7 @@ new_dataframe <- a_dataframe %>%
 new_dataframe
 ```
 
-#### Rename
+### Rename
 
 Rename is a function to change the name of columns (sometimes it can be useful).
 
@@ -382,5 +382,80 @@ new_dataframe
 str(new_dataframe)
 ```
 
+### Summarize 
+
+To aggregate data and calculate synthetic values (for instance, the average number of tweets *by day*), it can be used the function *group_by* (to aggregate data, for instance by day), and *summarize*, to calculate the summary values.
+
+```{r message=FALSE, warning=FALSE}
+summary_data <- new_dataframe %>%
+  group_by(Day) %>%
+  summarize(average_tweets = mean(Tweets),
+            average_users = mean(Users))
+
+summary_data
+```
+
+### Arrange
+
+To explore a data set it can be useful to sort the data (e.g.: from the lowest to the highest number of a variable). With tidyverse, we can order a data.frame by using the function *arrange*.
+
+```{r}
+summary_data  %>%
+  arrange(average_tweets)
+```
+
+To order data from the highest to the lowest values (a descending order) the *minus* sign has to be added.
+
+```{r}
+summary_data %>%
+  arrange(-average_tweets)
+# or
+# arrange(desc(average_tweets))
+```
+
+### Filter
+
+The function *filter* keeps the cases we want to focus on. The arguments of this function represent a condition that has to be fulfilled: the name of the column that has to be filtered, and the column values to be kept. For instance, we may want to keep just the rows that, in the column "Day", correspond to Tuesday.
+
+```{r}
+new_dataframe %>%
+  filter(Day == "Tuesday")
+```
+
+Or the rows including a number of tweets higher than or equal to 50.
+
+```{r}
+new_dataframe %>%
+  filter(Tweets >= 50)
+```
+
+It is also possible to use multiple conditions at the same time.
+
+```{r}
+new_dataframe %>%
+  filter(Tweets >= 50,
+         Users > 30)
+```
+
+#### Select
+
+**Select** is used to keep just some of the columns of the original data.frame. For instance, we can apply the function in order to keep just the column "Day" and "Tweets".
+
+```{r}
+new_dataframe %>%
+  select(Day, Tweets)
+```
+
+#### Count occurrences
+
+A useful operation to perform when summarizing data, is to count the occurrences of a certain variable (mostly qualitative). For instance, to count how many times the name of each day occurs it can be used the function **n()** inside the *summarize* function.
+
+```{r}
+new_dataframe %>%
+  group_by(Day) %>%
+  summarize(average_tweets = mean(Tweets),
+            average_users = mean(Users),
+            day_occurrences = n())
+```
 
 

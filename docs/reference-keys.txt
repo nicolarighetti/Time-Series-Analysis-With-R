@@ -1,4 +1,4 @@
-fig:unnamed-chunk-40
+fig:unnamed-chunk-35
 time-series-analysis-with-r
 objectives
 lectures
@@ -16,9 +16,14 @@ load-and-save-data
 basic-r
 objects
 functions
+data-types
 data-wrangling-with-tidyverse
 mutate
 rename
-data-format
+summarize
+arrange
+filter
+select
+count-occurrences
 readings
 bibliographical-references
