@@ -286,7 +286,7 @@ To sum up, functions manipulate and transform objects. Data wrangling, data visu
 Variables can have different R *formats*, such as:
 
 *   **double**: numbers that include decimals (0.1, 5.676, 121.67). This format is appropriate for *continuous variables*;
-*   **integer**: such as 1, 2, 3, 10, 400. It is a format suitable to count data or  *discrete variables*;
+*   **integer**: such as 1, 2, 3, 10, 400. It is a format suitable to *count data*;
 *   **factors**: for categorical variables. Factors can be ordered (e.g.: level of agreement: "high", "medium", "low"), or not (e.g.: hair colors "blond", "dark brown", "brown");
 *   **characters**: textual labels;
 *   **logicals**: the format of logical values (i.e.: TRUE and FALSE)
