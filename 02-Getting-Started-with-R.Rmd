@@ -100,7 +100,7 @@ How to perform data wrangling operations in R:
 *   use basic R functions; 
 *   employ specific libraries such as **tidyverse**. Tidyverse is a collection of libraries and functions for data science [https://www.tidyverse.org](https://www.tidyverse.org). 
 
-In R, a **library (or "package")** is a coherent collection of functions, usually created for a specific purposes.
+In R, a **library (or "package")** is a coherent collection of functions, usually created for specific purposes.
 
 To work with the *tidyverse* library, it is necessary to install it first using the following command: *install.packages("tidyverse")*.
 
