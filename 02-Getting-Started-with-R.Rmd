@@ -103,7 +103,7 @@ In R, a **library (or "package")** is a coherent collection of functions, usuall
 
 To work with the *tidyverse* library, it is necessary to install it first using the following command: 
 
-```{r}
+```{r message=FALSE, warning=FALSE, include=FALSE}
 install.packages("tidyverse")
 ```
 
