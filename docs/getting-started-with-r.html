@@ -163,6 +163,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#summarize"><i class="fa fa-check"></i><b>2.3.3</b> Summarize</a></li>
 <li class="chapter" data-level="2.3.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#arrange"><i class="fa fa-check"></i><b>2.3.4</b> Arrange</a></li>
 <li class="chapter" data-level="2.3.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#filter"><i class="fa fa-check"></i><b>2.3.5</b> Filter</a></li>
+<li class="chapter" data-level="2.3.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#select"><i class="fa fa-check"></i><b>2.3.6</b> Select</a></li>
+<li class="chapter" data-level="2.3.7" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#count-occurrences"><i class="fa fa-check"></i><b>2.3.7</b> Count occurrences</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>3</b> Readings</a><ul>
@@ -640,8 +642,9 @@ Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://
 ## 1  2   Tuesday    261    87
 ## 2  6 Wednesday    234    78
 ## 3 10  Saturday    267    89</code></pre>
-<div id="select" class="section level4">
-<h4><span class="header-section-number">2.3.5.1</span> Select</h4>
+</div>
+<div id="select" class="section level3">
+<h3><span class="header-section-number">2.3.6</span> Select</h3>
 <p><strong>Select</strong> is used to keep just some of the columns of the original data.frame. For instance, we can apply the function in order to keep just the column “Day” and “Tweets”.</p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="getting-started-with-r.html#cb80-1"></a>new_dataframe <span class="op">%&gt;%</span></span>
 <span id="cb80-2"><a href="getting-started-with-r.html#cb80-2"></a><span class="st">  </span><span class="kw">select</span>(Day, Tweets)</span></code></pre></div>
@@ -661,8 +664,8 @@ Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://
 ## 13  Saturday     12
 ## 14    Sunday      9</code></pre>
 </div>
-<div id="count-occurrences" class="section level4">
-<h4><span class="header-section-number">2.3.5.2</span> Count occurrences</h4>
+<div id="count-occurrences" class="section level3">
+<h3><span class="header-section-number">2.3.7</span> Count occurrences</h3>
 <p>A useful operation to perform when summarizing data, is to count the occurrences of a certain variable (mostly qualitative). For instance, to count how many times the name of each day occurs it can be used the function <strong>n()</strong> inside the <em>summarize</em> function.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="getting-started-with-r.html#cb82-1"></a>new_dataframe <span class="op">%&gt;%</span></span>
 <span id="cb82-2"><a href="getting-started-with-r.html#cb82-2"></a><span class="st">  </span><span class="kw">group_by</span>(Day) <span class="op">%&gt;%</span></span>
@@ -681,7 +684,6 @@ Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://
 ## 6 Tuesday            145            48                 2
 ## 7 Wednesday          138            46                 2</code></pre>
 
-</div>
 </div>
 </div>
 </div>
