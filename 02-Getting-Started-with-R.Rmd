@@ -326,9 +326,21 @@ Variables can have different R *formats*, such as:
 knitr::include_graphics("images/r-data-format.png")
 ```
 
-It is better to specify the appropriate type of data when importing a data set (also notice, in the example below, that the data types "date" requires users to specify the format of the dates. In the example, dates are in the format Year-Month-Day, which is represented in R as "%Y-%m-%d").
+It is better to specify the appropriate type of data when importing a data set. In the example below, the data format are specified by using the import process of RStudio. 
+
+Notice that the data of type "date" requires users to specify the additional information regarding the format of the dates. Indeed, dates can be written in many different ways, and to read dates in R it is necessary to specify the structure of the date. In the example, dates are in the format Year-Month-Day, which is represented in R as "%Y-%m-%d" (further details will be provided in another section of the book).
 
 ![Import data and specify data types](videos/import-data-types.mov){width="80%"}
+
+### Excercise
+
+*   Upload the data set "election news small", using the appropriate data format; 
+*   Open the script "basic-r-script" and perform the following operations:
+    + Check the first few rows of the data set;
+    + Access the single columns;
+    + Save the data frame with the name "election_news_small_test" in the folder "data" by using the function "write.csv" (to review the procedure go to the section "Load and Save Data" on this book);
+    + Comment the code (the comments have to be written after the hash sign *#*);
+    + Save the script.
 
 # Basic Data Wrangling with Tidyverse
 

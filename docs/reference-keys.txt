@@ -18,6 +18,7 @@ basic-r
 objects
 functions
 data-types
+excercise
 basic-data-wrangling-with-tidyverse
 mutate
 rename
