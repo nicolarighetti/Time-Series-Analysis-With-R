@@ -275,6 +275,8 @@ a_dataframe$a_new_variable <- c(12, 261, 45, 29, 54, 234, 45, 42, 6, 267, 87, 3,
 a_dataframe
 ```
 
+![Exercise: access the columns of a data frame](videos/data-frame-exercise-1.mov){width="80%"}
+
 ### Functions
 
 A **function** is a coded operation that applies to an object (e.g.: a number, a textual feature etc.) to transform it based on specified rules. A function has a name (the name of the function) and some *arguments*. Among the arguments of a function there is always an *object* or a value, for instance a numerical value, which is the content the function is applied to, and other possible arguments (either mandatory or optional).
