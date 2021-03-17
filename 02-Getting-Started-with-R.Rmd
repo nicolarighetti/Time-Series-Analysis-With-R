@@ -275,7 +275,13 @@ a_dataframe$a_new_variable <- c(12, 261, 45, 29, 54, 234, 45, 42, 6, 267, 87, 3,
 a_dataframe
 ```
 
-![Exercise: access the columns of a data frame](videos/data-frame-exercise-1.mov){width="80%"}
+It is possible to visualize the first few rows of a data.frame by using the function *head*.
+
+```{r}
+head(a_dataframe)
+```
+
+![Exercise: visualize the first row of a data.frame and access its columns](videos/data-frame-exercise-1.mov){width="80%"}
 
 ### Functions
 

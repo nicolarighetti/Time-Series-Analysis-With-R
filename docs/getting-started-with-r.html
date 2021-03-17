@@ -422,9 +422,18 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 ## 12             12          Friday              3
 ## 13             13        Saturday             12
 ## 14             14          Sunday              9</code></pre>
+<p>It is possible to visualize the first few rows of a data.frame by using the function <em>head</em>.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="getting-started-with-r.html#cb48-1"></a><span class="kw">head</span>(a_dataframe)</span></code></pre></div>
+<pre><code>##   first_variable second_variable a_new_variable
+## 1              1          Monday             12
+## 2              2         Tuesday            261
+## 3              3          Monday             45
+## 4              4         Tuesday             29
+## 5              5          Monday             54
+## 6              6       Wednesday            234</code></pre>
 <div class="figure">
 <video src="videos/data-frame-exercise-1.mov" style="width:80.0%" controls=""><a href="videos/data-frame-exercise-1.mov"></a></video>
-<p class="caption">Exercise: access the columns of a data frame</p>
+<p class="caption">Exercise: visualize the first row of a data.frame and access its columns</p>
 </div>
 </div>
 <div id="functions" class="section level3">
@@ -432,14 +441,14 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 <p>A <strong>function</strong> is a coded operation that applies to an object (e.g.: a number, a textual feature etc.) to transform it based on specified rules. A function has a name (the name of the function) and some <em>arguments</em>. Among the arguments of a function there is always an <em>object</em> or a value, for instance a numerical value, which is the content the function is applied to, and other possible arguments (either mandatory or optional).</p>
 <p>Functions are operations applied to objects that give a certain output. E.g.: the arithmetical operation “addition” is a function that applies to two or more numbers to give, as its output, their sum. The <em>arguments</em> of the “sum” function are the numbers that are added together.</p>
 <p>The name of the function is written out of <em>parentheses</em>, and the arguments of the function inside the parentheses:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="getting-started-with-r.html#cb48-1"></a><span class="kw">sum</span>(<span class="dv">5</span>, <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="getting-started-with-r.html#cb50-1"></a><span class="kw">sum</span>(<span class="dv">5</span>, <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <p>Arguments of functions can be numbers but also textual features. For instance, the function <em>paste</em> creates a string composed of the strings that it takes as arguments.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="getting-started-with-r.html#cb50-1"></a><span class="kw">paste</span>(<span class="st">&quot;the&quot;</span>, <span class="st">&quot;cat&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;at&quot;</span>, <span class="st">&quot;home&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="getting-started-with-r.html#cb52-1"></a><span class="kw">paste</span>(<span class="st">&quot;the&quot;</span>, <span class="st">&quot;cat&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;at&quot;</span>, <span class="st">&quot;home&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;the cat is at home&quot;</code></pre>
 <p>In R you can sometimes find a “nested” syntax, which can be confusing. The best practice is to keep things as simple as possible.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="getting-started-with-r.html#cb52-1"></a><span class="co"># this comment, written after the hash mark, describe what is going on here: two &quot;paste&quot; function nested together have been used (improperly! because they make the code more complicated than necessary) to show how functions can be nested together. It would have been better to use the &quot;paste&quot; function just one time!</span></span>
-<span id="cb52-2"><a href="getting-started-with-r.html#cb52-2"></a><span class="kw">paste</span>(<span class="kw">paste</span>(<span class="st">&quot;the&quot;</span>, <span class="st">&quot;cat&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;at&quot;</span>, <span class="st">&quot;home&quot;</span>), <span class="st">&quot;and&quot;</span>, <span class="st">&quot;sleeps&quot;</span>, <span class="st">&quot;on&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;sofa&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="getting-started-with-r.html#cb54-1"></a><span class="co"># this comment, written after the hash mark, describe what is going on here: two &quot;paste&quot; function nested together have been used (improperly! because they make the code more complicated than necessary) to show how functions can be nested together. It would have been better to use the &quot;paste&quot; function just one time!</span></span>
+<span id="cb54-2"><a href="getting-started-with-r.html#cb54-2"></a><span class="kw">paste</span>(<span class="kw">paste</span>(<span class="st">&quot;the&quot;</span>, <span class="st">&quot;cat&quot;</span>, <span class="st">&quot;is&quot;</span>, <span class="st">&quot;at&quot;</span>, <span class="st">&quot;home&quot;</span>), <span class="st">&quot;and&quot;</span>, <span class="st">&quot;sleeps&quot;</span>, <span class="st">&quot;on&quot;</span>, <span class="st">&quot;the&quot;</span>, <span class="st">&quot;sofa&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] &quot;the cat is at home and sleeps on the sofa&quot;</code></pre>
 <p>To sum up, functions manipulate and transform objects. Data wrangling, data visualization, as well as data analysis, are performed through functions.</p>
 </div>
@@ -455,7 +464,7 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 <li><strong>dates</strong>: used to represent days;</li>
 <li><strong>POSIX</strong>: a class of R format to represent dates and times.</li>
 </ul>
-<div class="figure"><span id="fig:unnamed-chunk-42"></span>
+<div class="figure"><span id="fig:unnamed-chunk-39"></span>
 <img src="images/r-data-format.png" alt="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications." width="1208" />
 <p class="caption">
 Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607">A Survivor’s Guide to R: An Introduction for the Uninitiated and the Unnerved</a>. SAGE Publications.

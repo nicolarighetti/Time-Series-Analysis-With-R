@@ -1,4 +1,7 @@
-# this is a new script
 
-5*5
-3+2+3+4
+head(dat)
+
+dat$date
+dat$count
+dat$total_count
+dat$ratio
