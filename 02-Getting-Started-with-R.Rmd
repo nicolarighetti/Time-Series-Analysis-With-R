@@ -91,7 +91,7 @@ fake_news <- readRDS("./data/fake_news.rds")   # read a .rds file
 
 In the code above you can notice an hash mark sign followed by some text. It is a **comment**. Comments are textual content used to describe the code in order to make it easier to understand and reuse it. Comments are written after the **hash mark sign (#)**, because the text written after the hash mark sign is ignored by R: you can read the comments, but R does not consider them as code. 
 
-#### Create new Folders
+### Create new Folders
 
 It is a good practice to create, in the main folder of the project, sub-folders dedicated to different type of files used in the project, such as a folder "data" for the data sets. 
 
