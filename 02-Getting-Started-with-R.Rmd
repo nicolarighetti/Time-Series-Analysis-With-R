@@ -312,7 +312,7 @@ Variables can have different R *formats*, such as:
 knitr::include_graphics("images/r-data-format.png")
 ```
 
-It is better to specify the appropriate type of data when importing the data sets (also notice, in the example below, that the data types "date" requires users to specify the format of the dates. In the example, dates are in the format Year-Month-Day, which is represented in R as "%Y-%m-%d").
+It is better to specify the appropriate type of data when importing a data set (also notice, in the example below, that the data types "date" requires users to specify the format of the dates. In the example, dates are in the format Year-Month-Day, which is represented in R as "%Y-%m-%d").
 
 ![](videos/import-data.mov){width="80%"}
 
