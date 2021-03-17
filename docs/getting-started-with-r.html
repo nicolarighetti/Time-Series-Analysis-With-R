@@ -393,8 +393,8 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="getting-started-with-r.html#cb41-1"></a>a_dataframe<span class="op">$</span>first_variable</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="getting-started-with-r.html#cb43-1"></a>a_dataframe<span class="op">$</span>second_variable</span></code></pre></div>
-<pre><code>##  [1] Monday    Tuesday   Monday    Tuesday   Monday    Wednesday Thursday  Wednesday
-##  [9] Thursday  Saturday  Sunday    Friday    Saturday  Sunday   
+<pre><code>##  [1] Monday    Tuesday   Monday    Tuesday   Monday    Wednesday Thursday  Wednesday Thursday 
+## [10] Saturday  Sunday    Friday    Saturday  Sunday   
 ## Levels: Friday Monday Saturday Sunday Thursday Tuesday Wednesday</code></pre>
 <p>It is possible to add columns to a data.frame by writing:</p>
 <ul>
@@ -455,9 +455,9 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 <li><strong>POSIX</strong>: a class of R format to represent dates and times.</li>
 </ul>
 <div class="figure"><span id="fig:unnamed-chunk-37"></span>
-<img src="images/r-data-format.png" alt="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications.[Google Trends](https://trends.google.com)" width="1208" />
+<img src="images/r-data-format.png" alt="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications." width="1208" />
 <p class="caption">
-Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607">A Survivor’s Guide to R: An Introduction for the Uninitiated and the Unnerved</a>. SAGE Publications.<a href="https://trends.google.com">Google Trends</a>
+Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607">A Survivor’s Guide to R: An Introduction for the Uninitiated and the Unnerved</a>. SAGE Publications.
 </p>
 </div>
 <p>It is better to specify the appropriate type of data when importing a data set (also notice, in the example below, that the data types “date” requires users to specify the format of the dates. In the example, dates are in the format Year-Month-Day, which is represented in R as “%Y-%m-%d”).</p>

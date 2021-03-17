@@ -316,7 +316,7 @@ Variables can have different R *formats*, such as:
 *   **dates**: used to represent days;
 *   **POSIX**: a class of R format to represent dates and times.
 
-```{r fig.cap="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications.[Google Trends](https://trends.google.com)", echo=FALSE}
+```{r fig.cap="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications.", echo=FALSE}
 knitr::include_graphics("images/r-data-format.png")
 ```
 
