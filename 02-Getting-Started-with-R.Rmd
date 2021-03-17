@@ -44,6 +44,11 @@ To save your code is important, otherwise you would have to write the same code 
 knitr::include_graphics("images/create-script.png")
 ```
 
+Below you can see the procedure to create, save, open a script, and run some simple commands.
+
+![](videos/create-a-script.mov){width="80%"}
+
+
 ### The RStudio User Interface
 
 The interface of RStudio is organized in four main quadrants:
