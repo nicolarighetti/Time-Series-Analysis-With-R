@@ -44,6 +44,10 @@ To save your code is important, otherwise you would have to write the same code 
 knitr::include_graphics("images/create-script.png")
 ```
 
+![Create and save a script](videos/create-script.mov){width="80%"}
+
+![Update a script and run code](videos/update-script.mov){width="80%"}
+
 ### The RStudio User Interface
 
 The interface of RStudio is organized in four main quadrants:
@@ -69,6 +73,8 @@ knitr::include_graphics("images/load-data.png")
 ```{r echo=FALSE}
 knitr::include_graphics("images/import-data-1.png")
 ```
+
+![Import Data](videos/import-data.mov){width="80%"}
 
 Otherwise, you can upload a data set by using a function. For instance, to import a *csv* file, one of the most common format for data sets, it can be employed the function **read.csv**. The main argument of this function is the *path* of the file you want to upload. 
 To specify the file path, consider that you are working within a specific environment, that is, your *working directory* is the folder of the project (you can double check the working directory you are working in, by running the command **getwd()**). Thus, to indicate the path of the data set you want to upload, you can write a dot followed by a slash **./**, followed by the path of the data set *inside the working directory*. For instance, in the case below, the data set is saved in a folder named *data* inside the working directory. The name of the data set is *tweets_vienna* and its extension is *.csv*. Therefore, the code to upload the file is as follows:
@@ -314,7 +320,7 @@ knitr::include_graphics("images/r-data-format.png")
 
 It is better to specify the appropriate type of data when importing a data set (also notice, in the example below, that the data types "date" requires users to specify the format of the dates. In the example, dates are in the format Year-Month-Day, which is represented in R as "%Y-%m-%d").
 
-![](videos/import-data.mov){width="80%"}
+![Import data and specify data types](videos/import-data-types.mov){width="80%"}
 
 # Basic Data Wrangling with Tidyverse
 
