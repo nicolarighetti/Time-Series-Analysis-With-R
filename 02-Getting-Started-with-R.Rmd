@@ -91,6 +91,17 @@ fake_news <- readRDS("./data/fake_news.rds")   # read a .rds file
 
 In the code above you can notice an hash mark sign followed by some text. It is a **comment**. Comments are textual content used to describe the code in order to make it easier to understand and reuse it. Comments are written after the **hash mark sign (#)**, because the text written after the hash mark sign is ignored by R: you can read the comments, but R does not consider them as code. 
 
+#### Create new Folders
+
+It is a good practice to create, in the main folder of the project, sub-folders dedicated to different type of files used in the project, such as a folder "data" for the data sets. 
+
+To create a new folder you can go to the *Files* windows in the RStudio interface, click **New Folder**, and give it a name.
+
+```{r echo=FALSE}
+knitr::include_graphics("images/new-folder.png")
+```
+
+
 ## Basic R  
 
 ### Objects 
@@ -297,7 +308,7 @@ Variables can have different R *formats*, such as:
 knitr::include_graphics("images/r-data-format.png")
 ```
 
-## Data Wrangling with Tidyverse
+# Basic Data Wrangling with Tidyverse
 
 [Data wrangling](https://en.wikipedia.org/wiki/Data_wrangling) *is the process of transforming and mapping data from one "raw" data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.*
 
@@ -321,7 +332,7 @@ Tidyverse has a peculiar syntax that includes the so-called [**pipe**](https://s
 
 To manipulate data sets are useful the functions included in [**dplyr**](https://dplyr.tidyverse.org): *a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges*, such as *mutate*, *rename*, *summarize*.
 
-### Mutate 
+## Mutate 
 
 The function **mutate** adds new variables to a data.frame or overwrite existing variables.
 
@@ -332,7 +343,7 @@ new_dataframe <- a_dataframe %>%
 new_dataframe
 ```
 
-### Rename
+## Rename
 
 Rename is a function to change the name of columns (sometimes it can be useful).
 
@@ -382,7 +393,7 @@ new_dataframe
 str(new_dataframe)
 ```
 
-### Summarize 
+## Summarize 
 
 To aggregate data and calculate synthetic values (for instance, the average number of tweets *by day*), it can be used the function *group_by* (to aggregate data, for instance by day), and *summarize*, to calculate the summary values.
 
@@ -395,7 +406,7 @@ summary_data <- new_dataframe %>%
 summary_data
 ```
 
-### Arrange
+## Arrange
 
 To explore a data set it can be useful to sort the data (e.g.: from the lowest to the highest number of a variable). With tidyverse, we can order a data.frame by using the function *arrange*.
 
@@ -413,7 +424,7 @@ summary_data %>%
 # arrange(desc(average_tweets))
 ```
 
-### Filter
+## Filter
 
 The function *filter* keeps the cases we want to focus on. The arguments of this function represent a condition that has to be fulfilled: the name of the column that has to be filtered, and the column values to be kept. For instance, we may want to keep just the rows that, in the column "Day", correspond to Tuesday.
 
@@ -437,7 +448,7 @@ new_dataframe %>%
          Users > 30)
 ```
 
-### Select
+## Select
 
 **Select** is used to keep just some of the columns of the original data.frame. For instance, we can apply the function in order to keep just the column "Day" and "Tweets".
 
@@ -446,7 +457,7 @@ new_dataframe %>%
   select(Day, Tweets)
 ```
 
-### Count occurrences
+## Count occurrences
 
 A useful operation to perform when summarizing data, is to count the occurrences of a certain variable (mostly qualitative). For instance, to count how many times the name of each day occurs it can be used the function **n()** inside the *summarize* function.
 
