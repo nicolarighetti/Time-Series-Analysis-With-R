@@ -281,11 +281,15 @@ It is possible to visualize the first few rows of a data.frame by using the func
 head(a_dataframe)
 ```
 
-![Exercise: visualize the first row of a data.frame and access its columns](videos/data-frame-exercise-1.mov){width="80%"}
+```{r echo=FALSE}
+knitr::include_graphics("images/data-frame-example.png")
+```
+
+![Exercise: visualize the first rows of a data.frame and access its columns](videos/data-frame-exercise-1.mov){width="80%"}
 
 ### Functions
 
-A **function** is a coded operation that applies to an object (e.g.: a number, a textual feature etc.) to transform it based on specified rules. A function has a name (the name of the function) and some *arguments*. Among the arguments of a function there is always an *object* or a value, for instance a numerical value, which is the content the function is applied to, and other possible arguments (either mandatory or optional).
+A **function** is a coded operation that applies to an object (e.g.: a number, a textual feature etc.) to transform it based on specific rules. A function has a name (the name of the function) and some *arguments*. Among the arguments of a function there is always an *object* or a value, for instance a numerical value, which is the content the function is applied to, and other possible arguments (either mandatory or optional).
 
 Functions are operations applied to objects that give a certain output. E.g.: the arithmetical operation "addition" is a function that applies to two or more numbers to give, as its output, their sum. The *arguments* of the "sum" function are the numbers that are added together.
 
@@ -346,7 +350,9 @@ Notice that the data of type "date" requires users to specify the additional inf
 
 [Data wrangling](https://en.wikipedia.org/wiki/Data_wrangling) *is the process of transforming and mapping data from one "raw" data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.*
 
-How to perform data wrangling operations in R: 
+[Another definition](https://link.springer.com/referenceworkentry/10.1007%2F978-3-319-63962-8_9-1) is as follows: *Data wrangling is the process of profiling and transforming datasets to ensure they are actionable for a set of analysis tasks. One central goal is to make data usable: to put data in a form that can be parsed and manipulated by analysis tools. Another goal is to ensure that data is responsive to the intended analyses: that the data contain the necessary information, at an acceptable level of description and correctness, to support successful modeling and decision-making.*
+
+How to "manipulate" data sets in R: 
 
 *   use basic R functions; 
 *   employ specific libraries such as **tidyverse**. Tidyverse is an R library composed of functions that allow users to perform basic and advanced data science operations.  [https://www.tidyverse.org](https://www.tidyverse.org). 
@@ -362,124 +368,180 @@ After having installed tidyverse (or any other library), it is necessary to load
 library(tidyverse)
 ```
 
-Tidyverse has a peculiar syntax that includes the so-called [**pipe**](https://style.tidyverse.org/pipes.html) operator: **%>%**.
+Besides using the function *install.packages(NAME-OF-THE-LIBRARY)* by using a line of code, it is also possible to use the RStudio interface.
 
+![Install and Load a Library](videos/install-load-library.mov){width="80%"}
+
+## The Pipe Operator %>%
+
+Tidyverse has a peculiar syntax that makes use of the so-called [**pipe**](https://style.tidyverse.org/pipes.html) operator **%>%**, like in the following example:
+
+```{r}
+a_dataframe %>%
+  group_by(second_variable) %>%
+  summarize(mean = mean(a_new_variable))
+```
 To manipulate data sets are useful the functions included in [**dplyr**](https://dplyr.tidyverse.org): *a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges*, such as *mutate*, *rename*, *summarize*.
+
+
+```{r "Load an example data set"}
+library(readr)
+tweets <- read_csv("data/tweets_covid_small.csv", 
+    col_types = cols(created_at = col_datetime(format = "%Y-%m-%d %H:%M:%S"), 
+        retweet_count = col_integer()))
+```
+
+```{r}
+head(tweets)
+```
+
+
+![Import data and specify data types](videos/upload-covid-tweets-small.mov){width="80%"}
 
 ## Mutate 
 
 The function **mutate** adds new variables to a data.frame or overwrite existing variables.
 
 ```{r}
-new_dataframe <- a_dataframe %>%
-  mutate(just_another_variable = a_new_variable / 3)
+tweets <- tweets %>%
+  mutate(log_retweet_count = log(retweet_count+1))
   
-new_dataframe
+head(tweets)
 ```
 
 ## Rename
 
-Rename is a function to change the name of columns (sometimes it can be useful).
+Rename is a function to change the name of columns (sometimes it could be useful).
 
 ```{r}
-new_dataframe <- new_dataframe %>%
+tweets <- tweets %>%
   # rename (new_name = old_name)
-  rename(ID = first_variable,
-         Day = second_variable,
-         Tweets = a_new_variable,
-         Users = just_another_variable)
+  rename(device = source)
 
-new_dataframe
+head(tweets)
 ```
 The previous two steps can be performed at the same time, by concatenating the operations through the *pipe %>%* operator.
 
 ```{r}
-new_dataframe <- a_dataframe %>%
-  # this is "mutate", the first function we applied
-  mutate(just_another_variable = a_new_variable / 3) %>%
-  # this is "rename", the second function we applied
-  rename(ID = first_variable,
-         Day = second_variable,
-         Tweets = a_new_variable,
-         Users = just_another_variable) 
-  
-new_dataframe
+# load again the data set
+library(readr)
+tweets <- read_csv("data/tweets_covid_small.csv", 
+    col_types = cols(created_at = col_datetime(format = "%Y-%m-%d %H:%M:%S"), 
+        retweet_count = col_integer()))
+
+tweets <- tweets %>%
+  mutate(log_retweet_count = log(retweet_count+1)) %>%
+  rename(device = source)
+
+head(tweets)
 ```
 To check the data format of the variables stored in the data.frame can be used the command *str()*:
 
 ```{r}
-str(new_dataframe)
+str(tweets)
 ```
 
 Sometimes variables are stored in the data.frame in the wrong format (see the paragraph "data type") and we want to convert them into a new data format. For this purpose we can use, again, the function **mutate**, along with other functions such *as.integer*, *as.numeric*, *as.character*, *as.factors*, or *as.logical*, *as.Date*, or *as.POSIXct()* based on the desired data format (it is possible and advisable to upload the data by paying attention to the type of data so as this step is not necessary).
 
 ```{r}
-new_dataframe <- new_dataframe %>%
-  # as.character to transform the "ID" column in a character variable
-  mutate(ID = as.character(ID),
-         # as.integer to transform the values of the "Tweets" and "Users" column from numeric to integer
-         Tweets = as.integer(Tweets),
-         Users = as.integer(Users))
+tweets %>%
+  mutate(device = as.character(device)) %>%
+  head()
 
-new_dataframe
 ```
 ```{r}
-str(new_dataframe)
+str(tweets)
 ```
 
-## Summarize 
+## Summarize and group_by
 
 To aggregate data and calculate synthetic values (for instance, the average number of tweets *by day*), it can be used the function *group_by* (to aggregate data, for instance by day), and *summarize*, to calculate the summary values.
 
 ```{r message=FALSE, warning=FALSE}
-summary_data <- new_dataframe %>%
-  group_by(Day) %>%
-  summarize(average_tweets = mean(Tweets),
-            average_users = mean(Users))
+tweets_summary <- tweets %>%
+  group_by(screen_name) %>%
+  summarize(average_retweets = mean(retweet_count))
 
-summary_data
+head(tweets_summary)
+```
+
+It is also possible to create many different summary variable at once.
+
+```{r message=FALSE, warning=FALSE}
+tweets_summary <- tweets %>%
+  group_by(screen_name) %>%
+  summarize(average_retweets = mean(retweet_count),
+            average_log_retweets = mean(log_retweet_count))
+
+head(tweets_summary)
+```
+
+### Count occurrences
+
+A useful operation to perform when summarizing data, is to count the occurrences of a certain variable (mostly qualitative). For instance, to count the number of  tweets sent by each user, it can be used the function **n()** inside the *summarize* function.
+
+```{r message=FALSE, warning=FALSE}
+tweets_summary <- tweets %>%
+  group_by(screen_name) %>%
+  summarize(average_retweets = mean(retweet_count),
+            average_log_retweets = mean(log_retweet_count),
+            number_of_tweets = n())
+
+head(tweets_summary)
 ```
 
 ## Arrange
 
 To explore a data set it can be useful to sort the data (e.g.: from the lowest to the highest number of a variable). With tidyverse, we can order a data.frame by using the function *arrange*.
 
+To sort the data from the highest to the lowest values (a descending order) the *minus* sign (or the "desc" function) has to be added.
+
 ```{r}
-summary_data  %>%
-  arrange(average_tweets)
+tweets_summary  %>%
+  arrange(-number_of_tweets) %>%
+  head()
+```
+```{r}
+tweets_summary  %>%
+  arrange(desc(average_retweets)) %>%
+  head()
 ```
 
-To order data from the highest to the lowest values (a descending order) the *minus* sign has to be added.
+Without minus sign (or "desc" function), the data are sorted from the lowest to the highest value. 
 
 ```{r}
-summary_data %>%
-  arrange(-average_tweets)
-# or
-# arrange(desc(average_tweets))
+tweets_summary  %>%
+  arrange(number_of_tweets) %>%
+  head()
 ```
 
 ## Filter
 
-The function *filter* keeps the cases we want to focus on. The arguments of this function represent a condition that has to be fulfilled: the name of the column that has to be filtered, and the column values to be kept. For instance, we may want to keep just the rows that, in the column "Day", correspond to Tuesday.
+The function *filter* keeps the cases we want to focus on. The arguments of this function represent a condition that has to be fulfilled: the name of the column that has to be filtered, and the column values to be kept.
 
 ```{r}
-new_dataframe %>%
-  filter(Day == "Tuesday")
+tweets %>%
+  filter(retweet_count >= 500) %>%
+  arrange(-retweet_count)
 ```
-
-Or the rows including a number of tweets higher than or equal to 50.
+In the examples below, notice the use of a double equal sign *==*, and also of the quotation marks to include textual categories.
 
 ```{r}
-new_dataframe %>%
-  filter(Tweets >= 50)
+tweets %>%
+  filter(retweet_count == 1988) 
 ```
 
+```{r}
+tweets %>%
+  filter(device == "Twitter for Android")
+```
 It is also possible to use multiple conditions at the same time.
 
 ```{r}
-new_dataframe %>%
-  filter(Tweets >= 50,
-         Users > 30)
+tweets %>%
+  filter(device == "Twitter for Android",
+         retweet_count > 200) %>%
+  arrange(-retweet_count)
 ```
 
 ## Select
@@ -487,20 +549,37 @@ new_dataframe %>%
 **Select** is used to keep just some of the columns of the original data.frame. For instance, we can apply the function in order to keep just the column "Day" and "Tweets".
 
 ```{r}
-new_dataframe %>%
-  select(Day, Tweets)
+tweets %>%
+  select(device, retweet_count) %>%
+  head()
 ```
 
-## Count occurrences
+## Exercise
 
-A useful operation to perform when summarizing data, is to count the occurrences of a certain variable (mostly qualitative). For instance, to count how many times the name of each day occurs it can be used the function **n()** inside the *summarize* function.
+Here are some exercises to consolidate the fundamental R skills learned during these first lessons:
 
-```{r message=FALSE, warning=FALSE}
-new_dataframe %>%
-  group_by(Day) %>%
-  summarize(average_tweets = mean(Tweets),
-            average_users = mean(Users),
-            day_occurrences = n())
-```
+*   Download the csv file "tweets_vienna_small.csv" and put it into the project folder "data"
+*   Upload the data set in R, setting the appropriate formats for the variables
+*   Create a new script named "data-manipulation" with  your surname and name as follows: *"YOUR SURNAME-YOUR NAME-data-manipulation"*, and save it
+*   In the script, write the code to perform the following operations:
 
+    + load the library "Tidyverse"
+    + show the first rows of the data frame by using the function *head*
+    + create a new data frame "tweets_vienna_small_updated" by updating the dataframe "tweets_vienna_small" by using the function *mutate* to create a new column "log_friends_count" whose values are the log of the values in the column "friends_count" (you don't need to add 1 to the values in the column "friends_count")
+    + save the updated dataframe "tweets_vienna_small_updated", by using the following code to save a csv file (please change *YOUR SURNAME-YOUR NAME* with your actual surname and name): *write.csv(tweets_vienna_small_updated, file = "./data/YOUR SURNAME-YOUR NAME-tweets_vienna_small_updated.csv", row.names=F)* (we add row.names=F to avoid saving the number that indexes each row)
+    
+    + create a new data frame named "summary_tweets_vienna_small" aggregating the data by "screen_name" (using the function *group_by*) and then summarizing the data (by using the function *summarize*) as follows:
+    
+      * in a column named "average_favorite_count", calculate the average of "favorite_count" by "screen_name" (that is, by user)
+      * in a column named "average_retweet_count", calculate the average of "retweet_count" (by user, obviously, since the data are already aggregated by user' name)
+      * in a column named "number_of_tweets", calculate the number of tweets published by each users (by using the function *n()*)
+      * save the "summary_tweets_vienna_small" in the data folder of the project, in csv format, and with the name *"YOUR SURNAME-YOUR NAME-summary_tweets_vienna_small.csv"* (remember to specify *row.names=F* and  to change *YOUR SURNAME-YOUR NAME* with your actual surname and name)
+      
+      * create a new data frame object called "summary_tweets_vienna_small_filtered", where you will save the data.frame summary_tweets_vienna_small, after having filtered the rows with average_retweet_count higher than 10 (by using the function *filter*), and after having selected the column "screen_name" and "average_retweet_count" (so, you should end up with a data frame with just two columns, "screen_name" and "average_retweet_count", and the rows with "average_retweet_count" higher than 10)
+      * save the data frame "summary_tweets_vienna_small_filtered" with the name *"YOUR SURNAME-YOUR NAME-summary_tweets_vienna_small_filtered.csv"* in the folder data (remember to specify *row.names=F* and  to change *YOUR SURNAME-YOUR NAME* with your actual surname and name).
+      
+Save the script "YOUR SURNAME-YOUR NAME-data-manipulation" with all the code you have used to perform these analysis. Write a comment in the script (using the hash mark *#*) if you are not able to do something. 
+
+Upload the script "YOUR SURNAME-YOUR NAME-data-manipulation.r" and the files "YOUR SURNAME-YOUR NAME-tweets_vienna_small_updated.csv", "YOUR SURNAME-YOUR NAME-summary_tweets_vienna_small.csv", and the file "YOUR SURNAME-YOUR NAME-summary_tweets_vienna_small_filtered.csv" on Moodle, in the folder "HomeWork-1". *The deadline is Sunday 11 April*.
+      
 

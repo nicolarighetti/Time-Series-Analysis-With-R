@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-03-17" />
+<meta name="date" content="2021-03-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,13 +161,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse</a><ul>
-<li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.1</b> Mutate</a></li>
-<li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.2</b> Rename</a></li>
-<li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize"><i class="fa fa-check"></i><b>3.3</b> Summarize</a></li>
-<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.4</b> Arrange</a></li>
-<li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.5</b> Filter</a></li>
-<li class="chapter" data-level="3.6" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.6</b> Select</a></li>
-<li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.7</b> Count occurrences</a></li>
+<li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.1</b> The Pipe Operator %&gt;%</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.2</b> Mutate</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.3</b> Rename</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.4.1</b> Count occurrences</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5</b> Arrange</a></li>
+<li class="chapter" data-level="3.6" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.6</b> Filter</a></li>
+<li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.7</b> Select</a></li>
+<li class="chapter" data-level="3.8" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#exercise"><i class="fa fa-check"></i><b>3.8</b> Exercise</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>4</b> Readings</a><ul>
 <li class="chapter" data-level="4.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>4.1</b> Bibliographical References</a></li>
@@ -369,8 +372,9 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="getting-started-with-r.html#cb37-1"></a><span class="co"># this is another object (vector) consisting of a series of categorical values</span></span>
 <span id="cb37-2"><a href="getting-started-with-r.html#cb37-2"></a>categorical_vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>,<span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>, <span class="st">&quot;Friday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>)</span>
 <span id="cb37-3"><a href="getting-started-with-r.html#cb37-3"></a>categorical_vector</span></code></pre></div>
-<pre><code>##  [1] &quot;Monday&quot;    &quot;Tuesday&quot;   &quot;Monday&quot;    &quot;Tuesday&quot;   &quot;Monday&quot;    &quot;Wednesday&quot;
-##  [7] &quot;Thursday&quot;  &quot;Wednesday&quot; &quot;Thursday&quot;  &quot;Saturday&quot;  &quot;Sunday&quot;    &quot;Friday&quot;   
+<pre><code>##  [1] &quot;Monday&quot;    &quot;Tuesday&quot;   &quot;Monday&quot;    &quot;Tuesday&quot;  
+##  [5] &quot;Monday&quot;    &quot;Wednesday&quot; &quot;Thursday&quot;  &quot;Wednesday&quot;
+##  [9] &quot;Thursday&quot;  &quot;Saturday&quot;  &quot;Sunday&quot;    &quot;Friday&quot;   
 ## [13] &quot;Saturday&quot;  &quot;Sunday&quot;</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="getting-started-with-r.html#cb39-1"></a><span class="co"># this is an object consisting of a data.frame, created combining vectors through the function &quot;data.frame&quot;</span></span>
 <span id="cb39-2"><a href="getting-started-with-r.html#cb39-2"></a>a_dataframe &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;first_variable&quot;</span> =<span class="st"> </span>numerical_vector,</span>
@@ -395,9 +399,10 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="getting-started-with-r.html#cb41-1"></a>a_dataframe<span class="op">$</span>first_variable</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="getting-started-with-r.html#cb43-1"></a>a_dataframe<span class="op">$</span>second_variable</span></code></pre></div>
-<pre><code>##  [1] Monday    Tuesday   Monday    Tuesday   Monday    Wednesday Thursday 
-##  [8] Wednesday Thursday  Saturday  Sunday    Friday    Saturday  Sunday   
-## Levels: Friday Monday Saturday Sunday Thursday Tuesday Wednesday</code></pre>
+<pre><code>##  [1] Monday    Tuesday   Monday    Tuesday   Monday   
+##  [6] Wednesday Thursday  Wednesday Thursday  Saturday 
+## [11] Sunday    Friday    Saturday  Sunday   
+## 7 Levels: Friday Monday Saturday Sunday ... Wednesday</code></pre>
 <p>It is possible to add columns to a data.frame by writing:</p>
 <ul>
 <li>the name of the data.frame</li>
@@ -432,14 +437,15 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 ## 4              4         Tuesday             29
 ## 5              5          Monday             54
 ## 6              6       Wednesday            234</code></pre>
+<p><img src="images/data-frame-example.png" width="506" /></p>
 <div class="figure">
 <video src="videos/data-frame-exercise-1.mov" style="width:80.0%" controls=""><a href="videos/data-frame-exercise-1.mov"></a></video>
-<p class="caption">Exercise: visualize the first row of a data.frame and access its columns</p>
+<p class="caption">Exercise: visualize the first rows of a data.frame and access its columns</p>
 </div>
 </div>
 <div id="functions" class="section level3">
 <h3><span class="header-section-number">2.2.2</span> Functions</h3>
-<p>A <strong>function</strong> is a coded operation that applies to an object (e.g.: a number, a textual feature etc.) to transform it based on specified rules. A function has a name (the name of the function) and some <em>arguments</em>. Among the arguments of a function there is always an <em>object</em> or a value, for instance a numerical value, which is the content the function is applied to, and other possible arguments (either mandatory or optional).</p>
+<p>A <strong>function</strong> is a coded operation that applies to an object (e.g.: a number, a textual feature etc.) to transform it based on specific rules. A function has a name (the name of the function) and some <em>arguments</em>. Among the arguments of a function there is always an <em>object</em> or a value, for instance a numerical value, which is the content the function is applied to, and other possible arguments (either mandatory or optional).</p>
 <p>Functions are operations applied to objects that give a certain output. E.g.: the arithmetical operation “addition” is a function that applies to two or more numbers to give, as its output, their sum. The <em>arguments</em> of the “sum” function are the numbers that are added together.</p>
 <p>The name of the function is written out of <em>parentheses</em>, and the arguments of the function inside the parentheses:</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="getting-started-with-r.html#cb50-1"></a><span class="kw">sum</span>(<span class="dv">5</span>, <span class="dv">3</span>)</span></code></pre></div>
@@ -465,7 +471,7 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 <li><strong>dates</strong>: used to represent days;</li>
 <li><strong>POSIX</strong>: a class of R format to represent dates and times.</li>
 </ul>
-<div class="figure"><span id="fig:unnamed-chunk-38"></span>
+<div class="figure"><span id="fig:unnamed-chunk-39"></span>
 <img src="images/r-data-format.png" alt="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications." width="1208" />
 <p class="caption">
 Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607">A Survivor’s Guide to R: An Introduction for the Uninitiated and the Unnerved</a>. SAGE Publications.

@@ -1,4 +1,4 @@
-fig:unnamed-chunk-38
+fig:unnamed-chunk-39
 time-series-analysis-with-r
 objectives
 lectures
@@ -20,12 +20,14 @@ functions
 data-types
 excercise
 basic-data-wrangling-with-tidyverse
+the-pipe-operator
 mutate
 rename
-summarize
+summarize-and-group_by
+count-occurrences
 arrange
 filter
 select
-count-occurrences
+exercise
 readings
 bibliographical-references
