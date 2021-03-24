@@ -394,9 +394,7 @@ tweets <- read_csv("data/tweets_covid_small.csv",
 ```{r}
 head(tweets)
 ```
-
-
-![Import data and specify data types](videos/upload-covid-tweets-small.mov){width="80%"}
+![Import data and specify data types (dates and times)](videos/upload-covid-tweets-small.mov){width="80%"}
 
 ## Mutate 
 
