@@ -258,14 +258,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb63-3"><a href="basic-data-wrangling-with-tidyverse.html#cb63-3"></a>  </span>
 <span id="cb63-4"><a href="basic-data-wrangling-with-tidyverse.html#cb63-4"></a><span class="kw">head</span>(tweets)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
-##   created_at          screen_name   source            retweet_count log_retweet_cou…
-##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                     &lt;int&gt;            &lt;dbl&gt;
-## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iPho…             0             0   
-## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iPho…             0             0   
-## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iPho…             3             1.39
-## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App               0             0   
-## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App               4             1.61
-## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad             96             4.57</code></pre>
+##   created_at          screen_name   source             retweet_count log_retweet_count
+##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                      &lt;int&gt;             &lt;dbl&gt;
+## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iPhone             0              0   
+## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iPhone             0              0   
+## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iPhone             3              1.39
+## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App                0              0   
+## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App                4              1.61
+## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad              96              4.57</code></pre>
 </div>
 <div id="rename" class="section level2">
 <h2><span class="header-section-number">3.3</span> Rename</h2>
@@ -276,14 +276,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb65-4"><a href="basic-data-wrangling-with-tidyverse.html#cb65-4"></a></span>
 <span id="cb65-5"><a href="basic-data-wrangling-with-tidyverse.html#cb65-5"></a><span class="kw">head</span>(tweets)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
-##   created_at          screen_name   device            retweet_count log_retweet_cou…
-##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                     &lt;int&gt;            &lt;dbl&gt;
-## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iPho…             0             0   
-## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iPho…             0             0   
-## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iPho…             3             1.39
-## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App               0             0   
-## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App               4             1.61
-## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad             96             4.57</code></pre>
+##   created_at          screen_name   device             retweet_count log_retweet_count
+##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                      &lt;int&gt;             &lt;dbl&gt;
+## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iPhone             0              0   
+## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iPhone             0              0   
+## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iPhone             3              1.39
+## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App                0              0   
+## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App                4              1.61
+## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad              96              4.57</code></pre>
 <p>The previous two steps can be performed at the same time, by concatenating the operations through the <em>pipe %&gt;%</em> operator.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="basic-data-wrangling-with-tidyverse.html#cb67-1"></a><span class="co"># load again the data set</span></span>
 <span id="cb67-2"><a href="basic-data-wrangling-with-tidyverse.html#cb67-2"></a><span class="kw">library</span>(readr)</span>
@@ -297,18 +297,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb67-10"><a href="basic-data-wrangling-with-tidyverse.html#cb67-10"></a></span>
 <span id="cb67-11"><a href="basic-data-wrangling-with-tidyverse.html#cb67-11"></a><span class="kw">head</span>(tweets)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
-##   created_at          screen_name   device            retweet_count log_retweet_cou…
-##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                     &lt;int&gt;            &lt;dbl&gt;
-## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iPho…             0             0   
-## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iPho…             0             0   
-## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iPho…             3             1.39
-## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App               0             0   
-## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App               4             1.61
-## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad             96             4.57</code></pre>
+##   created_at          screen_name   device             retweet_count log_retweet_count
+##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                      &lt;int&gt;             &lt;dbl&gt;
+## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iPhone             0              0   
+## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iPhone             0              0   
+## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iPhone             3              1.39
+## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App                0              0   
+## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App                4              1.61
+## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad              96              4.57</code></pre>
 <p>To check the data format of the variables stored in the data.frame can be used the command <em>str()</em>:</p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="basic-data-wrangling-with-tidyverse.html#cb69-1"></a><span class="kw">str</span>(tweets)</span></code></pre></div>
 <pre><code>## tibble [100 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
-##  $ created_at       : POSIXct[1:100], format: &quot;2021-03-24 08:53:52&quot; &quot;2021-03-24 08:53:25&quot; ...
+##  $ created_at       : POSIXct[1:100], format: &quot;2021-03-24 08:53:52&quot; &quot;2021-03-24 08:53:25&quot; &quot;2021-03-24 08:53:52&quot; &quot;2021-03-24 08:53:51&quot; ...
 ##  $ screen_name      : chr [1:100] &quot;DoYourThingUK&quot; &quot;DoYourThingUK&quot; &quot;AlexS1595&quot; &quot;MakesworthAcc&quot; ...
 ##  $ device           : chr [1:100] &quot;Twitter for iPhone&quot; &quot;Twitter for iPhone&quot; &quot;Twitter for iPhone&quot; &quot;Twitter Web App&quot; ...
 ##  $ retweet_count    : int [1:100] 0 0 3 0 4 96 0 1 0 3 ...
@@ -325,37 +325,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb71-2"><a href="basic-data-wrangling-with-tidyverse.html#cb71-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">device =</span> <span class="kw">as.character</span>(device)) <span class="op">%&gt;%</span></span>
 <span id="cb71-3"><a href="basic-data-wrangling-with-tidyverse.html#cb71-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 5
-##   created_at          screen_name   device            retweet_count log_retweet_cou…
-##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                     &lt;int&gt;            &lt;dbl&gt;
-## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iPho…             0             0   
-## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iPho…             0             0   
-## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iPho…             3             1.39
-## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App               0             0   
-## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App               4             1.61
-## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad             96             4.57</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="basic-data-wrangling-with-tidyverse.html#cb73-1"></a><span class="kw">str</span>(tweets)</span></code></pre></div>
-<pre><code>## tibble [100 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
-##  $ created_at       : POSIXct[1:100], format: &quot;2021-03-24 08:53:52&quot; &quot;2021-03-24 08:53:25&quot; ...
-##  $ screen_name      : chr [1:100] &quot;DoYourThingUK&quot; &quot;DoYourThingUK&quot; &quot;AlexS1595&quot; &quot;MakesworthAcc&quot; ...
-##  $ device           : chr [1:100] &quot;Twitter for iPhone&quot; &quot;Twitter for iPhone&quot; &quot;Twitter for iPhone&quot; &quot;Twitter Web App&quot; ...
-##  $ retweet_count    : int [1:100] 0 0 3 0 4 96 0 1 0 3 ...
-##  $ log_retweet_count: num [1:100] 0 0 1.39 0 1.61 ...
-##  - attr(*, &quot;spec&quot;)=
-##   .. cols(
-##   ..   created_at = col_datetime(format = &quot;%Y-%m-%d %H:%M:%S&quot;),
-##   ..   screen_name = col_character(),
-##   ..   source = col_character(),
-##   ..   retweet_count = col_integer()
-##   .. )</code></pre>
+##   created_at          screen_name   device             retweet_count log_retweet_count
+##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                      &lt;int&gt;             &lt;dbl&gt;
+## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iPhone             0              0   
+## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iPhone             0              0   
+## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iPhone             3              1.39
+## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App                0              0   
+## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App                4              1.61
+## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad              96              4.57</code></pre>
 </div>
 <div id="summarize-and-group_by" class="section level2">
 <h2><span class="header-section-number">3.4</span> Summarize and group_by</h2>
 <p>To aggregate data and calculate synthetic values (for instance, the average number of tweets <em>by day</em>), it can be used the function <em>group_by</em> (to aggregate data, for instance by day), and <em>summarize</em>, to calculate the summary values.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="basic-data-wrangling-with-tidyverse.html#cb75-1"></a>tweets_summary &lt;-<span class="st"> </span>tweets <span class="op">%&gt;%</span></span>
-<span id="cb75-2"><a href="basic-data-wrangling-with-tidyverse.html#cb75-2"></a><span class="st">  </span><span class="kw">group_by</span>(screen_name) <span class="op">%&gt;%</span></span>
-<span id="cb75-3"><a href="basic-data-wrangling-with-tidyverse.html#cb75-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">average_retweets =</span> <span class="kw">mean</span>(retweet_count))</span>
-<span id="cb75-4"><a href="basic-data-wrangling-with-tidyverse.html#cb75-4"></a></span>
-<span id="cb75-5"><a href="basic-data-wrangling-with-tidyverse.html#cb75-5"></a><span class="kw">head</span>(tweets_summary)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="basic-data-wrangling-with-tidyverse.html#cb73-1"></a>tweets_summary &lt;-<span class="st"> </span>tweets <span class="op">%&gt;%</span></span>
+<span id="cb73-2"><a href="basic-data-wrangling-with-tidyverse.html#cb73-2"></a><span class="st">  </span><span class="kw">group_by</span>(screen_name) <span class="op">%&gt;%</span></span>
+<span id="cb73-3"><a href="basic-data-wrangling-with-tidyverse.html#cb73-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">average_retweets =</span> <span class="kw">mean</span>(retweet_count))</span>
+<span id="cb73-4"><a href="basic-data-wrangling-with-tidyverse.html#cb73-4"></a></span>
+<span id="cb73-5"><a href="basic-data-wrangling-with-tidyverse.html#cb73-5"></a><span class="kw">head</span>(tweets_summary)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   screen_name     average_retweets
 ##   &lt;chr&gt;                      &lt;dbl&gt;
@@ -366,12 +352,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 anshunandanpra4                2
 ## 6 ApKido                       150</code></pre>
 <p>It is also possible to create many different summary variable at once.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="basic-data-wrangling-with-tidyverse.html#cb77-1"></a>tweets_summary &lt;-<span class="st"> </span>tweets <span class="op">%&gt;%</span></span>
-<span id="cb77-2"><a href="basic-data-wrangling-with-tidyverse.html#cb77-2"></a><span class="st">  </span><span class="kw">group_by</span>(screen_name) <span class="op">%&gt;%</span></span>
-<span id="cb77-3"><a href="basic-data-wrangling-with-tidyverse.html#cb77-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">average_retweets =</span> <span class="kw">mean</span>(retweet_count),</span>
-<span id="cb77-4"><a href="basic-data-wrangling-with-tidyverse.html#cb77-4"></a>            <span class="dt">average_log_retweets =</span> <span class="kw">mean</span>(log_retweet_count))</span>
-<span id="cb77-5"><a href="basic-data-wrangling-with-tidyverse.html#cb77-5"></a></span>
-<span id="cb77-6"><a href="basic-data-wrangling-with-tidyverse.html#cb77-6"></a><span class="kw">head</span>(tweets_summary)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="basic-data-wrangling-with-tidyverse.html#cb75-1"></a>tweets_summary &lt;-<span class="st"> </span>tweets <span class="op">%&gt;%</span></span>
+<span id="cb75-2"><a href="basic-data-wrangling-with-tidyverse.html#cb75-2"></a><span class="st">  </span><span class="kw">group_by</span>(screen_name) <span class="op">%&gt;%</span></span>
+<span id="cb75-3"><a href="basic-data-wrangling-with-tidyverse.html#cb75-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">average_retweets =</span> <span class="kw">mean</span>(retweet_count),</span>
+<span id="cb75-4"><a href="basic-data-wrangling-with-tidyverse.html#cb75-4"></a>            <span class="dt">average_log_retweets =</span> <span class="kw">mean</span>(log_retweet_count))</span>
+<span id="cb75-5"><a href="basic-data-wrangling-with-tidyverse.html#cb75-5"></a></span>
+<span id="cb75-6"><a href="basic-data-wrangling-with-tidyverse.html#cb75-6"></a><span class="kw">head</span>(tweets_summary)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 3
 ##   screen_name     average_retweets average_log_retweets
 ##   &lt;chr&gt;                      &lt;dbl&gt;                &lt;dbl&gt;
@@ -384,13 +370,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="count-occurrences" class="section level3">
 <h3><span class="header-section-number">3.4.1</span> Count occurrences</h3>
 <p>A useful operation to perform when summarizing data, is to count the occurrences of a certain variable (mostly qualitative). For instance, to count the number of tweets sent by each user, it can be used the function <strong>n()</strong> inside the <em>summarize</em> function.</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="basic-data-wrangling-with-tidyverse.html#cb79-1"></a>tweets_summary &lt;-<span class="st"> </span>tweets <span class="op">%&gt;%</span></span>
-<span id="cb79-2"><a href="basic-data-wrangling-with-tidyverse.html#cb79-2"></a><span class="st">  </span><span class="kw">group_by</span>(screen_name) <span class="op">%&gt;%</span></span>
-<span id="cb79-3"><a href="basic-data-wrangling-with-tidyverse.html#cb79-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">average_retweets =</span> <span class="kw">mean</span>(retweet_count),</span>
-<span id="cb79-4"><a href="basic-data-wrangling-with-tidyverse.html#cb79-4"></a>            <span class="dt">average_log_retweets =</span> <span class="kw">mean</span>(log_retweet_count),</span>
-<span id="cb79-5"><a href="basic-data-wrangling-with-tidyverse.html#cb79-5"></a>            <span class="dt">number_of_tweets =</span> <span class="kw">n</span>())</span>
-<span id="cb79-6"><a href="basic-data-wrangling-with-tidyverse.html#cb79-6"></a></span>
-<span id="cb79-7"><a href="basic-data-wrangling-with-tidyverse.html#cb79-7"></a><span class="kw">head</span>(tweets_summary)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="basic-data-wrangling-with-tidyverse.html#cb77-1"></a>tweets_summary &lt;-<span class="st"> </span>tweets <span class="op">%&gt;%</span></span>
+<span id="cb77-2"><a href="basic-data-wrangling-with-tidyverse.html#cb77-2"></a><span class="st">  </span><span class="kw">group_by</span>(screen_name) <span class="op">%&gt;%</span></span>
+<span id="cb77-3"><a href="basic-data-wrangling-with-tidyverse.html#cb77-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">average_retweets =</span> <span class="kw">mean</span>(retweet_count),</span>
+<span id="cb77-4"><a href="basic-data-wrangling-with-tidyverse.html#cb77-4"></a>            <span class="dt">average_log_retweets =</span> <span class="kw">mean</span>(log_retweet_count),</span>
+<span id="cb77-5"><a href="basic-data-wrangling-with-tidyverse.html#cb77-5"></a>            <span class="dt">number_of_tweets =</span> <span class="kw">n</span>())</span>
+<span id="cb77-6"><a href="basic-data-wrangling-with-tidyverse.html#cb77-6"></a></span>
+<span id="cb77-7"><a href="basic-data-wrangling-with-tidyverse.html#cb77-7"></a><span class="kw">head</span>(tweets_summary)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   screen_name     average_retweets average_log_retweets number_of_tweets
 ##   &lt;chr&gt;                      &lt;dbl&gt;                &lt;dbl&gt;            &lt;int&gt;
@@ -406,9 +392,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.5</span> Arrange</h2>
 <p>To explore a data set it can be useful to sort the data (e.g.: from the lowest to the highest number of a variable). With tidyverse, we can order a data.frame by using the function <em>arrange</em>.</p>
 <p>To sort the data from the highest to the lowest values (a descending order) the <em>minus</em> sign (or the “desc” function) has to be added.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="basic-data-wrangling-with-tidyverse.html#cb81-1"></a>tweets_summary  <span class="op">%&gt;%</span></span>
-<span id="cb81-2"><a href="basic-data-wrangling-with-tidyverse.html#cb81-2"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>number_of_tweets) <span class="op">%&gt;%</span></span>
-<span id="cb81-3"><a href="basic-data-wrangling-with-tidyverse.html#cb81-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="basic-data-wrangling-with-tidyverse.html#cb79-1"></a>tweets_summary  <span class="op">%&gt;%</span></span>
+<span id="cb79-2"><a href="basic-data-wrangling-with-tidyverse.html#cb79-2"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>number_of_tweets) <span class="op">%&gt;%</span></span>
+<span id="cb79-3"><a href="basic-data-wrangling-with-tidyverse.html#cb79-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   screen_name     average_retweets average_log_retweets number_of_tweets
 ##   &lt;chr&gt;                      &lt;dbl&gt;                &lt;dbl&gt;            &lt;int&gt;
@@ -418,9 +404,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 MakesworthAcc              2                    0.805                2
 ## 5 viralvideovlogs            3.5                  1.45                 2
 ## 6 2EXvoZ6nublpw1F          164                    5.11                 1</code></pre>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="basic-data-wrangling-with-tidyverse.html#cb83-1"></a>tweets_summary  <span class="op">%&gt;%</span></span>
-<span id="cb83-2"><a href="basic-data-wrangling-with-tidyverse.html#cb83-2"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(average_retweets)) <span class="op">%&gt;%</span></span>
-<span id="cb83-3"><a href="basic-data-wrangling-with-tidyverse.html#cb83-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="basic-data-wrangling-with-tidyverse.html#cb81-1"></a>tweets_summary  <span class="op">%&gt;%</span></span>
+<span id="cb81-2"><a href="basic-data-wrangling-with-tidyverse.html#cb81-2"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(average_retweets)) <span class="op">%&gt;%</span></span>
+<span id="cb81-3"><a href="basic-data-wrangling-with-tidyverse.html#cb81-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   screen_name    average_retweets average_log_retweets number_of_tweets
 ##   &lt;chr&gt;                     &lt;dbl&gt;                &lt;dbl&gt;            &lt;int&gt;
@@ -431,9 +417,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 rosaesaa26                  983                 6.89                1
 ## 6 lewisabzueta                822                 6.71                1</code></pre>
 <p>Without minus sign (or “desc” function), the data are sorted from the lowest to the highest value.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="basic-data-wrangling-with-tidyverse.html#cb85-1"></a>tweets_summary  <span class="op">%&gt;%</span></span>
-<span id="cb85-2"><a href="basic-data-wrangling-with-tidyverse.html#cb85-2"></a><span class="st">  </span><span class="kw">arrange</span>(number_of_tweets) <span class="op">%&gt;%</span></span>
-<span id="cb85-3"><a href="basic-data-wrangling-with-tidyverse.html#cb85-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="basic-data-wrangling-with-tidyverse.html#cb83-1"></a>tweets_summary  <span class="op">%&gt;%</span></span>
+<span id="cb83-2"><a href="basic-data-wrangling-with-tidyverse.html#cb83-2"></a><span class="st">  </span><span class="kw">arrange</span>(number_of_tweets) <span class="op">%&gt;%</span></span>
+<span id="cb83-3"><a href="basic-data-wrangling-with-tidyverse.html#cb83-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 4
 ##   screen_name     average_retweets average_log_retweets number_of_tweets
 ##   &lt;chr&gt;                      &lt;dbl&gt;                &lt;dbl&gt;            &lt;int&gt;
@@ -447,68 +433,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="filter" class="section level2">
 <h2><span class="header-section-number">3.6</span> Filter</h2>
 <p>The function <em>filter</em> keeps the cases we want to focus on. The arguments of this function represent a condition that has to be fulfilled: the name of the column that has to be filtered, and the column values to be kept.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="basic-data-wrangling-with-tidyverse.html#cb87-1"></a>tweets <span class="op">%&gt;%</span></span>
-<span id="cb87-2"><a href="basic-data-wrangling-with-tidyverse.html#cb87-2"></a><span class="st">  </span><span class="kw">filter</span>(retweet_count <span class="op">&gt;=</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span></span>
-<span id="cb87-3"><a href="basic-data-wrangling-with-tidyverse.html#cb87-3"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>retweet_count)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="basic-data-wrangling-with-tidyverse.html#cb85-1"></a>tweets <span class="op">%&gt;%</span></span>
+<span id="cb85-2"><a href="basic-data-wrangling-with-tidyverse.html#cb85-2"></a><span class="st">  </span><span class="kw">filter</span>(retweet_count <span class="op">&gt;=</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span></span>
+<span id="cb85-3"><a href="basic-data-wrangling-with-tidyverse.html#cb85-3"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>retweet_count)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 5
-##    created_at          screen_name    device          retweet_count log_retweet_cou…
-##    &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;                   &lt;int&gt;            &lt;dbl&gt;
-##  1 2021-03-24 08:53:31 Oliver_Miguel1 Twitter for An…          1988             7.60
-##  2 2021-03-24 08:53:48 Lil_3arbiii    Twitter for iP…          1627             7.40
-##  3 2021-03-24 08:53:48 Kittyhawk681   Twitter Web App          1285             7.16
-##  4 2021-03-24 08:53:37 JulesFox12     Twitter for An…          1091             7.00
-##  5 2021-03-24 08:53:42 rosaesaa26     Twitter for An…           983             6.89
-##  6 2021-03-24 08:53:42 lewisabzueta   Twitter for An…           822             6.71
-##  7 2021-03-24 08:53:42 jonvthvn08     Twitter for iP…           768             6.65
-##  8 2021-03-24 08:53:34 florent616470… Twitter for An…           768             6.65
-##  9 2021-03-24 08:53:37 Ritu89903967   Twitter for An…           709             6.57
-## 10 2021-03-24 08:53:33 Hurica3        Twitter for iP…           575             6.36</code></pre>
+##    created_at          screen_name     device              retweet_count log_retweet_count
+##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                       &lt;int&gt;             &lt;dbl&gt;
+##  1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for Android          1988              7.60
+##  2 2021-03-24 08:53:48 Lil_3arbiii     Twitter for iPhone           1627              7.40
+##  3 2021-03-24 08:53:48 Kittyhawk681    Twitter Web App              1285              7.16
+##  4 2021-03-24 08:53:37 JulesFox12      Twitter for Android          1091              7.00
+##  5 2021-03-24 08:53:42 rosaesaa26      Twitter for Android           983              6.89
+##  6 2021-03-24 08:53:42 lewisabzueta    Twitter for Android           822              6.71
+##  7 2021-03-24 08:53:42 jonvthvn08      Twitter for iPhone            768              6.65
+##  8 2021-03-24 08:53:34 florent61647053 Twitter for Android           768              6.65
+##  9 2021-03-24 08:53:37 Ritu89903967    Twitter for Android           709              6.57
+## 10 2021-03-24 08:53:33 Hurica3         Twitter for iPhone            575              6.36</code></pre>
 <p>In the examples below, notice the use of a double equal sign <em>==</em>, and also of the quotation marks to include textual categories.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="basic-data-wrangling-with-tidyverse.html#cb89-1"></a>tweets <span class="op">%&gt;%</span></span>
-<span id="cb89-2"><a href="basic-data-wrangling-with-tidyverse.html#cb89-2"></a><span class="st">  </span><span class="kw">filter</span>(retweet_count <span class="op">==</span><span class="st"> </span><span class="dv">1988</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="basic-data-wrangling-with-tidyverse.html#cb87-1"></a>tweets <span class="op">%&gt;%</span></span>
+<span id="cb87-2"><a href="basic-data-wrangling-with-tidyverse.html#cb87-2"></a><span class="st">  </span><span class="kw">filter</span>(retweet_count <span class="op">==</span><span class="st"> </span><span class="dv">1988</span>) </span></code></pre></div>
 <pre><code>## # A tibble: 1 x 5
-##   created_at          screen_name    device           retweet_count log_retweet_cou…
-##   &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;                    &lt;int&gt;            &lt;dbl&gt;
-## 1 2021-03-24 08:53:31 Oliver_Miguel1 Twitter for And…          1988             7.60</code></pre>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="basic-data-wrangling-with-tidyverse.html#cb91-1"></a>tweets <span class="op">%&gt;%</span></span>
-<span id="cb91-2"><a href="basic-data-wrangling-with-tidyverse.html#cb91-2"></a><span class="st">  </span><span class="kw">filter</span>(device <span class="op">==</span><span class="st"> &quot;Twitter for Android&quot;</span>)</span></code></pre></div>
+##   created_at          screen_name    device              retweet_count log_retweet_count
+##   &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;                       &lt;int&gt;             &lt;dbl&gt;
+## 1 2021-03-24 08:53:31 Oliver_Miguel1 Twitter for Android          1988              7.60</code></pre>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="basic-data-wrangling-with-tidyverse.html#cb89-1"></a>tweets <span class="op">%&gt;%</span></span>
+<span id="cb89-2"><a href="basic-data-wrangling-with-tidyverse.html#cb89-2"></a><span class="st">  </span><span class="kw">filter</span>(device <span class="op">==</span><span class="st"> &quot;Twitter for Android&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 33 x 5
-##    created_at          screen_name    device          retweet_count log_retweet_cou…
-##    &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;                   &lt;int&gt;            &lt;dbl&gt;
-##  1 2021-03-24 08:53:49 marcin_lukaws… Twitter for An…             1            0.693
-##  2 2021-03-24 08:53:49 LebodyRanya    Twitter for An…             0            0    
-##  3 2021-03-24 08:53:47 anshunandanpr… Twitter for An…             2            1.10 
-##  4 2021-03-24 08:53:44 insoumise007   Twitter for An…             5            1.79 
-##  5 2021-03-24 08:53:43 Metamorfopsies Twitter for An…             0            0    
-##  6 2021-03-24 08:53:43 keepsmiling_1… Twitter for An…           164            5.11 
-##  7 2021-03-24 08:53:43 lovebresil01   Twitter for An…            81            4.41 
-##  8 2021-03-24 08:53:42 LightHealing   Twitter for An…             1            0.693
-##  9 2021-03-24 08:53:42 lewisabzueta   Twitter for An…           822            6.71 
-## 10 2021-03-24 08:53:42 rosaesaa26     Twitter for An…           983            6.89 
+##    created_at          screen_name     device              retweet_count log_retweet_count
+##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                       &lt;int&gt;             &lt;dbl&gt;
+##  1 2021-03-24 08:53:49 marcin_lukawski Twitter for Android             1             0.693
+##  2 2021-03-24 08:53:49 LebodyRanya     Twitter for Android             0             0    
+##  3 2021-03-24 08:53:47 anshunandanpra4 Twitter for Android             2             1.10 
+##  4 2021-03-24 08:53:44 insoumise007    Twitter for Android             5             1.79 
+##  5 2021-03-24 08:53:43 Metamorfopsies  Twitter for Android             0             0    
+##  6 2021-03-24 08:53:43 keepsmiling_130 Twitter for Android           164             5.11 
+##  7 2021-03-24 08:53:43 lovebresil01    Twitter for Android            81             4.41 
+##  8 2021-03-24 08:53:42 LightHealing    Twitter for Android             1             0.693
+##  9 2021-03-24 08:53:42 lewisabzueta    Twitter for Android           822             6.71 
+## 10 2021-03-24 08:53:42 rosaesaa26      Twitter for Android           983             6.89 
 ## # … with 23 more rows</code></pre>
 <p>It is also possible to use multiple conditions at the same time.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="basic-data-wrangling-with-tidyverse.html#cb93-1"></a>tweets <span class="op">%&gt;%</span></span>
-<span id="cb93-2"><a href="basic-data-wrangling-with-tidyverse.html#cb93-2"></a><span class="st">  </span><span class="kw">filter</span>(device <span class="op">==</span><span class="st"> &quot;Twitter for Android&quot;</span>,</span>
-<span id="cb93-3"><a href="basic-data-wrangling-with-tidyverse.html#cb93-3"></a>         retweet_count <span class="op">&gt;</span><span class="st"> </span><span class="dv">200</span>) <span class="op">%&gt;%</span></span>
-<span id="cb93-4"><a href="basic-data-wrangling-with-tidyverse.html#cb93-4"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>retweet_count)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="basic-data-wrangling-with-tidyverse.html#cb91-1"></a>tweets <span class="op">%&gt;%</span></span>
+<span id="cb91-2"><a href="basic-data-wrangling-with-tidyverse.html#cb91-2"></a><span class="st">  </span><span class="kw">filter</span>(device <span class="op">==</span><span class="st"> &quot;Twitter for Android&quot;</span>,</span>
+<span id="cb91-3"><a href="basic-data-wrangling-with-tidyverse.html#cb91-3"></a>         retweet_count <span class="op">&gt;</span><span class="st"> </span><span class="dv">200</span>) <span class="op">%&gt;%</span></span>
+<span id="cb91-4"><a href="basic-data-wrangling-with-tidyverse.html#cb91-4"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>retweet_count)</span></code></pre></div>
 <pre><code>## # A tibble: 8 x 5
-##   created_at          screen_name    device           retweet_count log_retweet_cou…
-##   &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;                    &lt;int&gt;            &lt;dbl&gt;
-## 1 2021-03-24 08:53:31 Oliver_Miguel1 Twitter for And…          1988             7.60
-## 2 2021-03-24 08:53:37 JulesFox12     Twitter for And…          1091             7.00
-## 3 2021-03-24 08:53:42 rosaesaa26     Twitter for And…           983             6.89
-## 4 2021-03-24 08:53:42 lewisabzueta   Twitter for And…           822             6.71
-## 5 2021-03-24 08:53:34 florent616470… Twitter for And…           768             6.65
-## 6 2021-03-24 08:53:37 Ritu89903967   Twitter for And…           709             6.57
-## 7 2021-03-24 08:53:27 aspeaker66     Twitter for And…           331             5.81
-## 8 2021-03-24 08:53:42 JamesAn262542… Twitter for And…           201             5.31</code></pre>
+##   created_at          screen_name     device              retweet_count log_retweet_count
+##   &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                       &lt;int&gt;             &lt;dbl&gt;
+## 1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for Android          1988              7.60
+## 2 2021-03-24 08:53:37 JulesFox12      Twitter for Android          1091              7.00
+## 3 2021-03-24 08:53:42 rosaesaa26      Twitter for Android           983              6.89
+## 4 2021-03-24 08:53:42 lewisabzueta    Twitter for Android           822              6.71
+## 5 2021-03-24 08:53:34 florent61647053 Twitter for Android           768              6.65
+## 6 2021-03-24 08:53:37 Ritu89903967    Twitter for Android           709              6.57
+## 7 2021-03-24 08:53:27 aspeaker66      Twitter for Android           331              5.81
+## 8 2021-03-24 08:53:42 JamesAn26254230 Twitter for Android           201              5.31</code></pre>
 </div>
 <div id="select" class="section level2">
 <h2><span class="header-section-number">3.7</span> Select</h2>
 <p><strong>Select</strong> is used to keep just some of the columns of the original data.frame. For instance, we can apply the function in order to keep just the column “Day” and “Tweets”.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="basic-data-wrangling-with-tidyverse.html#cb95-1"></a>tweets <span class="op">%&gt;%</span></span>
-<span id="cb95-2"><a href="basic-data-wrangling-with-tidyverse.html#cb95-2"></a><span class="st">  </span><span class="kw">select</span>(device, retweet_count) <span class="op">%&gt;%</span></span>
-<span id="cb95-3"><a href="basic-data-wrangling-with-tidyverse.html#cb95-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="basic-data-wrangling-with-tidyverse.html#cb93-1"></a>tweets <span class="op">%&gt;%</span></span>
+<span id="cb93-2"><a href="basic-data-wrangling-with-tidyverse.html#cb93-2"></a><span class="st">  </span><span class="kw">select</span>(device, retweet_count) <span class="op">%&gt;%</span></span>
+<span id="cb93-3"><a href="basic-data-wrangling-with-tidyverse.html#cb93-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   device             retweet_count
 ##   &lt;chr&gt;                      &lt;int&gt;
