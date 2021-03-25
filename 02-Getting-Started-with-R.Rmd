@@ -402,7 +402,7 @@ The function **mutate** adds new variables to a data.frame or overwrite existing
 
 ```{r paged.print=TRUE}
 tweets <- tweets %>%
-  mutate(log_retweet_count = log(retweet_count+1))
+  mutate(log_retweet_count = log(retweet_count))
   
 head(tweets)
 ```
