@@ -553,7 +553,7 @@ tweets %>%
 
 Here are some exercises to consolidate the fundamental R skills learned during these first lessons:
 
-*   Download the csv file [tweets_vienna_small.csv](https://1drv.ms/u/s!AktPpnbfuGtvo7R_ua80HZFs-1TOqA?e=XY2CEW) and put it into the project folder "data"
+*   Download the csv file *tweets_vienna_small.csv* in [this folder](https://drive.google.com/drive/folders/1sNvzDWssPKA-aUOAWum4TxUql2B4j3TY?usp=sharing) and put it into the project folder "data"
 *   Upload the data set in R, setting the appropriate formats for the variables
 *   Create a new script named "data-manipulation" with  your surname and name as follows: *"YOUR SURNAME-YOUR NAME-data-manipulation"*, and save it
 *   In the script, write the code to perform the following operations:
