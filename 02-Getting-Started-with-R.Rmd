@@ -541,7 +541,7 @@ tweets %>%
 
 ## Select
 
-**Select** is used to keep just some of the columns of the original data.frame. For instance, we can apply the function in order to keep just the column "Day" and "Tweets".
+**Select** is used to keep just some of the columns of the original data.frame. For instance, we can apply the function in order to keep just the column "device" and "retweet_count".
 
 ```{r paged.print=TRUE}
 tweets %>%
