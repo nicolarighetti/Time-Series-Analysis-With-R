@@ -1,6 +1,6 @@
 # Basic Definitions
 
-## What is Time Series Data
+## Time Series
 
 A *time series* is a serially sequenced set of values representing a variables value or state at different points in time (VanLear, ["Time Series Analysis"](https://us.sagepub.com/en-us/nam/the-sage-encyclopedia-of-communication-research-methods/book244974)). It consists in measures collected through time about an unit of observation, in a set of ordered values, observed at *regular time intervals*. This regularity is the *frequency* of time series (which can be, for instance, an hourly, weekly, monthly, quarterly, or a yearly frequency).
 
@@ -28,7 +28,7 @@ While it can be funny to see these improbable correlations, we have to keep in m
 Due to the peculiarity of time series data, *time-series analysis* has been developed as a specific statistical methodology appropriate for the analysis of time-dependent data. Time series analysis aims at providing an understanding of the underlying processes and patterns of change over time of a unit of observation and the relations between variables observed over time, handling the time structure of the data in a proper way.
 
 
-## Goals of Time Series Analysis
+## Time Series Analysis
 
 Time series analysis is an approach used in many disciplines. Almost every field of study has data characterized by a time development, and every phenomenon with a temporal dimension can be conceived as a time series and can be analyzed through time series analysis methods. Time series analysis are an important part of data analysis in disciplines such as economics to analyze, for instance, *inflation trends*, marketing to analyze the *number of clients* of a store or number of accesses to an e-commerce website, in demography to study the *growth of national population* overtime or *trends in population ageing*, in engineering to analyze *radio frequencies*, in neurology to analyze *brain waves* detected through electroencephalograms. Political science can be interested in studying patterns in *alternation of political parties in government*, and digital communication can be interested in using time series analysis to study series of tweets using an hashtag, the *news media coverage* on a certain topic, or the trends in *users searches on search engines* such as those provided by Google Trends. 
 

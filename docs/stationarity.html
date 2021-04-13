@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Stationarity | Introduction to Time Series Analysis With R</title>
+  <meta name="description" content="Chapter 6 Stationarity | Introduction to Time Series Analysis With R" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Stationarity | Introduction to Time Series Analysis With R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Stationarity | Introduction to Time Series Analysis With R" />
+  
+  
+  
+
+<meta name="author" content="Nicola Righetti" />
+
+
+<meta name="date" content="2021-02-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exploratory-analysis-and-structural-decomposition.html"/>
+<link rel="next" href="auto-correlation-and-cross-correlation.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Time Series with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction to Time Series Analysis With R</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#objectives"><i class="fa fa-check"></i><b>1.1</b> Objectives</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#lectures"><i class="fa fa-check"></i><b>1.2</b> Lectures</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#assessment"><i class="fa fa-check"></i><b>1.3</b> Assessment</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#examination-topics"><i class="fa fa-check"></i><b>1.4</b> Examination topics</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#syllabus"><i class="fa fa-check"></i><b>1.5</b> Syllabus</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#bibliographical-references-and-resources"><i class="fa fa-check"></i><b>1.6</b> Bibliographical references and resources</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>2</b> Basic R Syntax and Data Wrangling with Tidyverse</a><ul>
+<li class="chapter" data-level="2.1" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#objects"><i class="fa fa-check"></i><b>2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#functions"><i class="fa fa-check"></i><b>2.2</b> Functions</a></li>
+<li class="chapter" data-level="2.3" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#tidyverse"><i class="fa fa-check"></i><b>2.3</b> Tidyverse</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>2.3.1</b> Mutate</a></li>
+<li class="chapter" data-level="2.3.2" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>2.3.2</b> Rename</a></li>
+<li class="chapter" data-level="2.3.3" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#data-format"><i class="fa fa-check"></i><b>2.3.3</b> Data format</a></li>
+<li class="chapter" data-level="2.3.4" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#summarize"><i class="fa fa-check"></i><b>2.3.4</b> Summarize</a></li>
+<li class="chapter" data-level="2.3.5" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>2.3.5</b> Arrange</a></li>
+<li class="chapter" data-level="2.3.6" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>2.3.6</b> Count occurrences</a></li>
+<li class="chapter" data-level="2.3.7" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#ggplot2"><i class="fa fa-check"></i><b>2.3.7</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#help-and-support"><i class="fa fa-check"></i><b>2.4</b> Help and Support</a></li>
+<li class="chapter" data-level="2.5" data-path="basic-r-syntax-and-data-wrangling-with-tidyverse.html"><a href="basic-r-syntax-and-data-wrangling-with-tidyverse.html#exercises"><i class="fa fa-check"></i><b>2.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="definitions.html"><a href="definitions.html"><i class="fa fa-check"></i><b>3</b> Definitions</a><ul>
+<li class="chapter" data-level="3.1" data-path="definitions.html"><a href="definitions.html#what-is-time-series-data"><i class="fa fa-check"></i><b>3.1</b> What is Time Series Data</a></li>
+<li class="chapter" data-level="3.2" data-path="definitions.html"><a href="definitions.html#goals-of-time-series-analysis"><i class="fa fa-check"></i><b>3.2</b> Goals of Time Series Analysis</a></li>
+<li class="chapter" data-level="3.3" data-path="definitions.html"><a href="definitions.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>3.3</b> Stochastic and Deterministic Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="create-and-plot-time-series.html"><a href="create-and-plot-time-series.html"><i class="fa fa-check"></i><b>4</b> Create and Plot Time Series</a><ul>
+<li class="chapter" data-level="4.1" data-path="create-and-plot-time-series.html"><a href="create-and-plot-time-series.html#time-series-objects"><i class="fa fa-check"></i><b>4.1</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="create-and-plot-time-series.html"><a href="create-and-plot-time-series.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>4.1.1</b> Time Series as Data Frames</a></li>
+<li class="chapter" data-level="4.1.2" data-path="create-and-plot-time-series.html"><a href="create-and-plot-time-series.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>4.1.2</b> Time Series as TS objects</a></li>
+<li class="chapter" data-level="4.1.3" data-path="create-and-plot-time-series.html"><a href="create-and-plot-time-series.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>4.1.3</b> Time Series as XTS/ZOO objects</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="create-and-plot-time-series.html"><a href="create-and-plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>4.2</b> Plot Time Series Objects</a></li>
+<li class="chapter" data-level="4.3" data-path="create-and-plot-time-series.html"><a href="create-and-plot-time-series.html#handle-dates-and-times"><i class="fa fa-check"></i><b>4.3</b> Handle Dates and Times</a></li>
+<li class="chapter" data-level="4.4" data-path="create-and-plot-time-series.html"><a href="create-and-plot-time-series.html#aggregate-observations"><i class="fa fa-check"></i><b>4.4</b> Aggregate Observations</a></li>
+<li class="chapter" data-level="4.5" data-path="create-and-plot-time-series.html"><a href="create-and-plot-time-series.html#incomplete-data-points"><i class="fa fa-check"></i><b>4.5</b> Incomplete Data Points</a></li>
+<li class="chapter" data-level="4.6" data-path="create-and-plot-time-series.html"><a href="create-and-plot-time-series.html#plot-many-time-series"><i class="fa fa-check"></i><b>4.6</b> Plot Many Time Series</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="exploratory-analysis-and-structural-decomposition.html"><a href="exploratory-analysis-and-structural-decomposition.html"><i class="fa fa-check"></i><b>5</b> Exploratory Analysis and Structural Decomposition</a><ul>
+<li class="chapter" data-level="5.1" data-path="exploratory-analysis-and-structural-decomposition.html"><a href="exploratory-analysis-and-structural-decomposition.html#moving-average-visualization"><i class="fa fa-check"></i><b>5.1</b> Moving Average Visualization</a></li>
+<li class="chapter" data-level="5.2" data-path="exploratory-analysis-and-structural-decomposition.html"><a href="exploratory-analysis-and-structural-decomposition.html#zooming"><i class="fa fa-check"></i><b>5.2</b> Zooming</a></li>
+<li class="chapter" data-level="5.3" data-path="exploratory-analysis-and-structural-decomposition.html"><a href="exploratory-analysis-and-structural-decomposition.html#find-and-annotate-peaks"><i class="fa fa-check"></i><b>5.3</b> Find and Annotate Peaks</a></li>
+<li class="chapter" data-level="5.4" data-path="exploratory-analysis-and-structural-decomposition.html"><a href="exploratory-analysis-and-structural-decomposition.html#structural-decomposition"><i class="fa fa-check"></i><b>5.4</b> Structural Decomposition</a></li>
+<li class="chapter" data-level="5.5" data-path="exploratory-analysis-and-structural-decomposition.html"><a href="exploratory-analysis-and-structural-decomposition.html#exercises-1"><i class="fa fa-check"></i><b>5.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="stationarity.html"><a href="stationarity.html"><i class="fa fa-check"></i><b>6</b> Stationarity</a><ul>
+<li class="chapter" data-level="6.1" data-path="stationarity.html"><a href="stationarity.html#time-series-operators"><i class="fa fa-check"></i><b>6.1</b> Time Series Operators</a></li>
+<li class="chapter" data-level="6.2" data-path="stationarity.html"><a href="stationarity.html#stationarity-1"><i class="fa fa-check"></i><b>6.2</b> Stationarity</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="stationarity.html"><a href="stationarity.html#white-noise-and-random-walk"><i class="fa fa-check"></i><b>6.2.1</b> White Noise and Random Walk</a></li>
+<li class="chapter" data-level="6.2.2" data-path="stationarity.html"><a href="stationarity.html#some-causes-and-remedies-for-non-stationarity"><i class="fa fa-check"></i><b>6.2.2</b> Some Causes and Remedies for Non-Stationarity</a></li>
+<li class="chapter" data-level="6.2.3" data-path="stationarity.html"><a href="stationarity.html#tests-for-stationarity"><i class="fa fa-check"></i><b>6.2.3</b> Tests for Stationarity</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="auto-correlation-and-cross-correlation.html"><a href="auto-correlation-and-cross-correlation.html"><i class="fa fa-check"></i><b>7</b> Auto-Correlation and Cross-Correlation</a><ul>
+<li class="chapter" data-level="7.1" data-path="auto-correlation-and-cross-correlation.html"><a href="auto-correlation-and-cross-correlation.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>7.1</b> Correlogram: ACF and PACF</a></li>
+<li class="chapter" data-level="7.2" data-path="auto-correlation-and-cross-correlation.html"><a href="auto-correlation-and-cross-correlation.html#cross-correlation"><i class="fa fa-check"></i><b>7.2</b> Cross-correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="var.html"><a href="var.html"><i class="fa fa-check"></i><b>8</b> VAR</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Time Series Analysis With R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="stationarity" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Stationarity</h1>
+<div id="time-series-operators" class="section level2">
+<h2><span class="header-section-number">6.1</span> Time Series Operators</h2>
+<p>This course does not provide mathematical foundations of time series analysis, but it is important to know what are the fundamental <strong>time series operators</strong> often used in time series analysis.</p>
+<p>What is an operator? Anyone who has studied mathematics has encountered the idea of an operator. Operators transform variables and functions. For instance, a simple example is the operator of squaring. Time series operators transform a time series into a new time series.</p>
+<p>Among the operators that are used in time series analysis, three are especially important:</p>
+<ul>
+<li>The <strong>backshift</strong> operator (denoted as L or B), also known as <strong>lag</strong> operator</li>
+<li>The <strong>expectations</strong> operator E, also known as <strong>lead</strong> operator</li>
+<li>The <strong>difference</strong>, written as <strong>∆</strong> and which can be also written using the backshift operator.</li>
+</ul>
+<p>The backshift (lag) operator shifts the values of time series one or more time units behind.</p>
+<p><img src="images/Lag.png" width="952" />
+The expectation operator (lead), shifts the values of time series one or more time units ahead.</p>
+<p><img src="images/Lead.png" width="894" /></p>
+<p>The difference operator can be represented in terms of the lag operator B and transforms each value of a time series in the difference between the value itself and the value behind it: ∆Y<sub>t</sub> = Y<sub>t</sub> - Y<sub>t-1</sub>.</p>
+<p>These operators are fundamental in the mathematics of time series analysis and play a fundamental role in the practice of time series analysis.</p>
+</div>
+<div id="stationarity-1" class="section level2">
+<h2><span class="header-section-number">6.2</span> Stationarity</h2>
+<p>A recurring concept in time series analysis is <strong>stationarity</strong>. Stationarity is a propriety of time series data often required to apply specific statistical techniques.</p>
+<p>A process is defined as stationary if it is homogeneous, if it has no distinguished point in times and, in other words, its statistical proprieties of the ensemble are the same for any point in time. There are more or less stringent definition of stationarity, but the most often used for pratical purposes is the so-called <strong>weak-stationarity</strong>. In this sense, a time series is said to be stationary if there is:</p>
+<ul>
+<li>time invariant mean (no systematic change in mean, or no trend) and no periodic variations (seasonality)</li>
+<li>time invariant variance (no systematic change in variance over time);</li>
+<li>time invariant auto-correlation</li>
+</ul>
+<p>As other assumptions required by statistical analysis, stationarity is not very often present in real data, and appropriate transformations are possible to reach stationarity before starting the analysis.</p>
+<p>Stationarity is important because its absence (non-stationarity) can cause issues in time series analysis. For instance, <em>spurious correlation</em>. When two time series share a common trend, that is, their means varies with times, they could appear strongly correlated even though there is no real correlation between them. Transforming the non-stationary series in stationary ones (by detrending them, in the particular case of this example), allows the researcher to calculate a more appropriate correlation between them.</p>
+<p>Granger and Newbold (1974) in the paper <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.353.2946&amp;rep=rep1&amp;type=pdf">“Spurious regression in econometrics”</a> wrote about the problem of spurious regression, in which estimates of relationships
+between non-stationary series or variables could give nonsensical results by
+showing statistically significant relationships when they did not really exist.</p>
+<p><img src="images/chart.png" width="1040" /></p>
+<div id="white-noise-and-random-walk" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> White Noise and Random Walk</h3>
+<p>What is the shape of a stationary and non-stationary series?
+We can learn to recognize them by considering two time series processes, <strong>white noise</strong> and <strong>random walk</strong>.</p>
+<p>The <strong>white noise</strong> is a very important process, also defined as the “building block of discrete stochastic time series models” (Enders, 2004: 50).</p>
+<p>A process is called white noise if have the <em>same mean</em> and the <em>same variance</em> and there is <em>no auto-correlation</em> (correlation among points in time). It is normally distributed with mean zero and constant variance. White noise is what is left after fitting some time series models and corresponds to “residuals”.</p>
+<p>White noise is an example of stationary time series. As you can see in the chart below, white noise time series is pretty regular, the mean is always the same (equal 0) and there are no changes in variance over time. The plot looks much the same at any point in time.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="stationarity.html#cb170-1"></a>White_Noise &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)))</span>
+<span id="cb170-2"><a href="stationarity.html#cb170-2"></a></span>
+<span id="cb170-3"><a href="stationarity.html#cb170-3"></a><span class="kw">plot.ts</span>(White_Noise, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;White Noise&quot;</span>) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p>A <strong>Random Walk</strong>, instead, is an example of non-stationary time series. It is a particular time series process in which past “shocks” (represented by the error terms) is remembered in full at each time t. This means that its movement is a combination of its initial value and the sum of all the past shocks the process has experienced. This time series has what is called a <em>stochastic trend</em>, a discernible pattern over time which is, however, not exactly predictable. Starting from the same initial point, very different time series can be generated. Below you can see two example of random walk. They are generated by the same simulation but starting from different initial points.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="stationarity.html#cb171-1"></a><span class="kw">set.seed</span>(<span class="dv">111</span>)</span>
+<span id="cb171-2"><a href="stationarity.html#cb171-2"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
+<span id="cb171-3"><a href="stationarity.html#cb171-3"></a><span class="kw">plot.ts</span>(Random_Walk, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;Random Walk&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="stationarity.html#cb172-1"></a><span class="kw">set.seed</span>(<span class="dv">555</span>)</span>
+<span id="cb172-2"><a href="stationarity.html#cb172-2"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
+<span id="cb172-3"><a href="stationarity.html#cb172-3"></a><span class="kw">plot.ts</span>(Random_Walk, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;Random Walk&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-103-2.png" width="672" />
+A random walk can have both a stochastic and an upward or downward deterministic trend. In this case it is called <em>random walk with drift</em>. We discuss <em>trend</em> in the next paragraph.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="stationarity.html#cb173-1"></a><span class="kw">set.seed</span>(<span class="dv">555</span>)</span>
+<span id="cb173-2"><a href="stationarity.html#cb173-2"></a>Random_Walk_Drift &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)), <span class="dt">mean=</span><span class="fl">0.1</span>)</span>
+<span id="cb173-3"><a href="stationarity.html#cb173-3"></a><span class="kw">plot.ts</span>(Random_Walk_Drift, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;Random Walk with Drift&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+</div>
+<div id="some-causes-and-remedies-for-non-stationarity" class="section level3">
+<h3><span class="header-section-number">6.2.2</span> Some Causes and Remedies for Non-Stationarity</h3>
+<p>We have seen that a stationary process has <em>no trend</em>, <em>no change in variance</em>, and <em>no periodic variations</em>. Therefore, a process that is characterized by one or more of this characteristics, is non-stationary.</p>
+<div id="unequal-variance" class="section level4">
+<h4><span class="header-section-number">6.2.2.1</span> Unequal Variance</h4>
+<p>Another cause of non-stationarity is changes in variance over the series.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="stationarity.html#cb174-1"></a><span class="kw">plot.ts</span>(AirPassengers, <span class="dt">main =</span> <span class="st">&quot;Time Series with Unequal Variance (and Trend)&quot;</span>,</span>
+<span id="cb174-2"><a href="stationarity.html#cb174-2"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p>To stabilize the variance a <strong>log-transformation</strong> could be useful.</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="stationarity.html#cb175-1"></a><span class="kw">plot.ts</span>(<span class="kw">log</span>(AirPassengers), <span class="dt">main =</span> <span class="st">&quot;Time Series with Log-Transformed&quot;</span>,</span>
+<span id="cb175-2"><a href="stationarity.html#cb175-2"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<p>Another possible transformation is the <strong>Box-Cox Transformation</strong>.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="stationarity.html#cb176-1"></a><span class="co"># install.packages(&quot;forecast&quot;)</span></span>
+<span id="cb176-2"><a href="stationarity.html#cb176-2"></a><span class="kw">library</span>(forecast)</span></code></pre></div>
+<pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
+##   method            from
+##   as.zoo.data.frame zoo</code></pre>
+<pre><code>## This is forecast 8.13 
+##   Want to meet other forecasters? Join the International Institute of Forecasters:
+##   http://forecasters.org/</code></pre>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="stationarity.html#cb179-1"></a>AirPassengers_BoxCox_Lambda &lt;-<span class="st"> </span><span class="kw">BoxCox.lambda</span>(AirPassengers)</span>
+<span id="cb179-2"><a href="stationarity.html#cb179-2"></a>AirPassengers_BoxCox &lt;-<span class="st"> </span><span class="kw">BoxCox</span>(AirPassengers, <span class="dt">lambda =</span> AirPassengers_BoxCox_Lambda)</span>
+<span id="cb179-3"><a href="stationarity.html#cb179-3"></a></span>
+<span id="cb179-4"><a href="stationarity.html#cb179-4"></a><span class="kw">plot.ts</span>(AirPassengers_BoxCox, <span class="dt">main =</span> <span class="st">&quot;Time Series with Box-Cox Transformation&quot;</span>,</span>
+<span id="cb179-5"><a href="stationarity.html#cb179-5"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-107-1.png" width="672" />
+In the case of this series we have both an upward trend and unequal variance and we could transform the data through differencing and log-transforming.</p>
+</div>
+<div id="periodic-variation" class="section level4">
+<h4><span class="header-section-number">6.2.2.2</span> Periodic Variation</h4>
+<p>An example of periodic variation is seasonality, regular fluctuations in a time series that follow a specific time pattern (e.g.: social media activity during week-ends, Christmas effect in consumption etc.).</p>
+<p>The AirPassenger time series has substantial seasonality due to the fact that people travel more in the summer. To remove the seasonal pattern it is possible to leverage the <strong>decomposition</strong> function (already saw in the precedent chapter) and subtract the seasonal component from the original time series (in case of additive decomposition) or divide the original series by the seasonal component (in case of multiplicative decomposition) to get a <em>seasonally-adjusted</em> time series.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="stationarity.html#cb180-1"></a>AirPassengers_Seasonal &lt;-<span class="st"> </span><span class="kw">decompose</span>(AirPassengers, <span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)<span class="op">$</span>seasonal</span>
+<span id="cb180-2"><a href="stationarity.html#cb180-2"></a><span class="kw">plot</span>(AirPassengers<span class="op">/</span>AirPassengers_Seasonal)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-108-1.png" width="672" />
+Adjust for seasonal variations make it possible also to observe potentially noteworthy fluctuations. The seasonally adjusted chart above, for instance, shows more clearly an anomaly in the year 1960 that was not noticeable in the raw data.</p>
+</div>
+<div id="trend" class="section level4">
+<h4><span class="header-section-number">6.2.2.3</span> Trend</h4>
+<p>One of the main cause for non-stationarity is the presence of a <strong>trend</strong>. Trend is an apparently common sense word which, in practice, can refer to different types of phenomena (a possible reading on the topic is <a href="https://www.pnas.org/content/104/38/14889">“On the trend, detrending, and variability of nonlinear and nonstationary time series”</a>).</p>
+<p>In general, a trend can be conceived as a long-term movement in time series, or the component of a time series that represents variations of low frequency in a time series, the high and medium frequency fluctuations having been filtered out (with frequency we mean the sampling frequency of time series. High and medium frequency can be conceived points sampled with hourly, daily, or weekly frequency and so on. A low frequency pattern is a general pattern emerging by looking at the time series having filtered out the variation in the short period).</p>
+<p>We have two main types of trends: <strong>deterministic trend</strong> and <strong>stochastic trend</strong>:</p>
+<ul>
+<li>a <em>deterministic trend</em> is a fixed function of time. A data-generating process that changes by the same amount every time period may be described by a deterministic trend.</li>
+<li>a <em>stochastic trend</em> is an outcome of a process operating over time that drift upward or downward over time periods. Most social science applications deal with stochastic rather than deterministic trends.</li>
+</ul>
+<p>The plot below represents a time series with a linear upward trend. A typical example of time series with a stochastic trend is, instead, the <em>unit root</em> process we have seen above, characterized by an unpredictable, stochastic, trend in a time series.</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="stationarity.html#cb181-1"></a>AirPassengers &lt;-<span class="st"> </span>datasets<span class="op">::</span>AirPassengers</span>
+<span id="cb181-2"><a href="stationarity.html#cb181-2"></a><span class="kw">plot.ts</span>(AirPassengers, <span class="dt">main =</span> <span class="st">&quot;Time Series with Upward Trend&quot;</span>,</span>
+<span id="cb181-3"><a href="stationarity.html#cb181-3"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb181-4"><a href="stationarity.html#cb181-4"></a><span class="kw">abline</span>(<span class="kw">lm</span>(AirPassengers <span class="op">~</span><span class="st"> </span><span class="kw">time</span>(AirPassengers)), <span class="dt">col=</span><span class="st">&quot;violet&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">lty=</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<p>To remove the trend from the data could be used two different approaches:</p>
+<ul>
+<li>With deterministic trends, a <strong>time-trend regression</strong> is used, that is regressing y on intercept and time trend and keep the residuals. The time series that become stationary after this time-trend regression are also called “trend stationary” series.</li>
+<li>With stochastic trend (unit root), <strong>differencing</strong>, that is, using the difference operator ∆ to calculate the difference between adjacent points <em>t</em> - <em>t</em>-1. The time series that become stationary after differencing are also called “difference stationary” series. In R, you can perform this operation with the function “diff”.</li>
+</ul>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="stationarity.html#cb182-1"></a>AirPassengers_diff &lt;-<span class="st"> </span><span class="kw">diff</span>(AirPassengers)</span>
+<span id="cb182-2"><a href="stationarity.html#cb182-2"></a></span>
+<span id="cb182-3"><a href="stationarity.html#cb182-3"></a><span class="kw">plot.ts</span>(AirPassengers_diff, <span class="dt">main =</span> <span class="st">&quot;Time Series with Differenced Data&quot;</span>,</span>
+<span id="cb182-4"><a href="stationarity.html#cb182-4"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb182-5"><a href="stationarity.html#cb182-5"></a><span class="kw">abline</span>(<span class="kw">lm</span>(AirPassengers_diff <span class="op">~</span><span class="st"> </span><span class="kw">time</span>(AirPassengers_diff)), <span class="dt">col=</span><span class="st">&quot;violet&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">lty=</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+<p>Detrending a time series can be an important step to apply some statistical techniques, for instance to ascertain the correlation between two time series. Time series with a trend component can reveal spurious correlation, since correlations may exist just because two variables are trending up at the same time or trending down at the same time. By detrending the time series you can more appropriately measure if the change in one time series over time (∆ = <em>t</em>-<em>t</em>-1) is related to the change in the other time series.</p>
+<p>Detrending time series is also used when researchers consider irrelevant the trend. This is the case when the trend is considered an obvious characteristic of the process. For instance, economists can take for granted that there is an increasing trend in GDP due to inflation, and thus they may want to “clean” the data to eliminate trends. They are more interested in deviations from the growth, than in the growth that they consider a “normal” characteristic of the process.</p>
+<p>There are statistical tests to ascertain the presence of a trend.</p>
+<p>A <em>monotonic</em> trend can be detected with the <strong>Mann–Kendall trend test</strong>. The null hypothesis is that the data come from a population with independent realizations and are identically distributed. For the two sided test, the alternative hypothesis is that the data follow a monotonic trend. The function to calculate this test is present in the package “trend”.</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="stationarity.html#cb183-1"></a><span class="co"># install.packages(&quot;trend&quot;)</span></span>
+<span id="cb183-2"><a href="stationarity.html#cb183-2"></a><span class="kw">library</span>(trend)</span>
+<span id="cb183-3"><a href="stationarity.html#cb183-3"></a><span class="kw">mk.test</span>(AirPassengers, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Mann-Kendall trend test
+## 
+## data:  AirPassengers
+## z = 14.382, n = 144, p-value &lt; 2.2e-16
+## alternative hypothesis: true S is greater than 0
+## sample estimates:
+##            S         varS          tau 
+## 8.327000e+03 3.351643e+05 8.098232e-01</code></pre>
+</div>
+</div>
+<div id="tests-for-stationarity" class="section level3">
+<h3><span class="header-section-number">6.2.3</span> Tests for Stationarity</h3>
+<p>Stationarity is an important assumption of many time series techniques and we can be interested in testing if we are dealing with a stationary or non-stationary time series before proceeding with other analyses.</p>
+<ul>
+<li><strong>Unit root tests</strong> can be used to determine if trending data should be first differenced or regressed on deterministic functions of time to render the data stationary. They test the null hypothesis of difference stationary, against the alternative hypothesis of trend stationary. Examples are the <em>Augmented Dickey–Fuller Test (ADF)</em> and the <em>Phillips-Perron Unit Root Test (PP)</em></li>
+<li><strong>Stationarity tests</strong> take the null hypothesis that the series is trend stationary. The most commonly used stationarity test is the <em>Kwiatkowski-Phillips-Schmidt-Shin test (KPSS)</em></li>
+</ul>
+<p>The augmented Dickey-Fuller test is a test for the hypothesis that the time series has a <em>unit root</em>, that is, is integrated of order one AR(1). This type of series are called “difference stationary” because it can be transformed to stationary series by removing the stochastic trend through differencing. It is possible to perform the ADF test in R with the function “adf.test” of the <em>tseries</em> library (or the “ur.df” of the <em>urca</em> library).</p>
+<p>Let’s see a typical case of series with unit root or a random walk.</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="stationarity.html#cb185-1"></a><span class="kw">plot</span>(Random_Walk, <span class="dt">main =</span> <span class="st">&quot;Random Walk (Unit Root)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-112-1.png" width="672" />
+Clearly, the ADF test is not significant, and conversely, the KPSS is significant, meaning that we cannot reject the null hypothesis of unit root and accept the alternative hypothesis of stationarity.</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="stationarity.html#cb186-1"></a><span class="kw">library</span>(tseries)</span></code></pre></div>
+<pre><code>## 
+##     &#39;tseries&#39; version: 0.10-47
+## 
+##     &#39;tseries&#39; is a package for time series analysis and computational finance.
+## 
+##     See &#39;library(help=&quot;tseries&quot;)&#39; for details.</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="stationarity.html#cb188-1"></a><span class="kw">adf.test</span>(Random_Walk, <span class="dt">alternative =</span> <span class="st">&quot;stationary&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  Random_Walk
+## Dickey-Fuller = -2.6615, Lag order = 7, p-value = 0.2983
+## alternative hypothesis: stationary</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="stationarity.html#cb190-1"></a><span class="kw">kpss.test</span>(Random_Walk)</span></code></pre></div>
+<pre><code>## 
+##  KPSS Test for Level Stationarity
+## 
+## data:  Random_Walk
+## KPSS Level = 5.0123, Truncation lag parameter = 5, p-value = 0.01</code></pre>
+<p>We now remove the stochastic trend by using the differencing operator.</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="stationarity.html#cb192-1"></a><span class="kw">plot</span>(<span class="kw">diff</span>(Random_Walk), <span class="dt">main=</span><span class="st">&quot;∆ series&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
+<p>Applying the ADF unit root and the KPSS stationary test to the differentiated time series, we get a significant and non-significant result.</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="stationarity.html#cb193-1"></a><span class="kw">adf.test</span>(<span class="kw">diff</span>(Random_Walk), <span class="dt">alternative =</span> <span class="st">&quot;stationary&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  diff(Random_Walk)
+## Dickey-Fuller = -8.5536, Lag order = 7, p-value = 0.01
+## alternative hypothesis: stationary</code></pre>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="stationarity.html#cb195-1"></a><span class="kw">kpss.test</span>(<span class="kw">diff</span>(Random_Walk))</span></code></pre></div>
+<pre><code>## 
+##  KPSS Test for Level Stationarity
+## 
+## data:  diff(Random_Walk)
+## KPSS Level = 0.061593, Truncation lag parameter = 5, p-value = 0.1</code></pre>
+<p><strong>Notes</strong></p>
+<ul>
+<li><p>Considering the ADF test, an important practical issue for the implementation is the specification of the lag length p. If p is too small then the remaining serial correlation in the errors will bias the test. If p is too large then the power of the test will suffer. Ng and Perron (1995) suggest the following data dependent lag length selection procedure that results in stable size of the test and minimal power loss. First, set an upper bound pmax for p. Next, estimate the ADF test regression with p = pmax. If the absolute value of the t-statistic for testing the significance of the last lagged difference is greater than 1.6 then set p = pmax and perform the unit root test. Otherwise, reduce the lag length by one and repeat the process.</p></li>
+<li><p>In general, the ADF and PP tests have very low power against I(0) alternatives that are close to being I(1). That is, unit root tests cannot distinguish highly persistent stationary processes from non-stationary processes very well. Also, the power of unit root tests diminish as deterministic terms are added to the test regressions. That is, tests that include a constant and trend in the test regression have less power than tests that only include a constant in the test regression.</p></li>
+<li><p>Results of tests should be considered with attention. For instance, conventional unit root tests are biased toward a false unit root null when the data are trend stationary with a structural break (we will consider structural breaks in another chapter).
+A major disadvantage for the KPSS test is that it has a high rate of Type I errors (it tends to reject the null hypothesis too often). If attempts are made to control these errors (by having larger p-values), then that negatively impacts the test’s power.
+One way to deal with the potential for high Type I errors is to combine the KPSS with an ADF test. If the result from both tests suggests that the time series in stationary, then it probably is.</p></li>
+<li><p>There are particular specifications in the ADF and KPSS tests that can be used in the light of the characteristics of the analyzed time series.</p></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exploratory-analysis-and-structural-decomposition.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="auto-correlation-and-cross-correlation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/edit/master/06-Stationarity.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/blob/master/06-Stationarity.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
