@@ -1,4 +1,7 @@
-fig:unnamed-chunk-40
+fig:unnamed-chunk-39
+fig:unnamed-chunk-60
+fig:unnamed-chunk-61
+fig:unnamed-chunk-62
 time-series-analysis-with-r
 objectives
 lectures
@@ -29,5 +32,9 @@ arrange
 filter
 select
 exercise
+basic-definitions
+what-is-time-series-data
+goals-of-time-series-analysis
+stochastic-and-deterministic-processes
 readings
 bibliographical-references
