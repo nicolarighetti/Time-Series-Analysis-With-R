@@ -2,7 +2,7 @@
 
 ## Time Series
 
-A *time series* is a serially sequenced set of values representing a variables value or state at different points in time (VanLear, ["Time Series Analysis"](https://us.sagepub.com/en-us/nam/the-sage-encyclopedia-of-communication-research-methods/book244974)). It consists in measures collected through time about an unit of observation, in a set of ordered values, observed at *regular time intervals*. This regularity is the *frequency* of time series (which can be, for instance, an hourly, weekly, monthly, quarterly, or a yearly frequency).
+A **time series** is a serially sequenced set of values representing a variable value at different points in time (VanLear, ["Time Series Analysis"](https://us.sagepub.com/en-us/nam/the-sage-encyclopedia-of-communication-research-methods/book244974)). It consists in measures collected through time, at **regular time intervals**, about an unit of observation, resulting in a set of ordered values. This *regularity* is the **frequency** of time series (which can be, for instance, an hourly, weekly, monthly, quarterly, yearly, etc.).
 
 Time series data are different from *cross-sectional data*, which are set of data observed on a sample of units taken at a given point in time, or where the time dimension is not relevant and can be ignored. Cross-sectional data are a snapshot of a population of interest at one particular point in time, while time series show the dynamical evolution of a variable over time. *Panel data* combine cross-sectional and time series data by observing the same units over time. 
 
