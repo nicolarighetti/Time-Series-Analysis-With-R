@@ -33,5 +33,11 @@ basic-definitions
 time-series
 time-series-analysis
 stochastic-and-deterministic-processes
+time-series-objects
+time-series-objects-1
+time-series-as-data-frames
+time-series-as-ts-objects
+time-series-as-xtszoo-objects
+exercise-1
 readings
 bibliographical-references

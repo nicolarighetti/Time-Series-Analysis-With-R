@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Plot Time Series | Time Series Analysis With R</title>
+  <meta name="description" content="Chapter 6 Plot Time Series | Time Series Analysis With R" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Plot Time Series | Time Series Analysis With R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Plot Time Series | Time Series Analysis With R" />
+  
+  
+  
+
+<meta name="author" content="Nicola Righetti" />
+
+
+<meta name="date" content="2021-04-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="time-series-objects.html"/>
+<link rel="next" href="readings.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Time Series with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Time Series Analysis With R</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#objectives"><i class="fa fa-check"></i><b>1.1</b> Objectives</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#lectures"><i class="fa fa-check"></i><b>1.2</b> Lectures</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#home-work"><i class="fa fa-check"></i><b>1.3</b> Home Work</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#assessment"><i class="fa fa-check"></i><b>1.4</b> Assessment</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#syllabus-and-readings"><i class="fa fa-check"></i><b>1.5</b> Syllabus and readings</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#further-information-and-support"><i class="fa fa-check"></i><b>1.6</b> Further information and support</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting started with R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#rstudio-interface-and-data"><i class="fa fa-check"></i><b>2.1</b> RStudio Interface and Data</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#download-and-install-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Download and Install RStudio</a></li>
+<li class="chapter" data-level="2.1.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-rstudio-project-and-import-data"><i class="fa fa-check"></i><b>2.1.2</b> Create a RStudio Project and Import data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-script"><i class="fa fa-check"></i><b>2.1.3</b> Create a Script</a></li>
+<li class="chapter" data-level="2.1.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-rstudio-user-interface"><i class="fa fa-check"></i><b>2.1.4</b> The RStudio User Interface</a></li>
+<li class="chapter" data-level="2.1.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#load-and-save-data"><i class="fa fa-check"></i><b>2.1.5</b> Load and Save Data</a></li>
+<li class="chapter" data-level="2.1.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-new-folders"><i class="fa fa-check"></i><b>2.1.6</b> Create new Folders</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r"><i class="fa fa-check"></i><b>2.2</b> Basic R</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#objects"><i class="fa fa-check"></i><b>2.2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#functions"><i class="fa fa-check"></i><b>2.2.2</b> Functions</a></li>
+<li class="chapter" data-level="2.2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.2.3</b> Data Types</a></li>
+<li class="chapter" data-level="2.2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#excercise"><i class="fa fa-check"></i><b>2.2.4</b> Excercise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse</a><ul>
+<li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.1</b> The Pipe Operator %&gt;%</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.2</b> Mutate</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.3</b> Rename</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.4.1</b> Count occurrences</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5</b> Arrange</a></li>
+<li class="chapter" data-level="3.6" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.6</b> Filter</a></li>
+<li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.7</b> Select</a></li>
+<li class="chapter" data-level="3.8" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#exercise"><i class="fa fa-check"></i><b>3.8</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-definitions.html"><a href="basic-definitions.html"><i class="fa fa-check"></i><b>4</b> Basic Definitions</a><ul>
+<li class="chapter" data-level="4.1" data-path="basic-definitions.html"><a href="basic-definitions.html#time-series"><i class="fa fa-check"></i><b>4.1</b> Time Series</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-definitions.html"><a href="basic-definitions.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-definitions.html"><a href="basic-definitions.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>5.1.1</b> Time Series as Data Frames</a></li>
+<li class="chapter" data-level="5.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>5.1.2</b> Time Series as TS objects</a></li>
+<li class="chapter" data-level="5.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>5.1.3</b> Time Series as XTS/ZOO objects</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="time-series-objects.html"><a href="time-series-objects.html#exercise-1"><i class="fa fa-check"></i><b>5.2</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>6</b> Plot Time Series</a><ul>
+<li class="chapter" data-level="6.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>6.1</b> Plot Time Series Objects</a></li>
+<li class="chapter" data-level="6.2" data-path="plot-time-series.html"><a href="plot-time-series.html#handle-dates-and-times"><i class="fa fa-check"></i><b>6.2</b> Handle Dates and Times</a></li>
+<li class="chapter" data-level="6.3" data-path="plot-time-series.html"><a href="plot-time-series.html#aggregate-observations"><i class="fa fa-check"></i><b>6.3</b> Aggregate Observations</a></li>
+<li class="chapter" data-level="6.4" data-path="plot-time-series.html"><a href="plot-time-series.html#incomplete-data-points"><i class="fa fa-check"></i><b>6.4</b> Incomplete Data Points</a></li>
+<li class="chapter" data-level="6.5" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-many-time-series"><i class="fa fa-check"></i><b>6.5</b> Plot Many Time Series</a></li>
+<li class="chapter" data-level="6.6" data-path="plot-time-series.html"><a href="plot-time-series.html#moving-average-visualization"><i class="fa fa-check"></i><b>6.6</b> Moving Average Visualization</a></li>
+<li class="chapter" data-level="6.7" data-path="plot-time-series.html"><a href="plot-time-series.html#zooming"><i class="fa fa-check"></i><b>6.7</b> Zooming</a></li>
+<li class="chapter" data-level="6.8" data-path="plot-time-series.html"><a href="plot-time-series.html#find-and-annotate-peaks"><i class="fa fa-check"></i><b>6.8</b> Find and Annotate Peaks</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>7</b> Readings</a><ul>
+<li class="chapter" data-level="7.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>7.1</b> Bibliographical References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series Analysis With R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="plot-time-series" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Plot Time Series</h1>
+<div id="plot-time-series-objects" class="section level2">
+<h2><span class="header-section-number">6.1</span> Plot Time Series Objects</h2>
+<p>In this part of the course we will learn how to plot time series data.
+We will take into account three main functions: <em>ggplot</em> from the tidyverse library, <em>plot.ts</em> from base R, and <em>plot.xts</em> from the xts library.</p>
+<p>We will learn how to plot time series, and how to manipulate the data as a necessary step to visualize them.</p>
+<p>In the next chapter, we will use what we have learn to visualize time series data as a part of a preliminary, exploratory time series analysis.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="plot-time-series.html#cb133-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
+<p>We use the function ggplot to create the plot of the series. Note that the function works because we previously have change the format of the “date” column with as.Date, otherwise we would have had issues.</p>
+<p>We place our data set (“elections_news”) before the ggplot function and followed by the pipe symbol (%&gt;%), because it is easier to be consistent with the changes in the code we will made during the course, but it is common to place it inside the parenthesis following the ggplot command.</p>
+<p>The code says something like: “R, take the data set called”elections_news“, and perform the following operation with the data: plot the data as a line (”geom_line“) on a cartesian plan where on the x-axis there are the values of the column”date“, and on the y-axis the values of the variable”ratio“. Use the color blue for the line, and a size of 0.5. Additionally, write the label”News Articles" next to the axis y, and the label “Date” next to the axis x.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="plot-time-series.html#cb134-1"></a>elections_news <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb134-2"><a href="plot-time-series.html#cb134-2"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb134-3"><a href="plot-time-series.html#cb134-3"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> ratio), <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb134-4"><a href="plot-time-series.html#cb134-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles&quot;</span>) <span class="op">+</span></span>
+<span id="cb134-5"><a href="plot-time-series.html#cb134-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Date&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<p>To plot a ts object you can simply rely on the function plot(), or better, the function plot.ts(), more appropriate for time series objects.</p>
+<p>In the function plot.ts you can specify a label for the y axis, (ylab=“your label”), and also for the x axis, if you want (xlab=“your label”).</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="plot-time-series.html#cb135-1"></a><span class="kw">plot.ts</span>(AirPassengers, <span class="dt">ylab =</span> <span class="st">&quot;Passengers (1000&#39;s)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p>The function plot.ts() has many arguments and you can use them to customize your plot. To see how the function works and how you can customize your plots, just write ?plot.ts in the console and read the help section.</p>
+<p>For instance, we can give the plot a title, set the axis labels, the color (use colors() to see the list of standard colors in R) and the size of the line.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="plot-time-series.html#cb136-1"></a><span class="kw">plot.ts</span>(AirPassengers, </span>
+<span id="cb136-2"><a href="plot-time-series.html#cb136-2"></a>     <span class="dt">main =</span> <span class="st">&quot;PASSENGERS&quot;</span>,</span>
+<span id="cb136-3"><a href="plot-time-series.html#cb136-3"></a>     <span class="dt">ylab =</span> <span class="st">&quot;Passengers (1000&#39;s)&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Time (1949-1960 monthly data)&quot;</span>,</span>
+<span id="cb136-4"><a href="plot-time-series.html#cb136-4"></a>     <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb136-5"><a href="plot-time-series.html#cb136-5"></a>     <span class="dt">lwd=</span><span class="dv">5</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<p>To plot a xts object we can similarly use the plot.xts function.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="plot-time-series.html#cb137-1"></a><span class="kw">plot.xts</span>(xts_format,</span>
+<span id="cb137-2"><a href="plot-time-series.html#cb137-2"></a>         <span class="dt">main =</span> <span class="st">&quot;PASSENGERS&quot;</span>,</span>
+<span id="cb137-3"><a href="plot-time-series.html#cb137-3"></a>         <span class="dt">ylab =</span> <span class="st">&quot;Passengers (1000&#39;s)&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Time (1949-1960 monthly data)&quot;</span>, </span>
+<span id="cb137-4"><a href="plot-time-series.html#cb137-4"></a>         <span class="dt">col =</span> <span class="st">&quot;steelblue2&quot;</span>, </span>
+<span id="cb137-5"><a href="plot-time-series.html#cb137-5"></a>         <span class="dt">lwd=</span><span class="dv">5</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+</div>
+<div id="handle-dates-and-times" class="section level2">
+<h2><span class="header-section-number">6.2</span> Handle Dates and Times</h2>
+<p>Although it does not necessarily give problems, it’s not the best solution having a date variable coded as a factor. The most appropriate format for date variables is the format “date”. Since date and time are a very important variable in time series analysis, it is important to learn to handle them correctly. We convert the format of the date column to “Date” through the function as.Date(), specifying the format of our date.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="plot-time-series.html#cb138-1"></a>elections_news<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(elections_news<span class="op">$</span>date, <span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)</span>
+<span id="cb138-2"><a href="plot-time-series.html#cb138-2"></a><span class="kw">str</span>(elections_news)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    2192 obs. of  4 variables:
+##  $ date       : Date, format: &quot;2015-01-01&quot; &quot;2015-01-02&quot; &quot;2015-01-03&quot; ...
+##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
+##  $ total_count: int  25611 31932 24646 25513 39982 42366 45163 44928 44041 29093 ...
+##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
+<p>R use specific codes for formatting dates and times (you can read about it at the following link: <a href="https://www.stat.berkeley.edu/~s133/dates.html" class="uri">https://www.stat.berkeley.edu/~s133/dates.html</a>).</p>
+<p>You can also change the format of the date by using the function format() and specifying the appropriate codes. Let’s pick up 5 dates at random and let’s apply the function. We also store the variables we create in a data.frame (just for a better visualization). You can see that the format of the date changes to factor, but the transformation could be useful in certain circumstances.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="plot-time-series.html#cb140-1"></a>dates_example &lt;-<span class="st"> </span><span class="kw">sample</span>(elections_news<span class="op">$</span>date, <span class="dt">size =</span> <span class="dv">5</span>)</span>
+<span id="cb140-2"><a href="plot-time-series.html#cb140-2"></a></span>
+<span id="cb140-3"><a href="plot-time-series.html#cb140-3"></a><span class="kw">data.frame</span>(<span class="st">&quot;Format_1&quot;</span> =<span class="st"> </span>dates_example,</span>
+<span id="cb140-4"><a href="plot-time-series.html#cb140-4"></a>           <span class="st">&quot;Format_2&quot;</span> =<span class="st"> </span><span class="kw">format</span>(dates_example,<span class="st">&quot;%d/%m/%Y&quot;</span>),</span>
+<span id="cb140-5"><a href="plot-time-series.html#cb140-5"></a>           <span class="st">&quot;Format_3&quot;</span> =<span class="st"> </span><span class="kw">format</span>(dates_example,<span class="st">&quot;%A, %B %d (%Y)&quot;</span>))</span></code></pre></div>
+<pre><code>##     Format_1   Format_2                     Format_3
+## 1 2017-08-23 23/08/2017  Wednesday, August 23 (2017)
+## 2 2019-12-26 26/12/2019 Thursday, December 26 (2019)
+## 3 2017-09-03 03/09/2017  Sunday, September 03 (2017)
+## 4 2020-03-20 20/03/2020      Friday, March 20 (2020)
+## 5 2019-03-22 22/03/2019      Friday, March 22 (2019)</code></pre>
+<p>Just to make an example with date and times, we upload the following file.
+Let`s set aside for now that the series is not regular, and focus just on the format of the date_time variable.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="plot-time-series.html#cb142-1"></a>date_time_example &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/date_time_example.csv&quot;</span>)</span>
+<span id="cb142-2"><a href="plot-time-series.html#cb142-2"></a><span class="kw">head</span>(date_time_example)</span></code></pre></div>
+<pre><code>##             date_time       score
+## 1 2012-01-08 21:39:15 0.004061633
+## 2 2012-01-10 22:07:54 0.150770079
+## 3 2012-01-14 11:15:14 0.457829612
+## 4 2012-01-16 18:30:46 0.485773450
+## 5 2012-01-18 12:16:56 0.121030670
+## 6 2012-01-19 16:03:07 0.465606862</code></pre>
+<p>If we use the function as.Date() on this data, we get a date without the hours.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="plot-time-series.html#cb144-1"></a><span class="kw">head</span>(<span class="kw">as.Date</span>(date_time_example<span class="op">$</span>date_time))</span></code></pre></div>
+<pre><code>## [1] &quot;2012-01-08&quot; &quot;2012-01-10&quot; &quot;2012-01-14&quot; &quot;2012-01-16&quot; &quot;2012-01-18&quot; &quot;2012-01-19&quot;</code></pre>
+<p>To represent calendar dates and times properly, we can use the function as.POSIXct(). We can set also the appropriate time zone (tz). A time zone is a designated area of the globe that observes a uniform standard time (<a href="https://en.wikipedia.org/wiki/Time_zone" class="uri">https://en.wikipedia.org/wiki/Time_zone</a>)</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="plot-time-series.html#cb146-1"></a>date_time_example<span class="op">$</span>date_time &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(date_time_example<span class="op">$</span>date_time, <span class="dt">tz=</span><span class="st">&quot;UTC&quot;</span>)</span>
+<span id="cb146-2"><a href="plot-time-series.html#cb146-2"></a><span class="kw">str</span>(date_time_example)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    100 obs. of  2 variables:
+##  $ date_time: POSIXct, format: &quot;2012-01-08 21:39:15&quot; &quot;2012-01-10 22:07:54&quot; &quot;2012-01-14 11:15:14&quot; ...
+##  $ score    : num  0.00406 0.15077 0.45783 0.48577 0.12103 ...</code></pre>
+<p>Once converted in POSIXct format, we can round or truncate our date time by minutes, hours, and days, if we want. We also need to apply again the function as.POSIXct().</p>
+<p>By ispecting the results is easy to understand the difference between “round” and “trunc”.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="plot-time-series.html#cb148-1"></a>date_time_example<span class="op">$</span>round_mins &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">round</span>(date_time_example<span class="op">$</span>date_time, <span class="st">&quot;mins&quot;</span>))</span>
+<span id="cb148-2"><a href="plot-time-series.html#cb148-2"></a>date_time_example<span class="op">$</span>trunc_mins &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">trunc</span>(date_time_example<span class="op">$</span>date_time, <span class="st">&quot;mins&quot;</span>))</span>
+<span id="cb148-3"><a href="plot-time-series.html#cb148-3"></a></span>
+<span id="cb148-4"><a href="plot-time-series.html#cb148-4"></a>date_time_example<span class="op">$</span>round_hours &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">round</span>(date_time_example<span class="op">$</span>date_time, <span class="st">&quot;hours&quot;</span>))</span>
+<span id="cb148-5"><a href="plot-time-series.html#cb148-5"></a>date_time_example<span class="op">$</span>trunc_hours &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">trunc</span>(date_time_example<span class="op">$</span>date_time, <span class="st">&quot;hours&quot;</span>))</span>
+<span id="cb148-6"><a href="plot-time-series.html#cb148-6"></a></span>
+<span id="cb148-7"><a href="plot-time-series.html#cb148-7"></a>date_time_example<span class="op">$</span>round_days &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">round</span>(date_time_example<span class="op">$</span>date_time, <span class="st">&quot;days&quot;</span>))</span>
+<span id="cb148-8"><a href="plot-time-series.html#cb148-8"></a>date_time_example<span class="op">$</span>trunc_days &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">trunc</span>(date_time_example<span class="op">$</span>date_time, <span class="st">&quot;days&quot;</span>))</span>
+<span id="cb148-9"><a href="plot-time-series.html#cb148-9"></a></span>
+<span id="cb148-10"><a href="plot-time-series.html#cb148-10"></a>date_time_example<span class="op">$</span>round_months &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">round</span>(date_time_example<span class="op">$</span>date_time, <span class="st">&quot;months&quot;</span>))</span>
+<span id="cb148-11"><a href="plot-time-series.html#cb148-11"></a>date_time_example<span class="op">$</span>trunc_months &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">trunc</span>(date_time_example<span class="op">$</span>date_time, <span class="st">&quot;months&quot;</span>))</span>
+<span id="cb148-12"><a href="plot-time-series.html#cb148-12"></a></span>
+<span id="cb148-13"><a href="plot-time-series.html#cb148-13"></a>date_time_example<span class="op">$</span>round_years &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">round</span>(date_time_example<span class="op">$</span>date_time, <span class="st">&quot;years&quot;</span>))</span>
+<span id="cb148-14"><a href="plot-time-series.html#cb148-14"></a>date_time_example<span class="op">$</span>trunc_years &lt;-<span class="st"> </span><span class="kw">as.POSIXct</span>(<span class="kw">trunc</span>(date_time_example<span class="op">$</span>date_time, <span class="st">&quot;years&quot;</span>))</span>
+<span id="cb148-15"><a href="plot-time-series.html#cb148-15"></a></span>
+<span id="cb148-16"><a href="plot-time-series.html#cb148-16"></a><span class="kw">head</span>(<span class="kw">as_tibble</span>(date_time_example))</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 12
+##   date_time             score round_mins          trunc_mins          round_hours        
+##   &lt;dttm&gt;                &lt;dbl&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;dttm&gt;             
+## 1 2012-01-08 21:39:15 0.00406 2012-01-08 21:39:00 2012-01-08 21:39:00 2012-01-08 22:00:00
+## 2 2012-01-10 22:07:54 0.151   2012-01-10 22:08:00 2012-01-10 22:07:00 2012-01-10 22:00:00
+## 3 2012-01-14 11:15:14 0.458   2012-01-14 11:15:00 2012-01-14 11:15:00 2012-01-14 11:00:00
+## 4 2012-01-16 18:30:46 0.486   2012-01-16 18:31:00 2012-01-16 18:30:00 2012-01-16 19:00:00
+## 5 2012-01-18 12:16:56 0.121   2012-01-18 12:17:00 2012-01-18 12:16:00 2012-01-18 12:00:00
+## 6 2012-01-19 16:03:07 0.466   2012-01-19 16:03:00 2012-01-19 16:03:00 2012-01-19 16:00:00
+## # … with 7 more variables: trunc_hours &lt;dttm&gt;, round_days &lt;dttm&gt;, trunc_days &lt;dttm&gt;,
+## #   round_months &lt;dttm&gt;, trunc_months &lt;dttm&gt;, round_years &lt;dttm&gt;, trunc_years &lt;dttm&gt;</code></pre>
+</div>
+<div id="aggregate-observations" class="section level2">
+<h2><span class="header-section-number">6.3</span> Aggregate Observations</h2>
+<p>In time series, the frequency at which observations are taken is assumed to be regular. Unfortunately, very often data are incomplete, or using daily data across many years we can meet leap years with 366 instead of 365 days, and so on.</p>
+<p>To deal with these problems we need strategies. As an example, in presence of daily data spanning many years, we might want to aggregate the observation in months and, for instance, take the average values of the days in each month.</p>
+<p>Aggregate observations is a data manipulation task. We can use both basic R functions or Tidyverse. We now consider a tidyverse approach. We start from the original data frame.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="plot-time-series.html#cb150-1"></a>elections_news_monthly &lt;-<span class="st"> </span>elections_news <span class="op">%&gt;%</span></span>
+<span id="cb150-2"><a href="plot-time-series.html#cb150-2"></a><span class="st">  </span><span class="co"># convert date column in a as.POSIXct format</span></span>
+<span id="cb150-3"><a href="plot-time-series.html#cb150-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as.POSIXct</span>(date)) <span class="op">%&gt;%</span></span>
+<span id="cb150-4"><a href="plot-time-series.html#cb150-4"></a><span class="st">  </span><span class="co"># truncate the date at a monthly level, calling again the as.POSIXct function</span></span>
+<span id="cb150-5"><a href="plot-time-series.html#cb150-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">month =</span> <span class="kw">as.POSIXct</span>(<span class="kw">trunc</span>(date, <span class="st">&quot;month&quot;</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb150-6"><a href="plot-time-series.html#cb150-6"></a><span class="st">  </span><span class="co"># group data by month</span></span>
+<span id="cb150-7"><a href="plot-time-series.html#cb150-7"></a><span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span></span>
+<span id="cb150-8"><a href="plot-time-series.html#cb150-8"></a><span class="st">  </span><span class="co"># summarize the data by using the average</span></span>
+<span id="cb150-9"><a href="plot-time-series.html#cb150-9"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">average_ratio =</span> <span class="kw">mean</span>(ratio))</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="plot-time-series.html#cb151-1"></a><span class="kw">head</span>(elections_news_monthly)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 2
+##   month               average_ratio
+##   &lt;dttm&gt;                      &lt;dbl&gt;
+## 1 2015-01-01 00:00:00       0.0129 
+## 2 2015-02-01 00:00:00       0.0131 
+## 3 2015-03-01 00:00:00       0.0132 
+## 4 2015-04-01 00:00:00       0.0111 
+## 5 2015-05-01 00:00:00       0.0107 
+## 6 2015-06-01 00:00:00       0.00997</code></pre>
+<p>We can look at the start and end date of the series by using the function “head” and “tail”, indicating to extract just 1 value (the first and the last one).</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="plot-time-series.html#cb153-1"></a><span class="kw">head</span>(elections_news_monthly<span class="op">$</span>month, <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;2015-01-01 CET&quot;</code></pre>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="plot-time-series.html#cb155-1"></a><span class="kw">tail</span>(elections_news_monthly<span class="op">$</span>month, <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;2020-12-01 CET&quot;</code></pre>
+<p>Now we can create a “ts” or “xts” time series object with monthly news media data on “elections”. We need to specify the column that contains the data, the time of the first and last observation, and the frequency of the data, which in this case is a monthly frequency.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="plot-time-series.html#cb157-1"></a>elections_news_monthly_ts &lt;-<span class="st"> </span><span class="kw">ts</span>(<span class="dt">data =</span> elections_news_monthly<span class="op">$</span>average_ratio, </span>
+<span id="cb157-2"><a href="plot-time-series.html#cb157-2"></a>                                <span class="dt">start =</span> <span class="kw">c</span>(<span class="dv">2015</span>, <span class="dv">01</span>), <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">2020</span>, <span class="dv">12</span>),</span>
+<span id="cb157-3"><a href="plot-time-series.html#cb157-3"></a>                                <span class="dt">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<p>And here it is our brand-new time series ts object.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="plot-time-series.html#cb158-1"></a>elections_news_monthly_ts</span></code></pre></div>
+<pre><code>##              Jan         Feb         Mar         Apr         May         Jun         Jul
+## 2015 0.012912979 0.013129067 0.013194189 0.011098454 0.010715705 0.009965726 0.009093045
+## 2016 0.011572940 0.012884552 0.014020827 0.014176515 0.015142212 0.012419896 0.012352255
+## 2017 0.014920648 0.015368007 0.015542559 0.015040222 0.014923517 0.014033210 0.012484787
+## 2018 0.014746712 0.016387355 0.019550906 0.018077469 0.020748120 0.018384512 0.020848713
+## 2019 0.020930706 0.021663593 0.023481836 0.024754292 0.026618620 0.015513945 0.014032455
+## 2020 0.015427546 0.017116988 0.012344645 0.009973017 0.009000833 0.011735883 0.013033643
+##              Aug         Sep         Oct         Nov         Dec
+## 2015 0.010513101 0.011176887 0.013368316 0.013037089 0.011173882
+## 2016 0.013319360 0.014525895 0.018165145 0.021795226 0.017023243
+## 2017 0.010990920 0.012142076 0.012965708 0.015048326 0.015074379
+## 2018 0.020813585 0.023878970 0.031206151 0.038497943 0.021428382
+## 2019 0.013579769 0.017183966 0.017279698 0.019885423 0.017271081
+## 2020 0.017377946 0.015818565 0.021178313 0.027026379 0.015476051</code></pre>
+<p>We can plot our time series by using the plot.ts function.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="plot-time-series.html#cb160-1"></a><span class="kw">plot.ts</span>(elections_news_monthly_ts, </span>
+<span id="cb160-2"><a href="plot-time-series.html#cb160-2"></a>     <span class="dt">main =</span> <span class="st">&quot;MediaCloud Data on Elections&quot;</span>,</span>
+<span id="cb160-3"><a href="plot-time-series.html#cb160-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;News Articles&quot;</span>, </span>
+<span id="cb160-4"><a href="plot-time-series.html#cb160-4"></a>     <span class="dt">col =</span> <span class="st">&quot;purple3&quot;</span>,</span>
+<span id="cb160-5"><a href="plot-time-series.html#cb160-5"></a>     <span class="dt">lwd =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+<p>We can also use xts:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="plot-time-series.html#cb161-1"></a>elections_news_monthly_xts &lt;-<span class="st"> </span><span class="kw">xts</span>(<span class="dt">x =</span> elections_news_monthly<span class="op">$</span>average_ratio, </span>
+<span id="cb161-2"><a href="plot-time-series.html#cb161-2"></a>                                  <span class="dt">order.by =</span> elections_news_monthly<span class="op">$</span>month, <span class="dt">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb161-3"><a href="plot-time-series.html#cb161-3"></a></span>
+<span id="cb161-4"><a href="plot-time-series.html#cb161-4"></a><span class="kw">plot.xts</span>(elections_news_monthly_xts, </span>
+<span id="cb161-5"><a href="plot-time-series.html#cb161-5"></a>     <span class="dt">main =</span> <span class="st">&quot;MediaCloud Data on Elections&quot;</span>,</span>
+<span id="cb161-6"><a href="plot-time-series.html#cb161-6"></a>     <span class="dt">ylab=</span><span class="st">&quot;News Articles&quot;</span>, </span>
+<span id="cb161-7"><a href="plot-time-series.html#cb161-7"></a>     <span class="dt">col =</span> <span class="st">&quot;purple3&quot;</span>,</span>
+<span id="cb161-8"><a href="plot-time-series.html#cb161-8"></a>     <span class="dt">lwd =</span> <span class="dv">5</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
+<p>Now, we save our monthly time series object of class “ts” in the folder “data” for further analysis.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="plot-time-series.html#cb162-1"></a><span class="kw">saveRDS</span>(elections_news_monthly_ts, <span class="st">&quot;./data/elections_news_monthly_ts.rds&quot;</span>)</span></code></pre></div>
+</div>
+<div id="incomplete-data-points" class="section level2">
+<h2><span class="header-section-number">6.4</span> Incomplete Data Points</h2>
+<p>Another problem we often have to deal with when we analyze time series is related to incomplete data points. In this case we need to complete the data.</p>
+<p>First of all we need to create the missing date-time slots, if there are any. We are going to fill them with 0 since we consider that point missing just because they have zero events in them. However, this is not necessarily the case, and if they are missing for other reason we should fill them with NA and choose an approach to handle them.</p>
+<p>For instance, the following time series lacks the first four days of the first year of data. Not only the data are missing, but also the time slots.</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="plot-time-series.html#cb163-1"></a>elections_news_incomplete &lt;-<span class="st"> </span>elections_news[<span class="op">-</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>),]</span>
+<span id="cb163-2"><a href="plot-time-series.html#cb163-2"></a></span>
+<span id="cb163-3"><a href="plot-time-series.html#cb163-3"></a><span class="kw">head</span>(elections_news_incomplete)</span></code></pre></div>
+<pre><code>##          date count total_count      ratio
+## 5  2015-01-05   567       39982 0.01418138
+## 6  2015-01-06   626       42366 0.01477600
+## 7  2015-01-07   507       45163 0.01122600
+## 8  2015-01-08   521       44928 0.01159633
+## 9  2015-01-09   531       44041 0.01205695
+## 10 2015-01-10   346       29093 0.01189290</code></pre>
+<p>To create the necessary time slots, we can use the function complete() in the package “tidyverse”.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="plot-time-series.html#cb165-1"></a>elections_news_complete &lt;-<span class="st"> </span>elections_news_incomplete <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb165-2"><a href="plot-time-series.html#cb165-2"></a><span class="st">  </span><span class="kw">complete</span>(<span class="dt">date =</span> <span class="kw">seq</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2015-01-01&quot;</span>), <span class="kw">max</span>(date), <span class="dt">by =</span> <span class="st">&quot;1 day&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb165-3"><a href="plot-time-series.html#cb165-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ratio =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(ratio), <span class="dv">0</span>, ratio))</span></code></pre></div>
+<p>Now we can plot our completed time series using the ggplot() function.
+You can just copy the previous code and change some parameters (first of all the name of the dataset).</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="plot-time-series.html#cb166-1"></a>elections_news_complete <span class="op">%&gt;%</span></span>
+<span id="cb166-2"><a href="plot-time-series.html#cb166-2"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb166-3"><a href="plot-time-series.html#cb166-3"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> ratio), <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="fl">0.75</span>) <span class="op">+</span></span>
+<span id="cb166-4"><a href="plot-time-series.html#cb166-4"></a><span class="st">     </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles&quot;</span>) <span class="op">+</span></span>
+<span id="cb166-5"><a href="plot-time-series.html#cb166-5"></a><span class="st">     </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Daily)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
+</div>
+<div id="plot-many-time-series" class="section level2">
+<h2><span class="header-section-number">6.5</span> Plot Many Time Series</h2>
+<p>You can plot two (or more than two) time series together. This could be useful to have a look at their possible relations. The two time series must have the same starting date, the same ending date, and the same frequency.</p>
+<p>In base R, the time series have to be merged in one “ts” object by using the function ts.union(). You can plot both the time series in the same plot, or create two different plot, by using the option “plot.type”.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="plot-time-series.html#cb167-1"></a>AirPassengers_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dt">x =</span> <span class="kw">length</span>(AirPassengers))</span>
+<span id="cb167-2"><a href="plot-time-series.html#cb167-2"></a></span>
+<span id="cb167-3"><a href="plot-time-series.html#cb167-3"></a>AirPassengers_two_series &lt;-<span class="st"> </span><span class="kw">ts.union</span>(AirPassengers, AirPassengers_<span class="dv">2</span>)</span>
+<span id="cb167-4"><a href="plot-time-series.html#cb167-4"></a></span>
+<span id="cb167-5"><a href="plot-time-series.html#cb167-5"></a><span class="kw">plot.ts</span>(AirPassengers_two_series, </span>
+<span id="cb167-6"><a href="plot-time-series.html#cb167-6"></a>        <span class="dt">main =</span> <span class="st">&quot;MediaCloud Data on Elections (Daily)</span><span class="ch">\n</span><span class="st">and Random Sample&quot;</span>,</span>
+<span id="cb167-7"><a href="plot-time-series.html#cb167-7"></a>        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>), </span>
+<span id="cb167-8"><a href="plot-time-series.html#cb167-8"></a>        <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">lwd=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb167-9"><a href="plot-time-series.html#cb167-9"></a>        <span class="dt">plot.type =</span> <span class="st">&quot;single&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="plot-time-series.html#cb168-1"></a><span class="kw">plot.ts</span>(AirPassengers_two_series, </span>
+<span id="cb168-2"><a href="plot-time-series.html#cb168-2"></a>        <span class="dt">main =</span> <span class="st">&quot;MediaCloud Data on Elections (Daily)</span><span class="ch">\n</span><span class="st">and Random Sample&quot;</span>,</span>
+<span id="cb168-3"><a href="plot-time-series.html#cb168-3"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb168-4"><a href="plot-time-series.html#cb168-4"></a>        <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">1</span>,</span>
+<span id="cb168-5"><a href="plot-time-series.html#cb168-5"></a>        <span class="dt">plot.type =</span> <span class="st">&quot;multiple&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-128-2.png" width="672" /></p>
+<p>To plot the series with ggplot2, we can use the function grid.arrange in the library gridExtra to combine many plots together.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="plot-time-series.html#cb169-1"></a><span class="co"># install.packages(&quot;gridExtra&quot;)</span></span>
+<span id="cb169-2"><a href="plot-time-series.html#cb169-2"></a><span class="kw">library</span>(gridExtra)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="plot-time-series.html#cb172-1"></a>p1 &lt;-<span class="st"> </span>elections_news <span class="op">%&gt;%</span></span>
+<span id="cb172-2"><a href="plot-time-series.html#cb172-2"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb172-3"><a href="plot-time-series.html#cb172-3"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> ratio), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb172-4"><a href="plot-time-series.html#cb172-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (ratio)&quot;</span>) <span class="op">+</span></span>
+<span id="cb172-5"><a href="plot-time-series.html#cb172-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="op">+</span></span>
+<span id="cb172-6"><a href="plot-time-series.html#cb172-6"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Daily)&quot;</span>) </span>
+<span id="cb172-7"><a href="plot-time-series.html#cb172-7"></a></span>
+<span id="cb172-8"><a href="plot-time-series.html#cb172-8"></a>p2 &lt;-<span class="st"> </span>elections_news <span class="op">%&gt;%</span></span>
+<span id="cb172-9"><a href="plot-time-series.html#cb172-9"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb172-10"><a href="plot-time-series.html#cb172-10"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> count), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb172-11"><a href="plot-time-series.html#cb172-11"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (count)&quot;</span>) <span class="op">+</span></span>
+<span id="cb172-12"><a href="plot-time-series.html#cb172-12"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="op">+</span></span>
+<span id="cb172-13"><a href="plot-time-series.html#cb172-13"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Daily)&quot;</span>) </span>
+<span id="cb172-14"><a href="plot-time-series.html#cb172-14"></a></span>
+<span id="cb172-15"><a href="plot-time-series.html#cb172-15"></a><span class="kw">grid.arrange</span>(p1,p2)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
+<p>We can also plot two series in the same plot.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="plot-time-series.html#cb173-1"></a>elections_news <span class="op">%&gt;%</span></span>
+<span id="cb173-2"><a href="plot-time-series.html#cb173-2"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb173-3"><a href="plot-time-series.html#cb173-3"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> ratio<span class="op">*</span><span class="dv">10</span><span class="op">^</span><span class="dv">4</span>), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb173-4"><a href="plot-time-series.html#cb173-4"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> count), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb173-5"><a href="plot-time-series.html#cb173-5"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Black = Ratio (x10^4)</span><span class="ch">\n</span><span class="st">Red = Count&quot;</span>) <span class="op">+</span></span>
+<span id="cb173-6"><a href="plot-time-series.html#cb173-6"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="op">+</span></span>
+<span id="cb173-7"><a href="plot-time-series.html#cb173-7"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Daily)&quot;</span>) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
+<p>Plotting a time series has an important role in a preliminary phase of the analysis.
+A simple plot can give us many information about the nature of our time series.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="plot-time-series.html#cb174-1"></a>elections_news &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/elections-stories-over-time-20210111144254.csv&quot;</span>)</span>
+<span id="cb174-2"><a href="plot-time-series.html#cb174-2"></a>elections_news<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(elections_news<span class="op">$</span>date)</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="plot-time-series.html#cb175-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb175-2"><a href="plot-time-series.html#cb175-2"></a></span>
+<span id="cb175-3"><a href="plot-time-series.html#cb175-3"></a>elections_news_monthly &lt;-<span class="st"> </span>elections_news <span class="op">%&gt;%</span></span>
+<span id="cb175-4"><a href="plot-time-series.html#cb175-4"></a><span class="st">  </span><span class="co"># convert date column in a as.POSIXct format</span></span>
+<span id="cb175-5"><a href="plot-time-series.html#cb175-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as.POSIXct</span>(date)) <span class="op">%&gt;%</span></span>
+<span id="cb175-6"><a href="plot-time-series.html#cb175-6"></a><span class="st">  </span><span class="co"># truncate the date at a monthly level, calling again the as.POSIXct function</span></span>
+<span id="cb175-7"><a href="plot-time-series.html#cb175-7"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">month =</span> <span class="kw">as.POSIXct</span>(<span class="kw">trunc</span>(date, <span class="st">&quot;month&quot;</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb175-8"><a href="plot-time-series.html#cb175-8"></a><span class="st">  </span><span class="co"># group data by month</span></span>
+<span id="cb175-9"><a href="plot-time-series.html#cb175-9"></a><span class="st">  </span><span class="kw">group_by</span>(month) <span class="op">%&gt;%</span></span>
+<span id="cb175-10"><a href="plot-time-series.html#cb175-10"></a><span class="st">  </span><span class="co"># summarize the data by using the average</span></span>
+<span id="cb175-11"><a href="plot-time-series.html#cb175-11"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">average_ratio =</span> <span class="kw">mean</span>(ratio))</span></code></pre></div>
+</div>
+<div id="moving-average-visualization" class="section level2">
+<h2><span class="header-section-number">6.6</span> Moving Average Visualization</h2>
+<p>First of all, we can see that plotting our time series at different resolutions (i.e., days and months) results in more (daily) or less (monthly) complex or “noisy” series. Aggregating daily values by taking their average (in this case) the series becomes easier to read. Its general characteristics become more evident (at the expenses of details).</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="plot-time-series.html#cb176-1"></a>daily_series &lt;-<span class="st"> </span><span class="kw">ggplot</span>(elections_news) <span class="op">+</span></span>
+<span id="cb176-2"><a href="plot-time-series.html#cb176-2"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> ratio), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb176-3"><a href="plot-time-series.html#cb176-3"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (Ratio)&quot;</span>) <span class="op">+</span></span>
+<span id="cb176-4"><a href="plot-time-series.html#cb176-4"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span></span>
+<span id="cb176-5"><a href="plot-time-series.html#cb176-5"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Daily)&quot;</span>) </span>
+<span id="cb176-6"><a href="plot-time-series.html#cb176-6"></a></span>
+<span id="cb176-7"><a href="plot-time-series.html#cb176-7"></a>monthly_series &lt;-<span class="st"> </span><span class="kw">ggplot</span>(elections_news_monthly) <span class="op">+</span></span>
+<span id="cb176-8"><a href="plot-time-series.html#cb176-8"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> average_ratio), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb176-9"><a href="plot-time-series.html#cb176-9"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (Ratio)&quot;</span>) <span class="op">+</span></span>
+<span id="cb176-10"><a href="plot-time-series.html#cb176-10"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span></span>
+<span id="cb176-11"><a href="plot-time-series.html#cb176-11"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Monthly)&quot;</span>) </span>
+<span id="cb176-12"><a href="plot-time-series.html#cb176-12"></a></span>
+<span id="cb176-13"><a href="plot-time-series.html#cb176-13"></a>gridExtra<span class="op">::</span><span class="kw">grid.arrange</span>(daily_series, monthly_series, <span class="dt">nrow=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
+<p>In this respect, a common method for time series visualization is <strong>moving average</strong>. This approach replace each value with the average of the close values. A central element in moving average is the “width of the window”, which differentiates different moving average approaches.</p>
+<ul>
+<li>Centered moving average, based on a window centered around time <em>t</em> (a few days before and after time t)</li>
+<li>Trailing moving average, based on a window form time <em>t</em> and backwards</li>
+</ul>
+<p>By using the moving average we try to remove noise (the random component) from the time series as well as cyclical oscillations (the seasonal and cyclic component) that make the series more difficult to interpret. By doing so, we allow some characteristics of the series, and specifically the trend and level of the series, to show up.</p>
+<p>To calculate the moving average we need to install and load the package “zoo”, and use the function “rollmean”. We try to use a 12 months windows with this monthly data.</p>
+<p>As you can see, the moving average series is truncated at the beginning and at the end of the series. This is due to the fact that the centered moving average method needs 6 months before and after each data point, so the moving average is not defined for the first and last 6 data points.</p>
+<p>By looking at the moving average lines, you can now clearly see an oscillation in the series, which increases in the second half of 2016, the again in the second half of 2018 and the first half of 2019 (and then peak out again in the second half of 2020).</p>
+<p>How can we interpret these peak in the U.S. news media articles mentioning the term “elections”? Well, we know that on November 8, 2016, and November 6, 2018 (and also on November 3, 2020) were held the United States elections.</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="plot-time-series.html#cb177-1"></a><span class="co"># install.packages(&quot;zoo&quot;)</span></span>
+<span id="cb177-2"><a href="plot-time-series.html#cb177-2"></a><span class="kw">library</span>(zoo)</span>
+<span id="cb177-3"><a href="plot-time-series.html#cb177-3"></a></span>
+<span id="cb177-4"><a href="plot-time-series.html#cb177-4"></a>elections_news_monthly <span class="op">%&gt;%</span></span>
+<span id="cb177-5"><a href="plot-time-series.html#cb177-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ratio_rollmean =</span> <span class="kw">rollmean</span>(average_ratio, <span class="dv">12</span>, <span class="dt">fill =</span> <span class="ot">NA</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb177-6"><a href="plot-time-series.html#cb177-6"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb177-7"><a href="plot-time-series.html#cb177-7"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> average_ratio), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb177-8"><a href="plot-time-series.html#cb177-8"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> ratio_rollmean), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb177-9"><a href="plot-time-series.html#cb177-9"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (Ratio)&quot;</span>) <span class="op">+</span></span>
+<span id="cb177-10"><a href="plot-time-series.html#cb177-10"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Month&quot;</span>) <span class="op">+</span></span>
+<span id="cb177-11"><a href="plot-time-series.html#cb177-11"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Monthly)</span><span class="ch">\n</span><span class="st">Moving Average Chart&quot;</span>) </span></code></pre></div>
+<pre><code>## Warning: Removed 11 row(s) containing missing values (geom_path).</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
+</div>
+<div id="zooming" class="section level2">
+<h2><span class="header-section-number">6.7</span> Zooming</h2>
+<p>When the series is long, it can be useful to zoom in to examine more closely a shorter time windows. With reference to our monthly time series of news on elections, we could zoom in the second part of 2016, 2018, and 2020.</p>
+<p>To focus on a shorter time window, we can subset the data by using the function “filter”, and saying we want the data corresponding to 2016, or 2017, or also more specific time frame such as between January and March 2018. Besides filtering the data, we add a function “scale_x_datetime”, which control the labels on the x-axis, specifying we want monthly labels.</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="plot-time-series.html#cb179-1"></a>elections_news_monthly <span class="op">%&gt;%</span></span>
+<span id="cb179-2"><a href="plot-time-series.html#cb179-2"></a><span class="st">  </span><span class="kw">filter</span>(month <span class="op">&gt;=</span><span class="st"> &quot;2016-01-01&quot;</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;</span><span class="st"> &quot;2017-01-01&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb179-3"><a href="plot-time-series.html#cb179-3"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb179-4"><a href="plot-time-series.html#cb179-4"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> average_ratio), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb179-5"><a href="plot-time-series.html#cb179-5"></a><span class="st">  </span><span class="kw">scale_x_datetime</span>(<span class="dt">breaks=</span><span class="st">&quot;month&quot;</span>) <span class="op">+</span></span>
+<span id="cb179-6"><a href="plot-time-series.html#cb179-6"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (Ratio)&quot;</span>) <span class="op">+</span></span>
+<span id="cb179-7"><a href="plot-time-series.html#cb179-7"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span></span>
+<span id="cb179-8"><a href="plot-time-series.html#cb179-8"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Monthly) - 2016&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="plot-time-series.html#cb180-1"></a>elections_news_monthly <span class="op">%&gt;%</span></span>
+<span id="cb180-2"><a href="plot-time-series.html#cb180-2"></a><span class="st">  </span><span class="kw">filter</span>(month <span class="op">&gt;=</span><span class="st"> &quot;2017-01-01&quot;</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;</span><span class="st"> &quot;2018-01-01&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb180-3"><a href="plot-time-series.html#cb180-3"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb180-4"><a href="plot-time-series.html#cb180-4"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> average_ratio), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb180-5"><a href="plot-time-series.html#cb180-5"></a><span class="st">  </span><span class="kw">scale_x_datetime</span>(<span class="dt">breaks=</span><span class="st">&quot;month&quot;</span>) <span class="op">+</span></span>
+<span id="cb180-6"><a href="plot-time-series.html#cb180-6"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (Ratio)&quot;</span>) <span class="op">+</span></span>
+<span id="cb180-7"><a href="plot-time-series.html#cb180-7"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span></span>
+<span id="cb180-8"><a href="plot-time-series.html#cb180-8"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Monthly) - 2017&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-135-2.png" width="672" /></p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="plot-time-series.html#cb181-1"></a>elections_news_monthly <span class="op">%&gt;%</span></span>
+<span id="cb181-2"><a href="plot-time-series.html#cb181-2"></a><span class="st">  </span><span class="kw">filter</span>(month <span class="op">&gt;=</span><span class="st"> &quot;2018-01-01&quot;</span> <span class="op">&amp;</span><span class="st"> </span>month <span class="op">&lt;=</span><span class="st"> &quot;2018-03-01&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb181-3"><a href="plot-time-series.html#cb181-3"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb181-4"><a href="plot-time-series.html#cb181-4"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> average_ratio), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb181-5"><a href="plot-time-series.html#cb181-5"></a><span class="st">  </span><span class="kw">scale_x_datetime</span>(<span class="dt">breaks=</span><span class="st">&quot;month&quot;</span>) <span class="op">+</span></span>
+<span id="cb181-6"><a href="plot-time-series.html#cb181-6"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (Ratio)&quot;</span>) <span class="op">+</span></span>
+<span id="cb181-7"><a href="plot-time-series.html#cb181-7"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span></span>
+<span id="cb181-8"><a href="plot-time-series.html#cb181-8"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Monthly) - January-March 2018&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-135-3.png" width="672" /></p>
+<p>We could also divide the time frame into different parts and visualizing all these part together. For instance, we may want to visualize the data by year. To do so:</p>
+<ul>
+<li>We create a new variable corresponding to years, first, and then we plot the graph adding the function “facet_wrap” and indicating the variable “Year” we have just created. The function facet_wrap splits the plot into many different plots according to the requested variable.</li>
+<li>To visualize correctly our data we also need to add the option “scales =”free_x"" into facet_wrap, to visualize the x-axis with an appropriate scale</li>
+<li>We also add the option “date_labels” into “scale_x_datetime” to change the format of the label to a more appropriate format (in this case we are interested just in the month so we use the code “%b”. See here the codes for different date and time formats <a href="https://www.stat.berkeley.edu/~s133/dates.html" class="uri">https://www.stat.berkeley.edu/~s133/dates.html</a>).</li>
+<li>Finally, since we have many labels, we rotate them using the function “theme” specyfing the appropriate arguments</li>
+</ul>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="plot-time-series.html#cb182-1"></a><span class="co"># incomplete code</span></span>
+<span id="cb182-2"><a href="plot-time-series.html#cb182-2"></a>elections_news_monthly <span class="op">%&gt;%</span></span>
+<span id="cb182-3"><a href="plot-time-series.html#cb182-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Year =</span> <span class="kw">as.POSIXct</span>(<span class="kw">trunc</span>(month, <span class="st">&quot;year&quot;</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb182-4"><a href="plot-time-series.html#cb182-4"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb182-5"><a href="plot-time-series.html#cb182-5"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> average_ratio), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb182-6"><a href="plot-time-series.html#cb182-6"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Year) <span class="op">+</span></span>
+<span id="cb182-7"><a href="plot-time-series.html#cb182-7"></a><span class="st">  </span><span class="kw">scale_x_datetime</span>(<span class="dt">breaks=</span><span class="st">&quot;month&quot;</span>) <span class="op">+</span></span>
+<span id="cb182-8"><a href="plot-time-series.html#cb182-8"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (Ratio)&quot;</span>) <span class="op">+</span></span>
+<span id="cb182-9"><a href="plot-time-series.html#cb182-9"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span></span>
+<span id="cb182-10"><a href="plot-time-series.html#cb182-10"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Monthly)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-136-1.png" width="672" /></p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="plot-time-series.html#cb183-1"></a><span class="co"># complete code</span></span>
+<span id="cb183-2"><a href="plot-time-series.html#cb183-2"></a>elections_news_monthly <span class="op">%&gt;%</span></span>
+<span id="cb183-3"><a href="plot-time-series.html#cb183-3"></a><span class="st">  </span><span class="co"># create a new variable Year to split the data accordingly</span></span>
+<span id="cb183-4"><a href="plot-time-series.html#cb183-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Year =</span> <span class="kw">as.POSIXct</span>(<span class="kw">trunc</span>(month, <span class="st">&quot;year&quot;</span>))) <span class="op">%&gt;%</span></span>
+<span id="cb183-5"><a href="plot-time-series.html#cb183-5"></a><span class="st">  </span><span class="co"># ... and format it by keeping just the year value (i.e. 2016, 2017 etc.)</span></span>
+<span id="cb183-6"><a href="plot-time-series.html#cb183-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Year =</span> <span class="kw">format</span>(Year, <span class="st">&quot;%Y&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb183-7"><a href="plot-time-series.html#cb183-7"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb183-8"><a href="plot-time-series.html#cb183-8"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> average_ratio), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb183-9"><a href="plot-time-series.html#cb183-9"></a><span class="st">  </span><span class="co"># split the plot in differnt plots by years, using appropriate x-axis scales</span></span>
+<span id="cb183-10"><a href="plot-time-series.html#cb183-10"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Year, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>) <span class="op">+</span></span>
+<span id="cb183-11"><a href="plot-time-series.html#cb183-11"></a><span class="st">  </span><span class="co"># label the x axis with month in the format %b</span></span>
+<span id="cb183-12"><a href="plot-time-series.html#cb183-12"></a><span class="st">  </span><span class="kw">scale_x_datetime</span>(<span class="dt">breaks=</span><span class="st">&quot;month&quot;</span>, <span class="dt">date_labels =</span> <span class="st">&quot;%b&quot;</span>) <span class="op">+</span></span>
+<span id="cb183-13"><a href="plot-time-series.html#cb183-13"></a><span class="st">  </span><span class="co"># rotate the x lables</span></span>
+<span id="cb183-14"><a href="plot-time-series.html#cb183-14"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span></span>
+<span id="cb183-15"><a href="plot-time-series.html#cb183-15"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (Ratio)&quot;</span>) <span class="op">+</span></span>
+<span id="cb183-16"><a href="plot-time-series.html#cb183-16"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span></span>
+<span id="cb183-17"><a href="plot-time-series.html#cb183-17"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Monthly)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-136-2.png" width="672" /></p>
+<p>Now we can see better the peaks, which are on November 2016, November 2018, May 2019, and November 2020.
+The peaks in November coincide with the US Presidential elections (including the mid-term elections), and the peak in May 2019 may correspond to the Pennsylvania’s 12th congressional district special election (May 21) to fill vacancies during the 116th U.S. Congress.</p>
+</div>
+<div id="find-and-annotate-peaks" class="section level2">
+<h2><span class="header-section-number">6.8</span> Find and Annotate Peaks</h2>
+<p>Once we have detected peaks - unusual changes often due to some external phenomena that impact on the time series, which attract our attention and requires an explanation, it is a common practice to label the time series chart with a few words to indicate the phenomenon with which the peak is associated to make it more informative.</p>
+<p>We can extract the highest values through a few lines of code to be sure of where the peaks are located. The data can add additional information to what previous deducted just by looking at the plot. In this example we are going to label just label a few peaks.</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="plot-time-series.html#cb184-1"></a>elections_news_monthly <span class="op">%&gt;%</span></span>
+<span id="cb184-2"><a href="plot-time-series.html#cb184-2"></a><span class="st">  </span><span class="kw">slice_max</span>(average_ratio, <span class="dt">n=</span><span class="dv">15</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 15 x 2
+##    month               average_ratio
+##    &lt;dttm&gt;                      &lt;dbl&gt;
+##  1 2018-11-01 00:00:00        0.0385
+##  2 2018-10-01 00:00:00        0.0312
+##  3 2020-11-01 00:00:00        0.0270
+##  4 2019-05-01 00:00:00        0.0266
+##  5 2019-04-01 00:00:00        0.0248
+##  6 2018-09-01 00:00:00        0.0239
+##  7 2019-03-01 00:00:00        0.0235
+##  8 2016-11-01 00:00:00        0.0218
+##  9 2019-02-01 00:00:00        0.0217
+## 10 2018-12-01 00:00:00        0.0214
+## 11 2020-10-01 00:00:00        0.0212
+## 12 2019-01-01 00:00:00        0.0209
+## 13 2018-07-01 00:00:00        0.0208
+## 14 2018-08-01 00:00:00        0.0208
+## 15 2018-05-01 00:00:00        0.0207</code></pre>
+<p>To create the annotation in ggplot we use the function “annotate”, to label the data point, and “geom_segment”, to trace a line that connects the data point to the label.</p>
+<p>You can learn more about annotation in ggplot here: <a href="https://ggplot2-book.org/annotations.html" class="uri">https://ggplot2-book.org/annotations.html</a>
+And about lines here: <a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="uri">https://ggplot2.tidyverse.org/reference/geom_segment.html</a></p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="plot-time-series.html#cb186-1"></a>elections_news_monthly <span class="op">%&gt;%</span></span>
+<span id="cb186-2"><a href="plot-time-series.html#cb186-2"></a><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb186-3"><a href="plot-time-series.html#cb186-3"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> month, <span class="dt">y =</span> average_ratio), <span class="dt">col =</span> <span class="st">&quot;grey20&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb186-4"><a href="plot-time-series.html#cb186-4"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.06</span>)) <span class="op">+</span></span>
+<span id="cb186-5"><a href="plot-time-series.html#cb186-5"></a><span class="st">  </span><span class="co"># 1 EVENT</span></span>
+<span id="cb186-6"><a href="plot-time-series.html#cb186-6"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;label&quot;</span>, <span class="dt">x =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2018-11-01&quot;</span>), <span class="dt">y =</span> <span class="fl">0.058</span>, </span>
+<span id="cb186-7"><a href="plot-time-series.html#cb186-7"></a>           <span class="dt">label =</span> <span class="st">&quot;Midterm Elections</span><span class="ch">\n</span><span class="st">November 2018&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb186-8"><a href="plot-time-series.html#cb186-8"></a><span class="st">  </span><span class="co"># add a line. You can also use an arrow by adding in geom_segment: </span></span>
+<span id="cb186-9"><a href="plot-time-series.html#cb186-9"></a><span class="st">  </span><span class="co"># arrow = line(length = unit(0.2, &quot;cm&quot;), ends = &quot;last&quot;) </span></span>
+<span id="cb186-10"><a href="plot-time-series.html#cb186-10"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2018-11-01&quot;</span>), <span class="dt">xend =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2018-11-01&quot;</span>), <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">yend =</span> <span class="fl">0.054</span>), </span>
+<span id="cb186-11"><a href="plot-time-series.html#cb186-11"></a>               <span class="dt">color =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">linetype =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb186-12"><a href="plot-time-series.html#cb186-12"></a><span class="st">  </span><span class="co"># 2 EVENT</span></span>
+<span id="cb186-13"><a href="plot-time-series.html#cb186-13"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;label&quot;</span>, <span class="dt">x =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2019-05-01&quot;</span>), <span class="dt">y =</span> <span class="fl">0.045</span>, </span>
+<span id="cb186-14"><a href="plot-time-series.html#cb186-14"></a>           <span class="dt">label =</span> <span class="st">&quot;Pennsylvania Elections</span><span class="ch">\n</span><span class="st">May 2019&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb186-15"><a href="plot-time-series.html#cb186-15"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2019-05-01&quot;</span>), <span class="dt">xend =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2019-05-01&quot;</span>), <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">yend =</span> <span class="fl">0.041</span>), </span>
+<span id="cb186-16"><a href="plot-time-series.html#cb186-16"></a>               <span class="dt">color =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">linetype =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb186-17"><a href="plot-time-series.html#cb186-17"></a><span class="st">  </span><span class="co"># 3 EVENT</span></span>
+<span id="cb186-18"><a href="plot-time-series.html#cb186-18"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;label&quot;</span>, <span class="dt">x =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2016-11-01&quot;</span>), <span class="dt">y =</span> <span class="fl">0.030</span>, </span>
+<span id="cb186-19"><a href="plot-time-series.html#cb186-19"></a>           <span class="dt">label =</span> <span class="st">&quot;Presidential Elections</span><span class="ch">\n</span><span class="st">November 2016&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb186-20"><a href="plot-time-series.html#cb186-20"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2016-11-01&quot;</span>), <span class="dt">xend =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2016-11-01&quot;</span>), <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">yend =</span> <span class="fl">0.027</span>), </span>
+<span id="cb186-21"><a href="plot-time-series.html#cb186-21"></a>               <span class="dt">color =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">linetype =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb186-22"><a href="plot-time-series.html#cb186-22"></a><span class="st">  </span><span class="co"># 4 EVENT</span></span>
+<span id="cb186-23"><a href="plot-time-series.html#cb186-23"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;label&quot;</span>, <span class="dt">x =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2020-11-01&quot;</span>), <span class="dt">y =</span> <span class="fl">0.038</span>, </span>
+<span id="cb186-24"><a href="plot-time-series.html#cb186-24"></a>           <span class="dt">label =</span> <span class="st">&quot;Presidential</span><span class="ch">\n</span><span class="st">Elections</span><span class="ch">\n</span><span class="st">Novemeber</span><span class="ch">\n</span><span class="st">2020&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb186-25"><a href="plot-time-series.html#cb186-25"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2020-11-01&quot;</span>), <span class="dt">xend =</span> <span class="kw">as.POSIXct</span>(<span class="st">&quot;2020-11-01&quot;</span>), <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">yend =</span> <span class="fl">0.035</span>), </span>
+<span id="cb186-26"><a href="plot-time-series.html#cb186-26"></a>               <span class="dt">color =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">linetype =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb186-27"><a href="plot-time-series.html#cb186-27"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles&quot;</span>) <span class="op">+</span></span>
+<span id="cb186-28"><a href="plot-time-series.html#cb186-28"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="op">+</span></span>
+<span id="cb186-29"><a href="plot-time-series.html#cb186-29"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Monthly)&quot;</span>) <span class="op">+</span></span>
+<span id="cb186-30"><a href="plot-time-series.html#cb186-30"></a><span class="st">  </span><span class="co"># We can add a subtitle adn a caption</span></span>
+<span id="cb186-31"><a href="plot-time-series.html#cb186-31"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;MediaCloud Data on Elections (Monthly)&quot;</span>,</span>
+<span id="cb186-32"><a href="plot-time-series.html#cb186-32"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Peaks annotated with relevant political events&quot;</span>,</span>
+<span id="cb186-33"><a href="plot-time-series.html#cb186-33"></a>       <span class="dt">caption =</span> <span class="st">&quot;Chart made in the Advanced Data Analysis Course</span></span>
+<span id="cb186-34"><a href="plot-time-series.html#cb186-34"></a><span class="st">                  University of Vienna&quot;</span>) <span class="op">+</span></span>
+<span id="cb186-35"><a href="plot-time-series.html#cb186-35"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;grey80&quot;</span>),</span>
+<span id="cb186-36"><a href="plot-time-series.html#cb186-36"></a>        <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb186-37"><a href="plot-time-series.html#cb186-37"></a>        <span class="dt">plot.subtitle =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb186-38"><a href="plot-time-series.html#cb186-38"></a>        <span class="dt">plot.caption =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&quot;italic&quot;</span>)) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-138-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="time-series-objects.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="readings.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/edit/master/05-Plot-Time-Series.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/blob/master/05-Plot-Time-Series.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
