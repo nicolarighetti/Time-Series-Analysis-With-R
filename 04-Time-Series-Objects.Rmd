@@ -8,34 +8,31 @@ In R there are many different types of object. To get an overview you can refer 
 
 Time series data sets in R can be represented by different objects and structures. Specific *libraries*, which are coherent collections of functions, can give different structures to time series data sets. To create these different objects and structures, different libraries follow different syntactic rules, usually specific to each library. 
 
-There are many R libraries for handling and working on time series objects. Some of them are more general and other are useful to perform very specific analysis.  [On this page](https://cran.r-project.org/web/views/TimeSeries.html) you can find a comprehensive list of the R libraries for time series analysis.
+There are many R libraries for handling and working with time series objects. Some of them are more general and other are useful to perform very specific analysis.  [On this page](https://cran.r-project.org/web/views/TimeSeries.html) you can find a comprehensive list of the R libraries for time series analysis.
 
-For now, we just need to know that different libraries create different structures which can be further manipulated through different functions. This means that not all the objects can be analyzed with all the available functions, as well as that R libraries are not always compatible with each other. Many functions have been developed with reference to specific libraries and objects, or requires a particular object structure, and they work only in that specific framework. As a consequence, creating a time series object with a certain structure or a certain library can imply that we can use some functions, but not others, and perform a certain type of analysis, but not other. For example, we could plot the time series only by using a specific function, with its points of strength and weakness.
-
-Since specific type of objects could introduce specific constrains to data analysis and visualization, it could be wise for a researcher to plan in advance the necessary analysis, and to select the necessary functions and libraries. 
+For now, we just need to know that different libraries create different structures which can be manipulated through different functions. This means that not all the objects can be analyzed with all the available functions, as well as that R libraries are not always compatible with each other. Many functions have been developed with reference to specific libraries and objects, or require a particular object structure. As a consequence, creating a time series object with a certain structure or a certain library can imply that we can use just some functions and perform just a certain type of analysis. In other words, specific type of objects could introduce specific **constrains to data analysis** (and visualization), so it could be wise to plan in advance the necessary analyses, so as to select the necessary libraries and data structure.
 
 We now introduce three types of objects that are commonly used to store and analyze time series data:
-*   The *data.frame* (in base R)
-*   The *ts* object (in base R)
-*   The *xts/zoo* object (created through the library *xts*).
+
+*   The **data.frame** (in base R)
+*   The **ts** object (in base R)
+*   The **xts** object (created through the library *xts*).
 
 We analyze the structures of these objects and their strengths and limitations. In the next chapter, we'll also learn the methods available to visualize them.
 
 ### Time Series as Data Frames
 
-Data frames (*data.frame*) are the most common data set structure in R. A data.frame is simply a table *cases by variables* in which each row is a case (for instance a subject, a tweet, a text, a news article), and each column is a variable containing the values of the cases. 
+Data frames (*data.frame*) are the most common data set structure in R. A data.frame is simply a table *cases by variables* (each row is a case and each column is a variable). 
 
-A data.frame structure can contain numbers, unordered or ordered categorical variables (*factors*), and characters (textual data). This is a frequent structure, and looks like an Excel sheet.
+To see an example of data.frame containing time series data, we can upload a data set containing the number of news articles mentioning the keyword "elections" published by USA news media. I retrieved this data set from [MediaCloud](https://mediacloud.org), a free and open source platform for studying media ecosystem that tracks millions of stories published online. You can download the data set [at this link](https://drive.google.com/file/d/1vzpdPFb_ihBlqqbHxJS7mEvzQ3tNhmEm/view?usp=sharing).
 
-To see an example of data.frame containing time series data, we can upload a data set containing the number of news articles mentioning the keyword "elections" published by USA news media. I retrieved this data set from [MediaCloud](https://mediacloud.org), a free and open source platform for studying media ecosystem that tracks millions of stories published online. You can register to the platform for free, and get a lot of interesting data. This data source might be useful to your projects, so take a look at it!
-
-The file we are going to upload is a *csv* file. We upload it by using the function **read.csv**. The main argument of the read.csv function, to be written within parentheses, is the path of the file (see the previous paragraph on data management). 
+We can upload the *.csv* file by using the function **read.csv**. The main argument of the read.csv function is the path of the file. 
 
 ```{r}
 elections_news <- read.csv("./data/elections-stories-over-time-20210111144254.csv")
 ```
 
-By using the function *class* we can see that this is a data.frame. 
+By using the function **class** we can see that this is a data.frame. 
 
 ```{r}
 class(elections_news)
@@ -47,17 +44,17 @@ We can check the first few rows of the data.frame by using the function **head**
 head(elections_news)
 ```
 
-This data.frame contains time series data: the first column contains dates, and the other columns contain values associated with these dates. We can also see that the data.frame seems to contain daily data, where each row corresponds to a specific day and includes, in the column "count", the number of news articles mentioning the keyword "elections" (as tracked by MediaCloud among its monitored newspapers). In the column "total_count" there is the total number of news articles *on every topic* tracked by the platform. Finally, the column "ratio" contains the proportion of news articles mentioning the keyword ("count" divided by "total_count").
+This data.frame contains time series data: the first column contains dates, and the other columns contain the values of the observations. We can also see that the data.frame seems to contain daily data, where each row corresponds to a specific day. The data frame also includes, in the column "count", the number of news articles mentioning the keyword "elections", in the column "total_count", the total number of news articles on *all the topics*, and in the column "ratio" the proportion of news articles mentioning the keyword (count/total_count).
 
-The function *head* to check the first few rows of a data.frame, as well as the function *tail* to read the last few rows if it, could be impractical to use with data.frame including a lot of columns. In this case, it could be better to use, first, the function **str** to check the structure of the data.frame.
+The function *head* (and *tail*) can be impractical with data.frame including a lot of columns, so it could be better to use the function **str** to check the structure of the data.frame.
 
 ```{r}
 str(elections_news)
 ```
 
-In the same way that R has objects of different class (*data.frame*, *matrix*, *lists*, and so on), the variables stored in a data.frame can be of different types. As you can see in the structure of the above data.frame, the format of the column date is *Factor*, the format of the variable "count" and "total_count" is *int*, which stands for *integer*, and the format of the "ratio" column is *num*, which stays for *numeric*. These formats were automatically attributed by R based on a guess when the data set was imported, but they can be specified before importing the data. It can also specified after having imported the data set.
+As you can see in the output of the function *str*, the format of the column date is *Factor*. The format is, in this case, automatically attributed by R, but (as we have already said) can be specified before importing the data.
 
-Considering the "date" column, we can observe that a *factor* is not the most appropriate format for dates. It is suitable for categorical variables, but R includes a specific format for dates and times. In this case we have just a date, so we can convert it to a variable of type *date*. We can change the format of the variable by using the function **as.Date**. We want to be sure to *update* the format of the column "date", so firts we call the column we want to transform by writing the name of the data.frame followed by the *dollar signs $* and the *column name*. Then we write the *arrow sign <-* to save the new values in the column "date". Then, we apply the function *as.Date* to the column we want to change.
+*Factor* is appropriate for categorical variables, but R includes a specific format for dates and times. In this case we have just a date, so we can convert it to a variable of type *date*. We can change the format of the variable by using the function **as.Date**.
 
 ```{r}
 elections_news$date <- as.Date(elections_news$date)
@@ -67,7 +64,7 @@ elections_news$date <- as.Date(elections_news$date)
 str(elections_news)
 ```
 
-We could have performed the same operation with tidyverse, using the function **mutate**.
+We can also perform the operation with tidyverse, using the function **mutate**.
 
 ```{r}
 library(tidyverse)
@@ -76,13 +73,13 @@ elections_news <- elections_news %>%
   mutate(date = as.Date(date))
 ```
 
-A data.frame is the common format for data sets, including time series data sets. We can do many things with data stored in this format, such as creating plots and performing various types of analysis. However, not all the analyses, and more specifically, not all the time series analyses, are feasible with this data structure. To handle time series in R, there are also specific data formats.
+A data.frame is the common format for data sets, including time series data sets. We can do many things with data stored in this format, such as creating plots and performing various types of analysis. However, to handle time series in R there are more specific data formats.
 
 ### Time Series as TS objects
 
-The basic object specifically created to handle time series in base R is the object of class *ts*. The name stands for "Time Series". 
+The basic object created to handle time series in R is the object of class *ts*. The name stands for "Time Series". 
 
-An example of ts object is already present in R under the name of "AirPassengers", a time series data set in ts format. We can load this data set by using the function **data** including by the name of this data set in parentheses.
+An example of ts object is already present in R under the name of "AirPassengers", a time series data set in ts format. We can load this data set by using the function **data**.
 
 ```{r}
 data(AirPassengers)
@@ -110,7 +107,7 @@ The AirPassengers data set is a univariate time series representing monthly tota
 
 All this characteristics differentiate a ts object from a data.frame. The structure of a data.frame lacks the start and the end date, as well as the frequency.
 
-The functions *start*, *end*, and *frequency*, can be applied to a *ts* object to check their values. We started by saying that some functions work with some objects but not with other types of objects. This is an example. These functions, indeed, works with *ts* objects just because they are part of their structures, and are arguments usually made explicit when this kind of object is created. They do not work if applied to a data.frame object, since a data.frame structure does not include the start and end date, nor the frequency of  observations. It can be seen that the ts structure is much more specific for time series compared to a generic data.frame. 
+The functions **start**, **end**, and **frequency**, can be applied to a *ts* object to check their values. We started by saying that some functions work with some objects but not with other types of objects. This is an example. These functions, indeed, works with *ts* objects just because they are part of their structures, and are arguments usually made explicit when this kind of object is created. They do not work if applied to a data.frame object, since a data.frame structure does not include the start and end date, nor the frequency of observations. It can be seen that the ts structure is much more specific for time series compared to a generic data.frame. 
 
 ```{r}
 start(AirPassengers)[1]
@@ -118,9 +115,9 @@ end(AirPassengers)[1]
 frequency(AirPassengers)[1]
 ```
 
-Importantly, the frequency of a time series is assumed to be regular over time. This applies to time series in general, and not just to ts objects. In this case, the time series starts on January 1949 and ends on December 1969, and has a *monthly* frequency. A monthly frequency is indicated in *ts* as "12", meaning 12 months. Indeed, the reference unit of a ts object is a year. So, quarterly data have to be specified, for instance, as having a frequency equal to 4.
+Importantly, the frequency of a time series is assumed to be **regular** over time. This applies to time series in general, and not just to ts objects. In this case, the time series starts on January 1949 and ends on December 1969, and has *monthly* frequency. Monthly frequency is indicated in *ts* as "12", meaning 12 months. Indeed, the reference unit of a ts object is a year. So, quarterly data, for instance, have frequency equal to 4.
 
-To create a ts object is necessary to follow specific steps and use specific functions. To exemplify the process of creation of a ts object we take the example of the data contained in the AirPassengers data set, and store them in a data.frame. A data.frame is the data set format you will probably start with, since this is the standard format when you import a table of data in R. So it can be useful to see how to create a ts object starting from a data.frame.
+To create a ts object is necessary to follow specific steps and use specific functions. To exemplify the process of creation of a ts object we take the example of the data contained in the AirPassengers data set, and store them in a data.frame (you don't need to learn how to do that, just copy and paste the code). A data.frame is the data set format you will probably start with, so it can be useful to see how to create a ts object starting from a data.frame.
 
 ```{r}
 date <- seq.Date(from = as.Date("1949-01-01"), 
@@ -152,7 +149,9 @@ ts_format
 class(ts_format)
 ```
 
-It's important to notice that yearly, quarterly, and monthly data work fine with the *ts* structure, but more fine grained data create complications and are not totally suitable for a ts structure. This is due to the fact that time series objects require the frequency of observations to be regular and *ts* takes as reference a year. This means that the frequency of the time series has to be regular with reference to a year. Unfortunately, a time series that spans over many years cannot be composed of a constant number of days as ts would require, since the number of days will be sometimes 365 and other time 366, in case of leap years. This is a limitation of *ts* objects. However, when dealing with monthly data or data with frequency lower than one month (such as quarterly data), *ts* works great.
+It's important to notice that yearly, quarterly, and monthly data work fine with the *ts* structure, but *more fine grained data create complications and are not totally suitable for a ts structure*. 
+
+This is due to the fact that time series objects require the frequency of observations to be regular and in *ts* the observations have to be regular with reference to a year. Unfortunately, a time series that spans over many years cannot be composed of a constant number of days, since the number of days will be sometimes 365 and other time 366, in case of leap years. This is a limitation of *ts* objects. However, when dealing with monthly data or data with frequency lower than one month (such as quarterly data), *ts* works great.
 
 ### Time Series as XTS/ZOO objects
 
@@ -162,6 +161,8 @@ Time series can be stored in object of class xts/zoo. This class of objects is c
 # install.packages("xts")
 library(xts)
 ```
+
+The *xts* object is more flexible that the *ts* one. 
 
 We can create an *xts* time series by starting from the data.frame we have just created. Similarly to what required by *ts*, we need to specify: 
 
