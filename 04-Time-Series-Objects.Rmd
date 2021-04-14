@@ -194,7 +194,7 @@ head(xts_format)
 
 ## Exercise
 
-*   Download the data set [Austrian_Local_Media](https://drive.google.com/file/d/10V0-bwquKXAEOOHEeXyedI6wdbfB8JyA/view?usp=sharing). It is a data set including some metrics of Facebook pages of Austrian Local Media. It is a time series including  monthly observations, from January 2015 to December 2020, on number of posts and in number of interactions on those posts.
+*   Download the data set [Austrian_Local_Media](https://drive.google.com/file/d/1RKPFOLsIAPLuACcrcB0iiq289CvDDgiT/view?usp=sharing). It is a data set including some metrics of Facebook pages of Austrian Local Media. It is a time series including  monthly observations, from January 2015 to December 2020, on number of posts and in number of interactions on those posts.
 *   Set the "beginning_of_interval" to the appropriate "Date" format
 *   Create a ts object, called "ts_object_1", using as data values the post_count values
 *   Create a xts object, called "xts_object_1", using as data values the post_count values
