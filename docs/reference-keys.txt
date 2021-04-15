@@ -29,7 +29,7 @@ arrange
 filter
 select
 exercise
-basic-definitions
+basic-concepts
 time-series
 time-series-analysis
 stochastic-and-deterministic-processes
