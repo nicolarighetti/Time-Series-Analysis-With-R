@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 11 GGPLOT | Time Series Analysis With R</title>
+  <meta name="description" content="Chapter 11 GGPLOT | Time Series Analysis With R" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 11 GGPLOT | Time Series Analysis With R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 11 GGPLOT | Time Series Analysis With R" />
+  
+  
+  
+
+<meta name="author" content="Nicola Righetti" />
+
+
+<meta name="date" content="2021-04-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="plot-xts.html"/>
+<link rel="next" href="readings.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Time Series with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Time Series Analysis With R</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#objectives"><i class="fa fa-check"></i><b>1.1</b> Objectives</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#lectures"><i class="fa fa-check"></i><b>1.2</b> Lectures</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#home-work"><i class="fa fa-check"></i><b>1.3</b> Home Work</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#assessment"><i class="fa fa-check"></i><b>1.4</b> Assessment</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#syllabus-and-readings"><i class="fa fa-check"></i><b>1.5</b> Syllabus and readings</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#further-information-and-support"><i class="fa fa-check"></i><b>1.6</b> Further information and support</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting started with R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#rstudio-interface-and-data"><i class="fa fa-check"></i><b>2.1</b> RStudio Interface and Data</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#download-and-install-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Download and Install RStudio</a></li>
+<li class="chapter" data-level="2.1.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-rstudio-project-and-import-data"><i class="fa fa-check"></i><b>2.1.2</b> Create a RStudio Project and Import data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-script"><i class="fa fa-check"></i><b>2.1.3</b> Create a Script</a></li>
+<li class="chapter" data-level="2.1.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-rstudio-user-interface"><i class="fa fa-check"></i><b>2.1.4</b> The RStudio User Interface</a></li>
+<li class="chapter" data-level="2.1.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#load-and-save-data"><i class="fa fa-check"></i><b>2.1.5</b> Load and Save Data</a></li>
+<li class="chapter" data-level="2.1.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-new-folders"><i class="fa fa-check"></i><b>2.1.6</b> Create new Folders</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r"><i class="fa fa-check"></i><b>2.2</b> Basic R</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#objects"><i class="fa fa-check"></i><b>2.2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#functions"><i class="fa fa-check"></i><b>2.2.2</b> Functions</a></li>
+<li class="chapter" data-level="2.2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.2.3</b> Data Types</a></li>
+<li class="chapter" data-level="2.2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#excercise"><i class="fa fa-check"></i><b>2.2.4</b> Excercise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse</a><ul>
+<li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.1</b> The Pipe Operator %&gt;%</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.2</b> Mutate</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.3</b> Rename</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.4.1</b> Count occurrences</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5</b> Arrange</a></li>
+<li class="chapter" data-level="3.6" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.6</b> Filter</a></li>
+<li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.7</b> Select</a></li>
+<li class="chapter" data-level="3.8" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#exercise"><i class="fa fa-check"></i><b>3.8</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series"><i class="fa fa-check"></i><b>4.1</b> Time Series</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html"><i class="fa fa-check"></i><b>5</b> Getting started with R</a><ul>
+<li class="chapter" data-level="5.1" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#rstudio-interface-and-data-1"><i class="fa fa-check"></i><b>5.1</b> RStudio Interface and Data</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#download-and-install-rstudio-1"><i class="fa fa-check"></i><b>5.1.1</b> Download and Install RStudio</a></li>
+<li class="chapter" data-level="5.1.2" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#create-a-rstudio-project-and-import-data-1"><i class="fa fa-check"></i><b>5.1.2</b> Create a RStudio Project and Import data</a></li>
+<li class="chapter" data-level="5.1.3" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#create-a-script-1"><i class="fa fa-check"></i><b>5.1.3</b> Create a Script</a></li>
+<li class="chapter" data-level="5.1.4" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#the-rstudio-user-interface-1"><i class="fa fa-check"></i><b>5.1.4</b> The RStudio User Interface</a></li>
+<li class="chapter" data-level="5.1.5" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#load-and-save-data-1"><i class="fa fa-check"></i><b>5.1.5</b> Load and Save Data</a></li>
+<li class="chapter" data-level="5.1.6" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#create-new-folders-1"><i class="fa fa-check"></i><b>5.1.6</b> Create new Folders</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#basic-r-1"><i class="fa fa-check"></i><b>5.2</b> Basic R</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#objects-1"><i class="fa fa-check"></i><b>5.2.1</b> Objects</a></li>
+<li class="chapter" data-level="5.2.2" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#functions-1"><i class="fa fa-check"></i><b>5.2.2</b> Functions</a></li>
+<li class="chapter" data-level="5.2.3" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#data-types-1"><i class="fa fa-check"></i><b>5.2.3</b> Data Types</a></li>
+<li class="chapter" data-level="5.2.4" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#excercise-1"><i class="fa fa-check"></i><b>5.2.4</b> Excercise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html"><i class="fa fa-check"></i><b>6</b> Basic Data Wrangling with Tidyverse</a><ul>
+<li class="chapter" data-level="6.1" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#the-pipe-operator-1"><i class="fa fa-check"></i><b>6.1</b> The Pipe Operator %&gt;%</a></li>
+<li class="chapter" data-level="6.2" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#mutate-1"><i class="fa fa-check"></i><b>6.2</b> Mutate</a></li>
+<li class="chapter" data-level="6.3" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#rename-1"><i class="fa fa-check"></i><b>6.3</b> Rename</a></li>
+<li class="chapter" data-level="6.4" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#summarize-and-group_by-1"><i class="fa fa-check"></i><b>6.4</b> Summarize and group_by</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#count-occurrences-1"><i class="fa fa-check"></i><b>6.4.1</b> Count occurrences</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#arrange-1"><i class="fa fa-check"></i><b>6.5</b> Arrange</a></li>
+<li class="chapter" data-level="6.6" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#filter-1"><i class="fa fa-check"></i><b>6.6</b> Filter</a></li>
+<li class="chapter" data-level="6.7" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#select-1"><i class="fa fa-check"></i><b>6.7</b> Select</a></li>
+<li class="chapter" data-level="6.8" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#exercise-1"><i class="fa fa-check"></i><b>6.8</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>7</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="7.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>7.1</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>7.1.1</b> Time Series as Data Frames</a></li>
+<li class="chapter" data-level="7.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>7.1.2</b> Time Series as TS objects</a></li>
+<li class="chapter" data-level="7.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>7.1.3</b> Time Series as XTS/ZOO objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="time-series-objects.html"><a href="time-series-objects.html#exercise-2"><i class="fa fa-check"></i><b>7.2</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>8</b> Plot Time Series</a><ul>
+<li class="chapter" data-level="8.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>8.1</b> Plot Time Series Objects</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="plot-ts.html"><a href="plot-ts.html"><i class="fa fa-check"></i><b>9</b> plot.ts</a></li>
+<li class="chapter" data-level="10" data-path="plot-xts.html"><a href="plot-xts.html"><i class="fa fa-check"></i><b>10</b> plot.xts</a></li>
+<li class="chapter" data-level="11" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>11</b> GGPLOT</a></li>
+<li class="chapter" data-level="12" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>12</b> Readings</a><ul>
+<li class="chapter" data-level="12.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>12.1</b> Bibliographical References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series Analysis With R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ggplot" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> GGPLOT</h1>
+<p>Ggplot2 is the tidyverse library for data visualization. We can use it to create time series plots and many other types of plot.</p>
+<p>We upload a data set, first, and we set the appropriate time format for the date.</p>
+<p>We place our data set (“elections_news”) inside the ggplot function. Notice that the ggplot syntax is similar to the tidyverse one, but uses the plus sign instead of the pipe one (%&gt;%).</p>
+<p>To create a line plot with ggplot it is necessary to use the <strong>geom_line</strong> function. This function requires two parameters: the data for the x axis and the data for the y axis. These parameters have to be written inside the <strong>aes</strong> function. You can also specify the colors and the size of the line. By using additional function, after the plus sign, you can also set the labels for the x and y axes, and the title, the subtitle, and the caption of the plot. You can also change the overall aspect of the plot by using one of the <strong>themes</strong> included in the library.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="ggplot.html#cb249-1"></a><span class="kw">ggplot</span>(elections_news) <span class="op">+</span></span>
+<span id="cb249-2"><a href="ggplot.html#cb249-2"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> ratio), <span class="dt">color =</span> <span class="st">&quot;snow4&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb249-3"><a href="ggplot.html#cb249-3"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles&quot;</span>) <span class="op">+</span></span>
+<span id="cb249-4"><a href="ggplot.html#cb249-4"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="op">+</span></span>
+<span id="cb249-5"><a href="ggplot.html#cb249-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Time Series of News Articles on Elections&quot;</span>,</span>
+<span id="cb249-6"><a href="ggplot.html#cb249-6"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Data from MediaCloud&quot;</span>,</span>
+<span id="cb249-7"><a href="ggplot.html#cb249-7"></a>       <span class="dt">caption =</span> <span class="st">&quot;Data Analysis II&quot;</span>) <span class="op">+</span></span>
+<span id="cb249-8"><a href="ggplot.html#cb249-8"></a><span class="st">  </span><span class="kw">theme_classic</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-159-1.png" width="672" /></p>
+<p>You can also plot more than one series. For instance, you can create two plots, and then use the function <strong>grid.arrange</strong>, from the library <strong>gridExtra</strong> to combine the plots together.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="ggplot.html#cb250-1"></a><span class="co"># install.packages(&quot;gridExtra&quot;)</span></span>
+<span id="cb250-2"><a href="ggplot.html#cb250-2"></a><span class="kw">library</span>(gridExtra)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;gridExtra&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     combine</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="ggplot.html#cb253-1"></a>p1 &lt;-<span class="st"> </span>elections_news <span class="op">%&gt;%</span></span>
+<span id="cb253-2"><a href="ggplot.html#cb253-2"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb253-3"><a href="ggplot.html#cb253-3"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> ratio), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb253-4"><a href="ggplot.html#cb253-4"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (ratio)&quot;</span>) <span class="op">+</span></span>
+<span id="cb253-5"><a href="ggplot.html#cb253-5"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="op">+</span></span>
+<span id="cb253-6"><a href="ggplot.html#cb253-6"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Daily)&quot;</span>) </span>
+<span id="cb253-7"><a href="ggplot.html#cb253-7"></a></span>
+<span id="cb253-8"><a href="ggplot.html#cb253-8"></a>p2 &lt;-<span class="st"> </span>elections_news <span class="op">%&gt;%</span></span>
+<span id="cb253-9"><a href="ggplot.html#cb253-9"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb253-10"><a href="ggplot.html#cb253-10"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> count), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb253-11"><a href="ggplot.html#cb253-11"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (count)&quot;</span>) <span class="op">+</span></span>
+<span id="cb253-12"><a href="ggplot.html#cb253-12"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="op">+</span></span>
+<span id="cb253-13"><a href="ggplot.html#cb253-13"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Daily)&quot;</span>) </span>
+<span id="cb253-14"><a href="ggplot.html#cb253-14"></a></span>
+<span id="cb253-15"><a href="ggplot.html#cb253-15"></a><span class="kw">grid.arrange</span>(p1,p2)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-160-1.png" width="672" />
+Or you can plot two or more than two series in the same plot.</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="ggplot.html#cb254-1"></a>elections_news &lt;-<span class="st"> </span>elections_news <span class="op">%&gt;%</span></span>
+<span id="cb254-2"><a href="ggplot.html#cb254-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">time_series_data_2 =</span> count<span class="op">*</span><span class="dv">2</span>,</span>
+<span id="cb254-3"><a href="ggplot.html#cb254-3"></a>         <span class="dt">time_series_data_3 =</span> count<span class="op">*</span><span class="dv">4</span>)</span>
+<span id="cb254-4"><a href="ggplot.html#cb254-4"></a></span>
+<span id="cb254-5"><a href="ggplot.html#cb254-5"></a><span class="kw">ggplot</span>(elections_news) <span class="op">+</span></span>
+<span id="cb254-6"><a href="ggplot.html#cb254-6"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> count), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb254-7"><a href="ggplot.html#cb254-7"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> time_series_data_<span class="dv">2</span>), <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb254-8"><a href="ggplot.html#cb254-8"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> time_series_data_<span class="dv">3</span>), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb254-9"><a href="ggplot.html#cb254-9"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
+<span id="cb254-10"><a href="ggplot.html#cb254-10"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="op">+</span></span>
+<span id="cb254-11"><a href="ggplot.html#cb254-11"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Daily)&quot;</span>) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-161-1.png" width="672" /></p>
+<p>To focus on a shorter time window, we can combine the <strong>dplyr</strong> function <strong>filter</strong>. Besides filtering the data, we add a function “scale_x_datetime”, which control the labels on the x-axis, specifying we want monthly labels.</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="ggplot.html#cb255-1"></a>elections_news <span class="op">%&gt;%</span></span>
+<span id="cb255-2"><a href="ggplot.html#cb255-2"></a><span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> &quot;2016-01-01&quot;</span> <span class="op">&amp;</span><span class="st"> </span>date <span class="op">&lt;</span><span class="st"> &quot;2017-01-01&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb255-3"><a href="ggplot.html#cb255-3"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb255-4"><a href="ggplot.html#cb255-4"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> count), <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb255-5"><a href="ggplot.html#cb255-5"></a><span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">breaks=</span><span class="st">&quot;month&quot;</span>, <span class="dt">date_labels =</span><span class="st">&quot;%Y-%m&quot;</span>) <span class="op">+</span></span>
+<span id="cb255-6"><a href="ggplot.html#cb255-6"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">45</span>, <span class="dt">hjust=</span><span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb255-7"><a href="ggplot.html#cb255-7"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles (Ratio)&quot;</span>) <span class="op">+</span></span>
+<span id="cb255-8"><a href="ggplot.html#cb255-8"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span></span>
+<span id="cb255-9"><a href="ggplot.html#cb255-9"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;MediaCloud Data on Elections (Monthly) - 2016&quot;</span>) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
+<p>You can also use ggplot to annotate the date. To create annotations in ggplot you can use the function “annotate”, to label the data point, and “geom_segment”, to trace lines tho connect data points to labels.</p>
+<p>You can learn more about annotation in ggplot here: <a href="https://ggplot2-book.org/annotations.html" class="uri">https://ggplot2-book.org/annotations.html</a>
+And about lines here: <a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="uri">https://ggplot2.tidyverse.org/reference/geom_segment.html</a></p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="ggplot.html#cb256-1"></a><span class="kw">ggplot</span>(elections_news) <span class="op">+</span></span>
+<span id="cb256-2"><a href="ggplot.html#cb256-2"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> count), <span class="dt">col =</span> <span class="st">&quot;grey50&quot;</span>, <span class="dt">size =</span> <span class="fl">0.25</span>) <span class="op">+</span></span>
+<span id="cb256-3"><a href="ggplot.html#cb256-3"></a><span class="st">  </span><span class="kw">ylim</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">15000</span>)) <span class="op">+</span></span>
+<span id="cb256-4"><a href="ggplot.html#cb256-4"></a><span class="st">  </span><span class="co"># 1 EVENT</span></span>
+<span id="cb256-5"><a href="ggplot.html#cb256-5"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;label&quot;</span>, <span class="dt">x =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2018-11-01&quot;</span>), <span class="dt">y =</span> <span class="dv">14500</span>, </span>
+<span id="cb256-6"><a href="ggplot.html#cb256-6"></a>           <span class="dt">label =</span> <span class="st">&quot;Midterm Elections</span><span class="ch">\n</span><span class="st">November 2018&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb256-7"><a href="ggplot.html#cb256-7"></a><span class="st">  </span><span class="co"># add a line. You can also use an arrow by adding in geom_segment: </span></span>
+<span id="cb256-8"><a href="ggplot.html#cb256-8"></a><span class="st">  </span><span class="co"># arrow = line(length = unit(0.2, &quot;cm&quot;), ends = &quot;last&quot;) </span></span>
+<span id="cb256-9"><a href="ggplot.html#cb256-9"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2018-11-01&quot;</span>), <span class="dt">xend =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2018-11-01&quot;</span>), <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">yend =</span> <span class="dv">14500</span>), </span>
+<span id="cb256-10"><a href="ggplot.html#cb256-10"></a>               <span class="dt">color =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">linetype =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb256-11"><a href="ggplot.html#cb256-11"></a><span class="st">  </span><span class="co"># 2 EVENT</span></span>
+<span id="cb256-12"><a href="ggplot.html#cb256-12"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;label&quot;</span>, <span class="dt">x =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2019-05-01&quot;</span>), <span class="dt">y =</span> <span class="dv">12000</span>, </span>
+<span id="cb256-13"><a href="ggplot.html#cb256-13"></a>           <span class="dt">label =</span> <span class="st">&quot;Pennsylvania Elections</span><span class="ch">\n</span><span class="st">May 2019&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb256-14"><a href="ggplot.html#cb256-14"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2019-05-01&quot;</span>), <span class="dt">xend =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2019-05-01&quot;</span>), <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">yend =</span> <span class="dv">12000</span>), </span>
+<span id="cb256-15"><a href="ggplot.html#cb256-15"></a>               <span class="dt">color =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">linetype =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb256-16"><a href="ggplot.html#cb256-16"></a><span class="st">  </span><span class="co"># 3 EVENT</span></span>
+<span id="cb256-17"><a href="ggplot.html#cb256-17"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;label&quot;</span>, <span class="dt">x =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2016-11-01&quot;</span>), <span class="dt">y =</span> <span class="dv">12000</span>, </span>
+<span id="cb256-18"><a href="ggplot.html#cb256-18"></a>           <span class="dt">label =</span> <span class="st">&quot;Presidential Elections</span><span class="ch">\n</span><span class="st">November 2016&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb256-19"><a href="ggplot.html#cb256-19"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2016-11-01&quot;</span>), <span class="dt">xend =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2016-11-01&quot;</span>), <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">yend =</span> <span class="dv">12000</span>), </span>
+<span id="cb256-20"><a href="ggplot.html#cb256-20"></a>               <span class="dt">color =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">linetype =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb256-21"><a href="ggplot.html#cb256-21"></a><span class="st">  </span><span class="co"># 4 EVENT</span></span>
+<span id="cb256-22"><a href="ggplot.html#cb256-22"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;label&quot;</span>, <span class="dt">x =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2020-11-01&quot;</span>), <span class="dt">y =</span> <span class="dv">12000</span>, </span>
+<span id="cb256-23"><a href="ggplot.html#cb256-23"></a>           <span class="dt">label =</span> <span class="st">&quot;Presidential</span><span class="ch">\n</span><span class="st">Elections</span><span class="ch">\n</span><span class="st">Novemeber</span><span class="ch">\n</span><span class="st">2020&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;orange&quot;</span>, <span class="dt">fontface=</span><span class="st">&quot;bold&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb256-24"><a href="ggplot.html#cb256-24"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2020-11-01&quot;</span>), <span class="dt">xend =</span> <span class="kw">as.Date</span>(<span class="st">&quot;2020-11-01&quot;</span>), <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">yend =</span> <span class="dv">12000</span>), </span>
+<span id="cb256-25"><a href="ggplot.html#cb256-25"></a>               <span class="dt">color =</span> <span class="st">&quot;orange&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>, <span class="dt">linetype =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb256-26"><a href="ggplot.html#cb256-26"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;News Articles&quot;</span>) <span class="op">+</span></span>
+<span id="cb256-27"><a href="ggplot.html#cb256-27"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Date&quot;</span>) <span class="op">+</span></span>
+<span id="cb256-28"><a href="ggplot.html#cb256-28"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;MediaCloud Data on Elections (Monthly)&quot;</span>,</span>
+<span id="cb256-29"><a href="ggplot.html#cb256-29"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;Peaks annotated with relevant political events&quot;</span>,</span>
+<span id="cb256-30"><a href="ggplot.html#cb256-30"></a>       <span class="dt">caption =</span> <span class="st">&quot;Advanced Data Analysis</span></span>
+<span id="cb256-31"><a href="ggplot.html#cb256-31"></a><span class="st">                  University of Vienna&quot;</span>) <span class="op">+</span></span>
+<span id="cb256-32"><a href="ggplot.html#cb256-32"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>, <span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb256-33"><a href="ggplot.html#cb256-33"></a>        <span class="dt">plot.subtitle =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb256-34"><a href="ggplot.html#cb256-34"></a>        <span class="dt">plot.caption =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&quot;italic&quot;</span>)) <span class="op">+</span></span>
+<span id="cb256-35"><a href="ggplot.html#cb256-35"></a><span class="st">  </span><span class="kw">theme_gray</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="plot-xts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="readings.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/edit/master/05-Plot-Time-Series.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/blob/master/05-Plot-Time-Series.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Time Series Objects | Time Series Analysis With R</title>
-  <meta name="description" content="Chapter 5 Time Series Objects | Time Series Analysis With R" />
+  <title>Chapter 7 Time Series Objects | Time Series Analysis With R</title>
+  <meta name="description" content="Chapter 7 Time Series Objects | Time Series Analysis With R" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Time Series Objects | Time Series Analysis With R" />
+  <meta property="og:title" content="Chapter 7 Time Series Objects | Time Series Analysis With R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Time Series Objects | Time Series Analysis With R" />
+  <meta name="twitter:title" content="Chapter 7 Time Series Objects | Time Series Analysis With R" />
   
   
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-04-15" />
+<meta name="date" content="2021-04-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="basic-concepts.html"/>
-<link rel="next" href="readings.html"/>
+<link rel="prev" href="basic-data-wrangling-with-tidyverse-1.html"/>
+<link rel="next" href="plot-time-series.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -177,16 +177,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis</a></li>
 <li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects</a><ul>
-<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>5.1.1</b> Time Series as Data Frames</a></li>
-<li class="chapter" data-level="5.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>5.1.2</b> Time Series as TS objects</a></li>
-<li class="chapter" data-level="5.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>5.1.3</b> Time Series as XTS/ZOO objects</a></li>
+<li class="chapter" data-level="5" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html"><i class="fa fa-check"></i><b>5</b> Getting started with R</a><ul>
+<li class="chapter" data-level="5.1" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#rstudio-interface-and-data-1"><i class="fa fa-check"></i><b>5.1</b> RStudio Interface and Data</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#download-and-install-rstudio-1"><i class="fa fa-check"></i><b>5.1.1</b> Download and Install RStudio</a></li>
+<li class="chapter" data-level="5.1.2" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#create-a-rstudio-project-and-import-data-1"><i class="fa fa-check"></i><b>5.1.2</b> Create a RStudio Project and Import data</a></li>
+<li class="chapter" data-level="5.1.3" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#create-a-script-1"><i class="fa fa-check"></i><b>5.1.3</b> Create a Script</a></li>
+<li class="chapter" data-level="5.1.4" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#the-rstudio-user-interface-1"><i class="fa fa-check"></i><b>5.1.4</b> The RStudio User Interface</a></li>
+<li class="chapter" data-level="5.1.5" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#load-and-save-data-1"><i class="fa fa-check"></i><b>5.1.5</b> Load and Save Data</a></li>
+<li class="chapter" data-level="5.1.6" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#create-new-folders-1"><i class="fa fa-check"></i><b>5.1.6</b> Create new Folders</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="time-series-objects.html"><a href="time-series-objects.html#exercise-1"><i class="fa fa-check"></i><b>5.2</b> Exercise</a></li>
+<li class="chapter" data-level="5.2" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#basic-r-1"><i class="fa fa-check"></i><b>5.2</b> Basic R</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#objects-1"><i class="fa fa-check"></i><b>5.2.1</b> Objects</a></li>
+<li class="chapter" data-level="5.2.2" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#functions-1"><i class="fa fa-check"></i><b>5.2.2</b> Functions</a></li>
+<li class="chapter" data-level="5.2.3" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#data-types-1"><i class="fa fa-check"></i><b>5.2.3</b> Data Types</a></li>
+<li class="chapter" data-level="5.2.4" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#excercise-1"><i class="fa fa-check"></i><b>5.2.4</b> Excercise</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>6</b> Readings</a><ul>
-<li class="chapter" data-level="6.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>6.1</b> Bibliographical References</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html"><i class="fa fa-check"></i><b>6</b> Basic Data Wrangling with Tidyverse</a><ul>
+<li class="chapter" data-level="6.1" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#the-pipe-operator-1"><i class="fa fa-check"></i><b>6.1</b> The Pipe Operator %&gt;%</a></li>
+<li class="chapter" data-level="6.2" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#mutate-1"><i class="fa fa-check"></i><b>6.2</b> Mutate</a></li>
+<li class="chapter" data-level="6.3" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#rename-1"><i class="fa fa-check"></i><b>6.3</b> Rename</a></li>
+<li class="chapter" data-level="6.4" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#summarize-and-group_by-1"><i class="fa fa-check"></i><b>6.4</b> Summarize and group_by</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#count-occurrences-1"><i class="fa fa-check"></i><b>6.4.1</b> Count occurrences</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#arrange-1"><i class="fa fa-check"></i><b>6.5</b> Arrange</a></li>
+<li class="chapter" data-level="6.6" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#filter-1"><i class="fa fa-check"></i><b>6.6</b> Filter</a></li>
+<li class="chapter" data-level="6.7" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#select-1"><i class="fa fa-check"></i><b>6.7</b> Select</a></li>
+<li class="chapter" data-level="6.8" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#exercise-1"><i class="fa fa-check"></i><b>6.8</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>7</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="7.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>7.1</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>7.1.1</b> Time Series as Data Frames</a></li>
+<li class="chapter" data-level="7.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>7.1.2</b> Time Series as TS objects</a></li>
+<li class="chapter" data-level="7.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>7.1.3</b> Time Series as XTS/ZOO objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="time-series-objects.html"><a href="time-series-objects.html#exercise-2"><i class="fa fa-check"></i><b>7.2</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>8</b> Plot Time Series</a><ul>
+<li class="chapter" data-level="8.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>8.1</b> Plot Time Series Objects</a></li>
+<li class="chapter" data-level="8.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>8.2</b> plot.ts</a></li>
+<li class="chapter" data-level="8.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>8.3</b> plot.xts</a></li>
+<li class="chapter" data-level="8.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>8.4</b> ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>9</b> Readings</a><ul>
+<li class="chapter" data-level="9.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>9.1</b> Bibliographical References</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -208,9 +242,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="time-series-objects" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Time Series Objects</h1>
+<h1><span class="header-section-number">Chapter 7</span> Time Series Objects</h1>
 <div id="time-series-objects-1" class="section level2">
-<h2><span class="header-section-number">5.1</span> Time Series Objects</h2>
+<h2><span class="header-section-number">7.1</span> Time Series Objects</h2>
 <p>Every <em>object</em> we manipulate in R is characterized by a specific structure. Objects’ structures vary depending on the type of object: a <em>list</em>, a <em>matrix</em>, or a <em>data.frame</em>, are different objects with different structures. Every structure has its own manipulation methods. For instance, it can be accessed and analyzed by using different functions and strings of code.</p>
 <p>In R there are many different types of object. To get an overview you can refer to this handbook, to the <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.html">R manual</a>, or the chapter 5 of <a href="https://rc2e.com/datastructures">this free online book</a>. In this course we are going to learn more about the data structures we have to deal with when conducting time series analysis in R, that is, the structure of time series objects and data sets.</p>
 <p>Time series data sets in R can be represented by different objects. Specific <em>libraries</em> (coherent collections of functions) can give different structures to time series data sets.</p>
@@ -225,16 +259,16 @@ Many functions have been developed with reference to specific libraries and obje
 </ul>
 <p>We analyze the structures of these objects and their strengths and limitations. In the next chapter, we’ll also learn the methods available to visualize them.</p>
 <div id="time-series-as-data-frames" class="section level3">
-<h3><span class="header-section-number">5.1.1</span> Time Series as Data Frames</h3>
+<h3><span class="header-section-number">7.1.1</span> Time Series as Data Frames</h3>
 <p>Data frames (<em>data.frame</em>) are the most common data set structure in R. A data.frame is simply a table <em>cases by variables</em> (each row is a case and each column is a variable).</p>
 <p>To see an example of data.frame containing time series data, we can upload a data set containing the number of news articles mentioning the keyword “elections” published by USA news media. I retrieved this data set from <a href="https://mediacloud.org">MediaCloud</a>, a free and open source platform for studying media ecosystem that tracks millions of stories published online. You can download the data set <a href="https://drive.google.com/file/d/1vzpdPFb_ihBlqqbHxJS7mEvzQ3tNhmEm/view?usp=sharing">at this link</a>.</p>
 <p>We can upload the <em>.csv</em> file by using the function <strong>read.csv</strong>. The main argument of the read.csv function is the path of the file.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="time-series-objects.html#cb95-1"></a>elections_news &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/elections-stories-over-time-20210111144254.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="time-series-objects.html#cb189-1"></a>elections_news &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/elections-stories-over-time-20210111144254.csv&quot;</span>)</span></code></pre></div>
 <p>By using the function <strong>class</strong> we can see that this is a data.frame.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="time-series-objects.html#cb96-1"></a><span class="kw">class</span>(elections_news)</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="time-series-objects.html#cb190-1"></a><span class="kw">class</span>(elections_news)</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <p>We can check the first few rows of the data.frame by using the function <strong>head</strong>, which shows the first few rows of the data set, so as to get an idea of the structure of this simple data.frame.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="time-series-objects.html#cb98-1"></a><span class="kw">head</span>(elections_news)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="time-series-objects.html#cb192-1"></a><span class="kw">head</span>(elections_news)</span></code></pre></div>
 <pre><code>##         date count total_count      ratio
 ## 1 2015-01-01   373       25611 0.01456405
 ## 2 2015-01-02   387       31932 0.01211950
@@ -244,7 +278,7 @@ Many functions have been developed with reference to specific libraries and obje
 ## 6 2015-01-06   626       42366 0.01477600</code></pre>
 <p>This data.frame contains time series data: the first column contains dates, and the other columns contain the values of the observations. We can also see that the data.frame seems to contain daily data, where each row corresponds to a specific day. The data frame also includes, in the column “count”, the number of news articles mentioning the keyword “elections”, in the column “total_count”, the total number of news articles on <em>all the topics</em>, and in the column “ratio” the proportion of news articles mentioning the keyword (count/total_count).</p>
 <p>The function <em>head</em> (and <em>tail</em>) can be impractical with data.frame including a lot of columns, so it could be better to use the function <strong>str</strong> to check the structure of the data.frame.</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="time-series-objects.html#cb100-1"></a><span class="kw">str</span>(elections_news)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="time-series-objects.html#cb194-1"></a><span class="kw">str</span>(elections_news)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    2192 obs. of  4 variables:
 ##  $ date       : Factor w/ 2192 levels &quot;2015-01-01&quot;,&quot;2015-01-02&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
 ##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
@@ -252,30 +286,30 @@ Many functions have been developed with reference to specific libraries and obje
 ##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
 <p>As you can see in the output of the function <em>str</em>, the format of the column date is <em>Factor</em>. The format is, in this case, automatically attributed by R, but (as we have already said) can be specified before importing the data.</p>
 <p><em>Factor</em> is appropriate for categorical variables, but R includes a specific format for dates and times. In this case we have just a date, so we can convert it to a variable of type <em>date</em>. We can change the format of the variable by using the function <strong>as.Date</strong>.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="time-series-objects.html#cb102-1"></a>elections_news<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(elections_news<span class="op">$</span>date)</span></code></pre></div>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="time-series-objects.html#cb103-1"></a><span class="kw">str</span>(elections_news)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="time-series-objects.html#cb196-1"></a>elections_news<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(elections_news<span class="op">$</span>date)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="time-series-objects.html#cb197-1"></a><span class="kw">str</span>(elections_news)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    2192 obs. of  4 variables:
 ##  $ date       : Date, format: &quot;2015-01-01&quot; &quot;2015-01-02&quot; &quot;2015-01-03&quot; &quot;2015-01-04&quot; ...
 ##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
 ##  $ total_count: int  25611 31932 24646 25513 39982 42366 45163 44928 44041 29093 ...
 ##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
 <p>We can also perform the operation with tidyverse, using the function <strong>mutate</strong>.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="time-series-objects.html#cb105-1"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb105-2"><a href="time-series-objects.html#cb105-2"></a></span>
-<span id="cb105-3"><a href="time-series-objects.html#cb105-3"></a>elections_news &lt;-<span class="st"> </span>elections_news <span class="op">%&gt;%</span></span>
-<span id="cb105-4"><a href="time-series-objects.html#cb105-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as.Date</span>(date))</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="time-series-objects.html#cb199-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb199-2"><a href="time-series-objects.html#cb199-2"></a></span>
+<span id="cb199-3"><a href="time-series-objects.html#cb199-3"></a>elections_news &lt;-<span class="st"> </span>elections_news <span class="op">%&gt;%</span></span>
+<span id="cb199-4"><a href="time-series-objects.html#cb199-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">date =</span> <span class="kw">as.Date</span>(date))</span></code></pre></div>
 <p>A data.frame is the common format for data sets, including time series data sets. We can do many things with data stored in this format, such as creating plots and performing various types of analysis. However, to handle time series in R there are more specific data formats.</p>
 </div>
 <div id="time-series-as-ts-objects" class="section level3">
-<h3><span class="header-section-number">5.1.2</span> Time Series as TS objects</h3>
+<h3><span class="header-section-number">7.1.2</span> Time Series as TS objects</h3>
 <p>The basic object created to handle time series in R is the object of class <em>ts</em>. The name stands for “Time Series”.</p>
 <p>An example of ts object is already present in R under the name of “AirPassengers”, a time series data set in ts format. We can load this data set by using the function <strong>data</strong>.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="time-series-objects.html#cb106-1"></a><span class="kw">data</span>(AirPassengers)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="time-series-objects.html#cb200-1"></a><span class="kw">data</span>(AirPassengers)</span></code></pre></div>
 <p>By applying the function <em>class</em> we can see that this is an object of class ts.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="time-series-objects.html#cb107-1"></a><span class="kw">class</span>(AirPassengers)</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="time-series-objects.html#cb201-1"></a><span class="kw">class</span>(AirPassengers)</span></code></pre></div>
 <pre><code>## [1] &quot;ts&quot;</code></pre>
 <p>AirPassengers is a small data set so we can print all the data set to see its structure, which is an example of the standard structure of a ts object.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="time-series-objects.html#cb109-1"></a>AirPassengers</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="time-series-objects.html#cb203-1"></a>AirPassengers</span></code></pre></div>
 <pre><code>##      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 ## 1949 112 118 132 129 121 135 148 148 136 119 104 118
 ## 1950 115 126 141 135 125 149 170 170 158 133 114 140
@@ -290,36 +324,36 @@ Many functions have been developed with reference to specific libraries and obje
 ## 1959 360 342 406 396 420 472 548 559 463 407 362 405
 ## 1960 417 391 419 461 472 535 622 606 508 461 390 432</code></pre>
 <p>By calling the <em>str</em> function we get synthetic information on the object.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="time-series-objects.html#cb111-1"></a><span class="kw">str</span>(AirPassengers)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="time-series-objects.html#cb205-1"></a><span class="kw">str</span>(AirPassengers)</span></code></pre></div>
 <pre><code>##  Time-Series [1:144] from 1949 to 1961: 112 118 132 129 121 135 148 148 136 119 ...</code></pre>
 <p>The AirPassengers data set is a univariate time series representing monthly totals of international airline passengers from 1949 to 1960. As every time series, it has a <strong>start date</strong> and an <strong>end date</strong>. It also has a <strong>frequency</strong>, which is the frequency at which the observations were taken.</p>
 <p>All this characteristics differentiate a ts object from a data.frame. The structure of a data.frame lacks the start and the end date, as well as the frequency.</p>
 <p>The functions <strong>start</strong>, <strong>end</strong>, and <strong>frequency</strong>, can be applied to a <em>ts</em> object to check their values. We started by saying that some functions work with some objects but not with other types of objects. This is an example. These functions, indeed, work with <em>ts</em> objects just because they are part of their structures, and are arguments usually made explicit when this kind of object is created. They do not work if applied to a data.frame object, since a data.frame structure does not include the start and end date, nor the frequency of observations. It can be seen that the ts structure is much more specific for time series compared to a generic data.frame.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="time-series-objects.html#cb113-1"></a><span class="kw">start</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="time-series-objects.html#cb207-1"></a><span class="kw">start</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 1949</code></pre>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="time-series-objects.html#cb115-1"></a><span class="kw">end</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="time-series-objects.html#cb209-1"></a><span class="kw">end</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 1960</code></pre>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="time-series-objects.html#cb117-1"></a><span class="kw">frequency</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="time-series-objects.html#cb211-1"></a><span class="kw">frequency</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 12</code></pre>
 <p>Importantly, the frequency of a time series is assumed to be <strong>regular</strong> over time. This applies to time series in general, and not just to ts objects. In this case, the time series starts on January 1949 and ends on December 1969, and has <em>monthly</em> frequency. Monthly frequency is indicated in <em>ts</em> as “12”, meaning 12 months. Indeed, the reference unit of a ts object is a year. So, quarterly data, for instance, have frequency equal to 4.</p>
 <p>To create a ts object is necessary to follow specific steps and use specific functions. To exemplify the process of creation of a ts object we take the example of the data contained in the AirPassengers data set, and store them in a data.frame (you don’t need to learn how to do that, just copy and paste the code). A data.frame is the data set format you will probably start with, so it can be useful to see how to create a ts object starting from a data.frame.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="time-series-objects.html#cb119-1"></a>date &lt;-<span class="st"> </span><span class="kw">seq.Date</span>(<span class="dt">from =</span> <span class="kw">as.Date</span>(<span class="st">&quot;1949-01-01&quot;</span>), </span>
-<span id="cb119-2"><a href="time-series-objects.html#cb119-2"></a>                 <span class="dt">to =</span> <span class="kw">as.Date</span>(<span class="st">&quot;1960-12-01&quot;</span>), <span class="dt">by=</span><span class="st">&quot;month&quot;</span>)</span>
-<span id="cb119-3"><a href="time-series-objects.html#cb119-3"></a>passengers &lt;-<span class="st"> </span><span class="kw">as.vector</span>(AirPassengers)</span>
-<span id="cb119-4"><a href="time-series-objects.html#cb119-4"></a></span>
-<span id="cb119-5"><a href="time-series-objects.html#cb119-5"></a>data_frame_format &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;Date&quot;</span> =<span class="st"> </span>date, </span>
-<span id="cb119-6"><a href="time-series-objects.html#cb119-6"></a>                                <span class="st">&quot;Passengers&quot;</span> =<span class="st"> </span>passengers)</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="time-series-objects.html#cb213-1"></a>date &lt;-<span class="st"> </span><span class="kw">seq.Date</span>(<span class="dt">from =</span> <span class="kw">as.Date</span>(<span class="st">&quot;1949-01-01&quot;</span>), </span>
+<span id="cb213-2"><a href="time-series-objects.html#cb213-2"></a>                 <span class="dt">to =</span> <span class="kw">as.Date</span>(<span class="st">&quot;1960-12-01&quot;</span>), <span class="dt">by=</span><span class="st">&quot;month&quot;</span>)</span>
+<span id="cb213-3"><a href="time-series-objects.html#cb213-3"></a>passengers &lt;-<span class="st"> </span><span class="kw">as.vector</span>(AirPassengers)</span>
+<span id="cb213-4"><a href="time-series-objects.html#cb213-4"></a></span>
+<span id="cb213-5"><a href="time-series-objects.html#cb213-5"></a>data_frame_format &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;Date&quot;</span> =<span class="st"> </span>date, </span>
+<span id="cb213-6"><a href="time-series-objects.html#cb213-6"></a>                                <span class="st">&quot;Passengers&quot;</span> =<span class="st"> </span>passengers)</span></code></pre></div>
 <p>To create a “ts” time series object starting from a data.frame, we need:</p>
 <ul>
 <li>To specify which column contains the observations. In this case, the column name is “Passengers”.</li>
 <li>We then need to specify the start and end date, which in this case are in the format year/month, but can be just years in case of yearly data. The ts format for the start/end date is the following: <em>c=(YEAR, MONTH)</em>. The <em>c</em> represents the <em>concatenate</em> function, and it concatenates the year and the month in a single vector.</li>
 <li>Finally, we indicate the frequency of the time series observations. The frequency is specified based on the time period of a year, so in this case we have a frequency equal to 12, because we have monthly observation, meaning that we have 12 observation per year.</li>
 </ul>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="time-series-objects.html#cb120-1"></a>ts_format &lt;-<span class="st"> </span><span class="kw">ts</span>(<span class="dt">data =</span> data_frame_format<span class="op">$</span>Passengers, </span>
-<span id="cb120-2"><a href="time-series-objects.html#cb120-2"></a>                <span class="dt">start=</span><span class="kw">c</span>(<span class="dv">1949</span>, <span class="dv">01</span>), </span>
-<span id="cb120-3"><a href="time-series-objects.html#cb120-3"></a>                <span class="dt">end=</span><span class="kw">c</span>(<span class="dv">1960</span>, <span class="dv">12</span>), </span>
-<span id="cb120-4"><a href="time-series-objects.html#cb120-4"></a>                <span class="dt">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="time-series-objects.html#cb121-1"></a>ts_format</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="time-series-objects.html#cb214-1"></a>ts_format &lt;-<span class="st"> </span><span class="kw">ts</span>(<span class="dt">data =</span> data_frame_format<span class="op">$</span>Passengers, </span>
+<span id="cb214-2"><a href="time-series-objects.html#cb214-2"></a>                <span class="dt">start=</span><span class="kw">c</span>(<span class="dv">1949</span>, <span class="dv">01</span>), </span>
+<span id="cb214-3"><a href="time-series-objects.html#cb214-3"></a>                <span class="dt">end=</span><span class="kw">c</span>(<span class="dv">1960</span>, <span class="dv">12</span>), </span>
+<span id="cb214-4"><a href="time-series-objects.html#cb214-4"></a>                <span class="dt">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="time-series-objects.html#cb215-1"></a>ts_format</span></code></pre></div>
 <pre><code>##      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 ## 1949 112 118 132 129 121 135 148 148 136 119 104 118
 ## 1950 115 126 141 135 125 149 170 170 158 133 114 140
@@ -333,16 +367,16 @@ Many functions have been developed with reference to specific libraries and obje
 ## 1958 340 318 362 348 363 435 491 505 404 359 310 337
 ## 1959 360 342 406 396 420 472 548 559 463 407 362 405
 ## 1960 417 391 419 461 472 535 622 606 508 461 390 432</code></pre>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="time-series-objects.html#cb123-1"></a><span class="kw">class</span>(ts_format)</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="time-series-objects.html#cb217-1"></a><span class="kw">class</span>(ts_format)</span></code></pre></div>
 <pre><code>## [1] &quot;ts&quot;</code></pre>
 <p>It’s important to notice that yearly, quarterly, and monthly data work fine with the <em>ts</em> structure, but <em>more fine grained data create complications and are not totally suitable for a ts structure</em>.</p>
 <p>This is due to the fact that time series objects require the frequency of observations to be regular and in <em>ts</em> the observations have to be regular with reference to a year. Unfortunately, a time series that spans over many years cannot be composed of a constant number of days, since the number of days will be sometimes 365 and other time 366, in case of leap years. This is a limitation of <em>ts</em> objects. However, when dealing with monthly data or data with frequency lower than one month (such as quarterly data), <em>ts</em> works great.</p>
 </div>
 <div id="time-series-as-xtszoo-objects" class="section level3">
-<h3><span class="header-section-number">5.1.3</span> Time Series as XTS/ZOO objects</h3>
+<h3><span class="header-section-number">7.1.3</span> Time Series as XTS/ZOO objects</h3>
 <p>Time series can be stored in object of class xts/zoo. This class of objects is created with the library <em>xts</em>, which is related and an extension of the package <em>zoo</em> (another package to deal with time series data). As other libraries, it requires to be installed and loaded.</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="time-series-objects.html#cb125-1"></a><span class="co"># install.packages(&quot;xts&quot;)</span></span>
-<span id="cb125-2"><a href="time-series-objects.html#cb125-2"></a><span class="kw">library</span>(xts)</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="time-series-objects.html#cb219-1"></a><span class="co"># install.packages(&quot;xts&quot;)</span></span>
+<span id="cb219-2"><a href="time-series-objects.html#cb219-2"></a><span class="kw">library</span>(xts)</span></code></pre></div>
 <p>The <em>xts</em> object is more flexible that the <em>ts</em> one.</p>
 <p>We can create an <em>xts</em> time series by starting from the data.frame we have just created. Similarly to what required by <em>ts</em>, we need to specify:</p>
 <ul>
@@ -351,19 +385,19 @@ Many functions have been developed with reference to specific libraries and obje
 <li>the frequency of observations.</li>
 </ul>
 <p>We can use the data.frame already created with the AirPassengers data to create a new <em>xts</em> object.</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="time-series-objects.html#cb126-1"></a>xts_format &lt;-<span class="st"> </span><span class="kw">xts</span>(<span class="dt">x =</span> data_frame_format<span class="op">$</span>Passengers, </span>
-<span id="cb126-2"><a href="time-series-objects.html#cb126-2"></a>                  <span class="dt">order.by =</span> data_frame_format<span class="op">$</span>Date, </span>
-<span id="cb126-3"><a href="time-series-objects.html#cb126-3"></a>                  <span class="dt">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="time-series-objects.html#cb127-1"></a><span class="kw">class</span>(xts_format)</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="time-series-objects.html#cb220-1"></a>xts_format &lt;-<span class="st"> </span><span class="kw">xts</span>(<span class="dt">x =</span> data_frame_format<span class="op">$</span>Passengers, </span>
+<span id="cb220-2"><a href="time-series-objects.html#cb220-2"></a>                  <span class="dt">order.by =</span> data_frame_format<span class="op">$</span>Date, </span>
+<span id="cb220-3"><a href="time-series-objects.html#cb220-3"></a>                  <span class="dt">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="time-series-objects.html#cb221-1"></a><span class="kw">class</span>(xts_format)</span></code></pre></div>
 <pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
 <p>Also the structure of this object, like the <em>ts</em> one, includes the range of dates of the time series, when it starts and ends.</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="time-series-objects.html#cb129-1"></a><span class="kw">str</span>(xts_format)</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="time-series-objects.html#cb223-1"></a><span class="kw">str</span>(xts_format)</span></code></pre></div>
 <pre><code>## An &#39;xts&#39; object on 1949-01-01/1960-12-01 containing:
 ##   Data: num [1:144, 1] 112 118 132 129 121 135 148 148 136 119 ...
 ##   Indexed by objects of class: [Date] TZ: UTC
 ##   xts Attributes:  
 ##  NULL</code></pre>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="time-series-objects.html#cb131-1"></a><span class="kw">head</span>(xts_format)</span></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="time-series-objects.html#cb225-1"></a><span class="kw">head</span>(xts_format)</span></code></pre></div>
 <pre><code>##            [,1]
 ## 1949-01-01  112
 ## 1949-02-01  118
@@ -373,8 +407,8 @@ Many functions have been developed with reference to specific libraries and obje
 ## 1949-06-01  135</code></pre>
 </div>
 </div>
-<div id="exercise-1" class="section level2">
-<h2><span class="header-section-number">5.2</span> Exercise</h2>
+<div id="exercise-2" class="section level2">
+<h2><span class="header-section-number">7.2</span> Exercise</h2>
 <ul>
 <li>Download the data set <a href="https://drive.google.com/file/d/1RKPFOLsIAPLuACcrcB0iiq289CvDDgiT/view?usp=sharing">Austrian_Local_Media</a>. It is a data set including some metrics of Facebook pages of Austrian Local Media. It is a time series including monthly observations, from January 2015 to December 2020, on number of posts and in number of interactions on those posts.</li>
 <li>Set the “beginning_of_interval” to the appropriate “Date” format</li>
@@ -393,8 +427,8 @@ Many functions have been developed with reference to specific libraries and obje
           </div>
         </div>
       </div>
-<a href="basic-concepts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="readings.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="basic-data-wrangling-with-tidyverse-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="plot-time-series.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

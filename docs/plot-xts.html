@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Readings | Time Series Analysis With R</title>
-  <meta name="description" content="Chapter 9 Readings | Time Series Analysis With R" />
+  <title>Chapter 10 plot.xts | Time Series Analysis With R</title>
+  <meta name="description" content="Chapter 10 plot.xts | Time Series Analysis With R" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Readings | Time Series Analysis With R" />
+  <meta property="og:title" content="Chapter 10 plot.xts | Time Series Analysis With R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Readings | Time Series Analysis With R" />
+  <meta name="twitter:title" content="Chapter 10 plot.xts | Time Series Analysis With R" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="plot-time-series.html"/>
-
+<link rel="prev" href="plot-ts.html"/>
+<link rel="next" href="ggplot.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -215,12 +215,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>8</b> Plot Time Series</a><ul>
 <li class="chapter" data-level="8.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>8.1</b> Plot Time Series Objects</a></li>
-<li class="chapter" data-level="8.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>8.2</b> plot.ts</a></li>
-<li class="chapter" data-level="8.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>8.3</b> plot.xts</a></li>
-<li class="chapter" data-level="8.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>8.4</b> ggplot</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>9</b> Readings</a><ul>
-<li class="chapter" data-level="9.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>9.1</b> Bibliographical References</a></li>
+<li class="chapter" data-level="9" data-path="plot-ts.html"><a href="plot-ts.html"><i class="fa fa-check"></i><b>9</b> plot.ts</a></li>
+<li class="chapter" data-level="10" data-path="plot-xts.html"><a href="plot-xts.html"><i class="fa fa-check"></i><b>10</b> plot.xts</a></li>
+<li class="chapter" data-level="11" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>11</b> GGPLOT</a></li>
+<li class="chapter" data-level="12" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>12</b> Readings</a><ul>
+<li class="chapter" data-level="12.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>12.1</b> Bibliographical References</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -241,23 +241,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="readings" class="section level1">
-<h1><span class="header-section-number">Chapter 9</span> Readings</h1>
-<p><em>This page will be updated as the course goes on.</em></p>
-<p>Wells, C., Shah, D. V., Pevehouse, J. C., Foley, J., Lukito, J., Pelled, A., &amp; Yang, J. (2019). <a href="https://ijoc.org/index.php/ijoc/article/view/10635">The Temporal Turn in Communication Research: Time Series Analyses Using Computational Approaches</a>. International Journal of Communication (19328036), 13.</p>
-<div id="bibliographical-references" class="section level2">
-<h2><span class="header-section-number">9.1</span> Bibliographical References</h2>
-<p>Gaubatz, K. T. (2014). <a href="https://methods.sagepub.com/Book/a-survivors-guide-to-r">A Survivor’s Guide to R: An Introduction for the Uninitiated and the Unnerved</a>. SAGE Publications.</p>
-
-</div>
+<div id="plot.xts" class="section level1">
+<h1><span class="header-section-number">Chapter 10</span> plot.xts</h1>
+<p>To plot a <em>xts</em> object we can similarly use the <strong>plot.xts</strong> function.</p>
+<p>You can create an xts object with the <em>xts</em> function (see the previous chapter), but if you already have a <em>ts</em> object, you can also convert it to a <em>xts</em> object by using the function <strong>as.xts</strong></p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="plot-xts.html#cb238-1"></a>AirPassengers_xts &lt;-<span class="st"> </span><span class="kw">as.xts</span>(AirPassengers)</span>
+<span id="cb238-2"><a href="plot-xts.html#cb238-2"></a></span>
+<span id="cb238-3"><a href="plot-xts.html#cb238-3"></a><span class="kw">plot.xts</span>(AirPassengers_xts,</span>
+<span id="cb238-4"><a href="plot-xts.html#cb238-4"></a>         <span class="dt">main =</span> <span class="st">&quot;PASSENGERS&quot;</span>,</span>
+<span id="cb238-5"><a href="plot-xts.html#cb238-5"></a>         <span class="dt">ylab =</span> <span class="st">&quot;Passengers (1000&#39;s)&quot;</span>, </span>
+<span id="cb238-6"><a href="plot-xts.html#cb238-6"></a>         <span class="dt">col =</span> <span class="st">&quot;steelblue2&quot;</span>, </span>
+<span id="cb238-7"><a href="plot-xts.html#cb238-7"></a>         <span class="dt">lwd=</span><span class="dv">5</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
+<p>By using <strong>multi.panel=TRUE</strong>, or <strong>multi.panel=FALSE</strong> you can plot all the time series in the same panel or using different panels.</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="plot-xts.html#cb239-1"></a>AirPassengers_multi_xts &lt;-<span class="st"> </span><span class="kw">as.xts</span>(AirPassengers_multi)</span>
+<span id="cb239-2"><a href="plot-xts.html#cb239-2"></a></span>
+<span id="cb239-3"><a href="plot-xts.html#cb239-3"></a><span class="kw">plot.xts</span>(AirPassengers_multi_xts,</span>
+<span id="cb239-4"><a href="plot-xts.html#cb239-4"></a>         <span class="dt">main =</span> <span class="st">&quot;PASSENGERS&quot;</span>,</span>
+<span id="cb239-5"><a href="plot-xts.html#cb239-5"></a>         <span class="dt">ylab =</span> <span class="st">&quot;Passengers (1000&#39;s)&quot;</span>, </span>
+<span id="cb239-6"><a href="plot-xts.html#cb239-6"></a>         <span class="dt">lwd=</span><span class="dv">5</span>, <span class="dt">lty=</span><span class="dv">1</span>,</span>
+<span id="cb239-7"><a href="plot-xts.html#cb239-7"></a>         <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb239-8"><a href="plot-xts.html#cb239-8"></a>         <span class="dt">multi.panel =</span> T)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="plot-xts.html#cb240-1"></a><span class="kw">plot.xts</span>(AirPassengers_multi_xts,</span>
+<span id="cb240-2"><a href="plot-xts.html#cb240-2"></a>         <span class="dt">main =</span> <span class="st">&quot;PASSENGERS&quot;</span>,</span>
+<span id="cb240-3"><a href="plot-xts.html#cb240-3"></a>         <span class="dt">ylab =</span> <span class="st">&quot;Passengers (1000&#39;s)&quot;</span>, </span>
+<span id="cb240-4"><a href="plot-xts.html#cb240-4"></a>         <span class="dt">lwd=</span><span class="dv">5</span>, <span class="dt">lty=</span><span class="dv">1</span>,</span>
+<span id="cb240-5"><a href="plot-xts.html#cb240-5"></a>         <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb240-6"><a href="plot-xts.html#cb240-6"></a>         <span class="dt">multi.panel =</span> F)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
+<p>To <strong>subset</strong> the data, in order to visualize and focus on just one part of the series, instead of the function <em>window</em>, you have to write the dates into <em>squared brackets</em> as in the examples below.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="plot-xts.html#cb241-1"></a><span class="kw">plot.xts</span>(AirPassengers_multi_xts[<span class="st">&quot;1950-01/1954-12&quot;</span>], </span>
+<span id="cb241-2"><a href="plot-xts.html#cb241-2"></a>         <span class="dt">main =</span> <span class="st">&quot;PASSENGERS&quot;</span>,</span>
+<span id="cb241-3"><a href="plot-xts.html#cb241-3"></a>         <span class="dt">ylab =</span> <span class="st">&quot;Passengers (1000&#39;s)&quot;</span>, </span>
+<span id="cb241-4"><a href="plot-xts.html#cb241-4"></a>         <span class="dt">lwd=</span><span class="dv">5</span>, <span class="dt">lty=</span><span class="dv">1</span>,</span>
+<span id="cb241-5"><a href="plot-xts.html#cb241-5"></a>         <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb241-6"><a href="plot-xts.html#cb241-6"></a>         <span class="dt">multi.panel =</span> F)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-151-1.png" width="672" /></p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="plot-xts.html#cb242-1"></a><span class="kw">plot.xts</span>(AirPassengers_xts[<span class="st">&quot;1950-01/1956-06&quot;</span>], </span>
+<span id="cb242-2"><a href="plot-xts.html#cb242-2"></a>         <span class="dt">main =</span> <span class="st">&quot;PASSENGERS&quot;</span>,</span>
+<span id="cb242-3"><a href="plot-xts.html#cb242-3"></a>         <span class="dt">ylab =</span> <span class="st">&quot;Passengers (1000&#39;s)&quot;</span>, </span>
+<span id="cb242-4"><a href="plot-xts.html#cb242-4"></a>         <span class="dt">lwd=</span><span class="dv">5</span>, <span class="dt">lty=</span><span class="dv">1</span>,</span>
+<span id="cb242-5"><a href="plot-xts.html#cb242-5"></a>         <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb242-6"><a href="plot-xts.html#cb242-6"></a>         <span class="dt">multi.panel =</span> F)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
+<p>You can also change the frequency of the observations by using specific functions in the <em>xts</em> library.</p>
+<p>With <strong>periodicity</strong> you can find the frequency of the time series.</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="plot-xts.html#cb243-1"></a><span class="kw">periodicity</span>(AirPassengers_xts)</span></code></pre></div>
+<pre><code>## Monthly periodicity from Jan 1949 to Dec 1960</code></pre>
+<p>With the function <strong>to.period</strong> you can re-sample the data to “seconds”, “minutes”, “hours”, “days”, “weeks”, “months”, “quarters”, and “years”. You can only re-sample the data from a higher to a lower frequency, but not from a lower to a higher one. For instance, if you have monthly data, you can aggregate the data in quarterly or yearly data, but you cannot create a weekly or hourly time series.</p>
+<p>The result of the <em>to.period</em> function will contain the open (first) and close (last) value for the given period, as well as the maximum and minimum over the new period, reflected in the new high and low, respectively.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="plot-xts.html#cb245-1"></a><span class="kw">to.period</span>(AirPassengers_xts, <span class="dt">period=</span><span class="st">&quot;years&quot;</span>)</span></code></pre></div>
+<pre><code>##          AirPassengers_xts.Open AirPassengers_xts.High AirPassengers_xts.Low AirPassengers_xts.Close
+## Dec 1949                    112                    148                   104                     118
+## Dec 1950                    115                    170                   114                     140
+## Dec 1951                    145                    199                   145                     166
+## Dec 1952                    171                    242                   171                     194
+## Dec 1953                    196                    272                   180                     201
+## Dec 1954                    204                    302                   188                     229
+## Dec 1955                    242                    364                   233                     278
+## Dec 1956                    284                    413                   271                     306
+## Dec 1957                    315                    467                   301                     336
+## Dec 1958                    340                    505                   310                     337
+## Dec 1959                    360                    559                   342                     405
+## Dec 1960                    417                    622                   390                     432</code></pre>
+<p>You can plot all the values, or select a value by using the <em>square brackets</em> with a comma, followed by the number of the column you want to plot (see the table above, with 4 columns). This notation is a way to access the columns (and the rows) of a data.frame or matrix. You write the name of the data.frame or the matrix, and the squared brackets indicate the index of the rows, in the first position before the comma, and the index of the columns, in the second position, after the comma. So, for instance, to access the value in the second column and the second row of the data.set “data”, you can write data[2,2], and to access the values in the third column and first row, you can write data[1,3]. If you leave a blank space in the column or row space, you get all the values in that column or rows. Therefore, by writing data[,2], or data[,3], you get all the values in the column 2 and 3, respectively.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="plot-xts.html#cb247-1"></a><span class="kw">plot.xts</span>(<span class="kw">to.period</span>(AirPassengers_xts, <span class="dt">period=</span><span class="st">&quot;years&quot;</span>)[,<span class="dv">2</span>],</span>
+<span id="cb247-2"><a href="plot-xts.html#cb247-2"></a>         <span class="dt">main =</span> <span class="st">&quot;PASSENGERS&quot;</span>,</span>
+<span id="cb247-3"><a href="plot-xts.html#cb247-3"></a>         <span class="dt">ylab =</span> <span class="st">&quot;Passengers (1000&#39;s)&quot;</span>, </span>
+<span id="cb247-4"><a href="plot-xts.html#cb247-4"></a>         <span class="dt">lwd=</span><span class="dv">5</span>, <span class="dt">lty=</span><span class="dv">1</span>,</span>
+<span id="cb247-5"><a href="plot-xts.html#cb247-5"></a>         <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;orange&quot;</span>, <span class="st">&quot;black&quot;</span>),</span>
+<span id="cb247-6"><a href="plot-xts.html#cb247-6"></a>         <span class="dt">multi.panel =</span> F)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-155-1.png" width="672" /></p>
+<p>You can also <strong>re-sample and calculate the average</strong> (or another statistics) for the new period. For instance, in the example we re-sample the data by year and calculate the average (instead of calculating the average it is possible to calculate another statistics such as, for instance, the median, just by writing <em>“median”</em> instead of “mean”)</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="plot-xts.html#cb248-1"></a>index_years &lt;-<span class="st"> </span><span class="kw">endpoints</span>(AirPassengers_xts, <span class="dt">on =</span> <span class="st">&quot;year&quot;</span>)</span>
+<span id="cb248-2"><a href="plot-xts.html#cb248-2"></a>AirPassengers_xts_year_avg &lt;-<span class="st"> </span><span class="kw">period.apply</span>(AirPassengers_xts, <span class="dt">INDEX=</span>index_years, <span class="dt">FUN=</span>mean)</span>
+<span id="cb248-3"><a href="plot-xts.html#cb248-3"></a></span>
+<span id="cb248-4"><a href="plot-xts.html#cb248-4"></a><span class="kw">plot.xts</span>(AirPassengers_xts_year_avg,</span>
+<span id="cb248-5"><a href="plot-xts.html#cb248-5"></a>         <span class="dt">main =</span> <span class="st">&quot;PASSENGERS (Year Average)&quot;</span>,</span>
+<span id="cb248-6"><a href="plot-xts.html#cb248-6"></a>         <span class="dt">ylab =</span> <span class="st">&quot;Passengers (1000&#39;s)&quot;</span>, </span>
+<span id="cb248-7"><a href="plot-xts.html#cb248-7"></a>         <span class="dt">lwd=</span><span class="dv">5</span>, <span class="dt">lty=</span><span class="dv">1</span>,</span>
+<span id="cb248-8"><a href="plot-xts.html#cb248-8"></a>         <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb248-9"><a href="plot-xts.html#cb248-9"></a>         <span class="dt">multi.panel =</span> F)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-156-1.png" width="672" />
+You can find additional details on <em>xts</em> and <em>plot.xts</em> by reading the help functions. <a href="https://s3.amazonaws.com/assets.datacamp.com/blog_assets/xts_Cheat_Sheet_R.pdf">At this link</a> you can find a synthetic presentation of the functions of the xts library.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="plot-time-series.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="plot-ts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ggplot.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -288,7 +363,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/edit/master/Readings-and-Bibliography.Rmd",
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/edit/master/05-Plot-Time-Series.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -296,7 +371,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/blob/master/Readings-and-Bibliography.Rmd",
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/blob/master/05-Plot-Time-Series.Rmd",
 "text": null
 },
 "download": null,
