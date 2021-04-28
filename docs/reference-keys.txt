@@ -1,4 +1,4 @@
-fig:unnamed-chunk-46
+fig:unnamed-chunk-81
 time-series-analysis-with-r
 objectives
 lectures
@@ -47,5 +47,7 @@ ggplot
 structural-decomposition
 component-of-a-time-series
 structural-decomposition-1
+moving-average
+decompose
 readings
 bibliographical-references
