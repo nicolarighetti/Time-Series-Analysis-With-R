@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Readings | Time Series Analysis With R</title>
-  <meta name="description" content="Chapter 9 Readings | Time Series Analysis With R" />
+  <title>Chapter 8 Readings | Time Series Analysis With R</title>
+  <meta name="description" content="Chapter 8 Readings | Time Series Analysis With R" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Readings | Time Series Analysis With R" />
+  <meta property="og:title" content="Chapter 8 Readings | Time Series Analysis With R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Readings | Time Series Analysis With R" />
+  <meta name="twitter:title" content="Chapter 8 Readings | Time Series Analysis With R" />
   
   
   
@@ -24,14 +24,14 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-04-21" />
+<meta name="date" content="2021-04-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="plot-time-series.html"/>
+<link rel="prev" href="structural-decomposition.html"/>
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -177,50 +177,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis</a></li>
 <li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html"><i class="fa fa-check"></i><b>5</b> Getting started with R</a><ul>
-<li class="chapter" data-level="5.1" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#rstudio-interface-and-data-1"><i class="fa fa-check"></i><b>5.1</b> RStudio Interface and Data</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#download-and-install-rstudio-1"><i class="fa fa-check"></i><b>5.1.1</b> Download and Install RStudio</a></li>
-<li class="chapter" data-level="5.1.2" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#create-a-rstudio-project-and-import-data-1"><i class="fa fa-check"></i><b>5.1.2</b> Create a RStudio Project and Import data</a></li>
-<li class="chapter" data-level="5.1.3" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#create-a-script-1"><i class="fa fa-check"></i><b>5.1.3</b> Create a Script</a></li>
-<li class="chapter" data-level="5.1.4" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#the-rstudio-user-interface-1"><i class="fa fa-check"></i><b>5.1.4</b> The RStudio User Interface</a></li>
-<li class="chapter" data-level="5.1.5" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#load-and-save-data-1"><i class="fa fa-check"></i><b>5.1.5</b> Load and Save Data</a></li>
-<li class="chapter" data-level="5.1.6" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#create-new-folders-1"><i class="fa fa-check"></i><b>5.1.6</b> Create new Folders</a></li>
+<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>5.1.1</b> Time Series as Data Frames</a></li>
+<li class="chapter" data-level="5.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>5.1.2</b> Time Series as TS objects</a></li>
+<li class="chapter" data-level="5.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>5.1.3</b> Time Series as XTS/ZOO objects</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#basic-r-1"><i class="fa fa-check"></i><b>5.2</b> Basic R</a><ul>
-<li class="chapter" data-level="5.2.1" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#objects-1"><i class="fa fa-check"></i><b>5.2.1</b> Objects</a></li>
-<li class="chapter" data-level="5.2.2" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#functions-1"><i class="fa fa-check"></i><b>5.2.2</b> Functions</a></li>
-<li class="chapter" data-level="5.2.3" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#data-types-1"><i class="fa fa-check"></i><b>5.2.3</b> Data Types</a></li>
-<li class="chapter" data-level="5.2.4" data-path="getting-started-with-r-1.html"><a href="getting-started-with-r-1.html#excercise-1"><i class="fa fa-check"></i><b>5.2.4</b> Excercise</a></li>
+<li class="chapter" data-level="5.2" data-path="time-series-objects.html"><a href="time-series-objects.html#exercise-1"><i class="fa fa-check"></i><b>5.2</b> Exercise</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>6</b> Plot Time Series</a><ul>
+<li class="chapter" data-level="6.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>6.1</b> Plot Time Series Objects</a></li>
+<li class="chapter" data-level="6.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>6.2</b> plot.ts</a></li>
+<li class="chapter" data-level="6.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>6.3</b> plot.xts</a></li>
+<li class="chapter" data-level="6.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>6.4</b> ggplot</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html"><i class="fa fa-check"></i><b>6</b> Basic Data Wrangling with Tidyverse</a><ul>
-<li class="chapter" data-level="6.1" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#the-pipe-operator-1"><i class="fa fa-check"></i><b>6.1</b> The Pipe Operator %&gt;%</a></li>
-<li class="chapter" data-level="6.2" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#mutate-1"><i class="fa fa-check"></i><b>6.2</b> Mutate</a></li>
-<li class="chapter" data-level="6.3" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#rename-1"><i class="fa fa-check"></i><b>6.3</b> Rename</a></li>
-<li class="chapter" data-level="6.4" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#summarize-and-group_by-1"><i class="fa fa-check"></i><b>6.4</b> Summarize and group_by</a><ul>
-<li class="chapter" data-level="6.4.1" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#count-occurrences-1"><i class="fa fa-check"></i><b>6.4.1</b> Count occurrences</a></li>
+<li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition</a><ul>
+<li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#component-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Component of a time series</a></li>
+<li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#arrange-1"><i class="fa fa-check"></i><b>6.5</b> Arrange</a></li>
-<li class="chapter" data-level="6.6" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#filter-1"><i class="fa fa-check"></i><b>6.6</b> Filter</a></li>
-<li class="chapter" data-level="6.7" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#select-1"><i class="fa fa-check"></i><b>6.7</b> Select</a></li>
-<li class="chapter" data-level="6.8" data-path="basic-data-wrangling-with-tidyverse-1.html"><a href="basic-data-wrangling-with-tidyverse-1.html#exercise-1"><i class="fa fa-check"></i><b>6.8</b> Exercise</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>7</b> Time Series Objects</a><ul>
-<li class="chapter" data-level="7.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>7.1</b> Time Series Objects</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>7.1.1</b> Time Series as Data Frames</a></li>
-<li class="chapter" data-level="7.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>7.1.2</b> Time Series as TS objects</a></li>
-<li class="chapter" data-level="7.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>7.1.3</b> Time Series as XTS/ZOO objects</a></li>
-</ul></li>
-<li class="chapter" data-level="7.2" data-path="time-series-objects.html"><a href="time-series-objects.html#exercise-2"><i class="fa fa-check"></i><b>7.2</b> Exercise</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>8</b> Plot Time Series</a><ul>
-<li class="chapter" data-level="8.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>8.1</b> Plot Time Series Objects</a></li>
-<li class="chapter" data-level="8.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>8.2</b> plot.ts</a></li>
-<li class="chapter" data-level="8.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>8.3</b> plot.xts</a></li>
-<li class="chapter" data-level="8.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>8.4</b> ggplot</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>9</b> Readings</a><ul>
-<li class="chapter" data-level="9.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>9.1</b> Bibliographical References</a></li>
+<li class="chapter" data-level="8" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>8</b> Readings</a><ul>
+<li class="chapter" data-level="8.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>8.1</b> Bibliographical References</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -242,11 +218,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="readings" class="section level1">
-<h1><span class="header-section-number">Chapter 9</span> Readings</h1>
+<h1><span class="header-section-number">Chapter 8</span> Readings</h1>
 <p><em>This page will be updated as the course goes on.</em></p>
 <p>Wells, C., Shah, D. V., Pevehouse, J. C., Foley, J., Lukito, J., Pelled, A., &amp; Yang, J. (2019). <a href="https://ijoc.org/index.php/ijoc/article/view/10635">The Temporal Turn in Communication Research: Time Series Analyses Using Computational Approaches</a>. International Journal of Communication (19328036), 13.</p>
 <div id="bibliographical-references" class="section level2">
-<h2><span class="header-section-number">9.1</span> Bibliographical References</h2>
+<h2><span class="header-section-number">8.1</span> Bibliographical References</h2>
 <p>Gaubatz, K. T. (2014). <a href="https://methods.sagepub.com/Book/a-survivors-guide-to-r">A Survivor’s Guide to R: An Introduction for the Uninitiated and the Unnerved</a>. SAGE Publications.</p>
 
 </div>
@@ -256,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="plot-time-series.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="structural-decomposition.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -307,6 +283,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

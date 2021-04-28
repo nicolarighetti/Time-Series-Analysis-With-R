@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Time Series Analysis With R</title>
-  <meta name="description" content="Time Series Analysis With R" />
+  <title>Chapter 7 Structural Decomposition | Time Series Analysis With R</title>
+  <meta name="description" content="Chapter 7 Structural Decomposition | Time Series Analysis With R" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Time Series Analysis With R" />
+  <meta property="og:title" content="Chapter 7 Structural Decomposition | Time Series Analysis With R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Time Series Analysis With R" />
+  <meta name="twitter:title" content="Chapter 7 Structural Decomposition | Time Series Analysis With R" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="getting-started-with-r.html"/>
+<link rel="prev" href="plot-time-series.html"/>
+<link rel="next" href="readings.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -217,57 +217,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Time Series Analysis With R</h1>
-<p class="author"><em>Nicola Righetti</em></p>
-<p class="date"><em>2021-04-28</em></p>
-</div>
-<div id="time-series-analysis-with-r" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Time Series Analysis With R</h1>
-<p><em>This book will be updated as the course goes on.</em></p>
-<div id="objectives" class="section level2">
-<h2><span class="header-section-number">1.1</span> Objectives</h2>
-<p>This course is a practical introduction to time series analysis with R.</p>
-<p>It will introduce students to:</p>
+<div id="structural-decomposition" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Structural Decomposition</h1>
+<div id="component-of-a-time-series" class="section level2">
+<h2><span class="header-section-number">7.1</span> Component of a time series</h2>
+<p>A time series can be considered as composed of 4 main components: <strong>trend</strong>, <strong>cycle</strong>, <strong>seasonality</strong>, and the <strong>irregular</strong> or remainder/residual component.</p>
+<p><img src="images/Structure.png" width="1161" /></p>
 <ul>
-<li>The specificity of time series data;</li>
-<li>The free statistical software R to conduct time series analysis;</li>
-<li>Some of the main univariate and multivariate techniques to analyze time series data.</li>
+<li><p>The <strong>Trend</strong> component is the longest-term behavior of a time series, or a systematic change in a time series. The simplest model for a trend is a linear increase or decrease, but the trend has not to be linear. In the AirPassengers time series there is a clear upward trend. A distinction is made between <strong>deterministic</strong> and <strong>stochastic</strong> trends:</p></li>
+<li><p>A <strong>deterministic trend</strong> is a <em>fixed function of time</em>. If a series has a deterministic trend, it will likely appear to grow or decline steadily over time. That is, the increase (or decrease) in the value of the series will be a direct function of time. A series with a deterministic
+trend is said to be <em>trend stationary</em>.</p></li>
+<li><p>A <strong>stochastic trend</strong> has a random component that make it unpredictable. It wanders up and down, or exibits change of direction at unpredictable times. An example of stochastic trend is provided by the so-called <em>random walk</em> process, and time series like that are also said to be characterized by a <em>unit root</em> and <em>difference stationary</em>.</p></li>
 </ul>
-<p>At the end of the course, the students are expected to know the specificity of time series data and to be able to use R to perform simple time series analysis by applying the techniques described during the course.</p>
-</div>
-<div id="lectures" class="section level2">
-<h2><span class="header-section-number">1.2</span> Lectures</h2>
-<p><a href="https://ufind.univie.ac.at/de/course.html?lv=220050&amp;semester=2021S">12 lectures (Thursday 11:30-13:00)</a>.</p>
-<p>Structure of the course:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="structural-decomposition.html#cb157-1"></a><span class="kw">library</span>(xts)</span>
+<span id="cb157-2"><a href="structural-decomposition.html#cb157-2"></a><span class="kw">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
+<span id="cb157-3"><a href="structural-decomposition.html#cb157-3"></a>AirPassengers_xts &lt;-<span class="st"> </span><span class="kw">as.xts</span>(AirPassengers)</span>
+<span id="cb157-4"><a href="structural-decomposition.html#cb157-4"></a><span class="kw">plot.xts</span>(AirPassengers_xts)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
 <ul>
-<li><strong>Theoretical concepts</strong>: this part of the course will introduce students to the main theoretical concepts of time series analysis;</li>
-<li><strong>R Tutorial</strong>: this part of the course consists in a hands-on tutorial on the R functions necessary to perform time series analysis. Every part of a time series analysis project will be taken into account, including data wrangling, visual representation, and statistical analysis;</li>
-<li><strong>Individual/Group work</strong>: this part of the course consists in individual and group work based on the application of the theoretical and practical knowledge described in the previous part of the course</li>
+<li>The <strong>Seasonal</strong> component is a repeated pattern occurring at a fixed time period such as the time of the year or the day of the week (the frequency of seasonality, which is always a fixed and known frequency). There is a clear seasonal variation in the AirPassenger time series: bookings were highest during the summer months of June, July, and August and lowest during the autumn/winter months.</li>
 </ul>
-</div>
-<div id="home-work" class="section level2">
-<h2><span class="header-section-number">1.3</span> Home Work</h2>
-<p>Theoretical concepts can be studied, but you have to practice in order to learn R.</p>
-</div>
-<div id="assessment" class="section level2">
-<h2><span class="header-section-number">1.4</span> Assessment</h2>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="structural-decomposition.html#cb158-1"></a><span class="kw">plot.xts</span>(AirPassengers_xts[<span class="st">&quot;1954-01/1955-12&quot;</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
 <ul>
-<li>Assignments distributed during the course, dealing with demonstrating the understanding of key concepts (30%).</li>
-<li>A final data analysis project where participants will apply the knowledge and techniques learned during the course (70%).</li>
+<li><p>The <strong>cycle</strong> is a pattern that do not correspond to some fixed natural period. A time series with a cycle exhibits fluctuations (rises and falls) not occurring at a fixed frequency (none of these is apparent in the airline bookings time series). The cycle component is therefore different from the seasonal variation in that the former does not follow a fixed calendar frequency. The cyclic component of the series is often considered along with the trend part (<em>trend-cycle</em>).</p></li>
+<li><p>The <strong>irregular</strong> or remainder/residual component is the random-like part of the series.</p></li>
 </ul>
+<p>Along with the analysis of the peaks (see previous chapter), analyzing a time series based on these structural parts can be an important exploratory step. It help understanding the likely causes of the series features and formulate an appropriate time series model. For instance, in the case of the AirPassengers series, we could hypothesize that the <em>increasing trend</em> is due to the rising prosperity in the aftermath of the Second World War, greater availability of aircraft, cheaper flights due to competition between airlines, and an increasing population. The <em>seasonal</em> variation, instead, seems to coincide with vacation periods.</p>
 </div>
-<div id="syllabus-and-readings" class="section level2">
-<h2><span class="header-section-number">1.5</span> Syllabus and readings</h2>
-<p>This open book is specifically created for the <em>220050-1 SE SE Advanced Data Analysis 2 (2021S)</em> course. It includes both theoretical concepts and the R tutorial with the necessary code to perform all the operations we are going to learn.</p>
-<p>The book also includes hyperlinks to additional free resources and readings.
-The mandatory readings will be listed in the <em>Readings</em> section of the book.</p>
-<p>A new part of the book will be uploaded online every weeks, following the program of the lessons.</p>
-<p>The link to this book is the following: <a href="https://nicolarighetti.github.io/Time-Series-Analysis-With-R/">Time-Series-Analysis-With-R</a>.</p>
-</div>
-<div id="further-information-and-support" class="section level2">
-<h2><span class="header-section-number">1.6</span> Further information and support</h2>
-<p>For any information, communication, or request for clarification, you can reach out to me at <a href="https://ufind.univie.ac.at/de/person.html?id=113451">my University of Vienna address</a>.</p>
+<div id="structural-decomposition-1" class="section level2">
+<h2><span class="header-section-number">7.2</span> Structural decomposition</h2>
+<p><strong>Decomposition methods</strong> try to identify and separate the above mentioned parts of a time series. Usually they consider together the trend and cycle (<em>trend-cycle</em>) - the longer-term changes in the series - and the <em>seasonal</em> factors - periodic fluctuations of constant length happening at a specific calendar frequency).</p>
+<p>There are two main ways through which these elements can be combined together: in the <strong>additive</strong> and the <strong>multiplicative</strong> form:</p>
+<ul>
+<li>The <strong>additive model</strong> (<span class="math inline">\(x_{t} = m_{t} + s_{t} + z_{t}\)</span>, where <span class="math inline">\(x_{t}\)</span> is the observed time series, <span class="math inline">\(m_{t}\)</span> is the trend-cycle component, <span class="math inline">\(s_{t}\)</span> is the seasonal component and <span class="math inline">\(z_{t}\)</span> is the residual) is useful when the seasonal variation is relatively constant over time</li>
+<li>The <strong>multiplicative model</strong> (<span class="math inline">\(x_{t} = m_{t} * s_{t} * z_{t}\)</span>) is useful when the the seasonal effects tends to increase as the trend increases.</li>
+</ul>
+<p>There are different methods to decompose a time series. Here we consider the function <strong>decompose</strong> (Classical Seasonal Decomposition by Moving Averages). To apply this function, we need a <strong>ts</strong> object.</p>
+<p>Considering the AirPassengers time series, since the seasonal effect tends to increase as the trend increases, we can use a multiplicative model.</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="structural-decomposition.html#cb159-1"></a>AirPassengers_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(AirPassengers, <span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)</span>
+<span id="cb159-2"><a href="structural-decomposition.html#cb159-2"></a><span class="kw">plot</span>(AirPassengers_dec)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p>As an example of <em>additive model</em> we can use data from the “Seatbels” data set.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="structural-decomposition.html#cb160-1"></a><span class="kw">data</span>(<span class="st">&quot;Seatbelts&quot;</span>)</span>
+<span id="cb160-2"><a href="structural-decomposition.html#cb160-2"></a><span class="kw">plot.ts</span>(Seatbelts[,<span class="dv">5</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="structural-decomposition.html#cb161-1"></a>Seatbelts_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(Seatbelts[,<span class="dv">5</span>], <span class="dt">type=</span><span class="st">&quot;additive&quot;</span>)</span>
+<span id="cb161-2"><a href="structural-decomposition.html#cb161-2"></a><span class="kw">plot</span>(Seatbelts_dec)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+<p>We can re-create the original time series starting from its elements (we don’t actually need to do that, it is just for illustrative purposes).</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="structural-decomposition.html#cb162-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb162-2"><a href="structural-decomposition.html#cb162-2"></a><span class="kw">plot</span>(AirPassengers_dec<span class="op">$</span>trend <span class="op">*</span><span class="st"> </span>AirPassengers_dec<span class="op">$</span>seasonal <span class="op">+</span><span class="st"> </span>AirPassengers_dec<span class="op">$</span>random, <span class="dt">main =</span> <span class="st">&quot;&#39;Re-composed&#39; series&quot;</span>)</span>
+<span id="cb162-3"><a href="structural-decomposition.html#cb162-3"></a><span class="kw">plot</span>(AirPassengers, <span class="dt">main =</span> <span class="st">&quot;Original series&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -276,8 +278,8 @@ The mandatory readings will be listed in the <em>Readings</em> section of the bo
           </div>
         </div>
       </div>
-
-<a href="getting-started-with-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="plot-time-series.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="readings.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -308,7 +310,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/edit/master/index.Rmd",
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/edit/master/06-Structural-Decomposition.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -316,7 +318,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/blob/master/index.Rmd",
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/blob/master/06-Structural-Decomposition.Rmd",
 "text": null
 },
 "download": null,
