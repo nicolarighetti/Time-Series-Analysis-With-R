@@ -63,12 +63,14 @@ Seatbelts_dec <- decompose(Seatbelts[,5], type="additive")
 plot(Seatbelts_dec)
 ```
 
-We can re-create the original time series starting from its elements (we don't actually need to do that, it is just for illustrative purposes).
+We can re-create the original time series starting from its elements (we don't actually need to do that, it is just for illustrative purposes). 
 
 ```{r}
 par(mfrow=c(2,1))
-plot(AirPassengers_dec$trend * AirPassengers_dec$seasonal + AirPassengers_dec$random, main = "'Re-composed' series")
-plot(AirPassengers, main = "Original series")
+plot(AirPassengers_dec$trend * AirPassengers_dec$seasonal * AirPassengers_dec$random,  
+     xlim=c(1950, 1960), main = "'Re-composed' series", ylab="")
+
+plot(AirPassengers, xlim=c(1950, 1960), main = "Original series", ylab="")
 ```
 
 
