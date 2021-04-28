@@ -10,9 +10,8 @@ knitr::include_graphics("images/Structure.png")
 
 *   The **Trend** component is the longest-term behavior of a time series, or a systematic change in a time series. The simplest model for a trend is a linear increase or decrease, but the trend has not to be linear. In the AirPassengers time series there is a clear upward trend. A distinction is made between **deterministic** and **stochastic** trends:
 
-  -   A **deterministic trend** is a *fixed function of time*. If a series has a deterministic trend, it will likely appear to grow or decline steadily over time. That is, the increase (or decrease) in the value of the series will be a direct function of time. A series with a deterministic
-trend is said to be *trend stationary*.
-  -   A **stochastic trend** has a random component that make it unpredictable. It wanders up and down, or exibits change of direction at unpredictable times. An example of stochastic trend is provided by the so-called *random walk* process, and time series like that are also said to be characterized by a *unit root* and *difference stationary*.
+  -   A **deterministic trend** is a *fixed function of time*. If a series has a deterministic trend, it will likely appear to grow or decline steadily over time. That is, the increase (or decrease) in the value of the series will be a direct function of time. Deterministic trends have plausible physical explanations (for example, a deterministic increasing trend in the data may be related to an increasing population). A series with deterministic trend is also called *trend-stationary*.
+  -   A **stochastic trend** appears to be unpredictable. It wanders up and down, or shows change of direction at unpredictable times. An example of stochastic trend is provided by the so-called *random walk* process, and time series like that are also said to be characterized by a *unit root* and *difference stationary*.
 
 ```{r}
 library(xts)
@@ -27,11 +26,17 @@ plot.xts(AirPassengers_xts)
 plot.xts(AirPassengers_xts["1954-01/1955-12"])
 ```  
 
-*   The **cycle** is a pattern that do not correspond to some fixed natural period. A time series with a cycle exhibits fluctuations (rises and falls) not occurring at a fixed frequency (none of these is apparent in the airline bookings time series). The cycle component is therefore different from the seasonal variation in that the former does not follow a fixed calendar frequency. The cyclic component of the series is often considered along with the trend part (*trend-cycle*).
+It is possible to plot the distributions of data by months by using the function *boxplot* and *cycle*, to visualize the increasing number of passengers during the summer months. In this case, *cycle* is used to refer to the positions of each observation in the (yearly, in this case) cycle of observations (every year is considered to be a cycle of 12 observations).
+
+```{r}
+boxplot(AirPassengers ~ cycle(AirPassengers))
+```
+
+*   The **cyclical** component is a pattern that does not correspond to a fixed calendar period, but exhibits fluctuations (rises and falls) not occurring at a fixed frequency (none of these is apparent in the airline bookings time series). The cycle component is therefore different from the seasonal variation in that the former does not follow a fixed calendar frequency. The cyclic component of the series is often considered along with the trend part (*trend-cycle*).
 
 *   The **irregular** or remainder/residual component is the random-like part of the series.
 
-Along with the analysis of the peaks (see previous chapter), analyzing a time series based on these structural parts can be an important exploratory step. It help understanding the likely causes of the series features and formulate an appropriate time series model. For instance, in the case of the AirPassengers series, we could hypothesize that the *increasing trend* is due to the rising prosperity in the aftermath of the Second World War, greater availability of aircraft, cheaper flights due to competition between airlines, and an increasing population. The *seasonal* variation, instead, seems to coincide with vacation periods.
+Along with the analysis of the peaks (see previous chapter), analyzing a time series based on these structural parts can be an important exploratory step. It helps understanding the likely causes of the series features and formulate an appropriate time series model. For instance, in the case of the AirPassengers series, we could hypothesize that the *increasing trend* is due to the rising prosperity in the aftermath of the Second World War, greater availability of aircraft, cheaper flights due to competition between airlines, and an increasing population. The *seasonal* variation, instead, seems to coincide with vacation periods.
 
 ## Structural decomposition
 
@@ -99,6 +104,16 @@ Seatbelts_dec <- decompose(Seatbelts[,5], type="additive")
 plot(Seatbelts_dec)
 ```
 
+The **residual** part of the model should be (approximately) **random**, which indicates that the model explained (most of) the significant patterns in the data (the *"signal"*), leaving out the *"noise"*. 
+
+```{r}
+par(mfrow = c(1,2))
+plot.ts(Seatbelts_dec$random, main="Residuals", ylab="")
+hist(Seatbelts_dec$random, breaks = 25, freq = F, main = "Histogram")
+lines(density(Seatbelts_dec$random, na.rm = T), col="red")
+```
+
+
 We can re-create the original time series starting from its elements (we don't actually need to do that, it is just for illustrative purposes). 
 
 ```{r}
@@ -109,5 +124,13 @@ plot(AirPassengers_dec$trend * AirPassengers_dec$seasonal * AirPassengers_dec$ra
 plot(AirPassengers, xlim=c(1950, 1960),ylim=c(0,600),  main = "Original series", ylab="")
 ```
 
+
+
+
+## Exercises
+Carry out the following exploratory time series analysis in R using either the chocolate or the beer production data:
+
+  a) Produce a time plot of the data. Plot the aggregated annual series and a boxplot that summarizes the observed values for each season, and comment on the plots.
+  b) Decompose the series into the components trend, seasonal effect, and residuals, and plot the decomposed series. Produce a plot of the trend with a superimposed seasonal effect.
 
 

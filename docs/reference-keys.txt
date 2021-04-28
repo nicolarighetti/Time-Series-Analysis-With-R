@@ -1,4 +1,4 @@
-fig:unnamed-chunk-81
+fig:unnamed-chunk-80
 time-series-analysis-with-r
 objectives
 lectures
@@ -49,5 +49,6 @@ component-of-a-time-series
 structural-decomposition-1
 moving-average
 decompose
+exercises
 readings
 bibliographical-references
