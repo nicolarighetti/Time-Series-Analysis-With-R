@@ -233,12 +233,12 @@ trend is said to be <em>trend stationary</em>.</p></li>
 <span id="cb157-2"><a href="structural-decomposition.html#cb157-2"></a><span class="kw">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
 <span id="cb157-3"><a href="structural-decomposition.html#cb157-3"></a>AirPassengers_xts &lt;-<span class="st"> </span><span class="kw">as.xts</span>(AirPassengers)</span>
 <span id="cb157-4"><a href="structural-decomposition.html#cb157-4"></a><span class="kw">plot.xts</span>(AirPassengers_xts)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 <ul>
 <li>The <strong>Seasonal</strong> component is a repeated pattern occurring at a fixed time period such as the time of the year or the day of the week (the frequency of seasonality, which is always a fixed and known frequency). There is a clear seasonal variation in the AirPassenger time series: bookings were highest during the summer months of June, July, and August and lowest during the autumn/winter months.</li>
 </ul>
 <div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="structural-decomposition.html#cb158-1"></a><span class="kw">plot.xts</span>(AirPassengers_xts[<span class="st">&quot;1954-01/1955-12&quot;</span>])</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
 <ul>
 <li><p>The <strong>cycle</strong> is a pattern that do not correspond to some fixed natural period. A time series with a cycle exhibits fluctuations (rises and falls) not occurring at a fixed frequency (none of these is apparent in the airline bookings time series). The cycle component is therefore different from the seasonal variation in that the former does not follow a fixed calendar frequency. The cyclic component of the series is often considered along with the trend part (<em>trend-cycle</em>).</p></li>
 <li><p>The <strong>irregular</strong> or remainder/residual component is the random-like part of the series.</p></li>
@@ -257,21 +257,21 @@ trend is said to be <em>trend stationary</em>.</p></li>
 <p>Considering the AirPassengers time series, since the seasonal effect tends to increase as the trend increases, we can use a multiplicative model.</p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="structural-decomposition.html#cb159-1"></a>AirPassengers_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(AirPassengers, <span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)</span>
 <span id="cb159-2"><a href="structural-decomposition.html#cb159-2"></a><span class="kw">plot</span>(AirPassengers_dec)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
 <p>As an example of <em>additive model</em> we can use data from the “Seatbels” data set.</p>
 <div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="structural-decomposition.html#cb160-1"></a><span class="kw">data</span>(<span class="st">&quot;Seatbelts&quot;</span>)</span>
 <span id="cb160-2"><a href="structural-decomposition.html#cb160-2"></a><span class="kw">plot.ts</span>(Seatbelts[,<span class="dv">5</span>])</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="structural-decomposition.html#cb161-1"></a>Seatbelts_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(Seatbelts[,<span class="dv">5</span>], <span class="dt">type=</span><span class="st">&quot;additive&quot;</span>)</span>
 <span id="cb161-2"><a href="structural-decomposition.html#cb161-2"></a><span class="kw">plot</span>(Seatbelts_dec)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
 <p>We can re-create the original time series starting from its elements (we don’t actually need to do that, it is just for illustrative purposes).</p>
 <div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="structural-decomposition.html#cb162-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
 <span id="cb162-2"><a href="structural-decomposition.html#cb162-2"></a><span class="kw">plot</span>(AirPassengers_dec<span class="op">$</span>trend <span class="op">*</span><span class="st"> </span>AirPassengers_dec<span class="op">$</span>seasonal <span class="op">*</span><span class="st"> </span>AirPassengers_dec<span class="op">$</span>random,  </span>
-<span id="cb162-3"><a href="structural-decomposition.html#cb162-3"></a>     <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1950</span>, <span class="dv">1960</span>), <span class="dt">main =</span> <span class="st">&quot;&#39;Re-composed&#39; series&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb162-3"><a href="structural-decomposition.html#cb162-3"></a>     <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1950</span>, <span class="dv">1960</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">600</span>), <span class="dt">main =</span> <span class="st">&quot;&#39;Re-composed&#39; series&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span>
 <span id="cb162-4"><a href="structural-decomposition.html#cb162-4"></a></span>
-<span id="cb162-5"><a href="structural-decomposition.html#cb162-5"></a><span class="kw">plot</span>(AirPassengers, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1950</span>, <span class="dv">1960</span>), <span class="dt">main =</span> <span class="st">&quot;Original series&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
+<span id="cb162-5"><a href="structural-decomposition.html#cb162-5"></a><span class="kw">plot</span>(AirPassengers, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1950</span>, <span class="dv">1960</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">600</span>),  <span class="dt">main =</span> <span class="st">&quot;Original series&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 
 </div>
 </div>
