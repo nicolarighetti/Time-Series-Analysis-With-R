@@ -128,7 +128,7 @@ plot(AirPassengers, xlim=c(1950, 1960),ylim=c(0,600),  main = "Original series",
 
 
 ## Exercises
-Carry out the following exploratory time series analysis in R using either the chocolate or the beer production data:
+Carry out the following exploratory time series analysis:
 
   a) Produce a time plot of the data. Plot the aggregated annual series and a boxplot that summarizes the observed values for each season, and comment on the plots.
   b) Decompose the series into the components trend, seasonal effect, and residuals, and plot the decomposed series. Produce a plot of the trend with a superimposed seasonal effect.
