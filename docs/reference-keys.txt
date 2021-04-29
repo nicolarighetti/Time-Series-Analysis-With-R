@@ -1,6 +1,6 @@
-fig:unnamed-chunk-42
-fig:unnamed-chunk-111
-fig:unnamed-chunk-115
+fig:unnamed-chunk-39
+fig:unnamed-chunk-108
+fig:unnamed-chunk-112
 time-series-analysis-with-r
 objectives
 lectures
@@ -47,7 +47,7 @@ plot.ts
 plot.xts
 ggplot
 structural-decomposition
-component-of-a-time-series
+components-of-a-time-series
 trend-and-cycle
 stochastic-and-deterministic-trend
 seasonality

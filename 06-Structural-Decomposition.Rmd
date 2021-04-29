@@ -1,6 +1,6 @@
 # Structural Decomposition
 
-## Component of a time series
+## Components of a time series
 
 A time series can be considered composed of 4 main parts: **trend**, **cycle**, **seasonality**, and the **irregular** or remainder/residual part.
 
@@ -85,7 +85,7 @@ In general, when we fit mathematical models to time series data, the *residual* 
 
 The analysis of residuals is thus important to judge the fit of a model. In this case, its residual error series appears to be a realization of *independent random variables*. Often the random variable is conceived as a Gaussian random variable. We'll return to these topics in the last part of the chapter.
 
-```{r include=FALSE}
+```{r echo=TRUE}
 AirPassengers_Random <- decompose(AirPassengers, type="multiplicative")$random
 ```
 
