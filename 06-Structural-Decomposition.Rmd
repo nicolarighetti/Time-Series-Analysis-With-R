@@ -2,16 +2,16 @@
 
 ## Component of a time series
 
-A time series can be considered as composed of 4 main components: **trend**, **cycle**, **seasonality**, and the **irregular** or remainder/residual component.
+A time series can be considered composed of 4 main parts: **trend**, **cycle**, **seasonality**, and the **irregular** or remainder/residual part.
 
 ```{r  echo=FALSE}
 knitr::include_graphics("images/Structure.png")
 ```
 
-*   The **Trend** component is the longest-term behavior of a time series, or a systematic change in a time series. The simplest model for a trend is a linear increase or decrease, but the trend has not to be linear. In the AirPassengers time series there is a clear upward trend. A distinction is made between **deterministic** and **stochastic** trends:
 
-  -   A **deterministic trend** is a *fixed function of time*. If a series has a deterministic trend, it will likely appear to grow or decline steadily over time. That is, the increase (or decrease) in the value of the series will be a direct function of time. Deterministic trends have plausible physical explanations (for example, a deterministic increasing trend in the data may be related to an increasing population). A series with deterministic trend is also called *trend-stationary*.
-  -   A **stochastic trend** appears to be unpredictable. It wanders up and down, or shows change of direction at unpredictable times. An example of stochastic trend is provided by the so-called *random walk* process, and time series like that are also said to be characterized by a *unit root* and *difference stationary*.
+### Trend and Cycle
+
+The **Trend** component is the longest-term behavior of a time series. The simplest model for a trend is a linear increase or decrease, but the trend has not to be linear. In the AirPassengers time series there is a clear upward, linear trend.
 
 ```{r}
 library(xts)
@@ -20,7 +20,37 @@ AirPassengers_xts <- as.xts(AirPassengers)
 plot.xts(AirPassengers_xts)
 ```  
 
-*   The **Seasonal** component is a repeated pattern occurring at a fixed time period such as the time of the year or the day of the week (the frequency of seasonality, which is always a fixed and known frequency). There is a clear seasonal variation in the AirPassenger time series: bookings were highest during the summer months of June, July, and August and lowest during the autumn/winter months.
+#### Stochastic and Deterministic Trend
+
+There is a distinction between **deterministic** and **stochastic** trends.
+
+A **deterministic trend** is a *fixed function of time*. If a series has a deterministic trend, the increase (or decrease) in the value of the series is a function of time. For instance, it may appear to grow or decline steadily over time. A deterministic trend can be linear, as well as non linear. Deterministic trends have plausible explanations (for example, a deterministic increasing trend in the data may be related to an increasing population). A series with deterministic trend is also called *trend-stationary*.
+
+A **stochastic trend** wanders up and down or shows change of direction at unpredictable times. Time series with a stochastic trend are also said to be *difference stationary*. An example of stochastic trend is provided by the so-called *random walk* process.
+
+**Random Walk** is a particular time series process in which the current values are combinations of the previous ones ($x_t = x_t-1 + w_t$, where $x_t-1$ is the value immediately before x, and $w_t$ is a random component). The resulting time series is characterized by a discernible pattern over time which is not exactly predictable (*stochastic trend*). Starting from the same initial point, the same process can generate very different time series. Below you can see two examples of random walk. They are generated through the same simulation but starting from different initial points. We'll return to these topics in the next chapters.
+
+```{r}
+set.seed(111)
+Random_Walk <- arima.sim(n = 500, model = list(order = c(0,1,0)))
+plot.ts(Random_Walk, ylab = expression(italic(x)[italic(t)]), main = "Random Walk")
+
+set.seed(555)
+Random_Walk <- arima.sim(n = 500, model = list(order = c(0,1,0)))
+plot.ts(Random_Walk, ylab = expression(italic(x)[italic(t)]), main = "Random Walk")
+```
+  
+A paper on [The effectiveness of social distancing in containing Covid-19](https://www.tandfonline.com/doi/full/10.1080/00036846.2020.1789061) shows an example of stochastic trend and complex, deterministic nonlinear trends represented by polynomials.
+
+```{r echo=FALSE, fig.cap="Figure 5 shows the actual number of Covid-19 cases recorded in the UK up to 17 June 2020. The stochastic trend estimated earlier is superimposed on the actual observations and so are two deterministic nonlinear trends represented by polynomials of degrees 5 and 6. We can see that the stochastic trend captures the slow growth at the beginning of the sample period whereas the two deterministic trends do not. The stochastic trend is better also at capturing the sharp increase represented by observation number 72.. (original caption)"}
+knitr::include_graphics("images/covid-trends.jpeg")
+```  
+
+The **cyclical** component is represented by fluctuations (rises and falls) not occurring at a fixed frequency (none of these is apparent in the airline bookings time series). The cycle component is therefore different from the seasonal variation (see below) in that it does not follow a fixed calendar frequency. The cyclic component of the series is often considered along with the trend (*trend-cycle*).
+
+### Seasonality
+
+The **Seasonal** component is a repeated pattern occurring at a fixed time period such as the time of the year or the day of the week (the frequency of seasonality, which is always a fixed and known frequency). There is a clear seasonal variation in the AirPassenger time series: bookings were highest during the summer months of June, July, and August and lowest during the autumn/winter months.
 
 ```{r}
 plot.xts(AirPassengers_xts["1954-01/1955-12"])
@@ -32,13 +62,55 @@ It is possible to plot the distributions of data by months by using the function
 boxplot(AirPassengers ~ cycle(AirPassengers))
 ```
 
-*   The **cyclical** component is a pattern that does not correspond to a fixed calendar period, but exhibits fluctuations (rises and falls) not occurring at a fixed frequency (none of these is apparent in the airline bookings time series). The cycle component is therefore different from the seasonal variation in that the former does not follow a fixed calendar frequency. The cyclic component of the series is often considered along with the trend part (*trend-cycle*).
+The library *forecast*, an R package that provides methods and tools for displaying and analysing time series forecasts, includes a function to create a "polar" seasonal plot.
 
-*   The **irregular** or remainder/residual component is the random-like part of the series.
+```{r}
+# install.packages("forecast")
+library(forecast)
+ggseasonplot(AirPassengers, polar=TRUE)
+```
+An example of weekly seasonality can be found in the COVID-19 statistics. 
 
-Along with the analysis of the peaks (see previous chapter), analyzing a time series based on these structural parts can be an important exploratory step. It helps understanding the likely causes of the series features and formulate an appropriate time series model. For instance, in the case of the AirPassengers series, we could hypothesize that the *increasing trend* is due to the rising prosperity in the aftermath of the Second World War, greater availability of aircraft, cheaper flights due to competition between airlines, and an increasing population. The *seasonal* variation, instead, seems to coincide with vacation periods.
+```{r echo=FALSE, fig.cap="Covid statistics (Google)"}
+knitr::include_graphics("images/covid-italy.png")
+```  
+
+Cyclic and seasonal variations can look similar. Both cyclic and seasonal variations have 'peak-and-trough' patterns. The main difference is that in seasonal patterns the period between successive peaks (or troughs) is constant, while in cyclical patterns the distance between successive peaks is irregular.
+
+### Residuals
+
+The **irregular** or remainder/residual component is the random-like part of the series. 
+
+In general, when we fit mathematical models to time series data, the *residual* error series represents the discrepancies between the fitted values, calculated from the model, and the data. A good model encapsulates most of the deterministic features of the time series, and the residual error series should therefore appear to be a realization of independent random variables from some probability distribution.
+
+The analysis of residuals is thus important to judge the fit of a model. In this case, its residual error series appears to be a realization of *independent random variables*. Often the random variable is conceived as a Gaussian random variable.
+
+```{r include=FALSE}
+AirPassengers_Random <- decompose(AirPassengers, type="multiplicative")$random
+```
+
+```{r}
+par(mfrow = c(2,1))
+plot(AirPassengers_Random, xlab="", ylab="")
+hist(na.omit(AirPassengers_Random), main = "", xlab="", ylab="")
+```
+
+#### White Noise
+
+The standard model of independent random variation in time series analysis is known as **white noise** (a term coined in an article published in Nature in 1922, where it was used to refer to series that contained all frequencies in equal proportions, analogous to white light). The charts below show how a white noise process looks like. We'll return to these topics in the next chapters.
+
+```{r echo=FALSE}
+White_Noise <- arima.sim(n = 500, model = list(order = c(0,0,0)))
+plot.ts(White_Noise, ylab = expression(italic(x)[italic(t)]), main = "White Noise")
+
+hist(White_Noise, main = "", freq = F)
+lines(density(White_Noise), col="red")
+
+```
 
 ## Structural decomposition
+
+Along with the analysis of the peaks (see previous chapter), analyzing a time series based on these structural parts can be an important exploratory step. It helps understanding the likely causes of the series features and formulate an appropriate time series model. For instance, in the case of the AirPassengers series, we could hypothesize that the *increasing trend* is due to the rising prosperity in the aftermath of the Second World War, greater availability of aircraft, cheaper flights due to competition between airlines, and an increasing population. The *seasonal* variation, instead, seems to coincide with vacation periods.
 
 **Decomposition methods** try to identify and separate the above mentioned parts of a time series. Usually they consider together the trend and cycle (*trend-cycle*) - the longer-term changes in the series - and the *seasonal* factors - periodic fluctuations of constant length happening at a specific calendar frequency).
 
@@ -113,7 +185,6 @@ hist(Seatbelts_dec$random, breaks = 25, freq = F, main = "Histogram")
 lines(density(Seatbelts_dec$random, na.rm = T), col="red")
 ```
 
-
 We can re-create the original time series starting from its elements (we don't actually need to do that, it is just for illustrative purposes). 
 
 ```{r}
@@ -123,8 +194,6 @@ plot(AirPassengers_dec$trend * AirPassengers_dec$seasonal * AirPassengers_dec$ra
 
 plot(AirPassengers, xlim=c(1950, 1960),ylim=c(0,600),  main = "Original series", ylab="")
 ```
-
-
 
 
 ## Exercises

@@ -1,4 +1,6 @@
-fig:unnamed-chunk-39
+fig:unnamed-chunk-107
+fig:unnamed-chunk-176
+fig:unnamed-chunk-180
 time-series-analysis-with-r
 objectives
 lectures
@@ -46,6 +48,11 @@ plot.xts
 ggplot
 structural-decomposition
 component-of-a-time-series
+trend-and-cycle
+stochastic-and-deterministic-trend
+seasonality
+residuals
+white-noise
 structural-decomposition-1
 moving-average
 decompose
