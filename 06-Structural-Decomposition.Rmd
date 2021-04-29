@@ -24,11 +24,11 @@ plot.xts(AirPassengers_xts)
 
 There is a distinction between **deterministic** and **stochastic** trends.
 
-A **deterministic trend** is a *fixed function of time*. If a series has a deterministic trend, the increase (or decrease) in the value of the series is a function of time. For instance, it may appear to grow or decline steadily over time. A deterministic trend can be linear, as well as non linear. Deterministic trends have plausible explanations (for example, a deterministic increasing trend in the data may be related to an increasing population). A series with deterministic trend is also called *trend-stationary*.
+A **deterministic trend** is a *fixed function of time*. If a series has a deterministic trend, the increase (or decrease) in the value of the series is a function of time. For instance, it may appear to grow or decline steadily over time. A deterministic trend can be linear, as well as non linear. Deterministic trends have plausible explanations (for example, a deterministic increasing trend in the data may be related to an increasing population). A series with deterministic trend is also called *trend stationary*.
 
 A **stochastic trend** wanders up and down or shows change of direction at unpredictable times. Time series with a stochastic trend are also said to be *difference stationary*. An example of stochastic trend is provided by the so-called *random walk* process.
 
-**Random Walk** is a particular time series process in which the current values are combinations of the previous ones ($x_t = x_t-1 + w_t$, where $x_t-1$ is the value immediately before x, and $w_t$ is a random component). The resulting time series is characterized by a discernible pattern over time which is not exactly predictable (*stochastic trend*). Starting from the same initial point, the same process can generate very different time series. Below you can see two examples of random walk. They are generated through the same simulation but starting from different initial points. We'll return to these topics in the next chapters.
+**Random Walk** is a particular time series process in which the current values are combinations of the previous ones ($x_t = x_{t-1} + w_t$, where $x_{t-1}$ is the value immediately before x, and $w_t$ is a random component). The resulting time series is characterized by a discernible pattern over time which is not exactly predictable (*stochastic trend*). Starting from the same initial point, the same process can generate very different time series. Below you can see two examples of random walk. They are generated through the same simulation but starting from different initial points. We'll return to these topics in the last part of the chapter.
 
 ```{r}
 set.seed(111)
@@ -83,7 +83,7 @@ The **irregular** or remainder/residual component is the random-like part of the
 
 In general, when we fit mathematical models to time series data, the *residual* error series represents the discrepancies between the fitted values, calculated from the model, and the data. A good model encapsulates most of the deterministic features of the time series, and the residual error series should therefore appear to be a realization of independent random variables from some probability distribution.
 
-The analysis of residuals is thus important to judge the fit of a model. In this case, its residual error series appears to be a realization of *independent random variables*. Often the random variable is conceived as a Gaussian random variable.
+The analysis of residuals is thus important to judge the fit of a model. In this case, its residual error series appears to be a realization of *independent random variables*. Often the random variable is conceived as a Gaussian random variable. We'll return to these topics in the last part of the chapter.
 
 ```{r include=FALSE}
 AirPassengers_Random <- decompose(AirPassengers, type="multiplicative")$random
@@ -95,18 +95,6 @@ plot(AirPassengers_Random, xlab="", ylab="")
 hist(na.omit(AirPassengers_Random), main = "", xlab="", ylab="")
 ```
 
-#### White Noise
-
-The standard model of independent random variation in time series analysis is known as **white noise** (a term coined in an article published in Nature in 1922, where it was used to refer to series that contained all frequencies in equal proportions, analogous to white light). The charts below show how a white noise process looks like. We'll return to these topics in the next chapters.
-
-```{r echo=FALSE}
-White_Noise <- arima.sim(n = 500, model = list(order = c(0,0,0)))
-plot.ts(White_Noise, ylab = expression(italic(x)[italic(t)]), main = "White Noise")
-
-hist(White_Noise, main = "", freq = F)
-lines(density(White_Noise), col="red")
-
-```
 
 ## Structural decomposition
 
@@ -195,6 +183,31 @@ plot(AirPassengers_dec$trend * AirPassengers_dec$seasonal * AirPassengers_dec$ra
 plot(AirPassengers, xlim=c(1950, 1960),ylim=c(0,600),  main = "Original series", ylab="")
 ```
 
+
+## White Noise and Stationarity
+
+We said that the **residual** part of the model should be (approximately) **random**, which indicates that the model explained most of the significant patterns in the data (the *"signal"*), leaving out the *"noise"*. 
+
+The standard model of independent random variation in time series analysis is known as **white noise** (a term coined in an article published in Nature in 1922, where it was used to refer to series that contained all frequencies in equal proportions, analogous to white light). The charts below show how a white noise process looks like. 
+
+```{r echo=FALSE}
+White_Noise <- arima.sim(n = 500, model = list(order = c(0,0,0)))
+plot.ts(White_Noise, ylab = expression(italic(x)[italic(t)]), main = "White Noise")
+
+hist(White_Noise, main = "", freq = F)
+lines(density(White_Noise), col="red")
+
+```
+
+When we introduced the concept of deterministic and stochastic trend, we said that the series showing the first type of trend are also called **trend stationary**, and the series showing the second type of trend are also called **difference stationary**. Both these names refer to the concept of **stationarity**. 
+
+A process is *stationary* if it is homogeneous, that is, if it has no distinguished points in times or, in other words, its statistical qualities are the same for any point in time. There are more or less stringent definition of stationarity (*strict and weak stationarity*), and the most used for practical purposes is the so-called **weak-stationarity**. In this sense, a time series is said to be stationary if there is:
+
+*    **no trend** (no systematic change in mean, that is, time invariant mean), and no seasonality (no periodic variations);
+*   **no change in variance** over time (time invariant variance);
+*   **no auto-correlation** (we’ll return to this topic in the next chapters)
+
+*White noise is an example of stationary time series*. As you can see in the chart above, white noise time series is pretty regular, the mean is always the same (0) and there are no changes in variance over time: the plot looks much the same at any point in time!
 
 ## Exercises
 Carry out the following exploratory time series analysis:

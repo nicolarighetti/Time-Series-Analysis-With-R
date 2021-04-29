@@ -1,6 +1,6 @@
-fig:unnamed-chunk-107
-fig:unnamed-chunk-176
-fig:unnamed-chunk-180
+fig:unnamed-chunk-42
+fig:unnamed-chunk-111
+fig:unnamed-chunk-115
 time-series-analysis-with-r
 objectives
 lectures
@@ -52,10 +52,10 @@ trend-and-cycle
 stochastic-and-deterministic-trend
 seasonality
 residuals
-white-noise
 structural-decomposition-1
 moving-average
 decompose
+white-noise-and-stationarity
 exercises
 readings
 bibliographical-references
