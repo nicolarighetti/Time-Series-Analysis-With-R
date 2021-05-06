@@ -372,19 +372,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>With the function <strong>to.period</strong> you can re-sample the data to “seconds”, “minutes”, “hours”, “days”, “weeks”, “months”, “quarters”, and “years”. You can only re-sample the data from a higher to a lower frequency, but not from a lower to a higher one. For instance, if you have monthly data, you can aggregate the data in quarterly or yearly data, but you cannot create a weekly or hourly time series.</p>
 <p>The result of the <em>to.period</em> function will contain the open (first) and close (last) value for the given period, as well as the maximum and minimum over the new period, reflected in the new high and low, respectively.</p>
 <div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="plot-time-series.html#cb148-1"></a><span class="kw">to.period</span>(AirPassengers_xts, <span class="dt">period=</span><span class="st">&quot;years&quot;</span>)</span></code></pre></div>
-<pre><code>##          AirPassengers_xts.Open AirPassengers_xts.High AirPassengers_xts.Low AirPassengers_xts.Close
-## Dec 1949                    112                    148                   104                     118
-## Dec 1950                    115                    170                   114                     140
-## Dec 1951                    145                    199                   145                     166
-## Dec 1952                    171                    242                   171                     194
-## Dec 1953                    196                    272                   180                     201
-## Dec 1954                    204                    302                   188                     229
-## Dec 1955                    242                    364                   233                     278
-## Dec 1956                    284                    413                   271                     306
-## Dec 1957                    315                    467                   301                     336
-## Dec 1958                    340                    505                   310                     337
-## Dec 1959                    360                    559                   342                     405
-## Dec 1960                    417                    622                   390                     432</code></pre>
+<pre><code>##          AirPassengers_xts.Open AirPassengers_xts.High AirPassengers_xts.Low
+## Dec 1949                    112                    148                   104
+## Dec 1950                    115                    170                   114
+## Dec 1951                    145                    199                   145
+## Dec 1952                    171                    242                   171
+## Dec 1953                    196                    272                   180
+## Dec 1954                    204                    302                   188
+## Dec 1955                    242                    364                   233
+## Dec 1956                    284                    413                   271
+## Dec 1957                    315                    467                   301
+## Dec 1958                    340                    505                   310
+## Dec 1959                    360                    559                   342
+## Dec 1960                    417                    622                   390
+##          AirPassengers_xts.Close
+## Dec 1949                     118
+## Dec 1950                     140
+## Dec 1951                     166
+## Dec 1952                     194
+## Dec 1953                     201
+## Dec 1954                     229
+## Dec 1955                     278
+## Dec 1956                     306
+## Dec 1957                     336
+## Dec 1958                     337
+## Dec 1959                     405
+## Dec 1960                     432</code></pre>
 <p>You can plot all the values, or select a value by using the <em>square brackets</em> with a comma, followed by the number of the column you want to plot (see the table above, with 4 columns). This notation is a way to access the columns (and the rows) of a data.frame or matrix. You write the name of the data.frame or the matrix, and the squared brackets indicate the index of the rows, in the first position before the comma, and the index of the columns, in the second position, after the comma. So, for instance, to access the value in the second column and the second row of the data.set “data”, you can write data[2,2], and to access the values in the third column and first row, you can write data[1,3]. If you leave a blank space in the column or row space, you get all the values in that column or rows. Therefore, by writing data[,2], or data[,3], you get all the values in the column 2 and 3, respectively.</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="plot-time-series.html#cb150-1"></a><span class="kw">plot.xts</span>(<span class="kw">to.period</span>(AirPassengers_xts, <span class="dt">period=</span><span class="st">&quot;years&quot;</span>)[,<span class="dv">2</span>],</span>
 <span id="cb150-2"><a href="plot-time-series.html#cb150-2"></a>         <span class="dt">main =</span> <span class="st">&quot;PASSENGERS&quot;</span>,</span>

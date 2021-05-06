@@ -427,14 +427,14 @@ Figure 7.2: Covid statistics (Google)
 <p>Another example with data from social media, you can download here (<a href="https://drive.google.com/file/d/16NyBB1YOICSQ8lmZpcq62ahkJff9Tx6E/view?usp=sharing">art1</a>, and <a href="https://drive.google.com/file/d/1UWodHEAAphThP-jkALA5u1qEbTBPqHiE/view?usp=sharing">art2</a>), consisting in posts published by pages of news media.</p>
 <div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="structural-decomposition.html#cb175-1"></a>art1 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/art1.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────
 ## cols(
 ##   post_created_date = col_date(format = &quot;&quot;),
 ##   page_name = col_character()
 ## )</code></pre>
 <div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="structural-decomposition.html#cb177-1"></a>art2 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/art2.csv&quot;</span>)</span></code></pre></div>
 <pre><code>## 
-## ── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Column specification ───────────────────────────────────────────────────────────────────
 ## cols(
 ##   post_created_date = col_date(format = &quot;&quot;),
 ##   page_name = col_character()
@@ -561,27 +561,19 @@ be more or less “sticky”. After we filter away those time series properties,
 <p>Let’s consider, as an example, the correlogram of a random walk process. We know that this is a particular time series process in which the current values are combinations of the previous ones (<span class="math inline">\(x_t = x_{t-1} + w_t\)</span>, where <span class="math inline">\(x_{t-1}\)</span> is the value immediately before x, and <span class="math inline">\(w_t\)</span> is a random component). The resulting time series is characterized by a discernible pattern over time which is not exactly predictable (<em>stochastic trend</em>). The ACF of a random walk time series, indeed, shows a correlation between values in the series: even values not so close are notwithstanding correlated.</p>
 <div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="structural-decomposition.html#cb193-1"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
 <span id="cb193-2"><a href="structural-decomposition.html#cb193-2"></a></span>
-<span id="cb193-3"><a href="structural-decomposition.html#cb193-3"></a><span class="kw">plot.ts</span>(Random_Walk, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;Random Walk&quot;</span>)</span></code></pre></div>
+<span id="cb193-3"><a href="structural-decomposition.html#cb193-3"></a><span class="kw">acf</span>(Random_Walk)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="structural-decomposition.html#cb194-1"></a><span class="kw">acf</span>(Random_Walk)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-2.png" width="672" /></p>
 <p>Instead, the PACF, which removes the correlations between intermediate values, shows a correlation at lag 1, that is, it shows that the overall correlation depends on consequent values. The dotted blue lines signal the boundaries of statistical significance.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="structural-decomposition.html#cb195-1"></a><span class="kw">plot.ts</span>(Random_Walk, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;Random Walk&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="structural-decomposition.html#cb194-1"></a><span class="kw">pacf</span>(Random_Walk)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="structural-decomposition.html#cb196-1"></a><span class="kw">pacf</span>(Random_Walk)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-131-2.png" width="672" /></p>
 <p>A white noise process is very different. We know that white noise is a stationary process, which has no distinguishable point in time and no correlation between points. Indeed, the ACF shows no correlation (the only line above statistical significance is at zero, which just means that each point is correlated with itself).</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="structural-decomposition.html#cb197-1"></a>White_Noise &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)))</span>
-<span id="cb197-2"><a href="structural-decomposition.html#cb197-2"></a><span class="kw">plot.ts</span>(White_Noise, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;White Noise&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-132-1.png" width="672" /></p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="structural-decomposition.html#cb198-1"></a><span class="kw">acf</span>(White_Noise)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-132-2.png" width="672" />
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="structural-decomposition.html#cb195-1"></a>White_Noise &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)))</span>
+<span id="cb195-2"><a href="structural-decomposition.html#cb195-2"></a></span>
+<span id="cb195-3"><a href="structural-decomposition.html#cb195-3"></a><span class="kw">acf</span>(White_Noise)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-132-1.png" width="672" />
 In the PACF every correlations is within the dotted lines (not statistically significant).</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="structural-decomposition.html#cb199-1"></a>White_Noise &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)))</span>
-<span id="cb199-2"><a href="structural-decomposition.html#cb199-2"></a><span class="kw">plot.ts</span>(White_Noise, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;White Noise&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="structural-decomposition.html#cb196-1"></a><span class="kw">pacf</span>(White_Noise)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="structural-decomposition.html#cb200-1"></a><span class="kw">pacf</span>(White_Noise)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-133-2.png" width="672" /></p>
 </div>
 </div>
 <div id="exercises" class="section level2">
