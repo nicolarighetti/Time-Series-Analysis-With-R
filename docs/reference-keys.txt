@@ -1,6 +1,6 @@
-fig:unnamed-chunk-39
-fig:unnamed-chunk-108
-fig:unnamed-chunk-112
+fig:unnamed-chunk-116
+fig:unnamed-chunk-185
+fig:unnamed-chunk-189
 time-series-analysis-with-r
 objectives
 lectures
@@ -55,7 +55,12 @@ residuals
 structural-decomposition-1
 moving-average
 decompose
+adjust-time-series
+seasonal-adjusted-data
+detrended-series
 white-noise-and-stationarity
+auto-correlation-and-cross-correlation
+correlogram-acf-and-pacf
 exercises
 readings
 bibliographical-references

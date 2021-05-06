@@ -156,21 +156,22 @@ As an example of *additive model* we can use data from the "Seatbels" data set.
 
 ```{r}
 data("Seatbelts")
-plot.ts(Seatbelts[,5])
+seatbelts <- Seatbelts[,5]
+plot.ts(seatbelts)
 ```
 
 ```{r}
-Seatbelts_dec <- decompose(Seatbelts[,5], type="additive")
-plot(Seatbelts_dec)
+seatbelts_dec <- decompose(seatbelts, type="additive")
+plot(seatbelts_dec)
 ```
 
 The **residual** part of the model should be (approximately) **random**, which indicates that the model explained (most of) the significant patterns in the data (the *"signal"*), leaving out the *"noise"*. 
 
 ```{r}
 par(mfrow = c(1,2))
-plot.ts(Seatbelts_dec$random, main="Residuals", ylab="")
-hist(Seatbelts_dec$random, breaks = 25, freq = F, main = "Histogram")
-lines(density(Seatbelts_dec$random, na.rm = T), col="red")
+plot.ts(seatbelts_dec$random, main="Residuals", ylab="")
+hist(seatbelts_dec$random, breaks = 25, freq = F, main = "Histogram")
+lines(density(seatbelts_dec$random, na.rm = T), col="red")
 ```
 
 We can re-create the original time series starting from its elements (we don't actually need to do that, it is just for illustrative purposes). 
@@ -183,6 +184,144 @@ plot(AirPassengers_dec$trend * AirPassengers_dec$seasonal * AirPassengers_dec$ra
 plot(AirPassengers, xlim=c(1950, 1960),ylim=c(0,600),  main = "Original series", ylab="")
 ```
 
+## Adjust time series 
+
+Sometimes the analyst is not interested in the trend or in the seasonal variation in the data, and might want to remove them, in order to let other underlying process to emerge more clearly. Other times, some components of time series can be misleading, leading to inflated or spurious correlation, and can be preferable to remove them before proceding with the analysis.
+
+### Seasonal adjusted data
+
+It is common to find seasonally adjusted data, that is time series from which the seasonal component has been removed. This happen quite often in economics, where certain growing trend in economic series can be considered trivial, and explained based on solid theory. Other parts of the series are instead considered more important, and removing the seasonal component allow them to emerge more clearly, as summarized by [Granger, C. W. (1978), *Seasonality: causation, interpretation, and implications*. In Seasonal analysis of economic time series](https://www.nber.org/system/files/chapters/c4321/c4321.pdf):
+
+>Presumably, the seasonal is treated in this fashion, because it is economically uninportant, being dull, superficially easily explained, and easy to forecast but, at the same time, being statistically important in that it is a major contributor to the total variance of many series. The presence of the seasonal could be said to obscure movements in other components of greater economic significance. (...) It can be certainly be stated that, when considering the level of an economic variable, the low frequency components (the trend-cycle, ed.) are usually both statistically and economically important. (...) Because of their dual importance, it is desirable to view this component as clearly as possible and, thus, the interference from the season should be removed. (...) the preference for seasonally adjusted data is so that they can more clearly see the position of local trends or the place on the business cycle. It is certainly true that for any series containing a strong season, it is very difficult to observe these local trends without seasonal adjustment.
+
+Moreover, seasonality can lead to spurious correlations:
+
+>(...) if the relationship between a pair of economic variables is to be analyzed, it is obviously possible to obtain a spurious relationship if the two series contain important seasonals. By adjusting series, one possible source of spurious relationship is removed. 
+
+However, adjust for seasonality a series is application specific, and sometimes this part of the series can be of interest:
+
+>Firms having seasonal fluctuations in demand for their products, for example, may need to make decisions based largely on the seasonal component (...) and a local government may try to partially control seasonal fluctuations in unemployment. (...) Only by having both the the adjusted and the unadjusted data available can these potential users gain the maximum benefit from all of the effort that goes into collecting the information.
+
+There are many different methods to adjust data for seasonality. A simple approach is based on the results of the decomposition process, and consists in substracting (in the case of an addittive decomposition model) the seasonal component from the original series, or dividing the original series by the seasonal component (in the case of a multiplicative model).
+
+```{r}
+data("Seatbelts")
+seatbelts <- Seatbelts[,5]
+seatbelts_dec <- decompose(seatbelts, type="additive")
+
+seatbelts_deseason <- seatbelts - seatbelts_dec$seasonal
+
+seat <- ts.intersect(seatbelts, seatbelts_deseason)
+
+plot.ts(seat, 
+        plot.type = "single",
+        col = c("red", "blue"),
+        main = "Original (red) and Seasonally Adjusted Series (blue)")
+        
+```
+
+Adjust for seasonal variations make it possible to observe potentially noteworthy fluctuations. In the case of the AirPassengers data, for instance, the seasonally adjusted plot shows more clearly an anomaly in the year 1960 that was not noticeable in the raw data.
+
+```{r}
+AirPassengers_decompose <- decompose(AirPassengers, type="multiplicative")
+AirPassengers_seasonal <- AirPassengers_decompose$seasonal
+AirPassengers_deseasonal <- (AirPassengers/AirPassengers_seasonal)
+
+AirPass <- ts.intersect(AirPassengers, AirPassengers_deseasonal)
+
+plot.ts(AirPass, 
+        plot.type = "single",
+        col = c("red", "blue"),
+        lty = c(3,1),
+        main = "Original (red) and Seasonally Adjusted Series (blue)")
+```
+
+Another example with data from social media, you can download here ([art1](https://drive.google.com/file/d/16NyBB1YOICSQ8lmZpcq62ahkJff9Tx6E/view?usp=sharing), and [art2](https://drive.google.com/file/d/1UWodHEAAphThP-jkALA5u1qEbTBPqHiE/view?usp=sharing)), consisting in posts published by pages of news media.
+
+```{r}
+art1 <- read_csv("data/art1.csv")
+art2 <- read_csv("data/art2.csv")
+
+art1_summary <- art1 %>%
+  mutate(post_created_date = as.Date(post_created_date)) %>%
+  complete(post_created_date = seq.Date(min(post_created_date), 
+           max(post_created_date), by = "day")) %>%
+  group_by(post_created_date) %>%
+  summarize(posts = n())
+
+art2_summary <- art2 %>%
+  mutate(post_created_date = as.Date(post_created_date)) %>%
+  complete(post_created_date = seq.Date(min(post_created_date), 
+           max(post_created_date), by = "day")) %>%
+  group_by(post_created_date) %>%
+  summarize(posts = n())
+
+art1_ts <- ts(data = art1_summary$posts, frequency = 7)
+art2_ts <- ts(data = art2_summary$posts, frequency = 7)
+
+art <- ts.intersect(art1_ts, art2_ts)
+
+art1_dec <- decompose(art1_ts)
+art2_dec <- decompose(art2_ts)
+
+art1_seas <- art1_dec$seasonal
+art2_seas <- art2_dec$seasonal
+
+art1_deseas <- art1_ts - art1_seas
+art2_deseas <- art2_ts - art2_seas
+
+art_des <- ts.intersect(art1_deseas, art2_deseas)
+
+art_all <- ts.intersect(art, art_des)
+
+plot.ts(art_all, 
+        plot.type = "single",
+        col = c("red", "blue", "red", "blue"),
+        lty = c(3,3,1,1),
+        main = "Original (red) and Seasonally Adjusted Series (blue)")
+
+```
+
+By calculating a simple correlation between the original series, and the de-seasonalized series, it can be observed that the correlation coefficients change (although not so much in this particular case).
+
+```{r}
+cor(art)[1,2]
+cor(art_des)[1,2]
+```
+
+### Detrended series
+
+As the series can be asjusted for seasonality, they can be adjusted for trend based on the same reasons. A similar process can also be used to remove the trend from the data, in particular in the case of a *deterministic* trend. 
+
+In the case of a *stochastic* trend, instead, the usual practice is to detrend the data through **differencing**. Differecing means taking the first difference of consecutive points in time $x_t$ - $x_{t-1}$. In this way, the resulting series represents the relative change from one point in time to another.
+
+```{r}
+Random_Walk <- arima.sim(n = 500, model = list(order = c(0,1,0)))
+
+Random_Walk_diff <- diff(Random_Walk)
+
+plot.ts(Random_Walk,
+        main = "Random Walk", 
+        col = "blue", ylab="")
+
+plot.ts(Random_Walk_diff, 
+        main = "Differenced Random Walk", 
+        col = "blue", ylab="")
+```
+
+Detrending a time series can be an important step to apply some statistical techniques, for instance to ascertain the correlation between two time series. Time series with a trend component can reveal spurious correlation, since correlations may exist just because two variables are trending up or down at the same time. By detrending the time series it can be more appropriately measured if the change in one time series over time is related to the change in another time series. 
+
+Detrending time series is also used when researchers consider irrelevant the trend. This is the case when the trend is considered an obvious characteristic of the process. For instance, economists can take for granted that there is an increasing trend in GDP due to inflation, and thus they may want to "clean" the data to eliminate trends. They are more interested in deviations from the growth, than in the growth that they consider a "normal" characteristic of the process.
+
+There are also statistical tests to ascertain the presence of a trend.
+
+A *monotonic* trend can be detected with the **Mann–Kendall trend test**. The null hypothesis is that the data come from a population with independent realizations and are identically distributed. For the two sided test, the alternative hypothesis is that the data follow a monotonic trend. The function to calculate this test is present in the package "trend".
+
+```{r}
+# install.packages("trend")
+library(trend)
+mk.test(AirPassengers, alternative = "greater")
+```
 
 ## White Noise and Stationarity
 
@@ -208,6 +347,81 @@ A process is *stationary* if it is homogeneous, that is, if it has no distinguis
 *   **no auto-correlation** (we’ll return to this topic in the next chapters)
 
 *White noise is an example of stationary time series*. As you can see in the chart above, white noise time series is pretty regular, the mean is always the same (0) and there are no changes in variance over time: the plot looks much the same at any point in time!
+
+Also through differencing, the series can achive a stationary form. This is the case, in particular, of the series with a stochastic trend, that are also called *difference-stationary*, exactly because through differencing they become stationary. 
+
+```{r}
+plot.ts(Random_Walk_diff, 
+        main = "Differenced Random Walk", 
+        col = "blue", ylab="")
+```
+
+The process through which stationarity is reached is also called *Pre-Whitening*, and it can be used as a pre-processing phase before conducting correlation and regression analysis:
+
+>Once the form(s) of serial dependency that best account for the series are identified, they are removed from the series. This is called *prewhitening* and is used to produce a series that is a “white noise” process (i.e., a process that is free of serial dependency with each value statistically independent of other values in the series). Once pre-whitening is accomplished the values of that series can be correlated with, used to predict, or predicted from, the values in other contemporaneous time series (usually also pre-whitened) representing other variables of interest. By removing serial dependency, the pre-whitening process  makes these analyses free of correlated errors. It also removes the possibility that a common temporal trend or pattern is a confounding explanation for the observed association between the two variable series (VanLear, ["Time Series Analysis"](https://us.sagepub.com/en-us/nam/the-sage-encyclopedia-of-communication-research-methods/book244974))
+
+The logic behind the process and the importance of white noise is also well explained  in these sentences:
+
+>This "residual" part of the data, indeed, can be used as a dependent variable, giving the analyst confidence that any time series properties in the data will not account for any observed correlation between the covariates and the dependent variable. In the univariate context, the white noise process is important because it is what we would like to “recover” from our data – after stripping away the ways in which a univariate
+series can essentially explain itself. By removing the time series properties of our data, leaving only white noise, we have a series that can then be explained by other sources of variation. Another way to conceptualize white noise is as the exogenous portion of the data-generating process. Each of our data series is a function of those forces that cause the series to rise or fall (the independent variables we normally include to test our hypotheses) and of time series properties that lead those forces to
+be more or less "sticky". After we filter away those time series properties, we are left with the forces driving the data higher or lower. We often refer to these forces as **shocks** – and these shocks then reverberate in our data, sometimes for a short spell or a long spell or even infinitely. The goal of time series analysis is to separately model the time series properties (the reverberations) so the shocks (i.e., the white noise) can be captured. (Box-Steffensmeier, J. M., Freeman, J. R., Hitt, M. P., & Pevehouse, J. C. (2014). Time series analysis for the social sciences. Cambridge University Press.)
+
+## Auto-Correlation and Cross-Correlation
+
+We've said that a stationary process has no auto-correlation. This makes it different from most time series, which are characterized by  **autocorrelation**, or serial correlation. Autocorrelation which is the c*orrelation of a variable with itself at different time points*.
+
+Autocorrelation has many consequences. It prevents, for instance, the use of traditional methods such as linear regression, which assume that the observations are independent from each other. In presence of autocorrelation, the estimated standard errors of the parameter estimates will tend to be less than their true value. This will lead to erroneously high statistical significance being attributed to statistical tests (the *p* values will be smaller than they should be).
+
+An important tool for diagnosing the properties of a time series, including autocorrelation, is the **correlogram**. The accurate study of correlogram is a common step in many time series analysis procedures.
+
+### Correlogram: ACF and PACF
+
+The correlogram is a graph that presents one of two statistics: 
+
+*   **the autocorrelation function (ACF)**.The ACF statistic measures the correlation between $x_t$ and $x_{t+k}$ where *k* is the number of lead periods into the future. It measures the correlation between any two points based on a given interval. It is not strictly equivalent to the Pearson product moment correlation. In R, ACF is calculated and visualized with the function "acf";
+*   **the partial autocorrelation function (PACF)**. The PACF(k) is a measure of correlation between times series observations that are k units apart, after the correlation at intermediate lags has been controlled for or "partialed" out. In other words, the PACF measures the correlation between $x_t$ and $x_{t+k}$ after it has stripped out the effect of the intermediate *x*’s. In R, the PACF is calculated and visualized with the function "pacf". It is useful to detect correlations that are not evident in ACF. 
+
+Let's consider, as an example, the correlogram of a random walk process. We know that this is a particular time series process in which the current values are combinations of the previous ones ($x_t = x_{t-1} + w_t$, where $x_{t-1}$ is the value immediately before x, and $w_t$ is a random component). The resulting time series is characterized by a discernible pattern over time which is not exactly predictable (*stochastic trend*). The ACF of a random walk time series, indeed, shows a correlation between values in the series: even values not so close are notwithstanding correlated.
+
+
+```{r fig.height=2, fig.width=9}
+Random_Walk <- arima.sim(n = 500, model = list(order = c(0,1,0)))
+
+par(mfrow=c(1,2))
+
+plot.ts(Random_Walk, ylab = expression(italic(x)[italic(t)]), main = "Random Walk")
+acf(Random_Walk)
+```
+
+Instead, the PACF, which removes the correlations between intermediate values, shows a correlation at lag 1, that is, it shows that the overall correlation depends on consequent values. The dotted blue lines signal the boundaries of statistical significance.
+
+```{r fig.height=2, fig.width=9}
+par(mfrow=c(1,2))
+
+plot.ts(Random_Walk, ylab = expression(italic(x)[italic(t)]), main = "Random Walk")
+pacf(Random_Walk)
+```
+
+A white noise process is very different. We know that white noise is a stationary process, which has no distinguishable point in time and no correlation between points. Indeed, the ACF shows no correlation (the only line above statistical significance is at zero, which just means that each point is correlated with itself). 
+
+```{r fig.height=2, fig.width=9}
+par(mfrow=c(1,2))
+
+White_Noise <- arima.sim(n = 500, model = list(order = c(0,0,0)))
+plot.ts(White_Noise, ylab = expression(italic(x)[italic(t)]), main = "White Noise")
+
+acf(White_Noise)
+```
+In the PACF every correlations is within the dotted lines (not statistically significant).
+
+```{r fig.height=2, fig.width=9}
+par(mfrow=c(1,2))
+
+White_Noise <- arima.sim(n = 500, model = list(order = c(0,0,0)))
+plot.ts(White_Noise, ylab = expression(italic(x)[italic(t)]), main = "White Noise")
+
+pacf(White_Noise)
+```
 
 ## Exercises
 Carry out the following exploratory time series analysis:

@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-04-29" />
+<meta name="date" content="2021-05-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,8 +201,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
 <li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.3</b> White Noise and Stationarity</a></li>
-<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#exercises"><i class="fa fa-check"></i><b>7.4</b> Exercises</a></li>
+<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
+<li class="chapter" data-level="7.5" data-path="structural-decomposition.html"><a href="structural-decomposition.html#auto-correlation-and-cross-correlation"><i class="fa fa-check"></i><b>7.5</b> Auto-Correlation and Cross-Correlation</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>7.5.1</b> Correlogram: ACF and PACF</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="structural-decomposition.html"><a href="structural-decomposition.html#exercises"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>8</b> Readings</a><ul>
 <li class="chapter" data-level="8.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>8.1</b> Bibliographical References</a></li>
@@ -404,8 +411,8 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="getting-started-with-r.html#cb37-1"></a><span class="co"># this is another object (vector) consisting of a series of categorical values</span></span>
 <span id="cb37-2"><a href="getting-started-with-r.html#cb37-2"></a>categorical_vector &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Tuesday&quot;</span>, <span class="st">&quot;Monday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>,<span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Wednesday&quot;</span>, <span class="st">&quot;Thursday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>, <span class="st">&quot;Friday&quot;</span>, <span class="st">&quot;Saturday&quot;</span>, <span class="st">&quot;Sunday&quot;</span>)</span>
 <span id="cb37-3"><a href="getting-started-with-r.html#cb37-3"></a>categorical_vector</span></code></pre></div>
-<pre><code>##  [1] &quot;Monday&quot;    &quot;Tuesday&quot;   &quot;Monday&quot;    &quot;Tuesday&quot;   &quot;Monday&quot;    &quot;Wednesday&quot; &quot;Thursday&quot;  &quot;Wednesday&quot; &quot;Thursday&quot; 
-## [10] &quot;Saturday&quot;  &quot;Sunday&quot;    &quot;Friday&quot;    &quot;Saturday&quot;  &quot;Sunday&quot;</code></pre>
+<pre><code>##  [1] &quot;Monday&quot;    &quot;Tuesday&quot;   &quot;Monday&quot;    &quot;Tuesday&quot;   &quot;Monday&quot;    &quot;Wednesday&quot; &quot;Thursday&quot; 
+##  [8] &quot;Wednesday&quot; &quot;Thursday&quot;  &quot;Saturday&quot;  &quot;Sunday&quot;    &quot;Friday&quot;    &quot;Saturday&quot;  &quot;Sunday&quot;</code></pre>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="getting-started-with-r.html#cb39-1"></a><span class="co"># this is an object consisting of a data.frame, created combining vectors through the function &quot;data.frame&quot;</span></span>
 <span id="cb39-2"><a href="getting-started-with-r.html#cb39-2"></a>a_dataframe &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;first_variable&quot;</span> =<span class="st"> </span>numerical_vector,</span>
 <span id="cb39-3"><a href="getting-started-with-r.html#cb39-3"></a>                          <span class="st">&quot;second_variable&quot;</span> =<span class="st"> </span>categorical_vector)</span>
@@ -429,8 +436,8 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="getting-started-with-r.html#cb41-1"></a>a_dataframe<span class="op">$</span>first_variable</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="getting-started-with-r.html#cb43-1"></a>a_dataframe<span class="op">$</span>second_variable</span></code></pre></div>
-<pre><code>##  [1] Monday    Tuesday   Monday    Tuesday   Monday    Wednesday Thursday  Wednesday Thursday  Saturday  Sunday   
-## [12] Friday    Saturday  Sunday   
+<pre><code>##  [1] Monday    Tuesday   Monday    Tuesday   Monday    Wednesday Thursday  Wednesday
+##  [9] Thursday  Saturday  Sunday    Friday    Saturday  Sunday   
 ## Levels: Friday Monday Saturday Sunday Thursday Tuesday Wednesday</code></pre>
 <p>It is possible to add columns to a data.frame by writing:</p>
 <ul>
@@ -500,7 +507,7 @@ For instance, this list includes a numerical value, a vectors of numbers, and a 
 <li><strong>dates</strong>: used to represent days;</li>
 <li><strong>POSIX</strong>: a class of R format to represent dates and times.</li>
 </ul>
-<div class="figure"><span id="fig:unnamed-chunk-39"></span>
+<div class="figure"><span id="fig:unnamed-chunk-116"></span>
 <img src="images/r-data-format.png" alt="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications." width="1208" />
 <p class="caption">
 Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607">A Survivor’s Guide to R: An Introduction for the Uninitiated and the Unnerved</a>. SAGE Publications.

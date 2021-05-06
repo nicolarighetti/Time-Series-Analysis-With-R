@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-04-29" />
+<meta name="date" content="2021-05-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,8 +201,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
 <li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.3</b> White Noise and Stationarity</a></li>
-<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#exercises"><i class="fa fa-check"></i><b>7.4</b> Exercises</a></li>
+<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
+<li class="chapter" data-level="7.5" data-path="structural-decomposition.html"><a href="structural-decomposition.html#auto-correlation-and-cross-correlation"><i class="fa fa-check"></i><b>7.5</b> Auto-Correlation and Cross-Correlation</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>7.5.1</b> Correlogram: ACF and PACF</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="structural-decomposition.html"><a href="structural-decomposition.html#exercises"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>8</b> Readings</a><ul>
 <li class="chapter" data-level="8.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>8.1</b> Bibliographical References</a></li>
@@ -274,7 +281,7 @@ Many functions have been developed with reference to specific libraries and obje
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="time-series-objects.html#cb102-1"></a>elections_news<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(elections_news<span class="op">$</span>date)</span></code></pre></div>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="time-series-objects.html#cb103-1"></a><span class="kw">str</span>(elections_news)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    2192 obs. of  4 variables:
-##  $ date       : Date, format: &quot;2015-01-01&quot; &quot;2015-01-02&quot; &quot;2015-01-03&quot; &quot;2015-01-04&quot; ...
+##  $ date       : Date, format: &quot;2015-01-01&quot; &quot;2015-01-02&quot; ...
 ##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
 ##  $ total_count: int  25611 31932 24646 25513 39982 42366 45163 44928 44041 29093 ...
 ##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>

@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-04-29" />
+<meta name="date" content="2021-05-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -201,8 +201,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
 <li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.3</b> White Noise and Stationarity</a></li>
-<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#exercises"><i class="fa fa-check"></i><b>7.4</b> Exercises</a></li>
+<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
+<li class="chapter" data-level="7.5" data-path="structural-decomposition.html"><a href="structural-decomposition.html#auto-correlation-and-cross-correlation"><i class="fa fa-check"></i><b>7.5</b> Auto-Correlation and Cross-Correlation</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>7.5.1</b> Correlogram: ACF and PACF</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="structural-decomposition.html"><a href="structural-decomposition.html#exercises"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>8</b> Readings</a><ul>
 <li class="chapter" data-level="8.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>8.1</b> Bibliographical References</a></li>
@@ -340,7 +347,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>To check the data format of the variables stored in the data.frame can be used the command <em>str()</em>:</p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="basic-data-wrangling-with-tidyverse.html#cb69-1"></a><span class="kw">str</span>(tweets)</span></code></pre></div>
 <pre><code>## tibble [100 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
-##  $ created_at       : POSIXct[1:100], format: &quot;2021-03-24 08:53:52&quot; &quot;2021-03-24 08:53:25&quot; &quot;2021-03-24 08:53:52&quot; &quot;2021-03-24 08:53:51&quot; ...
+##  $ created_at       : POSIXct[1:100], format: &quot;2021-03-24 08:53:52&quot; &quot;2021-03-24 08:53:25&quot; ...
 ##  $ screen_name      : chr [1:100] &quot;DoYourThingUK&quot; &quot;DoYourThingUK&quot; &quot;AlexS1595&quot; &quot;MakesworthAcc&quot; ...
 ##  $ device           : chr [1:100] &quot;Twitter for iPhone&quot; &quot;Twitter for iPhone&quot; &quot;Twitter for iPhone&quot; &quot;Twitter Web App&quot; ...
 ##  $ retweet_count    : int [1:100] 0 0 3 0 4 96 0 1 0 3 ...
@@ -469,18 +476,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb85-2"><a href="basic-data-wrangling-with-tidyverse.html#cb85-2"></a><span class="st">  </span><span class="kw">filter</span>(retweet_count <span class="op">&gt;=</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span></span>
 <span id="cb85-3"><a href="basic-data-wrangling-with-tidyverse.html#cb85-3"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>retweet_count)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 5
-##    created_at          screen_name     device              retweet_count log_retweet_count
-##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                       &lt;int&gt;             &lt;dbl&gt;
-##  1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for Android          1988              7.60
-##  2 2021-03-24 08:53:48 Lil_3arbiii     Twitter for iPhone           1627              7.40
-##  3 2021-03-24 08:53:48 Kittyhawk681    Twitter Web App              1285              7.16
-##  4 2021-03-24 08:53:37 JulesFox12      Twitter for Android          1091              7.00
-##  5 2021-03-24 08:53:42 rosaesaa26      Twitter for Android           983              6.89
-##  6 2021-03-24 08:53:42 lewisabzueta    Twitter for Android           822              6.71
-##  7 2021-03-24 08:53:42 jonvthvn08      Twitter for iPhone            768              6.65
-##  8 2021-03-24 08:53:34 florent61647053 Twitter for Android           768              6.65
-##  9 2021-03-24 08:53:37 Ritu89903967    Twitter for Android           709              6.57
-## 10 2021-03-24 08:53:33 Hurica3         Twitter for iPhone            575              6.36</code></pre>
+##    created_at          screen_name     device              retweet_count log_retweet_cou…
+##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                       &lt;int&gt;            &lt;dbl&gt;
+##  1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for Android          1988             7.60
+##  2 2021-03-24 08:53:48 Lil_3arbiii     Twitter for iPhone           1627             7.40
+##  3 2021-03-24 08:53:48 Kittyhawk681    Twitter Web App              1285             7.16
+##  4 2021-03-24 08:53:37 JulesFox12      Twitter for Android          1091             7.00
+##  5 2021-03-24 08:53:42 rosaesaa26      Twitter for Android           983             6.89
+##  6 2021-03-24 08:53:42 lewisabzueta    Twitter for Android           822             6.71
+##  7 2021-03-24 08:53:42 jonvthvn08      Twitter for iPhone            768             6.65
+##  8 2021-03-24 08:53:34 florent61647053 Twitter for Android           768             6.65
+##  9 2021-03-24 08:53:37 Ritu89903967    Twitter for Android           709             6.57
+## 10 2021-03-24 08:53:33 Hurica3         Twitter for iPhone            575             6.36</code></pre>
 <p>In the examples below, notice the use of a double equal sign <em>==</em>, and also of the quotation marks to include textual categories.</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="basic-data-wrangling-with-tidyverse.html#cb87-1"></a>tweets <span class="op">%&gt;%</span></span>
 <span id="cb87-2"><a href="basic-data-wrangling-with-tidyverse.html#cb87-2"></a><span class="st">  </span><span class="kw">filter</span>(retweet_count <span class="op">==</span><span class="st"> </span><span class="dv">1988</span>) </span></code></pre></div>
@@ -491,18 +498,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="basic-data-wrangling-with-tidyverse.html#cb89-1"></a>tweets <span class="op">%&gt;%</span></span>
 <span id="cb89-2"><a href="basic-data-wrangling-with-tidyverse.html#cb89-2"></a><span class="st">  </span><span class="kw">filter</span>(device <span class="op">==</span><span class="st"> &quot;Twitter for Android&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 33 x 5
-##    created_at          screen_name     device              retweet_count log_retweet_count
-##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                       &lt;int&gt;             &lt;dbl&gt;
-##  1 2021-03-24 08:53:49 marcin_lukawski Twitter for Android             1             0.693
-##  2 2021-03-24 08:53:49 LebodyRanya     Twitter for Android             0             0    
-##  3 2021-03-24 08:53:47 anshunandanpra4 Twitter for Android             2             1.10 
-##  4 2021-03-24 08:53:44 insoumise007    Twitter for Android             5             1.79 
-##  5 2021-03-24 08:53:43 Metamorfopsies  Twitter for Android             0             0    
-##  6 2021-03-24 08:53:43 keepsmiling_130 Twitter for Android           164             5.11 
-##  7 2021-03-24 08:53:43 lovebresil01    Twitter for Android            81             4.41 
-##  8 2021-03-24 08:53:42 LightHealing    Twitter for Android             1             0.693
-##  9 2021-03-24 08:53:42 lewisabzueta    Twitter for Android           822             6.71 
-## 10 2021-03-24 08:53:42 rosaesaa26      Twitter for Android           983             6.89 
+##    created_at          screen_name     device              retweet_count log_retweet_cou…
+##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                       &lt;int&gt;            &lt;dbl&gt;
+##  1 2021-03-24 08:53:49 marcin_lukawski Twitter for Android             1            0.693
+##  2 2021-03-24 08:53:49 LebodyRanya     Twitter for Android             0            0    
+##  3 2021-03-24 08:53:47 anshunandanpra4 Twitter for Android             2            1.10 
+##  4 2021-03-24 08:53:44 insoumise007    Twitter for Android             5            1.79 
+##  5 2021-03-24 08:53:43 Metamorfopsies  Twitter for Android             0            0    
+##  6 2021-03-24 08:53:43 keepsmiling_130 Twitter for Android           164            5.11 
+##  7 2021-03-24 08:53:43 lovebresil01    Twitter for Android            81            4.41 
+##  8 2021-03-24 08:53:42 LightHealing    Twitter for Android             1            0.693
+##  9 2021-03-24 08:53:42 lewisabzueta    Twitter for Android           822            6.71 
+## 10 2021-03-24 08:53:42 rosaesaa26      Twitter for Android           983            6.89 
 ## # … with 23 more rows</code></pre>
 <p>It is also possible to use multiple conditions at the same time.</p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="basic-data-wrangling-with-tidyverse.html#cb91-1"></a>tweets <span class="op">%&gt;%</span></span>
