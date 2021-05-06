@@ -384,10 +384,8 @@ The correlogram is a graph that presents one of two statistics:
 Let's consider, as an example, the correlogram of a random walk process. We know that this is a particular time series process in which the current values are combinations of the previous ones ($x_t = x_{t-1} + w_t$, where $x_{t-1}$ is the value immediately before x, and $w_t$ is a random component). The resulting time series is characterized by a discernible pattern over time which is not exactly predictable (*stochastic trend*). The ACF of a random walk time series, indeed, shows a correlation between values in the series: even values not so close are notwithstanding correlated.
 
 
-```{r fig.height=2, fig.width=9}
+```{r}
 Random_Walk <- arima.sim(n = 500, model = list(order = c(0,1,0)))
-
-par(mfrow=c(1,2))
 
 plot.ts(Random_Walk, ylab = expression(italic(x)[italic(t)]), main = "Random Walk")
 acf(Random_Walk)
@@ -395,18 +393,14 @@ acf(Random_Walk)
 
 Instead, the PACF, which removes the correlations between intermediate values, shows a correlation at lag 1, that is, it shows that the overall correlation depends on consequent values. The dotted blue lines signal the boundaries of statistical significance.
 
-```{r fig.height=2, fig.width=9}
-par(mfrow=c(1,2))
-
+```{r}
 plot.ts(Random_Walk, ylab = expression(italic(x)[italic(t)]), main = "Random Walk")
 pacf(Random_Walk)
 ```
 
 A white noise process is very different. We know that white noise is a stationary process, which has no distinguishable point in time and no correlation between points. Indeed, the ACF shows no correlation (the only line above statistical significance is at zero, which just means that each point is correlated with itself). 
 
-```{r fig.height=2, fig.width=9}
-par(mfrow=c(1,2))
-
+```{r}
 White_Noise <- arima.sim(n = 500, model = list(order = c(0,0,0)))
 plot.ts(White_Noise, ylab = expression(italic(x)[italic(t)]), main = "White Noise")
 
@@ -414,9 +408,7 @@ acf(White_Noise)
 ```
 In the PACF every correlations is within the dotted lines (not statistically significant).
 
-```{r fig.height=2, fig.width=9}
-par(mfrow=c(1,2))
-
+```{r}
 White_Noise <- arima.sim(n = 500, model = list(order = c(0,0,0)))
 plot.ts(White_Noise, ylab = expression(italic(x)[italic(t)]), main = "White Noise")
 
