@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Correlations and ARIMA | Time Series Analysis With R</title>
+  <meta name="description" content="Chapter 8 Correlations and ARIMA | Time Series Analysis With R" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Correlations and ARIMA | Time Series Analysis With R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Correlations and ARIMA | Time Series Analysis With R" />
+  
+  
+  
+
+<meta name="author" content="Nicola Righetti" />
+
+
+<meta name="date" content="2021-05-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="structural-decomposition.html"/>
+<link rel="next" href="readings.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Time Series with R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Time Series Analysis With R</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#objectives"><i class="fa fa-check"></i><b>1.1</b> Objectives</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#lectures"><i class="fa fa-check"></i><b>1.2</b> Lectures</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#home-work"><i class="fa fa-check"></i><b>1.3</b> Home Work</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#assessment"><i class="fa fa-check"></i><b>1.4</b> Assessment</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#syllabus-and-readings"><i class="fa fa-check"></i><b>1.5</b> Syllabus and readings</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#further-information-and-support"><i class="fa fa-check"></i><b>1.6</b> Further information and support</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting started with R</a><ul>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#rstudio-interface-and-data"><i class="fa fa-check"></i><b>2.1</b> RStudio Interface and Data</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#download-and-install-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Download and Install RStudio</a></li>
+<li class="chapter" data-level="2.1.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-rstudio-project-and-import-data"><i class="fa fa-check"></i><b>2.1.2</b> Create a RStudio Project and Import data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-script"><i class="fa fa-check"></i><b>2.1.3</b> Create a Script</a></li>
+<li class="chapter" data-level="2.1.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-rstudio-user-interface"><i class="fa fa-check"></i><b>2.1.4</b> The RStudio User Interface</a></li>
+<li class="chapter" data-level="2.1.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#load-and-save-data"><i class="fa fa-check"></i><b>2.1.5</b> Load and Save Data</a></li>
+<li class="chapter" data-level="2.1.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-new-folders"><i class="fa fa-check"></i><b>2.1.6</b> Create new Folders</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r"><i class="fa fa-check"></i><b>2.2</b> Basic R</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#objects"><i class="fa fa-check"></i><b>2.2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#functions"><i class="fa fa-check"></i><b>2.2.2</b> Functions</a></li>
+<li class="chapter" data-level="2.2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.2.3</b> Data Types</a></li>
+<li class="chapter" data-level="2.2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#excercise"><i class="fa fa-check"></i><b>2.2.4</b> Excercise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse</a><ul>
+<li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.1</b> The Pipe Operator %&gt;%</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.2</b> Mutate</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.3</b> Rename</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.4.1</b> Count occurrences</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5</b> Arrange</a></li>
+<li class="chapter" data-level="3.6" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.6</b> Filter</a></li>
+<li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.7</b> Select</a></li>
+<li class="chapter" data-level="3.8" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#exercise"><i class="fa fa-check"></i><b>3.8</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series"><i class="fa fa-check"></i><b>4.1</b> Time Series</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>5.1.1</b> Time Series as Data Frames</a></li>
+<li class="chapter" data-level="5.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>5.1.2</b> Time Series as TS objects</a></li>
+<li class="chapter" data-level="5.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>5.1.3</b> Time Series as XTS/ZOO objects</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="time-series-objects.html"><a href="time-series-objects.html#exercise-1"><i class="fa fa-check"></i><b>5.2</b> Exercise</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>6</b> Plot Time Series</a><ul>
+<li class="chapter" data-level="6.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>6.1</b> Plot Time Series Objects</a></li>
+<li class="chapter" data-level="6.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>6.2</b> plot.ts</a></li>
+<li class="chapter" data-level="6.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>6.3</b> plot.xts</a></li>
+<li class="chapter" data-level="6.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>6.4</b> ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition</a><ul>
+<li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#components-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Components of a time series</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#trend-and-cycle"><i class="fa fa-check"></i><b>7.1.1</b> Trend and Cycle</a></li>
+<li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.2</b> Seasonality</a></li>
+<li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.3</b> Residuals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
+<li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html"><i class="fa fa-check"></i><b>8</b> Correlations and ARIMA</a><ul>
+<li class="chapter" data-level="8.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-correlation-acf-and-pacf"><i class="fa fa-check"></i><b>8.1</b> Auto-Correlation (ACF and PACF)</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>8.1.1</b> Correlogram: ACF and PACF</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-regressive-ar-models"><i class="fa fa-check"></i><b>8.2.1</b> Auto Regressive (AR) models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#moving-average-ma-models"><i class="fa fa-check"></i><b>8.2.2</b> Moving Average (MA) models</a></li>
+<li class="chapter" data-level="8.2.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#integrated-i-process"><i class="fa fa-check"></i><b>8.2.3</b> Integrated (I) process</a></li>
+<li class="chapter" data-level="8.2.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#fit-sarima-models"><i class="fa fa-check"></i><b>8.2.4</b> Fit (S)ARIMA models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#cross-correlation"><i class="fa fa-check"></i><b>8.3</b> Cross-correlation</a></li>
+<li class="chapter" data-level="8.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#examples-in-literature"><i class="fa fa-check"></i><b>8.4</b> Examples in literature</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>9</b> Readings</a><ul>
+<li class="chapter" data-level="9.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>9.1</b> Bibliographical References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series Analysis With R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="correlations-and-arima" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Correlations and ARIMA</h1>
+<div id="auto-correlation-acf-and-pacf" class="section level2">
+<h2><span class="header-section-number">8.1</span> Auto-Correlation (ACF and PACF)</h2>
+<p>In the previous chapter we said that a time series is said to be stationary if there is:</p>
+<ul>
+<li><strong>no trend</strong> (no systematic change in mean, that is, time invariant mean), and no seasonality (no periodic variations);</li>
+<li><strong>no change in variance</strong> over time (time invariant variance);</li>
+<li><strong>no auto-correlation</strong> (we’ll return to this topic in the next chapters)</li>
+</ul>
+<p>Auto-correlation or serial correlation is an important characteristic of time series data and can be defined as the <em>correlation of a variable with itself at different time points</em>.</p>
+<p>Autocorrelation has many consequences. It prevents us to use traditional statistical methods such as linear regression, which assume that the observations are independent from each other. In presence of autocorrelation, the estimated standard errors of the parameter estimates will tend to be less than their true value. This will lead to erroneously high statistical significance being attributed to statistical tests (the <em>p</em> values will be smaller than they should be).</p>
+<p>In this section we introduce an important tool for the diagnosis of the properties of a time series, including autocorrelation: the <strong>correlogram</strong>. The accurate study of correlogram is a common step in many time series analysis procedures.</p>
+<div id="correlogram-acf-and-pacf" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Correlogram: ACF and PACF</h3>
+<p>The correlogram is a graph that presents one of two statistics:</p>
+<ul>
+<li><strong>the autocorrelation function (ACF)</strong>.The ACF statistic measures the correlation between <span class="math inline">\(x_t\)</span> and <span class="math inline">\(x_{t+k}\)</span> where <em>k</em> is the number of lead periods into the future. It measures the correlation between any two points based on a given interval. It is not strictly equivalent to the Pearson product moment correlation. In R, ACF is calculated and visualized with the function “acf”;</li>
+<li><strong>the partial autocorrelation function (PACF)</strong>. The PACF(k) is a measure of correlation between times series observations that are k units apart, after the correlation at intermediate lags has been controlled for or “partialed” out. In other words, the PACF measures the correlation between <span class="math inline">\(x_t\)</span> and <span class="math inline">\(x_{t+k}\)</span> after it has stripped out the effect of the intermediate <em>x</em>’s. In R, the PACF is calculated and visualized with the function “pacf”. It is useful to detect correlations that are not evident in ACF.</li>
+</ul>
+<p>Let’s consider, as an example, the correlogram of a random walk process. We know that this is a particular time series process in which the current values are combinations of the previous ones (<span class="math inline">\(x_t = x_{t-1} + w_t\)</span>, where <span class="math inline">\(x_{t-1}\)</span> is the value immediately before x, and <span class="math inline">\(w_t\)</span> is a random component). The resulting time series is characterized by a discernible pattern over time which is not exactly predictable (<em>stochastic trend</em>). The ACF of a random walk time series, indeed, shows a correlation between values in the series: even values not so close are notwithstanding correlated.</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="correlations-and-arima.html#cb193-1"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">499</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
+<span id="cb193-2"><a href="correlations-and-arima.html#cb193-2"></a></span>
+<span id="cb193-3"><a href="correlations-and-arima.html#cb193-3"></a><span class="kw">acf</span>(Random_Walk)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-155-1.png" width="672" /></p>
+<p>Instead, the PACF, which removes the correlations between intermediate values, shows a correlation at lag 1, that is, it shows that the overall correlation depends on consequent values. The dotted blue lines signal the boundaries of statistical significance.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="correlations-and-arima.html#cb194-1"></a><span class="kw">pacf</span>(Random_Walk)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
+<p>We can clearly see an auto-correlation by using a scatterplot, and plotting two consecutive lines of points.</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="correlations-and-arima.html#cb195-1"></a><span class="kw">plot</span>(Random_Walk[<span class="dv">1</span><span class="op">:</span><span class="dv">499</span>], Random_Walk[<span class="dv">2</span><span class="op">:</span><span class="dv">500</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
+<p>The ACF or PACF of a white noise process is very different. We know that white noise is a stationary process, wwithout distinguishable points in time and no correlation between points. Indeed, the ACF of white noise shows no correlation (the only line above statistical significance is at zero, which is nothing to be worried about, since it just means that each point is correlated with itself).</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="correlations-and-arima.html#cb196-1"></a>White_Noise &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)))</span>
+<span id="cb196-2"><a href="correlations-and-arima.html#cb196-2"></a></span>
+<span id="cb196-3"><a href="correlations-and-arima.html#cb196-3"></a><span class="kw">acf</span>(White_Noise)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-158-1.png" width="672" />
+In the PACF we can see that there is nothing above the dotted line (which means that there is nothing statistically significant).</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="correlations-and-arima.html#cb197-1"></a><span class="kw">pacf</span>(White_Noise)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-159-1.png" width="672" /></p>
+<p>If we plot two consecutive lists of points by using a scatterplot, we can see there is no serial correlation (no pattern is visible):</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="correlations-and-arima.html#cb198-1"></a><span class="kw">plot</span>(White_Noise[<span class="dv">1</span><span class="op">:</span><span class="dv">499</span>], White_Noise[<span class="dv">2</span><span class="op">:</span><span class="dv">500</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-160-1.png" width="672" /></p>
+</div>
+</div>
+<div id="arima-models" class="section level2">
+<h2><span class="header-section-number">8.2</span> ARIMA models</h2>
+<p>The ACF and PACF plots can be used to diagnose the main characteristics of a time series and find a proper statistical model. We talk about univariate models, since they are models to describe a single time series. Univariate time series can be modeled as <strong>Auto Regressive (AR), Integrated (I), and Moving Average (MA) processes</strong>. These models are synthesized using the acronym <strong>ARIMA</strong>. When a seasonal (S) component is also taken into account, we also use the acronym <em>SARIMA</em>.</p>
+<div id="auto-regressive-ar-models" class="section level3">
+<h3><span class="header-section-number">8.2.1</span> Auto Regressive (AR) models</h3>
+<p>We just said that a time series is often characterized by auto-correlation, so we can clearly deduce that we can model it by using a regression model, that is, by regressing the time series on its past values. In this way we have the <strong>auto-regressive model</strong>: a regression of <span class="math inline">\(x_{t}\)</span> on past terms <span class="math inline">\(x_{t-k}\)</span> from the same series.</p>
+<p>In time series analysis, the past terms <span class="math inline">\(x_{t-k}\)</span> from the same series are called <strong>lags</strong>. The lagged values of a time series are its delayed values, where the delay can be of an arbitrary amount of time <span class="math inline">\(k\)</span>. For instance, considering a simple series of 4 data points distributed from time <span class="math inline">\({t+0}\)</span> (first data point) to time <span class="math inline">\({t+3}\)</span> (last data point) <span class="math inline">\({x_{t+0}, x_{t+1}, x_{t+2}, x_{t+3}}\)</span>, the corresponding lagged series, assuming <span class="math inline">\(k=1\)</span>, is <span class="math inline">\({NA, x_{t+0}, x_{t+1}, x_{t+2}}\)</span>. Notice that the first data point is missing since there is no data point behind it, and the other data points are shifted one time point ahead.</p>
+<p>An auto-regressive (AR) model can be described as follows (the <span class="math inline">\(\alpha\)</span> are coefficients, <span class="math inline">\(t\)</span> are time points, <span class="math inline">\(w\)</span> is a random component or white noise):</p>
+<p><span class="math display">\[
+{x_t} = \alpha x_{t-1} + \alpha x_{t-2} + \alpha x_{t-k} + {w_t}
+\]</span></p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="correlations-and-arima.html#cb199-1"></a>AR_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">ar =</span> <span class="fl">0.90</span>))</span>
+<span id="cb199-2"><a href="correlations-and-arima.html#cb199-2"></a><span class="kw">plot</span>(AR_<span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;AR(1)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-161-1.png" width="672" /></p>
+<p>The ACF of an autoregressive process typically shows a slow and gradual decay in autocorrelation over time.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="correlations-and-arima.html#cb200-1"></a><span class="kw">acf</span>(AR_<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
+<p>The PACF of an autoregressive process shows a peak in correspondence with the order of the model. In the case of an AR(1) the peak is at time 1.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="correlations-and-arima.html#cb201-1"></a><span class="kw">pacf</span>(AR_<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
+<p>In the case of an AR(3) the peak is at time 1, 2, and 3.</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="correlations-and-arima.html#cb202-1"></a>AR_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">ar =</span> <span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>)))</span>
+<span id="cb202-2"><a href="correlations-and-arima.html#cb202-2"></a><span class="kw">plot</span>(AR_<span class="dv">3</span>, <span class="dt">main =</span> <span class="st">&quot;AR(3)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-164-1.png" width="672" /></p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="correlations-and-arima.html#cb203-1"></a><span class="kw">pacf</span>(AR_<span class="dv">3</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-164-2.png" width="672" /></p>
+<p>Now we can see that the <strong>random walk</strong> process we have seen above is a particular case of auto-regressive model. In a random walk process, each value is the previous one plus a random part (<span class="math inline">\(x_t = x_{t-1} + w_t\)</span>), thus each point <span class="math inline">\(x_t\)</span> is correlated with the previous one <span class="math inline">\(x_{t-k}\)</span> where the lag value <span class="math inline">\(k\)</span> is equal to 1 (<span class="math inline">\({k=1}\)</span>). Thus, a random walk process is an auto-regressive model of <strong>order 1</strong>, since just 1 lag is taken in the auto-regression (and with <span class="math inline">\(\alpha = 1\)</span>): <span class="math inline">\(x_t = x_{t-1} + w_t\)</span>. The order of an auto-regressive model is indicated by parenthesis, e.g.: <strong>AR(1)</strong>.</p>
+<p>The AR process can have different characteristics (and different ACF and PACF) based on its parameters.</p>
+</div>
+<div id="moving-average-ma-models" class="section level3">
+<h3><span class="header-section-number">8.2.2</span> Moving Average (MA) models</h3>
+<p>We already know Moving Average as a method to smooth time series and detect a trend. When referring to Moving Average as a process (MA), we refer to a process in which the values of the series are a function of a <strong>weighted average of past errors</strong>. In other terms, a moving average (MA) process is a linear combination of the current white noise term and the <span class="math inline">\(q\)</span> most recent past white noise terms:</p>
+<p><span class="math display">\[
+{x_t} = w_t + \beta w_{t-1} + ... + \beta w_{t-q}
+\]</span></p>
+<p>The order of a MA process indicates the lags of white noise taken into account in the model (e.g: <em>MA(3)</em>).</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="correlations-and-arima.html#cb204-1"></a>MA_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>), <span class="dt">ma =</span> <span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>)))</span>
+<span id="cb204-2"><a href="correlations-and-arima.html#cb204-2"></a><span class="kw">plot</span>(MA_<span class="dv">3</span>, <span class="dt">main =</span> <span class="st">&quot;MA(3)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-165-1.png" width="672" />
+The ACF plot of a MA process shows a more clear cut-off after the term corresponding to the order ot the process. It is different from the ACF of an AR process, which shows a more gradual decay.</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="correlations-and-arima.html#cb205-1"></a><span class="kw">acf</span>(MA_<span class="dv">3</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-166-1.png" width="672" /></p>
+<p>The PACF of a MA process shows an up-and-down movement and does not shut off, but instead tapers toward 0 in some manner.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="correlations-and-arima.html#cb206-1"></a><span class="kw">pacf</span>(MA_<span class="dv">3</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
+</div>
+<div id="integrated-i-process" class="section level3">
+<h3><span class="header-section-number">8.2.3</span> Integrated (I) process</h3>
+<p>An integrated process is a non-stationary time series process that becomes stationary when transformed by <strong>differencing</strong>. In other words, an integrated process is a difference-stationary process, that is a process with a stochastic trends (see the previous chapter).</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="correlations-and-arima.html#cb207-1"></a>I_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
+<span id="cb207-2"><a href="correlations-and-arima.html#cb207-2"></a><span class="kw">plot</span>(I_<span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;I(1)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-168-1.png" width="672" /></p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="correlations-and-arima.html#cb208-1"></a><span class="kw">plot</span>(<span class="kw">diff</span>(I_<span class="dv">1</span>), <span class="dt">main =</span> <span class="st">&quot;I(1) after &#39;differencing&#39;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-169-1.png" width="672" />
+### Seasonal (S) models</p>
+<p>We already introduced the seasonal model. For instance, a dataset showing a seasonal component is AirPassengers. The seasonality appears in the yearly fluctuations in the ACF and in the spikes occurring at 12 months from each other in the PACF.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="correlations-and-arima.html#cb209-1"></a><span class="kw">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
+<span id="cb209-2"><a href="correlations-and-arima.html#cb209-2"></a></span>
+<span id="cb209-3"><a href="correlations-and-arima.html#cb209-3"></a><span class="co"># this function par(mfrow=c(..., ...))</span></span>
+<span id="cb209-4"><a href="correlations-and-arima.html#cb209-4"></a><span class="co"># is used to combine more than one plot</span></span>
+<span id="cb209-5"><a href="correlations-and-arima.html#cb209-5"></a><span class="co"># in the same frame. The two numerical values</span></span>
+<span id="cb209-6"><a href="correlations-and-arima.html#cb209-6"></a><span class="co"># indicates number of rows and columns</span></span>
+<span id="cb209-7"><a href="correlations-and-arima.html#cb209-7"></a><span class="co"># the frame is made of</span></span>
+<span id="cb209-8"><a href="correlations-and-arima.html#cb209-8"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb209-9"><a href="correlations-and-arima.html#cb209-9"></a></span>
+<span id="cb209-10"><a href="correlations-and-arima.html#cb209-10"></a><span class="kw">acf</span>(AirPassengers, <span class="dt">lag.max =</span> <span class="dv">48</span>)</span>
+<span id="cb209-11"><a href="correlations-and-arima.html#cb209-11"></a><span class="kw">pacf</span>(AirPassengers, <span class="dt">lag.max =</span> <span class="dv">48</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-170-1.png" width="672" /></p>
+</div>
+<div id="fit-sarima-models" class="section level3">
+<h3><span class="header-section-number">8.2.4</span> Fit (S)ARIMA models</h3>
+<p>The examples above represent simple processes, but the actual time series are often the result of more complex <strong>mixtures of different types of process</strong>, and therefore is more complex to identify an appropriate model for the data.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="correlations-and-arima.html#cb210-1"></a><span class="kw">set.seed</span>(<span class="dv">7623</span>)</span>
+<span id="cb210-2"><a href="correlations-and-arima.html#cb210-2"></a>arima_<span class="dv">112</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">ar =</span> <span class="fl">0.8</span>, <span class="dt">ma =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.2</span>)))</span>
+<span id="cb210-3"><a href="correlations-and-arima.html#cb210-3"></a><span class="kw">plot</span>(arima_<span class="dv">112</span>, <span class="dt">main =</span> <span class="st">&quot;ARIMA(1,1,2)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-171-1.png" width="672" /></p>
+<p>A popular methods to find the appropriate model is the <a href="https://en.wikipedia.org/wiki/Box–Jenkins_method">Box-Jenkins method</a>, a recursive process involving the analysis of a time series, the guess of possible (S)ARIMA models, the fit of the hypothesized models, and a meta-analysis to determine the best specification. Once a best-fitting model has been
+found, the correlogram of the <strong>residuals</strong> should be verified as <strong>white noise</strong>.</p>
+<p>The Box-Jenkins method could be time-consuming and requires some expertise. ACF/PACF can also become difficult to read in case of complex models, and their appropriate interpretation could require a lot of expertise as well. Fortunately, experts have developed <strong>automated methods</strong> that allow us to automatically found and fit an ARIMA model. This is the case of the <strong>auto.arima</strong> function implemented in the <strong>forecast</strong> package (a package for time series analysis and especially for forecasting, developed by <a href="https://scholar.google.com/citations?user=vamErfkAAAAJ&amp;hl=en&amp;oi=ao">Rob J. Hyndman</a>, professor of statistics and time series analysis expert).</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="correlations-and-arima.html#cb211-1"></a><span class="co"># Install the package if you haven&#39;t installed it yet</span></span>
+<span id="cb211-2"><a href="correlations-and-arima.html#cb211-2"></a><span class="co"># install.packages(&quot;forecast&quot;)</span></span>
+<span id="cb211-3"><a href="correlations-and-arima.html#cb211-3"></a><span class="kw">library</span>(forecast)</span>
+<span id="cb211-4"><a href="correlations-and-arima.html#cb211-4"></a></span>
+<span id="cb211-5"><a href="correlations-and-arima.html#cb211-5"></a>arima_fit &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(arima_<span class="dv">112</span>)</span>
+<span id="cb211-6"><a href="correlations-and-arima.html#cb211-6"></a></span>
+<span id="cb211-7"><a href="correlations-and-arima.html#cb211-7"></a>arima_fit</span></code></pre></div>
+<pre><code>## Series: arima_112 
+## ARIMA(1,1,2) 
+## 
+## Coefficients:
+##          ar1     ma1     ma2
+##       0.7649  0.7387  0.2484
+## s.e.  0.0356  0.0528  0.0534
+## 
+## sigma^2 estimated as 1.035:  log likelihood=-717.9
+## AIC=1443.8   AICc=1443.88   BIC=1460.65</code></pre>
+<p>As said above, to evaluate the fit of a model we should analyze the <strong>residuals</strong>, and ascertain they behave as white noise. The object resulting from the function <em>auto.arima</em>, has a slot including the residuals. To ascertain that residuals are white noise we can plot its <strong>ACF and PACF</strong> (no spike should be significant) and also its <strong>histogram</strong> (which should show a classic “bell curve”).</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="correlations-and-arima.html#cb213-1"></a><span class="kw">layout</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">nrow =</span> <span class="dv">2</span>))</span>
+<span id="cb213-2"><a href="correlations-and-arima.html#cb213-2"></a><span class="kw">acf</span>(arima_fit<span class="op">$</span>residuals)</span>
+<span id="cb213-3"><a href="correlations-and-arima.html#cb213-3"></a><span class="kw">pacf</span>(arima_fit<span class="op">$</span>residuals)</span>
+<span id="cb213-4"><a href="correlations-and-arima.html#cb213-4"></a><span class="kw">hist</span>(arima_fit<span class="op">$</span>residuals, <span class="dt">main =</span> <span class="st">&quot;Histogram of residuals&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-173-1.png" width="672" />
+The <em>forecast</em> package also implement the function <strong>checkresiduals</strong> to create nice and complete plots of residual diagnostics with a simple function.</p>
+<p>Besides creating the plots, the function calulate the <strong>Ljung-Box test</strong> (default), or the <strong>Breusch-Godfrey test</strong> (if you specify <em>test=“BG”</em> inside the function):</p>
+<p>The <em>Ljung-Box test</em> (and also the Breusch–Godfrey test) is a diagnostic tool, applied to the residuals of a time series after fitting an ARIMA model, to test the lack of fit. The test examines the autocorrelations of the residuals. If there are no significant autocorrelations, it can be concluded that the model does not exhibit significant lack of fit. To pass the test, the p-value has to be above the significance level (usually 0.05)</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="correlations-and-arima.html#cb214-1"></a><span class="kw">checkresiduals</span>(arima_fit)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-174-1.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(1,1,2)
+## Q* = 5.8977, df = 7, p-value = 0.5517
+## 
+## Model df: 3.   Total lags used: 10</code></pre>
+<div id="sarima" class="section level4">
+<h4><span class="header-section-number">8.2.4.1</span> SARIMA</h4>
+<p>If we fit a model to the <em>AirPassengers</em> dataset, which has a seasonal component, we find a Seasonal Autoregressive Integrated Moving Average model (<strong>SARIMA</strong>). The seasonal component of the AirPassenger dataset is evident in the plot of the series and its ACF and PACF. The <em>forecast</em> package has a useful function <strong>ggtsdisplay</strong> to plot a time series along with its ACF and PACF.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="correlations-and-arima.html#cb216-1"></a><span class="kw">ggtsdisplay</span>(AirPassengers)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-175-1.png" width="672" /></p>
+<p>The seasonal part of the ARIMA model consists of terms that are similar to the non-seasonal components of the model, but involves lagged values of the seasonal period.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="correlations-and-arima.html#cb217-1"></a>AirPassengers_sarima &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(<span class="kw">window</span>(AirPassengers))</span>
+<span id="cb217-2"><a href="correlations-and-arima.html#cb217-2"></a>AirPassengers_sarima</span></code></pre></div>
+<pre><code>## Series: window(AirPassengers) 
+## ARIMA(2,1,1)(0,1,0)[12] 
+## 
+## Coefficients:
+##          ar1     ar2      ma1
+##       0.5960  0.2143  -0.9819
+## s.e.  0.0888  0.0880   0.0292
+## 
+## sigma^2 estimated as 132.3:  log likelihood=-504.92
+## AIC=1017.85   AICc=1018.17   BIC=1029.35</code></pre>
+</div>
+<div id="forecasting" class="section level4">
+<h4><span class="header-section-number">8.2.4.2</span> Forecasting</h4>
+<p>Based on the ARIMA models we found, we can also try to <strong>forecast</strong> future values. We can use the function <strong>forecast</strong> of the homonym library. For instance, we could try to forecast the values of the AirPassenger dataset in the next four years.</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="correlations-and-arima.html#cb219-1"></a>AirPassengers_forecast &lt;-<span class="st"> </span><span class="kw">forecast</span>(AirPassengers_sarima, <span class="dt">h=</span><span class="dv">48</span>, <span class="dt">level =</span> <span class="dv">90</span>)</span>
+<span id="cb219-2"><a href="correlations-and-arima.html#cb219-2"></a><span class="kw">plot</span>(AirPassengers_forecast, <span class="dt">main =</span> <span class="st">&quot;AirPassengers forecast&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-177-1.png" width="672" /></p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="correlations-and-arima.html#cb220-1"></a>AirPassengers_sarima &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(AirPassengers)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="cross-correlation" class="section level2">
+<h2><span class="header-section-number">8.3</span> Cross-correlation</h2>
+<p><em>Cross-correlation </em>is the correlation between the (lagged) values of a time series and the values of another series. Similarly to ACF and PACF, there is a specific plot that shows the cross-correlation between two time series, and a specific R function: <strong>ccf</strong>.</p>
+<p>The cross-correlation can be useful to understand with lagged values of a <em>X</em> series can be used to predict the values of a <em>Y</em> series, and thus used, for instance, in a time series regression model.</p>
+<p>Unfourtunately, the problem with the cross-correlation function is that, as we said in the preceding sections, with autocorrelated data it is difficult to assess the dependence between two processes, and it is possible to find spurious correlations.</p>
+<p>Thus, it is pertinent to disentangle the linear association between <em>X</em> and <em>Y</em> from their autocorrelation. A useful device for doing this is <strong>prewhitening</strong>. The prewhitening method works as follows:</p>
+<ol style="list-style-type: decimal">
+<li>determine an ARIMA <em>time series model</em> for the X-variable, and store the residuals from this model;</li>
+<li>fit the ARIMA X-model to the Y-variable, and keep the residuals;</li>
+<li>examines the CCF between the X and Y model residuals.</li>
+</ol>
+<p>We can implement this procedure writing all the necessary code, or by using the library <em>forecast</em>, or also, alternatively, the library <em>TSA</em>.</p>
+<p>To make an example, we apply the method to two simulated two series. The Y-variable is created in such a way that it is correlated with the lagged values at time <span class="math inline">\(x{t-3}\)</span> and <span class="math inline">\(x{t-4}\)</span>. Therefore, we should find a correlation at those lags.</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="correlations-and-arima.html#cb221-1"></a>x_series &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">200</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="dt">ar =</span> <span class="fl">0.7</span>, <span class="dt">sd=</span><span class="dv">1</span>))</span>
+<span id="cb221-2"><a href="correlations-and-arima.html#cb221-2"></a>z &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(x_series, stats<span class="op">::</span><span class="kw">lag</span>(x_series, <span class="dv">-3</span>), stats<span class="op">::</span><span class="kw">lag</span>(x_series, <span class="dv">-4</span>)) </span>
+<span id="cb221-3"><a href="correlations-and-arima.html#cb221-3"></a>y_series &lt;-<span class="st"> </span><span class="dv">15</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.8</span><span class="op">*</span>z[,<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span><span class="op">*</span>z[,<span class="dv">3</span>]</span></code></pre></div>
+<p>The cross-correlation applied to the original series leads to a plot where everything seems to be correlated. The correlation at lags <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span> is not discernible.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="correlations-and-arima.html#cb222-1"></a><span class="kw">ccf</span>(x_series, y_series, <span class="dt">na.action =</span> na.omit)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-179-1.png" width="672" /></p>
+<p>By using the <em>forecast</em> library, we can calculate the pre-withened <em>ccf</em> as follows:</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="correlations-and-arima.html#cb223-1"></a><span class="co"># fit an ARIMA model</span></span>
+<span id="cb223-2"><a href="correlations-and-arima.html#cb223-2"></a>x_model &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(x_series)</span>
+<span id="cb223-3"><a href="correlations-and-arima.html#cb223-3"></a><span class="co"># keep the residuals (&quot;white noise&quot;)</span></span>
+<span id="cb223-4"><a href="correlations-and-arima.html#cb223-4"></a>x_residuals &lt;-<span class="st"> </span>x_model<span class="op">$</span>residuals</span>
+<span id="cb223-5"><a href="correlations-and-arima.html#cb223-5"></a></span>
+<span id="cb223-6"><a href="correlations-and-arima.html#cb223-6"></a><span class="co"># fit the same ARIMA model to the Y-series</span></span>
+<span id="cb223-7"><a href="correlations-and-arima.html#cb223-7"></a><span class="co"># by using the &quot;Arima&quot; function in forecast</span></span>
+<span id="cb223-8"><a href="correlations-and-arima.html#cb223-8"></a>y_model &lt;-<span class="st"> </span><span class="kw">Arima</span>(y_series, <span class="dt">model=</span>x_model)</span>
+<span id="cb223-9"><a href="correlations-and-arima.html#cb223-9"></a><span class="co"># keep the residuals</span></span>
+<span id="cb223-10"><a href="correlations-and-arima.html#cb223-10"></a>y_filtered &lt;-<span class="st"> </span><span class="kw">residuals</span>(y_model)</span>
+<span id="cb223-11"><a href="correlations-and-arima.html#cb223-11"></a></span>
+<span id="cb223-12"><a href="correlations-and-arima.html#cb223-12"></a><span class="co"># apply the ccf to the residuals</span></span>
+<span id="cb223-13"><a href="correlations-and-arima.html#cb223-13"></a><span class="kw">ccf</span>(x_residuals, y_filtered)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-180-1.png" width="672" /></p>
+<p>Now, it’s clear that the X-variable is correlated with the Y-variable at lags <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span>.</p>
+<p>Alternatively, it is possible to use the original series with the <strong>prewhiten</strong> function of the <strong>TSA</strong> library, that takes care of everything by applying a simpler AR model.</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="correlations-and-arima.html#cb224-1"></a><span class="co"># install.packages(&quot;TSA&quot;)</span></span>
+<span id="cb224-2"><a href="correlations-and-arima.html#cb224-2"></a><span class="kw">library</span>(TSA)</span></code></pre></div>
+<pre><code>## Registered S3 methods overwritten by &#39;TSA&#39;:
+##   method       from    
+##   fitted.Arima forecast
+##   plot.Arima   forecast</code></pre>
+<pre><code>## 
+## Attaching package: &#39;TSA&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:readr&#39;:
+## 
+##     spec</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     acf, arima</code></pre>
+<pre><code>## The following object is masked from &#39;package:utils&#39;:
+## 
+##     tar</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="correlations-and-arima.html#cb230-1"></a><span class="kw">prewhiten</span>(x_series, y_series)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-181-1.png" width="672" /></p>
+</div>
+<div id="examples-in-literature" class="section level2">
+<h2><span class="header-section-number">8.4</span> Examples in literature</h2>
+<p>A few examples to exemplify the use of ARIMA and Cross-Correlation in the scientific literature, with specific reference to communication science.</p>
+<p>In <a href="https://academic.oup.com/joc/article/61/1/48/4098436?casa_token=b3Cd_02sN9IAAAAA:MM9rnMjb14X1ZSqxrcswoO3CDEYHry97L9EG9vL4dt5kpkZryx8VSlR8F_wXaOmBBu9VZvqlrLCZ0w">Scheufele, B., Haas, A., &amp; Brosius, H. B. (2011). Mirror or molder? A study of media coverage, stock prices, and trading volumes in Germany. Journal of Communication, 61(1), 48-70</a>, the authors investigate <em>“the short-term relationship between media coverage, stock prices, and trading volumes of eight listed German companies”</em>, by using ARIMA and cross-correlation, in particular asking:</p>
+<blockquote>
+<p>RQ2: Do cross-lagged correlations between media coverage and stock prices or trading volumes differ according to the amount and the valence of coverage?
+RQ3: Do cross-lagged correlations between media coverage and stock prices or trading volumes differ according to the type of media (Financial Web sites, daily newspapers, and stock market TV shows) which reports on the company or stock?</p>
+</blockquote>
+<p>To answer these questions, the authors made use of time series analysis, and in particular they:</p>
+<blockquote>
+<p>estimated cross-lagged correlations between media coverage and stock prices or trading volumes, respectively. Basically, two steps of time-series analysis can be distinguished: (a) In the first step, each media time-series and each time-series of trading volumes was adjusted by ARIMA (Autoregressive Integrated Moving Average) modeling separately. The differences between the original time-series and its ARIMA model are called residuals and were used for analysis. Like with ordinary least squares regression, these residuals should not be auto-correlated. If the residuals are not auto-correlated, time-series analysis speaks of White Noise. This modeling technique called prewhitening was necessary to avoid spurious correlations. (…) (b) In the next step, cross-correlations between each adjusted media time-series and each adjusted stock series were calculated. (…) The coefficient expresses the strength of correlation, whereas the lags offer an insight into dynamics: Correlations at positive (negative) lags indicate that changes in media coverage proceeded (succeeded) shifts in stock prices or trading volumes.</p>
+</blockquote>
+<p>In <a href="https://ijoc.org/index.php/ijoc/article/viewFile/495/392">Groshek, J. (2010). A time-series, multinational analysis of democratic forecasts and Internet diffusion. International Journal of Communication, 4, 33</a>, the author <em>examines the democratic effects that the Internet has shown using macro- level, cross-national data in a sequence of time–series statistical tests</em>:</p>
+<blockquote>
+<p>this study relies principally on macro-level time–series democracy data from an historical sample that includes 72 countries, reaching back as far as 1946 in some cases, but at least from 1954 to 2003. From this sample, a sequence of ARIMA (autoregressive integrated moving average) time–series regressions were modeled for each country for at least 40 years prior to 1994. These models were then used to generate statistically-forecasted democracy values for each country, in each year from 1994 to 2003. A 95% confidence interval with an upper and lower democracy score was then constructed around each of the forecasted values using dynamic mean squared errors. The actual democracy scores of each country for each year from 1994 to 2003 were then compared to the upper and lower values of the confidence interval.
+In the event that the actual democracy level of any country was greater than the upper value of the forecasted democracy score during the time period of 1994 to 2003, Internet diffusion was investigated in case studies as a possible causal mechanism.</p>
+</blockquote>
+<p>In other terms, the author used a forecasting approach to predict the values of the series from 1994 to 2003, in order to find statistically significant differences between the predicted and the actual values. These discrepancies were interpreted as caused by factors that were not present in the past, and possibly the Internet.</p>
+<p>The study found that, <em>based on the results of the 72 countries reported here, the diffusion of the Internet should not be considered a democratic panacea, but rather a component of contemporary democratization processes</em></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="structural-decomposition.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="readings.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/edit/master/07-ARIMA.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/blob/master/07-ARIMA.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
