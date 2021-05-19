@@ -235,9 +235,6 @@ AirPassengers_sarima <- auto.arima(AirPassengers)
 ```
 
 
-
-
-
 ## Cross-correlation
 
 *Cross-correlation *is the correlation between the (lagged) values of a time series and the values of another series. Similarly to ACF and PACF, there is a specific plot that shows the cross-correlation between two time series, and a specific R function: **ccf**.
@@ -297,6 +294,11 @@ Alternatively, it is possible to use the original series with the **prewhiten** 
 library(TSA)
 prewhiten(x_series, y_series)
 ```
+
+## ARIMAX
+
+ARIMA models are a special type of regression model, in which the dependent variable is the time series itself, and the independent variables are all lags of the time series. It is possible to extend the model to include additional, exogenous variables. The ARIMA model including exogenous regressors is called *ARIMAX*: *AutoRegressive Integrated Moving Average with eXogenous variables*.
+
 
 ## Examples in literature
 

@@ -1,6 +1,6 @@
-fig:unnamed-chunk-64
-fig:unnamed-chunk-133
-fig:unnamed-chunk-137
+fig:unnamed-chunk-39
+fig:unnamed-chunk-108
+fig:unnamed-chunk-112
 time-series-analysis-with-r
 objectives
 lectures
@@ -70,6 +70,7 @@ fit-sarima-models
 sarima
 forecasting
 cross-correlation
+arimax
 examples-in-literature
 readings
 bibliographical-references
