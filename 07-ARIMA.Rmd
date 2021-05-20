@@ -256,7 +256,7 @@ To make an example, we apply the method to two simulated two series. The Y-varia
 ```{r}
 x_series <- arima.sim(n = 200, list(order = c(1,1,0), ar = 0.7, sd=1))
 z <- ts.intersect(x_series, stats::lag(x_series, -3), stats::lag(x_series, -4)) 
-y_series <- 15 + 0.8*z[,2] + 1.5*z[,3]
+y_series <- 15 + 0.8*z[,2] + 1.5*z[,3] + rnorm(197,1,1)
 
 ```
 
@@ -298,6 +298,24 @@ prewhiten(x_series, y_series)
 ## ARIMAX
 
 ARIMA models are a special type of regression model, in which the dependent variable is the time series itself, and the independent variables are all lags of the time series. It is possible to extend the model to include additional, exogenous variables. The ARIMA model including exogenous regressors is called *ARIMAX*: *AutoRegressive Integrated Moving Average with eXogenous variables*.
+
+```{r}
+xy_series <- ts.union(y_series,x_series)
+auto.arima(xy_series[,1])
+auto.arima(xy_series[,1], xreg = xy_series[,2])
+```
+
+
+```{r}
+xLagged <- cbind(
+    xLag3 = stats::lag(x_series,-3),
+    xLag4 = stats::lag(x_series,-4))
+
+xy_series <- ts.union(y_series, xLagged)
+
+auto.arima(xy_series[,1], xreg = xy_series[,2:3])
+
+```
 
 
 ## Examples in literature
