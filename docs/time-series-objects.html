@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-05-20" />
+<meta name="date" content="2021-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -215,7 +215,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-regressive-ar-models"><i class="fa fa-check"></i><b>8.2.1</b> Auto Regressive (AR) models</a></li>
 <li class="chapter" data-level="8.2.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#moving-average-ma-models"><i class="fa fa-check"></i><b>8.2.2</b> Moving Average (MA) models</a></li>
 <li class="chapter" data-level="8.2.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#integrated-i-process"><i class="fa fa-check"></i><b>8.2.3</b> Integrated (I) process</a></li>
-<li class="chapter" data-level="8.2.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#fit-sarima-models"><i class="fa fa-check"></i><b>8.2.4</b> Fit (S)ARIMA models</a></li>
+<li class="chapter" data-level="8.2.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#seasonal-s-models"><i class="fa fa-check"></i><b>8.2.4</b> Seasonal (S) models</a></li>
+<li class="chapter" data-level="8.2.5" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#fit-sarima-models"><i class="fa fa-check"></i><b>8.2.5</b> Fit (S)ARIMA models</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#cross-correlation"><i class="fa fa-check"></i><b>8.3</b> Cross-correlation</a></li>
 <li class="chapter" data-level="8.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#arimax"><i class="fa fa-check"></i><b>8.4</b> ARIMAX</a></li>
@@ -286,8 +287,8 @@ Many functions have been developed with reference to specific libraries and obje
 ##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
 ##  $ total_count: int  25611 31932 24646 25513 39982 42366 45163 44928 44041 29093 ...
 ##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
-<p>As you can see in the output of the function <em>str</em>, the format of the column date is <em>Factor</em>. The format is, in this case, automatically attributed by R, but (as we have already said) can be specified before importing the data.</p>
-<p><em>Factor</em> is appropriate for categorical variables, but R includes a specific format for dates and times. In this case we have just a date, so we can convert it to a variable of type <em>date</em>. We can change the format of the variable by using the function <strong>as.Date</strong>.</p>
+<p>As you can see in the output of the function <em>str</em>, the format of the column date is <em>Factor</em>. The format is, in this case, automatically attributed by R, but (as we have already said) it can be specified before importing the data.</p>
+<p><em>Factor</em> is an appropriate format for categorical variables, but R includes a specific format for dates and times. In this case we have just a date, so we can convert it to a variable of type <em>date</em>. We can change the format of the variable by using the function <strong>as.Date</strong>.</p>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="time-series-objects.html#cb105-1"></a>elections_news<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(elections_news<span class="op">$</span>date)</span></code></pre></div>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="time-series-objects.html#cb106-1"></a><span class="kw">str</span>(elections_news)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    2192 obs. of  4 variables:
@@ -295,7 +296,7 @@ Many functions have been developed with reference to specific libraries and obje
 ##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
 ##  $ total_count: int  25611 31932 24646 25513 39982 42366 45163 44928 44041 29093 ...
 ##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
-<p>We can also perform the operation with tidyverse, using the function <strong>mutate</strong>.</p>
+<p>We can also perform the same operation with tidyverse, by using the function <strong>mutate</strong>.</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="time-series-objects.html#cb108-1"></a><span class="kw">library</span>(tidyverse)</span>
 <span id="cb108-2"><a href="time-series-objects.html#cb108-2"></a></span>
 <span id="cb108-3"><a href="time-series-objects.html#cb108-3"></a>elections_news &lt;-<span class="st"> </span>elections_news <span class="op">%&gt;%</span></span>
@@ -305,7 +306,7 @@ Many functions have been developed with reference to specific libraries and obje
 <div id="time-series-as-ts-objects" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Time Series as TS objects</h3>
 <p>The basic object created to handle time series in R is the object of class <em>ts</em>. The name stands for “Time Series”.</p>
-<p>An example of ts object is already present in R under the name of “AirPassengers”, a time series data set in ts format. We can load this data set by using the function <strong>data</strong>.</p>
+<p>An example of ts object is already present in R under the name of “AirPassengers”, a time series data set in ts format. We can load this data set with the function <strong>data</strong>.</p>
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="time-series-objects.html#cb109-1"></a><span class="kw">data</span>(AirPassengers)</span></code></pre></div>
 <p>By applying the function <em>class</em> we can see that this is an object of class ts.</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="time-series-objects.html#cb110-1"></a><span class="kw">class</span>(AirPassengers)</span></code></pre></div>
@@ -329,8 +330,8 @@ Many functions have been developed with reference to specific libraries and obje
 <div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="time-series-objects.html#cb114-1"></a><span class="kw">str</span>(AirPassengers)</span></code></pre></div>
 <pre><code>##  Time-Series [1:144] from 1949 to 1961: 112 118 132 129 121 135 148 148 136 119 ...</code></pre>
 <p>The AirPassengers data set is a univariate time series representing monthly totals of international airline passengers from 1949 to 1960. As every time series, it has a <strong>start date</strong> and an <strong>end date</strong>. It also has a <strong>frequency</strong>, which is the frequency at which the observations were taken.</p>
-<p>All this characteristics differentiate a ts object from a data.frame. The structure of a data.frame lacks the start and the end date, as well as the frequency.</p>
-<p>The functions <strong>start</strong>, <strong>end</strong>, and <strong>frequency</strong>, can be applied to a <em>ts</em> object to check their values. We started by saying that some functions work with some objects but not with other types of objects. This is an example. These functions, indeed, work with <em>ts</em> objects just because they are part of their structures, and are arguments usually made explicit when this kind of object is created. They do not work if applied to a data.frame object, since a data.frame structure does not include the start and end date, nor the frequency of observations. It can be seen that the ts structure is much more specific for time series compared to a generic data.frame.</p>
+<p>All this characteristics differentiate a ts object from a data.frame. The structure of a data.frame lacks the start and the end date, and the frequency value.</p>
+<p>The functions <strong>start</strong>, <strong>end</strong>, and <strong>frequency</strong>, can be applied to a <em>ts</em> object to check their values. We started by saying that some functions work with some objects but not with other types of objects. This is an example. These functions, indeed, work with <em>ts</em> objects just because they are part of their structures, and are arguments usually specified when this kind of object is created. They do not work if applied to a data.frame object, since a data.frame structure does not include the start and end date, nor the frequency of observations. It can be seen that the ts structure is much more specific for time series data.</p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="time-series-objects.html#cb116-1"></a><span class="kw">start</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 1949</code></pre>
 <div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="time-series-objects.html#cb118-1"></a><span class="kw">end</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
@@ -392,7 +393,7 @@ Many functions have been developed with reference to specific libraries and obje
 <span id="cb129-3"><a href="time-series-objects.html#cb129-3"></a>                  <span class="dt">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="time-series-objects.html#cb130-1"></a><span class="kw">class</span>(xts_format)</span></code></pre></div>
 <pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
-<p>Also the structure of this object, like the <em>ts</em> one, includes the range of dates of the time series, when it starts and ends.</p>
+<p>Also the structure of this object, like the <em>ts</em> one, includes the range of dates of the time series, with it starting and ending date.</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="time-series-objects.html#cb132-1"></a><span class="kw">str</span>(xts_format)</span></code></pre></div>
 <pre><code>## An &#39;xts&#39; object on 1949-01-01/1960-12-01 containing:
 ##   Data: num [1:144, 1] 112 118 132 129 121 135 148 148 136 119 ...
@@ -412,7 +413,7 @@ Many functions have been developed with reference to specific libraries and obje
 <div id="exercise-1" class="section level2">
 <h2><span class="header-section-number">5.2</span> Exercise</h2>
 <ul>
-<li>Download the data set <a href="https://drive.google.com/file/d/1RKPFOLsIAPLuACcrcB0iiq289CvDDgiT/view?usp=sharing">Austrian_Local_Media</a>. It is a data set including some metrics of Facebook pages of Austrian Local Media. It is a time series including monthly observations, from January 2015 to December 2020, on number of posts and in number of interactions on those posts.</li>
+<li>Download the data set <a href="https://drive.google.com/file/d/1RKPFOLsIAPLuACcrcB0iiq289CvDDgiT/view?usp=sharing">Austrian_Local_Media</a>, a data set including metrics from Facebook pages of Austrian Local Media (monthly observations from January 2015 to December 2020 on quantity of posts and interactions)</li>
 <li>Set the “beginning_of_interval” to the appropriate “Date” format</li>
 <li>Create a ts object, called “ts_object_1”, using as data values the post_count values</li>
 <li>Create a xts object, called “xts_object_1”, using as data values the post_count values</li>

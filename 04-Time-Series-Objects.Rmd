@@ -53,9 +53,9 @@ The function *head* (and *tail*) can be impractical with data.frame including a 
 str(elections_news)
 ```
 
-As you can see in the output of the function *str*, the format of the column date is *Factor*. The format is, in this case, automatically attributed by R, but (as we have already said) can be specified before importing the data.
+As you can see in the output of the function *str*, the format of the column date is *Factor*. The format is, in this case, automatically attributed by R, but (as we have already said) it can be specified before importing the data.
 
-*Factor* is appropriate for categorical variables, but R includes a specific format for dates and times. In this case we have just a date, so we can convert it to a variable of type *date*. We can change the format of the variable by using the function **as.Date**.
+*Factor* is an appropriate format for categorical variables, but R includes a specific format for dates and times. In this case we have just a date, so we can convert it to a variable of type *date*. We can change the format of the variable by using the function **as.Date**.
 
 ```{r}
 elections_news$date <- as.Date(elections_news$date)
@@ -65,7 +65,7 @@ elections_news$date <- as.Date(elections_news$date)
 str(elections_news)
 ```
 
-We can also perform the operation with tidyverse, using the function **mutate**.
+We can also perform the same operation with tidyverse, by using the function **mutate**.
 
 ```{r}
 library(tidyverse)
@@ -80,7 +80,7 @@ A data.frame is the common format for data sets, including time series data sets
 
 The basic object created to handle time series in R is the object of class *ts*. The name stands for "Time Series". 
 
-An example of ts object is already present in R under the name of "AirPassengers", a time series data set in ts format. We can load this data set by using the function **data**.
+An example of ts object is already present in R under the name of "AirPassengers", a time series data set in ts format. We can load this data set with the function **data**.
 
 ```{r}
 data(AirPassengers)
@@ -106,9 +106,9 @@ str(AirPassengers)
 
 The AirPassengers data set is a univariate time series representing monthly totals of international airline passengers from 1949 to 1960. As every time series, it has a **start date** and an **end date**. It also has a **frequency**, which is the frequency at which the observations were taken. 
 
-All this characteristics differentiate a ts object from a data.frame. The structure of a data.frame lacks the start and the end date, as well as the frequency.
+All this characteristics differentiate a ts object from a data.frame. The structure of a data.frame lacks the start and the end date, and the frequency value.
 
-The functions **start**, **end**, and **frequency**, can be applied to a *ts* object to check their values. We started by saying that some functions work with some objects but not with other types of objects. This is an example. These functions, indeed, work with *ts* objects just because they are part of their structures, and are arguments usually made explicit when this kind of object is created. They do not work if applied to a data.frame object, since a data.frame structure does not include the start and end date, nor the frequency of observations. It can be seen that the ts structure is much more specific for time series compared to a generic data.frame. 
+The functions **start**, **end**, and **frequency**, can be applied to a *ts* object to check their values. We started by saying that some functions work with some objects but not with other types of objects. This is an example. These functions, indeed, work with *ts* objects just because they are part of their structures, and are arguments usually specified when this kind of object is created. They do not work if applied to a data.frame object, since a data.frame structure does not include the start and end date, nor the frequency of observations. It can be seen that the ts structure is much more specific for time series data. 
 
 ```{r}
 start(AirPassengers)[1]
@@ -183,7 +183,7 @@ xts_format <- xts(x = data_frame_format$Passengers,
 class(xts_format)
 ```
 
-Also the structure of this object, like the *ts* one, includes the range of dates of the time series, when it starts and ends.
+Also the structure of this object, like the *ts* one, includes the range of dates of the time series, with it starting and ending date.
 
 ```{r}
 str(xts_format)
@@ -195,7 +195,7 @@ head(xts_format)
 
 ## Exercise
 
-*   Download the data set [Austrian_Local_Media](https://drive.google.com/file/d/1RKPFOLsIAPLuACcrcB0iiq289CvDDgiT/view?usp=sharing). It is a data set including some metrics of Facebook pages of Austrian Local Media. It is a time series including  monthly observations, from January 2015 to December 2020, on number of posts and in number of interactions on those posts.
+*   Download the data set [Austrian_Local_Media](https://drive.google.com/file/d/1RKPFOLsIAPLuACcrcB0iiq289CvDDgiT/view?usp=sharing), a data set including  metrics from Facebook pages of Austrian Local Media (monthly observations from January 2015 to December 2020 on quantity of posts and interactions)
 *   Set the "beginning_of_interval" to the appropriate "Date" format
 *   Create a ts object, called "ts_object_1", using as data values the post_count values
 *   Create a xts object, called "xts_object_1", using as data values the post_count values

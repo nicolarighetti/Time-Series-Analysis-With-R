@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-05-20" />
+<meta name="date" content="2021-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -215,7 +215,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-regressive-ar-models"><i class="fa fa-check"></i><b>8.2.1</b> Auto Regressive (AR) models</a></li>
 <li class="chapter" data-level="8.2.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#moving-average-ma-models"><i class="fa fa-check"></i><b>8.2.2</b> Moving Average (MA) models</a></li>
 <li class="chapter" data-level="8.2.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#integrated-i-process"><i class="fa fa-check"></i><b>8.2.3</b> Integrated (I) process</a></li>
-<li class="chapter" data-level="8.2.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#fit-sarima-models"><i class="fa fa-check"></i><b>8.2.4</b> Fit (S)ARIMA models</a></li>
+<li class="chapter" data-level="8.2.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#seasonal-s-models"><i class="fa fa-check"></i><b>8.2.4</b> Seasonal (S) models</a></li>
+<li class="chapter" data-level="8.2.5" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#fit-sarima-models"><i class="fa fa-check"></i><b>8.2.5</b> Fit (S)ARIMA models</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#cross-correlation"><i class="fa fa-check"></i><b>8.3</b> Cross-correlation</a></li>
 <li class="chapter" data-level="8.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#arimax"><i class="fa fa-check"></i><b>8.4</b> ARIMAX</a></li>
@@ -257,15 +258,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>After having installed tidyverse (or any other library), it is necessary to load it, so as we can work with its functions in the current R session:</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="basic-data-wrangling-with-tidyverse.html#cb56-1"></a><span class="co"># to load a library used the command library(NAME-OF-THE-LIBRARY)</span></span>
 <span id="cb56-2"><a href="basic-data-wrangling-with-tidyverse.html#cb56-2"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
 ## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
 ## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
 ## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
-<pre><code>## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+<pre><code>## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 ## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-## x readr::spec()   masks TSA::spec()</code></pre>
+## x dplyr::lag()    masks stats::lag()</code></pre>
 <p>Besides using the function <em>install.packages(NAME-OF-THE-LIBRARY)</em> by using a line of code, it is also possible to use the RStudio interface.</p>
 <div class="figure">
 <video src="videos/install-load-library.mov" style="width:80.0%" controls=""><a href="videos/install-load-library.mov"></a></video>
@@ -288,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 Thursday         25.5
 ## 6 Tuesday         145  
 ## 7 Wednesday       138</code></pre>
-<p>To manipulate data sets are useful the functions included in <a href="https://dplyr.tidyverse.org"><strong>dplyr</strong></a>: <em>a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges</em>, such as <em>mutate</em>, <em>rename</em>, <em>summarize</em>.</p>
+<p>To manipulate data sets we can rely on the functions included in <a href="https://dplyr.tidyverse.org"><strong>dplyr</strong></a>: <em>a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges</em>, such as <em>mutate</em>, <em>rename</em>, <em>summarize</em>.</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="basic-data-wrangling-with-tidyverse.html#cb63-1"></a><span class="kw">library</span>(readr)</span>
 <span id="cb63-2"><a href="basic-data-wrangling-with-tidyverse.html#cb63-2"></a>tweets &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/tweets_covid_small.csv&quot;</span>, </span>
 <span id="cb63-3"><a href="basic-data-wrangling-with-tidyverse.html#cb63-3"></a>    <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">created_at =</span> <span class="kw">col_datetime</span>(<span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d %H:%M:%S&quot;</span>), </span>
@@ -310,7 +310,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="mutate" class="section level2">
 <h2><span class="header-section-number">3.2</span> Mutate</h2>
-<p>The function <strong>mutate</strong> adds new variables to a data.frame or overwrite existing variables.</p>
+<p>The function <strong>mutate</strong> adds new variables to a data.frame or overwrites existing variables.</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="basic-data-wrangling-with-tidyverse.html#cb66-1"></a>tweets &lt;-<span class="st"> </span>tweets <span class="op">%&gt;%</span></span>
 <span id="cb66-2"><a href="basic-data-wrangling-with-tidyverse.html#cb66-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">log_retweet_count =</span> <span class="kw">log</span>(retweet_count))</span>
 <span id="cb66-3"><a href="basic-data-wrangling-with-tidyverse.html#cb66-3"></a>  </span>
@@ -363,7 +363,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App                0              0   
 ## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App                4              1.61
 ## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad              96              4.57</code></pre>
-<p>To check the data format of the variables stored in the data.frame can be used the command <em>str()</em>:</p>
+<p>To check the data format of the variables stored in the data.frame, it can be used the command <em>str()</em>:</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="basic-data-wrangling-with-tidyverse.html#cb72-1"></a><span class="kw">str</span>(tweets)</span></code></pre></div>
 <pre><code>## tibble [100 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
 ##  $ created_at       : POSIXct[1:100], format: &quot;2021-03-24 08:53:52&quot; &quot;2021-03-24 08:53:25&quot; &quot;2021-03-24 08:53:52&quot; &quot;2021-03-24 08:53:51&quot; ...
@@ -378,7 +378,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   ..   source = col_character(),
 ##   ..   retweet_count = col_integer()
 ##   .. )</code></pre>
-<p>Sometimes variables are stored in the data.frame in the wrong format (see the paragraph “data type”) and we want to convert them into a new data format. For this purpose we can use, again, the function <strong>mutate</strong>, along with other functions such <em>as.integer</em>, <em>as.numeric</em>, <em>as.character</em>, <em>as.factors</em>, or <em>as.logical</em>, <em>as.Date</em>, or <em>as.POSIXct()</em> based on the desired data format (it is possible and advisable to upload the data by paying attention to the type of data so as this step is not necessary).</p>
+<p>Sometimes variables are stored in the data.frame in the wrong format (see the paragraph “data type”), so we want to convert them into a new format. For this purpose we can use, again, the function <strong>mutate</strong>, along with other functions such <em>as.integer</em>, <em>as.numeric</em>, <em>as.character</em>, <em>as.factors</em>, or <em>as.logical</em>, <em>as.Date</em>, or <em>as.POSIXct()</em> based on the desired data format (it is possible and advisable to upload the data by paying attention to the type of data. If you upload the data in the right format, you can skip this step).</p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="basic-data-wrangling-with-tidyverse.html#cb74-1"></a>tweets <span class="op">%&gt;%</span></span>
 <span id="cb74-2"><a href="basic-data-wrangling-with-tidyverse.html#cb74-2"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">device =</span> <span class="kw">as.character</span>(device)) <span class="op">%&gt;%</span></span>
 <span id="cb74-3"><a href="basic-data-wrangling-with-tidyverse.html#cb74-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
@@ -409,7 +409,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 Andecave                      20
 ## 5 anshunandanpra4                2
 ## 6 ApKido                       150</code></pre>
-<p>It is also possible to create many different summary variable at once.</p>
+<p>It is also possible to create more than one summary variables at once.</p>
 <div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="basic-data-wrangling-with-tidyverse.html#cb78-1"></a>tweets_summary &lt;-<span class="st"> </span>tweets <span class="op">%&gt;%</span></span>
 <span id="cb78-2"><a href="basic-data-wrangling-with-tidyverse.html#cb78-2"></a><span class="st">  </span><span class="kw">group_by</span>(screen_name) <span class="op">%&gt;%</span></span>
 <span id="cb78-3"><a href="basic-data-wrangling-with-tidyverse.html#cb78-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">average_retweets =</span> <span class="kw">mean</span>(retweet_count),</span>
@@ -427,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6 ApKido                       150                 5.02</code></pre>
 <div id="count-occurrences" class="section level3">
 <h3><span class="header-section-number">3.4.1</span> Count occurrences</h3>
-<p>A useful operation to perform when summarizing data, is to count the occurrences of a certain variable (mostly qualitative). For instance, to count the number of tweets sent by each user, it can be used the function <strong>n()</strong> inside the <em>summarize</em> function.</p>
+<p>A useful operation to perform when summarizing data, is to count the occurrences of a certain variable. For instance, to count the number of tweets sent by each user, it can be used the function <strong>n()</strong> inside the <em>summarize</em> function.</p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="basic-data-wrangling-with-tidyverse.html#cb80-1"></a>tweets_summary &lt;-<span class="st"> </span>tweets <span class="op">%&gt;%</span></span>
 <span id="cb80-2"><a href="basic-data-wrangling-with-tidyverse.html#cb80-2"></a><span class="st">  </span><span class="kw">group_by</span>(screen_name) <span class="op">%&gt;%</span></span>
 <span id="cb80-3"><a href="basic-data-wrangling-with-tidyverse.html#cb80-3"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">average_retweets =</span> <span class="kw">mean</span>(retweet_count),</span>
@@ -448,8 +448,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="arrange" class="section level2">
 <h2><span class="header-section-number">3.5</span> Arrange</h2>
-<p>To explore a data set it can be useful to sort the data (e.g.: from the lowest to the highest number of a variable). With tidyverse, we can order a data.frame by using the function <em>arrange</em>.</p>
-<p>To sort the data from the highest to the lowest values (a descending order) the <em>minus</em> sign (or the “desc” function) has to be added.</p>
+<p>To explore a data set it can be useful to sort the data (e.g.: from the lowest to the highest value of a variable). With tidyverse, we can order a data.frame by using the function <em>arrange</em>.</p>
+<p>To sort the data from the highest to the lowest value (descending order) the <em>minus</em> sign (or the “desc” function) has to be added.</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="basic-data-wrangling-with-tidyverse.html#cb82-1"></a>tweets_summary  <span class="op">%&gt;%</span></span>
 <span id="cb82-2"><a href="basic-data-wrangling-with-tidyverse.html#cb82-2"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>number_of_tweets) <span class="op">%&gt;%</span></span>
 <span id="cb82-3"><a href="basic-data-wrangling-with-tidyverse.html#cb82-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
@@ -474,7 +474,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4 JulesFox12                 1091                 7.00                1
 ## 5 rosaesaa26                  983                 6.89                1
 ## 6 lewisabzueta                822                 6.71                1</code></pre>
-<p>Without minus sign (or “desc” function), the data are sorted from the lowest to the highest value.</p>
+<p>Without the minus sign (or the “desc” command), data are sorted from the lowest to the highest value.</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="basic-data-wrangling-with-tidyverse.html#cb86-1"></a>tweets_summary  <span class="op">%&gt;%</span></span>
 <span id="cb86-2"><a href="basic-data-wrangling-with-tidyverse.html#cb86-2"></a><span class="st">  </span><span class="kw">arrange</span>(number_of_tweets) <span class="op">%&gt;%</span></span>
 <span id="cb86-3"><a href="basic-data-wrangling-with-tidyverse.html#cb86-3"></a><span class="st">  </span><span class="kw">head</span>()</span></code></pre></div>
@@ -490,7 +490,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="filter" class="section level2">
 <h2><span class="header-section-number">3.6</span> Filter</h2>
-<p>The function <em>filter</em> keeps the cases we want to focus on. The arguments of this function represent a condition that has to be fulfilled: the name of the column that has to be filtered, and the column values to be kept.</p>
+<p>The function <em>filter</em> keeps only the cases (the “rows”) we want to focus on. The arguments of this function are the conditions that have to be fulfilled to filter the data: a) the name of the column that we want to filter, b) the values to be kept.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="basic-data-wrangling-with-tidyverse.html#cb88-1"></a>tweets <span class="op">%&gt;%</span></span>
 <span id="cb88-2"><a href="basic-data-wrangling-with-tidyverse.html#cb88-2"></a><span class="st">  </span><span class="kw">filter</span>(retweet_count <span class="op">&gt;=</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span></span>
 <span id="cb88-3"><a href="basic-data-wrangling-with-tidyverse.html#cb88-3"></a><span class="st">  </span><span class="kw">arrange</span>(<span class="op">-</span>retweet_count)</span></code></pre></div>
@@ -507,7 +507,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  8 2021-03-24 08:53:34 florent61647053 Twitter for Android           768              6.65
 ##  9 2021-03-24 08:53:37 Ritu89903967    Twitter for Android           709              6.57
 ## 10 2021-03-24 08:53:33 Hurica3         Twitter for iPhone            575              6.36</code></pre>
-<p>In the examples below, notice the use of a double equal sign <em>==</em>, and also of the quotation marks to include textual categories.</p>
+<p>In the examples below, notice the use of a double equal sign <em>==</em>, and also of the quotation marks to indicate the modalities of a categorical variable.</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="basic-data-wrangling-with-tidyverse.html#cb90-1"></a>tweets <span class="op">%&gt;%</span></span>
 <span id="cb90-2"><a href="basic-data-wrangling-with-tidyverse.html#cb90-2"></a><span class="st">  </span><span class="kw">filter</span>(retweet_count <span class="op">==</span><span class="st"> </span><span class="dv">1988</span>) </span></code></pre></div>
 <pre><code>## # A tibble: 1 x 5
@@ -530,7 +530,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  9 2021-03-24 08:53:42 lewisabzueta    Twitter for Android           822             6.71 
 ## 10 2021-03-24 08:53:42 rosaesaa26      Twitter for Android           983             6.89 
 ## # … with 23 more rows</code></pre>
-<p>It is also possible to use multiple conditions at the same time.</p>
+<p>It is also possible to use several conditions at the same time.</p>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="basic-data-wrangling-with-tidyverse.html#cb94-1"></a>tweets <span class="op">%&gt;%</span></span>
 <span id="cb94-2"><a href="basic-data-wrangling-with-tidyverse.html#cb94-2"></a><span class="st">  </span><span class="kw">filter</span>(device <span class="op">==</span><span class="st"> &quot;Twitter for Android&quot;</span>,</span>
 <span id="cb94-3"><a href="basic-data-wrangling-with-tidyverse.html#cb94-3"></a>         retweet_count <span class="op">&gt;</span><span class="st"> </span><span class="dv">200</span>) <span class="op">%&gt;%</span></span>

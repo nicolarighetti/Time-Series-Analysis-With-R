@@ -16,7 +16,7 @@ In this section we introduce an important tool for the diagnosis of the properti
 
 ### Correlogram: ACF and PACF
 
-The correlogram is a graph that presents one of two statistics: 
+The correlogram is a chart that presents one of two statistics: 
 
 *   **the autocorrelation function (ACF)**.The ACF statistic measures the correlation between $x_t$ and $x_{t+k}$ where *k* is the number of lead periods into the future. It measures the correlation between any two points based on a given interval. It is not strictly equivalent to the Pearson product moment correlation. In R, ACF is calculated and visualized with the function "acf";
 *   **the partial autocorrelation function (PACF)**. The PACF(k) is a measure of correlation between times series observations that are k units apart, after the correlation at intermediate lags has been controlled for or "partialed" out. In other words, the PACF measures the correlation between $x_t$ and $x_{t+k}$ after it has stripped out the effect of the intermediate *x*’s. In R, the PACF is calculated and visualized with the function "pacf". It is useful to detect correlations that are not evident in ACF. 
@@ -36,19 +36,20 @@ Instead, the PACF, which removes the correlations between intermediate values, s
 pacf(Random_Walk)
 ```
 
-We can clearly see an auto-correlation by using a scatterplot, and plotting two consecutive lines of points.
+We can clearly visualize the auto-correlation by using a simple scatterplot, by plotting two consecutive lines of points.
 
 ```{r}
 plot(Random_Walk[1:499], Random_Walk[2:500])
 ```
 
-The ACF or PACF of a white noise process is very different. We know that white noise is a stationary process, wwithout distinguishable points in time and no correlation between points. Indeed, the ACF of white noise shows no correlation (the only line above statistical significance is at zero, which is nothing to be worried about, since it just means that each point is correlated with itself). 
+The ACF or PACF of a white noise process is very different. We know that white noise is a stationary process, without distinguishable points in time and no correlation between points. Indeed, the ACF of white noise shows no correlation (the only line above statistical significance is at zero, which is nothing to be worried about, since it just means that each point is correlated with itself). 
 
 ```{r}
 White_Noise <- arima.sim(n = 500, model = list(order = c(0,0,0)))
 
 acf(White_Noise)
 ```
+
 In the PACF we can see that there is nothing above the dotted line (which means that there is nothing statistically significant).
 
 ```{r}
@@ -67,9 +68,9 @@ The ACF and PACF plots can be used to diagnose the main characteristics of a tim
 
 ### Auto Regressive (AR) models 
 
-We just said that a time series is often characterized by auto-correlation, so we can clearly deduce that we can model it by using a regression model, that is, by regressing the time series on its past values. In this way we have the **auto-regressive model**: a regression of $x_{t}$ on past terms $x_{t-k}$ from the same series.
+We just said that a time series is often characterized by auto-correlation, so we can clearly deduce that we can model it by using a regression model, that is, by regressing the time series on its past values. In this way we have an **auto-regressive model**: a regression of $x_{t}$ on past terms $x_{t-k}$ from the same series.
 
-In time series analysis, the past terms $x_{t-k}$ from the same series are called **lags**. The lagged values of a time series are its delayed values, where the delay can be of an arbitrary amount of time $k$. For instance, considering a simple series of 4 data points distributed from time ${t+0}$ (first data point) to time ${t+3}$ (last data point) ${x_{t+0}, x_{t+1}, x_{t+2}, x_{t+3}}$, the corresponding lagged series, assuming $k=1$, is ${NA, x_{t+0}, x_{t+1}, x_{t+2}}$. Notice that the first data point is missing since there is no data point behind it, and the other data points are shifted one time point ahead. 
+In time series analysis, past terms $x_{t-k}$ from a same series are called **lags**. The lagged values of a time series are its delayed values, where the delay can be of an arbitrary amount of time $k$. For instance, considering a simple series of 4 data points distributed from time ${t+0}$ (first data point) to time ${t+3}$ (last data point) ${x_{t+0}, x_{t+1}, x_{t+2}, x_{t+3}}$, the corresponding lagged series, assuming $k=1$, is ${NA, x_{t+0}, x_{t+1}, x_{t+2}}$. Notice that the first data point is missing since there is no data point behind it, and the other data points are shifted one time point ahead. 
 
 An auto-regressive (AR) model can be described as follows (the $\alpha$ are coefficients, $t$ are time points, $w$ is a random component or white noise):
 
@@ -103,9 +104,15 @@ plot(AR_3, main = "AR(3)")
 pacf(AR_3)
 ```
 
-Now we can see that the **random walk** process we have seen above is a particular case of auto-regressive model. In a  random walk process, each value is the previous one plus a random part ($x_t = x_{t-1} + w_t$), thus each point $x_t$ is correlated with the previous one $x_{t-k}$ where the lag value $k$ is equal to 1 (${k=1}$). Thus, a random walk process is an auto-regressive model of **order 1**, since just 1 lag is taken in the auto-regression (and with $\alpha = 1$): $x_t = x_{t-1} + w_t$. The order of an auto-regressive model is indicated by parenthesis, e.g.: **AR(1)**.
+Now we can see that the **random walk** process we have seen above is a particular case of auto-regressive model. In a  random walk process, each value is the previous one plus a random part:
 
-The AR process can have different characteristics (and different ACF and PACF) based on its parameters.
+$$
+x_t = x_{t-1} + w_t
+$$
+
+Thus each point $x_t$ is correlated with the previous one $x_{t-k}$ where the lag value $k$ is equal to 1 (${k=1}$). Therefore, a random walk process is an auto-regressive model of **order 1**, since just 1 lag is taken into consideration in the auto-regressive model (and with $\alpha = 1$). The order of an auto-regressive model is indicated by parenthesis, e.g.: **AR(1)**.
+
+The AR process can have different characteristics (and different ACF and PACF) based on the parameters.
 
 ### Moving Average (MA) models 
 
@@ -144,6 +151,7 @@ plot(I_1, main = "I(1)")
 ```{r}
 plot(diff(I_1), main = "I(1) after 'differencing'")
 ```
+
 ### Seasonal (S) models
 
 We already introduced the seasonal model. For instance, a dataset showing a seasonal component is  AirPassengers. The seasonality appears in the yearly fluctuations in the ACF and in the spikes occurring at 12 months from each other in the PACF.
@@ -164,7 +172,7 @@ pacf(AirPassengers, lag.max = 48)
 
 ### Fit (S)ARIMA models
 
-The examples above represent simple processes, but the actual time series are often the result of more complex **mixtures of different types of process**, and therefore is more complex to identify an appropriate model for the data.
+The above examples represent simple processes, but real time series are often the result of more complex **mixtures of different types of process**, and therefore it is more complex to identify an appropriate model for the data.
 
 ```{r}
 set.seed(7623)
@@ -188,7 +196,7 @@ arima_fit <- auto.arima(arima_112)
 arima_fit
 ```
 
-As said above, to evaluate the fit of a model we should analyze the **residuals**, and ascertain they behave as white noise. The object resulting from the function *auto.arima*, has a slot including the residuals. To ascertain that residuals are white noise we can plot its **ACF and PACF** (no spike should be significant) and also its **histogram** (which should show a classic "bell curve").
+As said above, to evaluate the fit of a model we should analyze the **residuals**, and ascertain they behave as white noise. The object resulting from the function *auto.arima* has a slot including the residuals. To ascertain that residuals are white noise we can plot its **ACF and PACF** (no spike should be significant) and also its **histogram**.
 
 ```{r}
 layout(matrix(c(1,2,3,3), nrow = 2))
@@ -196,7 +204,8 @@ acf(arima_fit$residuals)
 pacf(arima_fit$residuals)
 hist(arima_fit$residuals, main = "Histogram of residuals")
 ```
-The *forecast* package also implement the function **checkresiduals** to create nice and complete plots of residual diagnostics with a simple function. 
+
+The *forecast* package also implements the function **checkresiduals** to create nice and complete plots of residual diagnostics by using a simple function. 
 
 Besides creating the plots, the function calulate the **Ljung-Box test** (default), or the **Breusch-Godfrey test** (if you specify *test="BG"* inside the function):
 
@@ -239,7 +248,7 @@ AirPassengers_sarima <- auto.arima(AirPassengers)
 
 *Cross-correlation *is the correlation between the (lagged) values of a time series and the values of another series. Similarly to ACF and PACF, there is a specific plot that shows the cross-correlation between two time series, and a specific R function: **ccf**.
 
-The cross-correlation can be useful to understand with lagged values of a *X* series can be used to predict the values of a *Y* series, and thus used, for instance, in a time series regression model.
+The cross-correlation can be useful to understand wich lagged values of a *X* series can be used to predict the values of a *Y* series, and thus used, for instance, in a time series regression model.
 
 Unfourtunately, the problem with the cross-correlation function is that, as we said in the preceding sections, with autocorrelated data it is difficult to assess the dependence between two processes, and it is possible to find spurious correlations. 
 
@@ -251,7 +260,7 @@ Thus, it is pertinent to disentangle the linear association between *X* and *Y* 
   
 We can implement this procedure writing all the necessary code, or by using the library *forecast*, or also, alternatively, the library *TSA*.
 
-To make an example, we apply the method to two simulated two series. The Y-variable is created in such a way that it is correlated with the lagged values at time $x{t-3}$ and $x{t-4}$. Therefore, we should find a correlation at those lags.
+To make an example, we apply the method to two simulated two series. The Y-variable is created in such a way that it is correlated with the lagged values at time $x_{t-3}$ and $x_{t-4}$. Therefore, we should find a correlation at those lags.
 
 ```{r}
 x_series <- arima.sim(n = 200, list(order = c(1,1,0), ar = 0.7, sd=1))
@@ -260,7 +269,7 @@ y_series <- 15 + 0.8*z[,2] + 1.5*z[,3] + rnorm(197,1,1)
 
 ```
 
-The cross-correlation applied to the original series leads to a plot where everything seems to be correlated. The correlation at lags $x_{t-3}$ and $x_{t-4}$ is not discernible. 
+The cross-correlation applied to the original series results in a plot where everything seems to be correlated. The "real" correlation at lags $x_{t-3}$ and $x_{t-4}$ is not discernible at all.
 
 ```{r}
 ccf(x_series, y_series, na.action = na.omit)
@@ -327,7 +336,7 @@ In [Scheufele, B., Haas, A., & Brosius, H. B. (2011). Mirror or molder? A study 
 >RQ2: Do cross-lagged correlations between media coverage and stock prices or trading volumes differ according to the amount and the valence of coverage?
 RQ3: Do cross-lagged correlations between media coverage and stock prices or trading volumes differ according to the type of media (Financial Web sites, daily newspapers, and stock market TV shows) which reports on the company or stock?
 
-To answer these questions, the authors made use of time series analysis, and in particular they:
+To answer these questions, the authors made use of time series analysis. In particular, they:
 
 >estimated cross-lagged correlations between media coverage and stock prices or trading volumes, respectively. Basically, two steps of time-series analysis can be distinguished: (a) In the first step, each media time-series and each time-series of trading volumes was adjusted by ARIMA (Autoregressive Integrated Moving Average) modeling separately. The differences between the original time-series and its ARIMA model are called residuals and were used for analysis. Like with ordinary least squares regression, these residuals should not be auto-correlated. If the residuals are not auto-correlated, time-series analysis speaks of White Noise. This modeling technique called prewhitening was necessary to avoid spurious correlations. (...) (b) In the next step, cross-correlations between each adjusted media time-series and each adjusted stock series were calculated. (...) The coefficient expresses the strength of correlation, whereas the lags offer an insight into dynamics: Correlations at positive (negative) lags indicate that changes in media coverage proceeded (succeeded) shifts in stock prices or trading volumes. 
 
@@ -336,7 +345,7 @@ In [Groshek, J. (2010). A time-series, multinational analysis of democratic fore
 >this study relies principally on macro-level time–series democracy data from an historical sample that includes 72 countries, reaching back as far as 1946 in some cases, but at least from 1954 to 2003. From this sample, a sequence of ARIMA (autoregressive integrated moving average) time–series regressions were modeled for each country for at least 40 years prior to 1994. These models were then used to generate statistically-forecasted democracy values for each country, in each year from 1994 to 2003. A 95% confidence interval with an upper and lower democracy score was then constructed around each of the forecasted values using dynamic mean squared errors. The actual democracy scores of each country for each year from 1994 to 2003 were then compared to the upper and lower values of the confidence interval.
 In the event that the actual democracy level of any country was greater than the upper value of the forecasted democracy score during the time period of 1994 to 2003, Internet diffusion was investigated in case studies as a possible causal mechanism.
 
-In other terms, the author used a forecasting approach to predict the values of the series from 1994 to 2003, in order to find statistically significant differences between the predicted and the actual values. These discrepancies were interpreted as caused by factors that were not present in the past, and possibly the Internet.
+In other terms, the author used a forecasting approach to predict the values of the series from 1994 to 2003, in order to find statistically significant differences between the predicted and the actual values. These discrepancies were interpreted as caused by factors that were not present in the past, and possibly by the introduction of the Internet.
 
 The study found that, *based on the results of the 72 countries reported here, the diffusion of the Internet should not be considered a democratic panacea, but rather a component of contemporary democratization processes*
 

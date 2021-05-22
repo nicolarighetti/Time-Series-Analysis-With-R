@@ -30,7 +30,7 @@ plot.ts(AirPassengers,
      lwd=5)
 ```
 
-You can use plot.ts to plot two (or more) time series together, a useful operation to take a look at their relations. The different time series must have the same structure (the same starting date, the same ending date, and the same frequency) and are stored in the same ts object. 
+You can use plot.ts to plot two (or more) time series together, a useful operation to take a look at their relations. The different time series must have the same structure (the same starting date, the same ending date, and the same frequency), and should be stored in the same ts object. 
 
 To merge in one "ts" object two or more time series already in the ts format, you can employ the function **ts.union()**. You can plot both the time series in the same plot, or create two different plots, by using the option **"plot.type"** and specifying **single** or **multiple**.
 
@@ -40,7 +40,7 @@ With **lwd** you control the line width (or the line size):
 
 With **lty** you control the line type:
 
-*   The line width, a positive number, defaulting to 1. The interpretation is device-specific, and some devices do not implement line widths less than one. (See the help on the device for details of the interpretation.)
+*   The line width, a positive number, defaulting to 1. The interpretation is device-specific, and some devices do not implement line widths less than one.
 
 
 ```{r}
@@ -80,7 +80,7 @@ plot.ts(AirPassengers_multi,
         nc=3)
 ```
 
-To explore long time series it can be useful to focus on a limited time window. To do that, you can subset the data by using the function **window**. It is a function which extracts the subset of the object observed between the times start and end, which you need to specified. You can use the function *window* in the plot.ts function (alternatively, you can create a new object by applying the function *window* first, and the plot the new object).
+To explore long time series it can be useful to focus on a limited time window. To do that, you can subset the data by using the function **window**. It is a function which extracts the subset of data observed between the specified start and end time. You can use the function *window* in the plot.ts function (alternatively, you can create a new object by applying the function *window* first, and then plot the new object).
 
 ```{r}
 plot.ts(window(AirPassengers, start=c(1950, 01), end=c(1954, 12)), 
@@ -113,13 +113,13 @@ plot.ts(window(AirPassengers_multi, start=c(1950, 01), end=c(1954,12), frequency
         lwd=5)
 ```
 
-To learn something more about the graphical options made available by plot.ts, you can open and read the help page by using **?plot.ts**. The question mark followed by the name of a function opens the help page of that function.
+To learn something more about the graphical options of plot.ts, you can open and read the help page by using **?plot.ts**. The question mark followed by the name of a function opens the help page of that function.
 
 ## plot.xts
 
 To plot a *xts* object we can similarly use the **plot.xts** function.
 
-You can create an xts object with the *xts* function (see the previous chapter), but if you already have a *ts* object, you can also convert it to a *xts* object by using the function **as.xts**
+You can create a xts object with the *xts* function (see the previous chapter), but if you already have a *ts* object, you can also convert it to a *xts* object by using the function **as.xts**
 
 ```{r}
 
@@ -177,7 +177,7 @@ plot.xts(AirPassengers_xts["1950-01/1956-06"],
 
 You can also change the frequency of the observations by using specific functions in the *xts* library.
 
-With **periodicity** you can find the frequency of the time series.
+By using the function **periodicity** you can find the frequency of the time series.
 
 ```{r}
 periodicity(AirPassengers_xts)
@@ -203,7 +203,7 @@ plot.xts(to.period(AirPassengers_xts, period="years")[,2],
          multi.panel = F)
 ```
 
-You can also **re-sample and calculate the average** (or another statistics) for the new period. For instance, in the example we re-sample the data by year and calculate the average (instead of calculating the average it is possible to calculate another statistics such as, for instance, the median, just by writing *"median"* instead of "mean")
+You can also **re-sample and calculate the average** (or another statistics) for the new period. For instance, in the example we re-sample the data by year and calculate the average. It is also possible to calculate other statistics such as, for instance, the median, just by writing *"median"* instead of "mean".
 
 ```{r}
 index_years <- endpoints(AirPassengers_xts, on = "year")
@@ -236,7 +236,7 @@ We upload a data set, first, and we set the appropriate time format for the date
 
 We place our data set ("elections_news") inside the ggplot function. Notice that the ggplot syntax is similar to the tidyverse one, but uses the plus sign instead of the pipe one (%>%).
 
-To create a line plot with ggplot it is necessary to use the **geom_line** function. This function requires two parameters: the data for the x axis and the data for the y axis. These parameters have to be written inside the **aes** function. You can also specify the colors and the size of the line. By using additional function, after the plus sign, you can also set the labels for the x and y axes, and the title, the subtitle, and the caption of the plot. You can also change the overall aspect of the plot by using one of the **themes** included in the library.
+To create a line plot with ggplot it is necessary to use the **geom_line** function. This function requires two parameters: the data for the x-axis and the data for the y-axis. These parameters have to be written inside the **aes** function. You can also specify the colors and the size of the line. By using additional function, after the plus sign, you can also set the labels for the x- and y-axes, and the title, the subtitle, and the caption of the plot. You can also change the overall aspect of the plot by using one of the **themes** included in the library.
 
 ```{r}
 ggplot(elections_news) +
@@ -272,7 +272,8 @@ p2 <- elections_news %>%
 grid.arrange(p1,p2)
 
 ```
-Or you can plot two or more than two series in the same plot.
+
+You can also plot two or more than two series in the same plot.
 
 ```{r}
 
@@ -291,7 +292,7 @@ ggplot(elections_news) +
 
 ```
 
-To focus on a shorter time window, we can combine the **dplyr** function **filter**. Besides filtering the data, we add a function "scale_x_datetime", which control the labels on the x-axis, specifying we want monthly labels.
+To focus on a shorter time window, we can use the **dplyr** function **filter**. Besides filtering the data, we add a function "scale_x_datetime", which control the labels on the x-axis, specifying we want to use monthly labels.
 
 ```{r}
 elections_news %>%
@@ -306,7 +307,7 @@ elections_news %>%
 
 ```
 
-You can also use ggplot to annotate the date. To create annotations in ggplot you can use the function "annotate", to label the data point, and "geom_segment", to trace lines tho connect data points to labels.
+You can also use ggplot to annotate the date. To create annotations in ggplot you can use the function "annotate", to label the data point, and "geom_segment", to trace lines for connecting data points to labels.
 
 You can learn more about annotation in ggplot here: https://ggplot2-book.org/annotations.html 
 And about lines here: https://ggplot2.tidyverse.org/reference/geom_segment.html 
@@ -340,7 +341,7 @@ ggplot(elections_news) +
                color = "orange", size = 0.2, linetype = 1) +
   ylab("News Articles") +
   xlab("Date") +
-  labs(title = "MediaCloud Data on Elections (Monthly)",
+  labs(title = "MediaCloud Data on Elections",
        subtitle = "Peaks annotated with relevant political events",
        caption = "Advanced Data Analysis
                   University of Vienna") +

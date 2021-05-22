@@ -381,7 +381,8 @@ a_dataframe %>%
   group_by(second_variable) %>%
   summarize(mean = mean(a_new_variable))
 ```
-To manipulate data sets are useful the functions included in [**dplyr**](https://dplyr.tidyverse.org): *a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges*, such as *mutate*, *rename*, *summarize*.
+
+To manipulate data sets we can rely on the functions included in [**dplyr**](https://dplyr.tidyverse.org): *a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges*, such as *mutate*, *rename*, *summarize*.
 
 
 ```{r "Load an example data set", paged.print=TRUE}
@@ -398,7 +399,7 @@ head(tweets)
 
 ## Mutate 
 
-The function **mutate** adds new variables to a data.frame or overwrite existing variables.
+The function **mutate** adds new variables to a data.frame or overwrites existing variables.
 
 ```{r paged.print=TRUE}
 tweets <- tweets %>%
@@ -418,6 +419,7 @@ tweets <- tweets %>%
 
 head(tweets)
 ```
+
 The previous two steps can be performed at the same time, by concatenating the operations through the *pipe %>%* operator.
 
 ```{r paged.print=TRUE}
@@ -433,13 +435,14 @@ tweets <- tweets %>%
 
 head(tweets)
 ```
-To check the data format of the variables stored in the data.frame can be used the command *str()*:
+
+To check the data format of the variables stored in the data.frame, it can be used the command *str()*:
 
 ```{r paged.print=TRUE}
 str(tweets)
 ```
 
-Sometimes variables are stored in the data.frame in the wrong format (see the paragraph "data type") and we want to convert them into a new data format. For this purpose we can use, again, the function **mutate**, along with other functions such *as.integer*, *as.numeric*, *as.character*, *as.factors*, or *as.logical*, *as.Date*, or *as.POSIXct()* based on the desired data format (it is possible and advisable to upload the data by paying attention to the type of data so as this step is not necessary).
+Sometimes variables are stored in the data.frame in the wrong format (see the paragraph "data type"), so we want to convert them into a new format. For this purpose we can use, again, the function **mutate**, along with other functions such *as.integer*, *as.numeric*, *as.character*, *as.factors*, or *as.logical*, *as.Date*, or *as.POSIXct()* based on the desired data format (it is possible and advisable to upload the data by paying attention to the type of data. If you upload the data in the right format, you can skip this step).
 
 ```{r paged.print=TRUE}
 tweets %>%
@@ -460,7 +463,7 @@ tweets_summary <- tweets %>%
 head(tweets_summary)
 ```
 
-It is also possible to create many different summary variable at once.
+It is also possible to create more than one summary variables at once.
 
 ```{r message=FALSE, warning=FALSE, paged.print=TRUE}
 tweets_summary <- tweets %>%
@@ -473,7 +476,7 @@ head(tweets_summary)
 
 ### Count occurrences
 
-A useful operation to perform when summarizing data, is to count the occurrences of a certain variable (mostly qualitative). For instance, to count the number of  tweets sent by each user, it can be used the function **n()** inside the *summarize* function.
+A useful operation to perform when summarizing data, is to count the occurrences of a certain variable. For instance, to count the number of tweets sent by each user, it can be used the function **n()** inside the *summarize* function.
 
 ```{r message=FALSE, warning=FALSE, paged.print=TRUE}
 tweets_summary <- tweets %>%
@@ -487,9 +490,9 @@ head(tweets_summary)
 
 ## Arrange
 
-To explore a data set it can be useful to sort the data (e.g.: from the lowest to the highest number of a variable). With tidyverse, we can order a data.frame by using the function *arrange*.
+To explore a data set it can be useful to sort the data (e.g.: from the lowest to the highest value of a variable). With tidyverse, we can order a data.frame by using the function *arrange*.
 
-To sort the data from the highest to the lowest values (a descending order) the *minus* sign (or the "desc" function) has to be added.
+To sort the data from the highest to the lowest value (descending order) the *minus* sign (or the "desc" function) has to be added.
 
 ```{r paged.print=TRUE}
 tweets_summary  %>%
@@ -502,7 +505,7 @@ tweets_summary  %>%
   head()
 ```
 
-Without minus sign (or "desc" function), the data are sorted from the lowest to the highest value. 
+Without the minus sign (or the "desc" command), data are sorted from the lowest to the highest value. 
 
 ```{r paged.print=TRUE}
 tweets_summary  %>%
@@ -512,14 +515,15 @@ tweets_summary  %>%
 
 ## Filter
 
-The function *filter* keeps the cases we want to focus on. The arguments of this function represent a condition that has to be fulfilled: the name of the column that has to be filtered, and the column values to be kept.
+The function *filter* keeps only the cases (the "rows") we want to focus on. The arguments of this function are the conditions that have to be fulfilled to filter the data: a) the name of the column that we want to filter, b) the values to be kept.
 
 ```{r paged.print=TRUE}
 tweets %>%
   filter(retweet_count >= 500) %>%
   arrange(-retweet_count)
 ```
-In the examples below, notice the use of a double equal sign *==*, and also of the quotation marks to include textual categories.
+
+In the examples below, notice the use of a double equal sign *==*, and also of the quotation marks to indicate the modalities of a categorical variable.
 
 ```{r paged.print=TRUE}
 tweets %>%
@@ -530,7 +534,8 @@ tweets %>%
 tweets %>%
   filter(device == "Twitter for Android")
 ```
-It is also possible to use multiple conditions at the same time.
+
+It is also possible to use several conditions at the same time.
 
 ```{r paged.print=TRUE}
 tweets %>%

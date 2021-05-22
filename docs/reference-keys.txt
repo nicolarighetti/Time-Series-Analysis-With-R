@@ -1,6 +1,6 @@
-fig:unnamed-chunk-117
-fig:unnamed-chunk-186
-fig:unnamed-chunk-190
+fig:unnamed-chunk-39
+fig:unnamed-chunk-108
+fig:unnamed-chunk-112
 time-series-analysis-with-r
 objectives
 lectures
@@ -66,6 +66,7 @@ arima-models
 auto-regressive-ar-models
 moving-average-ma-models
 integrated-i-process
+seasonal-s-models
 fit-sarima-models
 sarima
 forecasting
