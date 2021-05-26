@@ -71,7 +71,13 @@ fit-sarima-models
 sarima
 forecasting
 cross-correlation
-arimax
 examples-in-literature
+regression
+static-and-dynamic-models
+standard-linear-regression
+non-autocorrelated-residuals
+regression-with-arima-errors
+some-examples-in-the-literature
+intervention-analysis
 readings
 bibliographical-references

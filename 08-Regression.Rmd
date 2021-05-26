@@ -1,0 +1,282 @@
+# Regression
+
+In this chapter we are going to see how to conduct a regression analysis with time series data.
+
+*Regression analysis* is a set of statistical processes for estimating the relationships between a *dependent variable (DV)* (also called *outcome* or *response*) and one or more *independent variables (IV)* (also called *predictors* or *explanatory variables*).
+
+A standard regression model $Y$ = $\beta$ + $\beta x$ + $\epsilon$ has no time component. Differently, a time series regression model includes a time dimension and can be written, in a simple and general formulation using just one explanatory variable, as follows:
+
+$$
+y_t = \beta_0 + \beta_1x_t + \epsilon_t
+$$
+
+In this equation, $y_t$ is the time series we try to understand and predict (the *dependent variable (DV)*), $\beta_0$ is the *intercept* (a constant value that represents the expected mean value of $y_t$ when $x_t = 0$), the coefficient $\beta_1$ is the *slope*, representing the average change in $y$ at one unit increase in $x$ (the *independent variable (IV) or explanatory variable*), and $\epsilon_t$ is the time series of residuals (the error term).
+
+A multiple regression form, with more than one explanatory variable, can be written as follows:
+
+$$
+y_t = \beta_0 + \beta_1x_{1,t} + \beta_2x_{2,t} + ... + \beta_kx_{k,t} + \epsilon_t
+$$
+
+## Static and Dynamic Models
+
+From a time series analysis perspective, a general distinction can be made between "static" and "dynamic" regression models:
+
+*   A **static regression model** includes just contemporary relations between the explanatory variables (independent variables) and the response (dependent variable). This model could be appropriate when the expected value of the response changes *immediately* when the value of the explanatory variable changes. Considering a model with $k$ independent variables {$x_1$, $x_2$, ..., $x_k$}, a static (multiple) regression model, has the form just seen above:
+
+$$
+y_t = \beta_0 + \beta_1x_{1,t} + \beta_2x_{2,t} + ... + \beta_kx_{k,t} + \epsilon_t
+$$
+
+Each $\beta$ coefficient models the *instant change* in the conditional expected value of the response variable $y_t$ as the value of $x_{k,t}$ changes by one unit, keeping constant all the other predictors (i.e.: the other $x_{k,t}$):
+
+*   A **dynamic regression model** includes relations between *both the current and the lagged (past) values of the explanatory (independent) variables*, that is, the expected value of the response variable may change *after* a change in the values of the explanatory variables. 
+
+$$
+\begin{aligned} 
+
+y_t = \beta_0  & + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m}x_{1,t-m} \\
+& + \beta_{20}x_{2,t} + \beta_{21}x_{2,t-1} + ... + \beta_{2m}x_{2,t-m} \\
+& + \dots \\
+& + \beta_{k0}x_{k,t} + \beta_{k1}x_{k,t-1} + ... + \beta_{km}x_{2,t-m} \\
+& + \epsilon_t \\
+
+\end{aligned} 
+$$
+
+Despite the differences between these two analytic perspectives, the term *dynamic regression* is also used, in the literature, in a more general way to refer to regression models with autocorrelated errors, also when they are used to analyze only contemporary relations between variables.
+
+## Standard linear regression
+
+Except for the possible use of lagged regressors, which are typical of time series, the above described statistical models are standard regression models, commonly used with cross-sectional data. 
+
+Standard linear regression models can sometimes work well enough with time series data, *if specific conditions are met*. Besides standard assumptions of linear regression^[1) Linearity: The relationship between X and Y must be linear; 2) Independence of errors: There is not a relationship between the residuals and the Y variable; 3) Normality of errors: The residuals must be approximately normally distributed; 4) Equal variances: The variance of the residuals is the same for all values of X], a careful analysis should be done in order to ascertain that residuals are not autocorrelated, since this can determine problems in the estimated model.
+
+### Non-autocorrelated residuals
+
+To try a linear regression model we create some simulate series $x$ and $y$, with $x$ correlated with $y$ at lags $x_{t-3}$ and $x_{t-4}$.
+
+```{r}
+# simulated data 
+# the x series is correlated at lag 3 and 4
+set.seed(999)
+x_series <- arima.sim(n = 200, list(order = c(1,0,0), ar = 0.7, sd=1))
+z <- ts.intersect(x_series, stats::lag(x_series, -3), stats::lag(x_series, -4)) 
+y_series <- 15 + 0.8*z[,2] + 1.5*z[,3] + rnorm(196,0,1)
+
+xLagged <- cbind(
+    xLag0 = x_series,
+    xLag3 = stats::lag(x_series,-3),
+    xLag4 = stats::lag(x_series,-4))
+
+xy_series <- ts.union(y_series, xLagged)
+```
+
+The *real* model (in this case we know it because we created it through the above simulation), is as follows:
+
+$$
+y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
+\epsilon \sim N(0, 1)
+$$
+
+Toi fit a linear regression, we use the function **lm** (it's in base R, no additional packages are necessary).
+
+```{r}
+lm1 <- lm(xy_series[,1] ~ xy_series[,3:4])
+```
+
+The function **summary** is used to print the summary of the model, wich includes the estimates.
+
+```{r}
+summary(lm1)
+```
+
+We said that regression models sometimes work well enough with time series data, if some conditions are met. Regards the conditions (or **assumptions**), in particular, the **residuals** of the models should have zero mean, they shouldn't show any significant autocorrelation, and they should be normally distributed. 
+
+To check whether these assumptions are met, we can visualize the *plot of residuals, its ACF/PACF and histogram*, and also test the residuals for possible autocorrelation using a statistical test like the [Breusch-Godfrey test](https://en.wikipedia.org/wiki/Breusch–Godfrey_test) (this test is the default in the forecast library when a linear regression object lm is tested).
+
+To create the plots we can use the base R functions, or we can use the convenient *checkresiduals* function in the *forecast* package. 
+
+In this case everything seems fine.
+
+```{r}
+# install.package("forecast") # install the package if necessary
+library(forecast)
+checkresiduals(lm1)
+```
+
+If we look at the model summary printed above, we can see that the estimated model is the following (the standard deviation of residuals is [misnamed as "residual standard error" in the summary of *lm*](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/sigma.html)):
+
+$$
+\begin{equation} 
+y_t = 14.96732 + 0.86046x_{t-3} + 1.41678x_{t-4} + \epsilon_t \\
+\epsilon \sim N(0, 1.007^2)
+\end{equation} 
+$$
+The estimated model is also close to the "true" model:
+
+$$
+y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
+\epsilon \sim N(0, 1)
+$$
+### Autocorrelated residuals
+
+While in the previous case a standard linear model works well, *often the residuals of times series regressions are autocorrelated*, and fitting a simple linear model gets wrong estimates. For instance, let's create other two time series that are, as the previous ones, cross-correlated at lag 3 and 4, but with a bit more complicated structure.
+
+```{r}
+# another set of simulated data 
+# the x series is correlated at lag 3 and 4
+set.seed(999)
+x2_series <- arima.sim(n = 200, list(order = c(1,0,0), ar = 0.7, sd=1))
+z2 <- ts.intersect(x2_series, stats::lag(x2_series, -3), stats::lag(x2_series, -4)) 
+y2_series <- 15 + 0.8*z2[,2] + 1.5*z2[,3] 
+y2_errors <- arima.sim(n = 196, list(order = c(1,0,1), ar = 0.6, ma = 0.6), sd=1)
+y2_series <- y2_series + y2_errors
+
+x2Lagged <- cbind(
+    xLag0 = x2_series,
+    xLag3 = stats::lag(x2_series,-3),
+    xLag4 = stats::lag(x2_series,-4))
+
+xy2_series <- ts.union(y2_series, x2Lagged)
+
+# check the cross-correlations at lag 3 and 4
+library(TSA)
+prewhiten(x2_series, y2_series) 
+```
+
+Considering the autocorrelated structure of the series, the true model can be written as follows:
+
+$$
+\begin{aligned} 
+& y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \eta_t \\
+& \eta_t = 0.7\eta_{t-1} + \epsilon_t + 0.6\epsilon_{t-1} \\
+& \epsilon \sim N(0, 1)
+\end{aligned} 
+$$
+
+```{r}
+lm2 <- lm(xy2_series[,1] ~ xy2_series[,3:4])
+summary(lm2) # AIC: 821.45
+```
+
+The estimated model is the following:
+
+$$
+\begin{aligned} 
+& y_t = 14.9005 + 1.0407x_{t-3} + 1.5171x_{t-4} + \epsilon_t \\
+& \epsilon \sim N(0, 2.028^2)
+\end{aligned}
+$$
+The original series can be also visualized with the fitted values (the values resulting from the model), to visually inspect the fit (how well the model represent the original series). The differences between the original and the fitted series are the residuals.
+
+```{r}
+lm2d <- ts.intersect(na.omit(xy2_series[,1]), lm2$fitted.values)
+plot.ts(lm2d, plot.type = "single", col=c("orange","blue"), 
+        lty=c(1,4), lwd=c(1,1),
+        main = "'Classic' Linear Model - Original (orange) and Fitted series (blue)") 
+```
+
+The diagnostic plots of the residuals show the presence of autocorrelation, and the Breusch-Godfrey test is highly significant (its value is far lower than the critical value $\alpha = 0.05$)
+
+```{r}
+checkresiduals(lm2)
+pacf(lm2$residuals)
+```
+
+In this case, we have to take into account the residuals' autocorrelation by using a regression model capable to handle autocorrelated time series structures.
+
+## Regression with ARIMA errors
+
+In the previous chapter we said that ARIMA models are a special type of regression model, in which the dependent variable is the time series itself, and the independent variables are all lags of the time series. This model is capable to take into account the *autocorrelated* structure of time series. 
+
+ARIMA is a modeling technique that can be applied to a single time series, but it can be extended to include additional, **exogenous variables**. The ARIMA model including exogenous regressors (i.e.: other time series besides the lagged dependent variable) is like a multiple regression models for time series. In particular, it can be considered a regression model capable to control for autocorrelation in residuals.
+
+It is possible to use more than one option to fit an ARIMA model with external regressors. A convenient option is provided by the function **auto.arima**, in the package *forecast*. This library has an argument **xreg** which can be use with *a numerical vector or matrix of external regressors, which must have the same number of rows as y* (see ?auto.arima).
+
+```{r}
+set.seed(999)
+arima1 <- auto.arima(xy2_series[,1], xreg = xy2_series[,3:4])
+arima1
+```
+
+The resulting model seems to be more appropriate than the previous one, fitted by using just a "classic" linear regression. This is clear also by comparing the two models through the [**AIC criterium (Akaike information criterion)**](https://en.wikipedia.org/wiki/Akaike_information_criterion). The AIC value is used to compare the *goodness-of-fit* of different models fitted to the same dataset. The lower the AIC value, the better the fit. 
+
+The auto.arima function prints the AIC value by default, while this value is not given with the *lm* function. To get it, we need to use the **AIC** function.
+
+```{r}
+AIC(lm2)
+```
+
+In this case, the ARIMA regression model results a far better model (*AIC=543.52*) compared with the classic linear model (*AIC=821.45*). 
+
+$$
+\begin{aligned} 
+& y_t = 14.8532 + 0.9506x_{t-3} + 1.5732x_{t-4} + \eta_t \\
+& \eta_t = 0.6863\eta_{t-1} + \epsilon_t + 0.6491\epsilon_{t-1} \\
+& \epsilon \sim N(0, 0.9482)
+\end{aligned} 
+$$
+Diagnostic analysis of the residuals, shows that there is no concerning sign of autocorrelation in the residuals, which looks like white noise. Also the test for autocorrelated errors is not significant (the default test for autocorrelation when testing an ARIMA models with external regressors in the *forecast* package is the **Ljung-Box test**)^[There are many tests for detecting autocorrelation. Besides the already mentioned *Breusch-Godfrey test* and *Ljung-Box test*, other popular tests are the *Durbin Watson test*, and the *Box–Pierce test*. Each test has its own characteristics. For instance, the Durbin-Watson test is a popular way to test for autocorrelation, but it [shouldn't be used with lagged dependent variables](https://www.jstor.org/stable/pdf/1909870.pdf?refreqid=excelsior%3A9526730d9debe4fa8f1a4d5fa601d523). In this case it can be used the Breusch-Godfrey test]).
+
+```{r}
+checkresiduals(arima1)
+```
+
+Also by visually inspect the original series along with the fitted series (the values resulting from the model), it can be seen that the model is better than the previous one. 
+
+```{r}
+arima1d <- ts.intersect(na.omit(xy2_series[,1]), arima1$fitted)
+plot.ts(arima1d, plot.type = "single", col=c("orange","blue"), 
+        lty=c(1,4), lwd=c(1,1),
+        main = "ARIMA errors model - Original (orange) and Fitted series (blue)") 
+```
+
+We can also compare the fitted versus original values by using a scatterplot. A better model produces a thinner diagonal line.
+
+```{r}
+par(mfrow=c(1,2))
+plot(na.omit(xy2_series[,1]), lm2$fitted.values, main = "LM", xlab="Original", ylab="Fitted")
+plot(na.omit(xy2_series[,1]), arima1$fitted, main = "ARIMA regression model", xlab="Original", ylab="Fitted")
+```
+
+## Some examples in the literature
+
+There are several examples of the use of time series regression models in the literature in the field of communication science. 
+
+For instance, [Wozniak, A., Wessler, H., Chan, C. H., & Lück, J. (2021). The Event-Centered Nature of Global Public Spheres: The UN Climate Change Conferences, Fridays for Future, and the (Limited) Transnationalization of Media Debates. *International Journal of Communication*, 15(27)](https://ijoc.org/index.php/ijoc/article/viewFile/14843/3344),*examined whether the UN climate change conferences are conducive to an emergence of a transnational public sphere by triggering issue convergence and increased transnational interconnectedness across national media debates*. They authors detail the method they follows in this way:
+
+>[...] Given the autoregressive nature and other properties of time series, an ordinary least squares regression analysis would violate the normality of error and the independence of observations assumption (Wells et al., 2019). Instead, **we applied the dynamic regression approach** (Gujarati & Porter, 2009; Hyndman & Athanasopoulos, 2018), which assumes that the **error term follows an autoregressive integrated moving average (ARIMA) model** (...). we found the best ARIMA structure of the error term by using the *auto.arima function from the forecast R package* (Hyndman & Khandakar, 2008). It searches for an ARIMA structure that can explain the most variance according to the *Akaike information criterion* (Akaike, 1973).
+
+In this case they use the term "dynamic regression" to refer to a time series regression with ARIMA errors, but they did not include lagged values of their variables, thus analyzing contemporary relationships between variables.
+
+The found, for instance, that *events taking place on a supranational level of governance (...) consistently led to spikes in media attention across countries. In contrast, a bottom-up effort such as Fridays for Future showed an inconsistent relationship with media attention across the four countries.*
+
+```{r  echo=FALSE}
+knitr::include_graphics("images/Event-Centered Nature of Global Public Spheres.png")
+```
+
+[Lee, F. L., Liang, H., & Tang, G. K. (2019). Online incivility, cyberbalkanization, and the dynamics of opinion polarization during and after a mass protest event. International Journal of Communication, 13, 20.](https://ijoc.org/index.php/ijoc/article/viewFile/11666/2819) used both standard regression and regression with ARIMA errors to show that *"online incivility — operationalized as the use of foul language — grew as volume of political discussions and levels of cyberbalkanization increased. Incivility led to higher levels of opinion polarization."*. Also in this case the authors analyze a "static process", that is, focus on contemporary relationships between variables.
+
+
+```{r  echo=FALSE}
+knitr::include_graphics("images/Online-Incivility.png")
+```
+
+In [Ragas, M. W., & Tran, H. (2013). Beyond cognitions: A longitudinal study of online search salience and media coverage of the president. Journalism & Mass Communication Quarterly, 90(3), 478-499.](https://journals.sagepub.com/doi/abs/10.1177/1077699013493792) used regression models with ARIMA errors to examine *shifts in newswire coverage and search interest among Internet users in President Obama during the first two years of his administration (2009-2010)*.
+
+```{r  echo=FALSE}
+knitr::include_graphics("images/Beyond-Cognitions.png")
+```
+
+In this case the authors analyzed relationships between variables taking into account lagged values, thus adopting a "dynamic process" perspective. For instance, the authors wrote:
+
+>RQ2 sought to determine the time span of linkages between coverage volume and search volume. (...) **ARIMA** models were run to gauge the *dynamics* of mutual influence between these two time series. The first model examined the effect of coverage volume on search volume over time (i.e., basic agenda setting) (...) presidential public relations, was included as an additional input series. The first model, with search volume being a single dependent variable, was **identified** through a **close examination of autocorrelation functions (ACFs) and partial autocorrelation functions (PACFs)**. This analysis revealed a classic **autoregressive model for the series (1, 0, 0)**. [...] According to the results, *shifts in aggregate search volume over this two-year period were significantly* **predicted by coverage volume over the prior five weeks** (p < .010)* and by presidential public relations efforts in the preceding two, three (p < .001), and five weeks (p < .005). The ARIMA model with two predictors was correctly specified (**Ljung–Box Q** = 18.132, p = .381) and it explained roughly 35% of the observed variation in the series.
+
+[Stevens, R., & Hornik, R. C. (2014). AIDS in black and white: The influence of newspaper coverage of HIV/AIDS on HIV/AIDS testing among African Americans and White Americans, 1993–2007. Journal of health communication, 19(8), 893-906](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4126885/) *examined the effect of newspaper coverage of HIV/AIDS on HIV testing behavior in a U.S. population.*, using a *lagged regression* to support *causal order claims by ensuring that newspaper coverage precedes the testing behavior with the inclusion of the 1-month lagged newspaper coverage variable in the model*. Counterintuitively, they found that the news media coverage had a negative effect on testing behavior: *For every additional 100 HIV/AIDS risk related newspaper stories published in this group of U.S. newspapers each month, there was a 1.7% decline in HIV testing levels in the following month*, with a higher negative effects on African Americans.
+
+```{r  echo=FALSE}
+knitr::include_graphics("images/AIDS in Black and White.png")
+```
+
+
