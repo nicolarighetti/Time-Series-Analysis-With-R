@@ -74,7 +74,7 @@ cross-correlation
 examples-in-literature
 regression
 static-and-dynamic-models
-standard-linear-regression
+regression-models
 non-autocorrelated-residuals
 regression-with-arima-errors
 some-examples-in-the-literature

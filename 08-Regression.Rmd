@@ -46,11 +46,108 @@ $$
 
 Despite the differences between these two analytic perspectives, the term *dynamic regression* is also used, in the literature, in a more general way to refer to regression models with autocorrelated errors, also when they are used to analyze only contemporary relations between variables.
 
-## Standard linear regression
+## Regression models
 
 Except for the possible use of lagged regressors, which are typical of time series, the above described statistical models are standard regression models, commonly used with cross-sectional data. 
 
-Standard linear regression models can sometimes work well enough with time series data, *if specific conditions are met*. Besides standard assumptions of linear regression^[1) Linearity: The relationship between X and Y must be linear; 2) Independence of errors: There is not a relationship between the residuals and the Y variable; 3) Normality of errors: The residuals must be approximately normally distributed; 4) Equal variances: The variance of the residuals is the same for all values of X], a careful analysis should be done in order to ascertain that residuals are not autocorrelated, since this can determine problems in the estimated model.
+Standard linear regression models can sometimes work well enough with time series data, **if specific conditions are met**. Besides standard assumptions of linear regression^[1) Linearity: The relationship between X and Y must be linear; 2) Independence of errors: There is not a relationship between the residuals and the Y variable; 3) Normality of errors: The residuals must be approximately normally distributed; 4) Equal variances: The variance of the residuals is the same for all values of X], a careful analysis should be done in order to ascertain that **residuals are not autocorrelated**, since this can determine problems in the estimated model.
+
+Even before that, it is important that the series are **stationary**, in order to avoid possible spurious correlations. Since time series can be nonstationary due to different reasons, different strategies can be employed to *stationarize* the data.
+
+For instance, a nonstationary series can be a series with **unequal variance** over time. A common way to try to fix the problem is applying the log-transformation.
+
+```{r}
+library(xts)
+
+elections_news <- read.csv("data/elections-stories-over-time-20210111144254.csv")
+elections_news$date <- as.Date(elections_news$date)
+
+elections_news <- xts(elections_news$count, order.by = elections_news$date)
+elections_news_log <- log(elections_news+0)
+elections_news_xts <- merge.xts(elections_news, elections_news_log)
+
+plot.xts(elections_news_xts, col = c("blue", "red"),
+         multi.panel = TRUE, yaxis.same = FALSE,
+         main = "Original vs Log-transformed series")
+
+```
+
+Another reason for nonstationarity are the periodic variations due to **seasonality**, regular fluctuations in a time series that follow a specific time pattern (e.g.: social media activity during week-ends, Christmas effect in consumption, etc.).
+
+To remove the seasonal pattern, you might want to use a *seasonally-adjusted* time series. Otherwise, you could create a dummy variable for the seasonal period (that is, a variable that follows the seasonal pattern in the data in order to account, in the model, for these fluctuations).
+
+```{r}
+# load the ts dataset AirPassenger
+data("AirPassengers")
+
+# remove seasonality from a multiplicative model
+AirPassengers_decomposed <- decompose(AirPassengers, type="multiplicative")
+AirPassengers_seasonal_component <- AirPassengers_decomposed$seasonal
+AirPassengers_seasonally_adjusted <- AirPassengers/AirPassengers_seasonal_component
+
+par(mfrow=c(1,2))
+plot.ts(AirPassengers, col = "blue", main = "Original series")
+plot.ts(AirPassengers_seasonally_adjusted, col = "blue",  
+        main = "Seasonally-adjusted series", 
+        ylab = "Seasonally-adjusted values")
+```
+
+An important reason for nonstationarity is also the presence of a trend in the data. There are **stochastic** and **deterministic trends**. Deterministic trends are a fixed function of time, while stochastic trends change in an unpredictable way. 
+
+Series with a deterministic trend are also called *trend stationary* because they can be stationary around a deterministic trend, and it could be possible to achieve stationarity by removing the time trend. In trend stationary processes, the shocks to the process are transitory and the process is *mean reverting*. Processes with a *stochastic trend* are also called *difference stationary* because they can become stationary through *differencing*. In series with stochastic trends we could see that shocks have permanent effects.
+
+When dealing with *deterministic trend*, we might want to work with detrended series. 
+```{r}
+# remove the trend from a multiplicative model
+AirPassengers_decomposed <- decompose(AirPassengers, type="multiplicative")
+AirPassengers_trend_component <- AirPassengers_decomposed$trend
+AirPassengers_detrended <- AirPassengers/AirPassengers_trend_component
+
+par(mfrow=c(1,2))
+plot.ts(AirPassengers, col = "blue", main = "Original series")
+plot.ts(AirPassengers_detrended, col = "blue",  
+        main = "Detrended series", 
+        ylab = "Detrended values")
+```
+
+Otherwise, in regression analysis, it is also commonly add a dummy variable consisting of a value that increase with time, to account for a linear deterministic time trend. This time-count variable will remove the deterministic trend from the dependent variable, allowing the other predictors to explain the remaining variance.
+
+```{r}
+# create a simulate series
+set.seed(1312)
+toy_data <- arima.sim(n = 100, model = list(order = c(0,0,0)))
+
+# add a deterministic trend to the series
+toy_data_trend <- toy_data + 0.2*1:length(toy_data)
+
+par(mfrow=c(1,3))
+plot.ts(toy_data, main = "Original series")
+plot.ts(toy_data_trend, main = "Series with Trend")
+
+dummy_trend <- 1:length(toy_data_trend)
+lm_toydata <- lm(toy_data_trend ~ dummy_trend)
+plot.ts(lm_toydata$residuals, main = "Residuals (detrended)")
+
+```
+
+When we are analyzing a series with a stochastic trend, we can achieve stationarity by differencing the data.
+
+```{r}
+set.seed(111)
+Random_Walk <- arima.sim(n = 500, model = list(order = c(0,1,0)))
+
+Random_Walk_diff <- diff(Random_Walk)
+
+plot.ts(Random_Walk,
+        main = "Random Walk", 
+        col = "blue", ylab="")
+
+plot.ts(Random_Walk_diff, 
+        main = "Differenced Random Walk", 
+        col = "blue", ylab="")
+```
+
+There are tests for detecting different types of trends. We will learn more about them in the next lecture.
 
 ### Non-autocorrelated residuals
 
@@ -244,7 +341,7 @@ plot(na.omit(xy2_series[,1]), arima1$fitted, main = "ARIMA regression model", xl
 
 There are several examples of the use of time series regression models in the literature in the field of communication science. 
 
-For instance, [Wozniak, A., Wessler, H., Chan, C. H., & Lück, J. (2021). The Event-Centered Nature of Global Public Spheres: The UN Climate Change Conferences, Fridays for Future, and the (Limited) Transnationalization of Media Debates. *International Journal of Communication*, 15(27)](https://ijoc.org/index.php/ijoc/article/viewFile/14843/3344),*examined whether the UN climate change conferences are conducive to an emergence of a transnational public sphere by triggering issue convergence and increased transnational interconnectedness across national media debates*. They authors detail the method they follows in this way:
+For instance, in [The Event-Centered Nature of Global Public Spheres: The UN Climate Change Conferences, Fridays for Future, and the (Limited) Transnationalization of Media Debates](https://ijoc.org/index.php/ijoc/article/viewFile/14843/3344)^[Wozniak, A., Wessler, H., Chan, C. H., & Lück, J. (2021). The Event-Centered Nature of Global Public Spheres: The UN Climate Change Conferences, Fridays for Future, and the (Limited) Transnationalization of Media Debates. *International Journal of Communication*, 15(27)], the authors *examined whether the UN climate change conferences are conducive to an emergence of a transnational public sphere by triggering issue convergence and increased transnational interconnectedness across national media debates*. They authors detail the method they follows in this way:
 
 >[...] Given the autoregressive nature and other properties of time series, an ordinary least squares regression analysis would violate the normality of error and the independence of observations assumption (Wells et al., 2019). Instead, **we applied the dynamic regression approach** (Gujarati & Porter, 2009; Hyndman & Athanasopoulos, 2018), which assumes that the **error term follows an autoregressive integrated moving average (ARIMA) model** (...). we found the best ARIMA structure of the error term by using the *auto.arima function from the forecast R package* (Hyndman & Khandakar, 2008). It searches for an ARIMA structure that can explain the most variance according to the *Akaike information criterion* (Akaike, 1973).
 
@@ -256,24 +353,24 @@ The found, for instance, that *events taking place on a supranational level of g
 knitr::include_graphics("images/Event-Centered Nature of Global Public Spheres.png")
 ```
 
-[Lee, F. L., Liang, H., & Tang, G. K. (2019). Online incivility, cyberbalkanization, and the dynamics of opinion polarization during and after a mass protest event. International Journal of Communication, 13, 20.](https://ijoc.org/index.php/ijoc/article/viewFile/11666/2819) used both standard regression and regression with ARIMA errors to show that *"online incivility — operationalized as the use of foul language — grew as volume of political discussions and levels of cyberbalkanization increased. Incivility led to higher levels of opinion polarization."*. Also in this case the authors analyze a "static process", that is, focus on contemporary relationships between variables.
+In [Online incivility, cyberbalkanization, and the dynamics of opinion polarization during and after a mass protest event](https://ijoc.org/index.php/ijoc/article/viewFile/11666/2819)^[Lee, F. L., Liang, H., & Tang, G. K. (2019). Online incivility, cyberbalkanization, and the dynamics of opinion polarization during and after a mass protest event. International Journal of Communication, 13, 20.], the authors used both standard regression and regression with ARIMA errors to show that *"online incivility — operationalized as the use of foul language — grew as volume of political discussions and levels of cyberbalkanization increased. Incivility led to higher levels of opinion polarization."*. Also in this case the authors analyze a "static process", that is, focus on contemporary relationships between variables.
 
 
 ```{r  echo=FALSE}
 knitr::include_graphics("images/Online-Incivility.png")
 ```
 
-In [Ragas, M. W., & Tran, H. (2013). Beyond cognitions: A longitudinal study of online search salience and media coverage of the president. Journalism & Mass Communication Quarterly, 90(3), 478-499.](https://journals.sagepub.com/doi/abs/10.1177/1077699013493792) used regression models with ARIMA errors to examine *shifts in newswire coverage and search interest among Internet users in President Obama during the first two years of his administration (2009-2010)*.
+In [Beyond cognitions: A longitudinal study of online search salience and media coverage of the president](https://journals.sagepub.com/doi/abs/10.1177/1077699013493792)^[Ragas, M. W., & Tran, H. (2013). Beyond cognitions: A longitudinal study of online search salience and media coverage of the president. Journalism & Mass Communication Quarterly, 90(3), 478-499.], the authors used regression models with ARIMA errors to examine *shifts in newswire coverage and search interest among Internet users in President Obama during the first two years of his administration (2009-2010)*.
 
 ```{r  echo=FALSE}
 knitr::include_graphics("images/Beyond-Cognitions.png")
 ```
 
-In this case the authors analyzed relationships between variables taking into account lagged values, thus adopting a "dynamic process" perspective. For instance, the authors wrote:
+In this case, the authors analyze relationships between variables taking into account lagged values, thus adopting a "dynamic process" perspective. For instance, they write:
 
 >RQ2 sought to determine the time span of linkages between coverage volume and search volume. (...) **ARIMA** models were run to gauge the *dynamics* of mutual influence between these two time series. The first model examined the effect of coverage volume on search volume over time (i.e., basic agenda setting) (...) presidential public relations, was included as an additional input series. The first model, with search volume being a single dependent variable, was **identified** through a **close examination of autocorrelation functions (ACFs) and partial autocorrelation functions (PACFs)**. This analysis revealed a classic **autoregressive model for the series (1, 0, 0)**. [...] According to the results, *shifts in aggregate search volume over this two-year period were significantly* **predicted by coverage volume over the prior five weeks** (p < .010)* and by presidential public relations efforts in the preceding two, three (p < .001), and five weeks (p < .005). The ARIMA model with two predictors was correctly specified (**Ljung–Box Q** = 18.132, p = .381) and it explained roughly 35% of the observed variation in the series.
 
-[Stevens, R., & Hornik, R. C. (2014). AIDS in black and white: The influence of newspaper coverage of HIV/AIDS on HIV/AIDS testing among African Americans and White Americans, 1993–2007. Journal of health communication, 19(8), 893-906](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4126885/) *examined the effect of newspaper coverage of HIV/AIDS on HIV testing behavior in a U.S. population.*, using a *lagged regression* to support *causal order claims by ensuring that newspaper coverage precedes the testing behavior with the inclusion of the 1-month lagged newspaper coverage variable in the model*. Counterintuitively, they found that the news media coverage had a negative effect on testing behavior: *For every additional 100 HIV/AIDS risk related newspaper stories published in this group of U.S. newspapers each month, there was a 1.7% decline in HIV testing levels in the following month*, with a higher negative effects on African Americans.
+In [AIDS in black and white: The influence of newspaper coverage of HIV/AIDS on HIV/AIDS testing among African Americans and White Americans, 1993–2007](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4126885/)^[Stevens, R., & Hornik, R. C. (2014). AIDS in black and white: The influence of newspaper coverage of HIV/AIDS on HIV/AIDS testing among African Americans and White Americans, 1993–2007. Journal of health communication, 19(8), 893-906], the authors *examined the effect of newspaper coverage of HIV/AIDS on HIV testing behavior in a U.S. population.*, using a *lagged regression* to support *causal order claims by ensuring that newspaper coverage precedes the testing behavior with the inclusion of the 1-month lagged newspaper coverage variable in the model*. Counterintuitively, they found that the news media coverage had a negative effect on testing behavior: *For every additional 100 HIV/AIDS risk related newspaper stories published in this group of U.S. newspapers each month, there was a 1.7% decline in HIV testing levels in the following month*, with a higher negative effects on African Americans.
 
 ```{r  echo=FALSE}
 knitr::include_graphics("images/AIDS in Black and White.png")
