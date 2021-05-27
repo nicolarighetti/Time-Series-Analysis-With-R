@@ -278,15 +278,15 @@ y_t = \beta_0 + \beta_1x_{1,t} + \beta_2x_{2,t} + ... + \beta_kx_{k,t} + \epsilo
 <ul>
 <li>A <strong>dynamic regression model</strong> includes relations between <em>both the current and the lagged (past) values of the explanatory (independent) variables</em>, that is, the expected value of the response variable may change <em>after</em> a change in the values of the explanatory variables.</li>
 </ul>
-<p>$$
-\begin{aligned}</p>
-<p>y_t = <em>0 &amp; + </em>{10}x_{1,t} + <em>{11}x</em>{1,t-1} + … + <em>{1m}x</em>{1,t-m} \
-&amp; + <em>{20}x</em>{2,t} + <em>{21}x</em>{2,t-1} + … + <em>{2m}x</em>{2,t-m} \
-&amp; + \
-&amp; + <em>{k0}x</em>{k,t} + <em>{k1}x</em>{k,t-1} + … + <em>{km}x</em>{2,t-m} \
-&amp; + _t \</p>
-<p>\end{aligned}
-$$</p>
+<p><span class="math display">\[
+\begin{aligned} 
+y_t = \beta_0  &amp; + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m}x_{1,t-m} \\
+&amp; + \beta_{20}x_{2,t} + \beta_{21}x_{2,t-1} + ... + \beta_{2m}x_{2,t-m} \\
+&amp; + \dots \\
+&amp; + \beta_{k0}x_{k,t} + \beta_{k1}x_{k,t-1} + ... + \beta_{km}x_{2,t-m} \\
+&amp; + \epsilon_t \\
+\end{aligned} 
+\]</span></p>
 <p>Despite the differences between these two analytic perspectives, the term <em>dynamic regression</em> is also used, in the literature, in a more general way to refer to regression models with autocorrelated errors, also when they are used to analyze only contemporary relations between variables.</p>
 </div>
 <div id="regression-models" class="section level2">
@@ -301,7 +301,7 @@ $$</p>
 <span id="cb232-4"><a href="regression.html#cb232-4"></a>elections_news<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(elections_news<span class="op">$</span>date)</span>
 <span id="cb232-5"><a href="regression.html#cb232-5"></a></span>
 <span id="cb232-6"><a href="regression.html#cb232-6"></a>elections_news &lt;-<span class="st"> </span><span class="kw">xts</span>(elections_news<span class="op">$</span>count, <span class="dt">order.by =</span> elections_news<span class="op">$</span>date)</span>
-<span id="cb232-7"><a href="regression.html#cb232-7"></a>elections_news_log &lt;-<span class="st"> </span><span class="kw">log</span>(elections_news<span class="op">+</span><span class="dv">0</span>)</span>
+<span id="cb232-7"><a href="regression.html#cb232-7"></a>elections_news_log &lt;-<span class="st"> </span><span class="kw">log</span>(elections_news<span class="op">+</span><span class="dv">1</span>)</span>
 <span id="cb232-8"><a href="regression.html#cb232-8"></a>elections_news_xts &lt;-<span class="st"> </span><span class="kw">merge.xts</span>(elections_news, elections_news_log)</span>
 <span id="cb232-9"><a href="regression.html#cb232-9"></a></span>
 <span id="cb232-10"><a href="regression.html#cb232-10"></a><span class="kw">plot.xts</span>(elections_news_xts, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>

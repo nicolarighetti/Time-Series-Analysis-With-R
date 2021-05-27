@@ -34,13 +34,11 @@ Each $\beta$ coefficient models the *instant change* in the conditional expected
 
 $$
 \begin{aligned} 
-
 y_t = \beta_0  & + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m}x_{1,t-m} \\
 & + \beta_{20}x_{2,t} + \beta_{21}x_{2,t-1} + ... + \beta_{2m}x_{2,t-m} \\
 & + \dots \\
 & + \beta_{k0}x_{k,t} + \beta_{k1}x_{k,t-1} + ... + \beta_{km}x_{2,t-m} \\
 & + \epsilon_t \\
-
 \end{aligned} 
 $$
 
@@ -63,7 +61,7 @@ elections_news <- read.csv("data/elections-stories-over-time-20210111144254.csv"
 elections_news$date <- as.Date(elections_news$date)
 
 elections_news <- xts(elections_news$count, order.by = elections_news$date)
-elections_news_log <- log(elections_news+0)
+elections_news_log <- log(elections_news+1)
 elections_news_xts <- merge.xts(elections_news, elections_news_log)
 
 plot.xts(elections_news_xts, col = c("blue", "red"),
