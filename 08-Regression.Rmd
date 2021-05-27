@@ -128,7 +128,7 @@ plot.ts(lm_toydata$residuals, main = "Residuals (detrended)")
 
 ```
 
-When we are analyzing a series with a stochastic trend, we can achieve stationarity by differencing the data.
+When we have a series with a stochastic trend, we can achieve stationarity through differencing.
 
 ```{r}
 set.seed(111)
@@ -136,6 +136,7 @@ Random_Walk <- arima.sim(n = 500, model = list(order = c(0,1,0)))
 
 Random_Walk_diff <- diff(Random_Walk)
 
+par(mfrow=c(1,2))
 plot.ts(Random_Walk,
         main = "Random Walk", 
         col = "blue", ylab="")
