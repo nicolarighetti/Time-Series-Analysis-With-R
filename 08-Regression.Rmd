@@ -2,17 +2,17 @@
 
 In this chapter we are going to see how to conduct a regression analysis with time series data.
 
-*Regression analysis* is a set of statistical processes for estimating the relationships between a *dependent variable (DV)* (also called *outcome* or *response*) and one or more *independent variables (IV)* (also called *predictors* or *explanatory variables*).
+*Regression analysis* is a used for estimating the relationships between a *dependent variable (DV)* (also called *outcome* or *response*) and one or more *independent variables (IV)* (also called *predictors* or *explanatory variables*).
 
-A standard regression model $Y$ = $\beta$ + $\beta x$ + $\epsilon$ has no time component. Differently, a time series regression model includes a time dimension and can be written, in a simple and general formulation using just one explanatory variable, as follows:
+A standard regression model $Y$ = $\beta$ + $\beta x$ + $\epsilon$ has no time component. Differently, a time series regression model includes a time dimension and can be written, in a simple and general formulation, using just one explanatory variable, as follows:
 
 $$
 y_t = \beta_0 + \beta_1x_t + \epsilon_t
 $$
 
-In this equation, $y_t$ is the time series we try to understand and predict (the *dependent variable (DV)*), $\beta_0$ is the *intercept* (a constant value that represents the expected mean value of $y_t$ when $x_t = 0$), the coefficient $\beta_1$ is the *slope*, representing the average change in $y$ at one unit increase in $x$ (the *independent variable (IV) or explanatory variable*), and $\epsilon_t$ is the time series of residuals (the error term).
+In this equation, $y_t$ is the time series we try to understand/predict (the *dependent variable (DV)*), $\beta_0$ is the *intercept* (a constant value that represents the expected mean value of $y_t$ when $x_t = 0$), the coefficient $\beta_1$ is the *slope*, representing the average change in $y$ at one unit increase in $x$ (the *independent variable (IV) or explanatory variable*), and $\epsilon_t$ is the time series of residuals (the error term).
 
-A multiple regression form, with more than one explanatory variable, can be written as follows:
+A multiple regression, with more than one explanatory variable, can be written as follows:
 
 $$
 y_t = \beta_0 + \beta_1x_{1,t} + \beta_2x_{2,t} + ... + \beta_kx_{k,t} + \epsilon_t
@@ -42,15 +42,15 @@ y_t = \beta_0  & + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m}x_{
 \end{aligned} 
 $$
 
-Despite the differences between these two analytic perspectives, the term *dynamic regression* is also used, in the literature, in a more general way to refer to regression models with autocorrelated errors, also when they are used to analyze only contemporary relations between variables.
+Despite the differences between these two analytic perspectives, the term *dynamic regression* is also used, in the literature, in a more general way to refer to regression models with autocorrelated errors (also when they are used to analyze only contemporary relations between variables).
 
 ## Regression models
 
 Except for the possible use of lagged regressors, which are typical of time series, the above described statistical models are standard regression models, commonly used with cross-sectional data. 
 
-Standard linear regression models can sometimes work well enough with time series data, **if specific conditions are met**. Besides standard assumptions of linear regression^[1) Linearity: The relationship between X and Y must be linear; 2) Independence of errors: There is not a relationship between the residuals and the Y variable; 3) Normality of errors: The residuals must be approximately normally distributed; 4) Equal variances: The variance of the residuals is the same for all values of X], a careful analysis should be done in order to ascertain that **residuals are not autocorrelated**, since this can determine problems in the estimated model.
+Standard linear regression models can sometimes work well enough with time series data, **if specific conditions are met**. Besides standard assumptions of linear regression^[1) Linearity: The relationship between X and Y must be linear; 2) Independence of errors: There is not a relationship between the residuals and the Y variable; 3) Normality of errors: The residuals must be approximately normally distributed; 4) Equal variances: The variance of the residuals is the same for all values of X], a careful analysis should be done in order to ascertain that **residuals are not autocorrelated**, since this can cause problems in the estimated model.
 
-Even before that, it is important that the series are **stationary**, in order to avoid possible spurious correlations. Since time series can be nonstationary due to different reasons, different strategies can be employed to *stationarize* the data.
+Even before that, it is important that the series are **stationary**, in order to avoid possible *spurious correlations*. Since time series can be nonstationary due to different reasons, different strategies can be employed to *stationarize* the data.
 
 For instance, a nonstationary series can be a series with **unequal variance** over time. A common way to try to fix the problem is applying the log-transformation.
 
@@ -70,7 +70,7 @@ plot.xts(elections_news_xts, col = c("blue", "red"),
 
 ```
 
-Another reason for nonstationarity are the periodic variations due to **seasonality**, regular fluctuations in a time series that follow a specific time pattern (e.g.: social media activity during week-ends, Christmas effect in consumption, etc.).
+Another reason for nonstationarity is the periodic variation due to **seasonality** (regular fluctuations in a time series that follow a specific time pattern, e.g.: social media activity during week-ends, Christmas effect in consumption, etc.).
 
 To remove the seasonal pattern, you might want to use a *seasonally-adjusted* time series. Otherwise, you could create a dummy variable for the seasonal period (that is, a variable that follows the seasonal pattern in the data in order to account, in the model, for these fluctuations).
 
@@ -92,9 +92,12 @@ plot.ts(AirPassengers_seasonally_adjusted, col = "blue",
 
 An important reason for nonstationarity is also the presence of a trend in the data. There are **stochastic** and **deterministic trends**. Deterministic trends are a fixed function of time, while stochastic trends change in an unpredictable way. 
 
-Series with a deterministic trend are also called *trend stationary* because they can be stationary around a deterministic trend, and it could be possible to achieve stationarity by removing the time trend. In trend stationary processes, the shocks to the process are transitory and the process is *mean reverting*. Processes with a *stochastic trend* are also called *difference stationary* because they can become stationary through *differencing*. In series with stochastic trends we could see that shocks have permanent effects.
+Series with a deterministic trend are also called *trend stationary* because they can be stationary around a deterministic trend, and it could be possible to achieve stationarity by removing the time trend. In trend stationary processes, the shocks to the process are transitory and the process is *mean reverting*. 
+
+Processes with a *stochastic trend* are also called *difference stationary* because they can become stationary through *differencing*. In series with stochastic trends we could see that shocks have permanent effects.
 
 When dealing with *deterministic trend*, we might want to work with detrended series. 
+
 ```{r}
 # remove the trend from a multiplicative model
 AirPassengers_decomposed <- decompose(AirPassengers, type="multiplicative")
@@ -108,7 +111,7 @@ plot.ts(AirPassengers_detrended, col = "blue",
         ylab = "Detrended values")
 ```
 
-Otherwise, in regression analysis, it is also commonly add a dummy variable consisting of a value that increase with time, to account for a linear deterministic time trend. This time-count variable will remove the deterministic trend from the dependent variable, allowing the other predictors to explain the remaining variance.
+Otherwise, in regression analysis, it is also commonly add a dummy variable consisting of a value that increases with time, to account for a linear deterministic time trend. This time-count variable will remove the deterministic trend from the dependent variable, allowing the other predictors to explain the remaining variance.
 
 ```{r}
 # create a simulate series
@@ -146,11 +149,11 @@ plot.ts(Random_Walk_diff,
         col = "blue", ylab="")
 ```
 
-There are tests for detecting different types of trends. We will learn more about them in the next lecture.
+There are *tests for detecting different types of trends*. We will learn more about them in the next lecture.
 
 ### Non-autocorrelated residuals
 
-To try a linear regression model we create some simulate series $x$ and $y$, with $x$ correlated with $y$ at lags $x_{t-3}$ and $x_{t-4}$.
+We try to fit a linear regression model. First, we create two series $x$ and $y$, with $x$ correlated with $y$ at lags $x_{t-3}$ and $x_{t-4}$.
 
 ```{r}
 # simulated data 
@@ -174,22 +177,21 @@ $$
 y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 \epsilon \sim N(0, 1)
 $$
-
-Toi fit a linear regression, we use the function **lm** (it's in base R, no additional packages are necessary).
+To fit a linear regression, we use the function **lm** (it's in base R, no additional packages are necessary).
 
 ```{r}
 lm1 <- lm(xy_series[,1] ~ xy_series[,3:4])
 ```
 
-The function **summary** is used to print the summary of the model, wich includes the estimates.
+The function **summary** is used to print the summary of the model, which includes the estimates (the "coefficients" of the variables) and other important information.
 
 ```{r}
 summary(lm1)
 ```
 
-We said that regression models sometimes work well enough with time series data, if some conditions are met. Regards the conditions (or **assumptions**), in particular, the **residuals** of the models should have zero mean, they shouldn't show any significant autocorrelation, and they should be normally distributed. 
+We said that regression models sometimes work well enough with time series data, if specific conditions are met. Regards the conditions (or **assumptions**), in particular, the **residuals** of the models should have zero mean, they shouldn't show any significant autocorrelation, and they should be normally distributed.
 
-To check whether these assumptions are met, we can visualize the *plot of residuals, its ACF/PACF and histogram*, and also test the residuals for possible autocorrelation using a statistical test like the [Breusch-Godfrey test](https://en.wikipedia.org/wiki/Breusch–Godfrey_test) (this test is the default in the forecast library when a linear regression object lm is tested).
+To check whether these assumptions are met, we can visualize the *plot of residuals, its ACF/PACF and histogram*, and also test the residuals for possible autocorrelation using a statistical test like the [Breusch-Godfrey test](https://en.wikipedia.org/wiki/Breusch–Godfrey_test) (this test is the default in the forecast library when a linear regression object *lm* is tested).
 
 To create the plots we can use the base R functions, or we can use the convenient *checkresiduals* function in the *forecast* package. 
 
@@ -217,7 +219,7 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 $$
 ### Autocorrelated residuals
 
-While in the previous case a standard linear model works well, *often the residuals of times series regressions are autocorrelated*, and fitting a simple linear model gets wrong estimates. For instance, let's create other two time series that are, as the previous ones, cross-correlated at lag 3 and 4, but with a bit more complicated structure.
+While in the previous case a standard linear model works well, *often the residuals of times series regressions are autocorrelated*, and a linear regression model can be suboptimal or even wrong. For instance, let's create other two time series that are, as the previous ones, cross-correlated at lag 3 and 4, but with a bit more complicated structure.
 
 ```{r}
 # another set of simulated data 
@@ -264,7 +266,7 @@ $$
 & \epsilon \sim N(0, 2.028^2)
 \end{aligned}
 $$
-The original series can be also visualized with the fitted values (the values resulting from the model), to visually inspect the fit (how well the model represent the original series). The differences between the original and the fitted series are the residuals.
+The original series can also be visualized with the fitted values (the values resulting from the model), to visually inspect how well the model represents the original series. The differences between the original and the fitted series are the *residuals*.
 
 ```{r}
 lm2d <- ts.intersect(na.omit(xy2_series[,1]), lm2$fitted.values)
@@ -280,7 +282,7 @@ checkresiduals(lm2)
 pacf(lm2$residuals)
 ```
 
-In this case, we have to take into account the residuals' autocorrelation by using a regression model capable to handle autocorrelated time series structures.
+In this case, it's better to take into account the residuals' autocorrelation by using a regression model capable to handle autocorrelated time series structures.
 
 ## Regression with ARIMA errors
 

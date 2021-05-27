@@ -255,13 +255,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="regression" class="section level1">
 <h1><span class="header-section-number">Chapter 9</span> Regression</h1>
 <p>In this chapter we are going to see how to conduct a regression analysis with time series data.</p>
-<p><em>Regression analysis</em> is a set of statistical processes for estimating the relationships between a <em>dependent variable (DV)</em> (also called <em>outcome</em> or <em>response</em>) and one or more <em>independent variables (IV)</em> (also called <em>predictors</em> or <em>explanatory variables</em>).</p>
-<p>A standard regression model <span class="math inline">\(Y\)</span> = <span class="math inline">\(\beta\)</span> + <span class="math inline">\(\beta x\)</span> + <span class="math inline">\(\epsilon\)</span> has no time component. Differently, a time series regression model includes a time dimension and can be written, in a simple and general formulation using just one explanatory variable, as follows:</p>
+<p><em>Regression analysis</em> is a used for estimating the relationships between a <em>dependent variable (DV)</em> (also called <em>outcome</em> or <em>response</em>) and one or more <em>independent variables (IV)</em> (also called <em>predictors</em> or <em>explanatory variables</em>).</p>
+<p>A standard regression model <span class="math inline">\(Y\)</span> = <span class="math inline">\(\beta\)</span> + <span class="math inline">\(\beta x\)</span> + <span class="math inline">\(\epsilon\)</span> has no time component. Differently, a time series regression model includes a time dimension and can be written, in a simple and general formulation, using just one explanatory variable, as follows:</p>
 <p><span class="math display">\[
 y_t = \beta_0 + \beta_1x_t + \epsilon_t
 \]</span></p>
-<p>In this equation, <span class="math inline">\(y_t\)</span> is the time series we try to understand and predict (the <em>dependent variable (DV)</em>), <span class="math inline">\(\beta_0\)</span> is the <em>intercept</em> (a constant value that represents the expected mean value of <span class="math inline">\(y_t\)</span> when <span class="math inline">\(x_t = 0\)</span>), the coefficient <span class="math inline">\(\beta_1\)</span> is the <em>slope</em>, representing the average change in <span class="math inline">\(y\)</span> at one unit increase in <span class="math inline">\(x\)</span> (the <em>independent variable (IV) or explanatory variable</em>), and <span class="math inline">\(\epsilon_t\)</span> is the time series of residuals (the error term).</p>
-<p>A multiple regression form, with more than one explanatory variable, can be written as follows:</p>
+<p>In this equation, <span class="math inline">\(y_t\)</span> is the time series we try to understand/predict (the <em>dependent variable (DV)</em>), <span class="math inline">\(\beta_0\)</span> is the <em>intercept</em> (a constant value that represents the expected mean value of <span class="math inline">\(y_t\)</span> when <span class="math inline">\(x_t = 0\)</span>), the coefficient <span class="math inline">\(\beta_1\)</span> is the <em>slope</em>, representing the average change in <span class="math inline">\(y\)</span> at one unit increase in <span class="math inline">\(x\)</span> (the <em>independent variable (IV) or explanatory variable</em>), and <span class="math inline">\(\epsilon_t\)</span> is the time series of residuals (the error term).</p>
+<p>A multiple regression, with more than one explanatory variable, can be written as follows:</p>
 <p><span class="math display">\[
 y_t = \beta_0 + \beta_1x_{1,t} + \beta_2x_{2,t} + ... + \beta_kx_{k,t} + \epsilon_t
 \]</span></p>
@@ -287,13 +287,13 @@ y_t = \beta_0  &amp; + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m
 &amp; + \epsilon_t \\
 \end{aligned} 
 \]</span></p>
-<p>Despite the differences between these two analytic perspectives, the term <em>dynamic regression</em> is also used, in the literature, in a more general way to refer to regression models with autocorrelated errors, also when they are used to analyze only contemporary relations between variables.</p>
+<p>Despite the differences between these two analytic perspectives, the term <em>dynamic regression</em> is also used, in the literature, in a more general way to refer to regression models with autocorrelated errors (also when they are used to analyze only contemporary relations between variables).</p>
 </div>
 <div id="regression-models" class="section level2">
 <h2><span class="header-section-number">9.2</span> Regression models</h2>
 <p>Except for the possible use of lagged regressors, which are typical of time series, the above described statistical models are standard regression models, commonly used with cross-sectional data.</p>
-<p>Standard linear regression models can sometimes work well enough with time series data, <strong>if specific conditions are met</strong>. Besides standard assumptions of linear regression<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, a careful analysis should be done in order to ascertain that <strong>residuals are not autocorrelated</strong>, since this can determine problems in the estimated model.</p>
-<p>Even before that, it is important that the series are <strong>stationary</strong>, in order to avoid possible spurious correlations. Since time series can be nonstationary due to different reasons, different strategies can be employed to <em>stationarize</em> the data.</p>
+<p>Standard linear regression models can sometimes work well enough with time series data, <strong>if specific conditions are met</strong>. Besides standard assumptions of linear regression<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, a careful analysis should be done in order to ascertain that <strong>residuals are not autocorrelated</strong>, since this can cause problems in the estimated model.</p>
+<p>Even before that, it is important that the series are <strong>stationary</strong>, in order to avoid possible <em>spurious correlations</em>. Since time series can be nonstationary due to different reasons, different strategies can be employed to <em>stationarize</em> the data.</p>
 <p>For instance, a nonstationary series can be a series with <strong>unequal variance</strong> over time. A common way to try to fix the problem is applying the log-transformation.</p>
 <div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="regression.html#cb232-1"></a><span class="kw">library</span>(xts)</span>
 <span id="cb232-2"><a href="regression.html#cb232-2"></a></span>
@@ -308,7 +308,7 @@ y_t = \beta_0  &amp; + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m
 <span id="cb232-11"><a href="regression.html#cb232-11"></a>         <span class="dt">multi.panel =</span> <span class="ot">TRUE</span>, <span class="dt">yaxis.same =</span> <span class="ot">FALSE</span>,</span>
 <span id="cb232-12"><a href="regression.html#cb232-12"></a>         <span class="dt">main =</span> <span class="st">&quot;Original vs Log-transformed series&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
-<p>Another reason for nonstationarity are the periodic variations due to <strong>seasonality</strong>, regular fluctuations in a time series that follow a specific time pattern (e.g.: social media activity during week-ends, Christmas effect in consumption, etc.).</p>
+<p>Another reason for nonstationarity is the periodic variation due to <strong>seasonality</strong> (regular fluctuations in a time series that follow a specific time pattern, e.g.: social media activity during week-ends, Christmas effect in consumption, etc.).</p>
 <p>To remove the seasonal pattern, you might want to use a <em>seasonally-adjusted</em> time series. Otherwise, you could create a dummy variable for the seasonal period (that is, a variable that follows the seasonal pattern in the data in order to account, in the model, for these fluctuations).</p>
 <div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="regression.html#cb233-1"></a><span class="co"># load the ts dataset AirPassenger</span></span>
 <span id="cb233-2"><a href="regression.html#cb233-2"></a><span class="kw">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
@@ -325,7 +325,8 @@ y_t = \beta_0  &amp; + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m
 <span id="cb233-13"><a href="regression.html#cb233-13"></a>        <span class="dt">ylab =</span> <span class="st">&quot;Seasonally-adjusted values&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
 <p>An important reason for nonstationarity is also the presence of a trend in the data. There are <strong>stochastic</strong> and <strong>deterministic trends</strong>. Deterministic trends are a fixed function of time, while stochastic trends change in an unpredictable way.</p>
-<p>Series with a deterministic trend are also called <em>trend stationary</em> because they can be stationary around a deterministic trend, and it could be possible to achieve stationarity by removing the time trend. In trend stationary processes, the shocks to the process are transitory and the process is <em>mean reverting</em>. Processes with a <em>stochastic trend</em> are also called <em>difference stationary</em> because they can become stationary through <em>differencing</em>. In series with stochastic trends we could see that shocks have permanent effects.</p>
+<p>Series with a deterministic trend are also called <em>trend stationary</em> because they can be stationary around a deterministic trend, and it could be possible to achieve stationarity by removing the time trend. In trend stationary processes, the shocks to the process are transitory and the process is <em>mean reverting</em>.</p>
+<p>Processes with a <em>stochastic trend</em> are also called <em>difference stationary</em> because they can become stationary through <em>differencing</em>. In series with stochastic trends we could see that shocks have permanent effects.</p>
 <p>When dealing with <em>deterministic trend</em>, we might want to work with detrended series.</p>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="regression.html#cb234-1"></a><span class="co"># remove the trend from a multiplicative model</span></span>
 <span id="cb234-2"><a href="regression.html#cb234-2"></a>AirPassengers_decomposed &lt;-<span class="st"> </span><span class="kw">decompose</span>(AirPassengers, <span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)</span>
@@ -338,7 +339,7 @@ y_t = \beta_0  &amp; + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m
 <span id="cb234-9"><a href="regression.html#cb234-9"></a>        <span class="dt">main =</span> <span class="st">&quot;Detrended series&quot;</span>, </span>
 <span id="cb234-10"><a href="regression.html#cb234-10"></a>        <span class="dt">ylab =</span> <span class="st">&quot;Detrended values&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-159-1.png" width="672" /></p>
-<p>Otherwise, in regression analysis, it is also commonly add a dummy variable consisting of a value that increase with time, to account for a linear deterministic time trend. This time-count variable will remove the deterministic trend from the dependent variable, allowing the other predictors to explain the remaining variance.</p>
+<p>Otherwise, in regression analysis, it is also commonly add a dummy variable consisting of a value that increases with time, to account for a linear deterministic time trend. This time-count variable will remove the deterministic trend from the dependent variable, allowing the other predictors to explain the remaining variance.</p>
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="regression.html#cb235-1"></a><span class="co"># create a simulate series</span></span>
 <span id="cb235-2"><a href="regression.html#cb235-2"></a><span class="kw">set.seed</span>(<span class="dv">1312</span>)</span>
 <span id="cb235-3"><a href="regression.html#cb235-3"></a>toy_data &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)))</span>
@@ -369,10 +370,10 @@ y_t = \beta_0  &amp; + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m
 <span id="cb236-12"><a href="regression.html#cb236-12"></a>        <span class="dt">main =</span> <span class="st">&quot;Differenced Random Walk&quot;</span>, </span>
 <span id="cb236-13"><a href="regression.html#cb236-13"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-161-1.png" width="672" /></p>
-<p>There are tests for detecting different types of trends. We will learn more about them in the next lecture.</p>
+<p>There are <em>tests for detecting different types of trends</em>. We will learn more about them in the next lecture.</p>
 <div id="non-autocorrelated-residuals" class="section level3">
 <h3><span class="header-section-number">9.2.1</span> Non-autocorrelated residuals</h3>
-<p>To try a linear regression model we create some simulate series <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, with <span class="math inline">\(x\)</span> correlated with <span class="math inline">\(y\)</span> at lags <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span>.</p>
+<p>We try to fit a linear regression model. First, we create two series <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, with <span class="math inline">\(x\)</span> correlated with <span class="math inline">\(y\)</span> at lags <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span>.</p>
 <div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="regression.html#cb237-1"></a><span class="co"># simulated data </span></span>
 <span id="cb237-2"><a href="regression.html#cb237-2"></a><span class="co"># the x series is correlated at lag 3 and 4</span></span>
 <span id="cb237-3"><a href="regression.html#cb237-3"></a><span class="kw">set.seed</span>(<span class="dv">999</span>)</span>
@@ -390,10 +391,10 @@ y_t = \beta_0  &amp; + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m
 <p><span class="math display">\[
 y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 \epsilon \sim N(0, 1)
-\]</span></p>
-<p>Toi fit a linear regression, we use the function <strong>lm</strong> (it’s in base R, no additional packages are necessary).</p>
+\]</span>
+To fit a linear regression, we use the function <strong>lm</strong> (it’s in base R, no additional packages are necessary).</p>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="regression.html#cb238-1"></a>lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(xy_series[,<span class="dv">1</span>] <span class="op">~</span><span class="st"> </span>xy_series[,<span class="dv">3</span><span class="op">:</span><span class="dv">4</span>])</span></code></pre></div>
-<p>The function <strong>summary</strong> is used to print the summary of the model, wich includes the estimates.</p>
+<p>The function <strong>summary</strong> is used to print the summary of the model, which includes the estimates (the “coefficients” of the variables) and other important information.</p>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="regression.html#cb239-1"></a><span class="kw">summary</span>(lm1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -415,8 +416,8 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ##   (8 observations deleted due to missingness)
 ## Multiple R-squared:  0.8698, Adjusted R-squared:  0.8684 
 ## F-statistic: 644.5 on 2 and 193 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>We said that regression models sometimes work well enough with time series data, if some conditions are met. Regards the conditions (or <strong>assumptions</strong>), in particular, the <strong>residuals</strong> of the models should have zero mean, they shouldn’t show any significant autocorrelation, and they should be normally distributed.</p>
-<p>To check whether these assumptions are met, we can visualize the <em>plot of residuals, its ACF/PACF and histogram</em>, and also test the residuals for possible autocorrelation using a statistical test like the <a href="https://en.wikipedia.org/wiki/Breusch–Godfrey_test">Breusch-Godfrey test</a> (this test is the default in the forecast library when a linear regression object lm is tested).</p>
+<p>We said that regression models sometimes work well enough with time series data, if specific conditions are met. Regards the conditions (or <strong>assumptions</strong>), in particular, the <strong>residuals</strong> of the models should have zero mean, they shouldn’t show any significant autocorrelation, and they should be normally distributed.</p>
+<p>To check whether these assumptions are met, we can visualize the <em>plot of residuals, its ACF/PACF and histogram</em>, and also test the residuals for possible autocorrelation using a statistical test like the <a href="https://en.wikipedia.org/wiki/Breusch–Godfrey_test">Breusch-Godfrey test</a> (this test is the default in the forecast library when a linear regression object <em>lm</em> is tested).</p>
 <p>To create the plots we can use the base R functions, or we can use the convenient <em>checkresiduals</em> function in the <em>forecast</em> package.</p>
 <p>In this case everything seems fine.</p>
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="regression.html#cb241-1"></a><span class="co"># install.package(&quot;forecast&quot;) # install the package if necessary</span></span>
@@ -441,7 +442,7 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 \epsilon \sim N(0, 1)
 \]</span>
 ### Autocorrelated residuals</p>
-<p>While in the previous case a standard linear model works well, <em>often the residuals of times series regressions are autocorrelated</em>, and fitting a simple linear model gets wrong estimates. For instance, let’s create other two time series that are, as the previous ones, cross-correlated at lag 3 and 4, but with a bit more complicated structure.</p>
+<p>While in the previous case a standard linear model works well, <em>often the residuals of times series regressions are autocorrelated</em>, and a linear regression model can be suboptimal or even wrong. For instance, let’s create other two time series that are, as the previous ones, cross-correlated at lag 3 and 4, but with a bit more complicated structure.</p>
 <div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="regression.html#cb243-1"></a><span class="co"># another set of simulated data </span></span>
 <span id="cb243-2"><a href="regression.html#cb243-2"></a><span class="co"># the x series is correlated at lag 3 and 4</span></span>
 <span id="cb243-3"><a href="regression.html#cb243-3"></a><span class="kw">set.seed</span>(<span class="dv">999</span>)</span>
@@ -499,7 +500,7 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 &amp; \epsilon \sim N(0, 2.028^2)
 \end{aligned}
 \]</span>
-The original series can be also visualized with the fitted values (the values resulting from the model), to visually inspect the fit (how well the model represent the original series). The differences between the original and the fitted series are the residuals.</p>
+The original series can also be visualized with the fitted values (the values resulting from the model), to visually inspect how well the model represents the original series. The differences between the original and the fitted series are the <em>residuals</em>.</p>
 <div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="regression.html#cb246-1"></a>lm2d &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(<span class="kw">na.omit</span>(xy2_series[,<span class="dv">1</span>]), lm2<span class="op">$</span>fitted.values)</span>
 <span id="cb246-2"><a href="regression.html#cb246-2"></a><span class="kw">plot.ts</span>(lm2d, <span class="dt">plot.type =</span> <span class="st">&quot;single&quot;</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;blue&quot;</span>), </span>
 <span id="cb246-3"><a href="regression.html#cb246-3"></a>        <span class="dt">lty=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="dt">lwd=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),</span>
@@ -515,7 +516,7 @@ The original series can be also visualized with the fitted values (the values re
 ## LM test = 149.45, df = 10, p-value &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="regression.html#cb249-1"></a><span class="kw">pacf</span>(lm2<span class="op">$</span>residuals)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-169-2.png" width="672" /></p>
-<p>In this case, we have to take into account the residuals’ autocorrelation by using a regression model capable to handle autocorrelated time series structures.</p>
+<p>In this case, it’s better to take into account the residuals’ autocorrelation by using a regression model capable to handle autocorrelated time series structures.</p>
 </div>
 </div>
 <div id="regression-with-arima-errors" class="section level2">
