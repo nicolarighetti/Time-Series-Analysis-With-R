@@ -268,27 +268,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="trend-and-cycle" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> Trend and Cycle</h3>
 <p>The <strong>Trend</strong> component is the longest-term behavior of a time series. The simplest model for a trend is a linear increase or decrease, but the trend has not to be linear. In the AirPassengers time series there is a clear upward, linear trend.</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="structural-decomposition.html#cb157-1"></a><span class="kw">library</span>(xts)</span>
-<span id="cb157-2"><a href="structural-decomposition.html#cb157-2"></a><span class="kw">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
-<span id="cb157-3"><a href="structural-decomposition.html#cb157-3"></a>AirPassengers_xts &lt;-<span class="st"> </span><span class="kw">as.xts</span>(AirPassengers)</span>
-<span id="cb157-4"><a href="structural-decomposition.html#cb157-4"></a><span class="kw">plot.xts</span>(AirPassengers_xts)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="structural-decomposition.html#cb163-1"></a><span class="kw">library</span>(xts)</span>
+<span id="cb163-2"><a href="structural-decomposition.html#cb163-2"></a><span class="kw">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
+<span id="cb163-3"><a href="structural-decomposition.html#cb163-3"></a>AirPassengers_xts &lt;-<span class="st"> </span><span class="kw">as.xts</span>(AirPassengers)</span>
+<span id="cb163-4"><a href="structural-decomposition.html#cb163-4"></a><span class="kw">plot.xts</span>(AirPassengers_xts)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
 <div id="stochastic-and-deterministic-trend" class="section level4">
 <h4><span class="header-section-number">7.1.1.1</span> Stochastic and Deterministic Trend</h4>
 <p>There is a distinction between <strong>deterministic</strong> and <strong>stochastic</strong> trends.</p>
 <p>A <strong>deterministic trend</strong> is a <em>fixed function of time</em>. If a series has a deterministic trend, the increase (or decrease) in the value of the series is a function of time. For instance, it may appear to grow or decline steadily over time. A deterministic trend can be linear, as well as non linear. Deterministic trends have plausible explanations (for example, a deterministic increasing trend in the data may be related to an increasing population). A series with deterministic trend is also called <em>trend stationary</em>.</p>
 <p>A <strong>stochastic trend</strong> wanders up and down or shows change of direction at unpredictable times. Time series with a stochastic trend are also said to be <em>difference stationary</em>. An example of stochastic trend is provided by the so-called <em>random walk</em> process.</p>
 <p><strong>Random Walk</strong> is a particular time series process in which the current values are combinations of the previous ones (<span class="math inline">\(x_t = x_{t-1} + w_t\)</span>, where <span class="math inline">\(x_{t-1}\)</span> is the value immediately before <span class="math inline">\(x\)</span>, and <span class="math inline">\(w_t\)</span> is a random component). The resulting time series is characterized by a discernible pattern over time which is not exactly predictable (<em>stochastic trend</em>). Starting from the same initial point, the same process can generate different time series.</p>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="structural-decomposition.html#cb158-1"></a><span class="kw">set.seed</span>(<span class="dv">111</span>)</span>
-<span id="cb158-2"><a href="structural-decomposition.html#cb158-2"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
-<span id="cb158-3"><a href="structural-decomposition.html#cb158-3"></a><span class="kw">plot.ts</span>(Random_Walk, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;Random Walk&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="structural-decomposition.html#cb159-1"></a><span class="kw">set.seed</span>(<span class="dv">555</span>)</span>
-<span id="cb159-2"><a href="structural-decomposition.html#cb159-2"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
-<span id="cb159-3"><a href="structural-decomposition.html#cb159-3"></a><span class="kw">plot.ts</span>(Random_Walk, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;Random Walk&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-108-2.png" width="672" /></p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="structural-decomposition.html#cb164-1"></a><span class="kw">set.seed</span>(<span class="dv">111</span>)</span>
+<span id="cb164-2"><a href="structural-decomposition.html#cb164-2"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
+<span id="cb164-3"><a href="structural-decomposition.html#cb164-3"></a><span class="kw">plot.ts</span>(Random_Walk, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;Random Walk&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="structural-decomposition.html#cb165-1"></a><span class="kw">set.seed</span>(<span class="dv">555</span>)</span>
+<span id="cb165-2"><a href="structural-decomposition.html#cb165-2"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
+<span id="cb165-3"><a href="structural-decomposition.html#cb165-3"></a><span class="kw">plot.ts</span>(Random_Walk, <span class="dt">ylab =</span> <span class="kw">expression</span>(<span class="kw">italic</span>(x)[<span class="kw">italic</span>(t)]), <span class="dt">main =</span> <span class="st">&quot;Random Walk&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-107-2.png" width="672" /></p>
 <p>A paper on <a href="https://www.tandfonline.com/doi/full/10.1080/00036846.2020.1789061">The effectiveness of social distancing in containing Covid-19</a> shows an example of stochastic trend and complex, deterministic nonlinear trends represented by polynomials.</p>
-<div class="figure"><span id="fig:unnamed-chunk-109"></span>
+<div class="figure"><span id="fig:unnamed-chunk-108"></span>
 <img src="images/covid-trends.jpeg" alt="Figure 5 shows the actual number of Covid-19 cases recorded in the UK up to 17 June 2020. The stochastic trend estimated earlier is superimposed on the actual observations and so are two deterministic nonlinear trends represented by polynomials of degrees 5 and 6. We can see that the stochastic trend captures the slow growth at the beginning of the sample period whereas the two deterministic trends do not. The stochastic trend is better also at capturing the sharp increase represented by observation number 72.. (original caption)" width="600" />
 <p class="caption">
 Figure 7.1: Figure 5 shows the actual number of Covid-19 cases recorded in the UK up to 17 June 2020. The stochastic trend estimated earlier is superimposed on the actual observations and so are two deterministic nonlinear trends represented by polynomials of degrees 5 and 6. We can see that the stochastic trend captures the slow growth at the beginning of the sample period whereas the two deterministic trends do not. The stochastic trend is better also at capturing the sharp increase represented by observation number 72.. (original caption)
@@ -300,18 +300,24 @@ Figure 7.1: Figure 5 shows the actual number of Covid-19 cases recorded in the U
 <div id="seasonality" class="section level3">
 <h3><span class="header-section-number">7.1.2</span> Seasonality</h3>
 <p>The <strong>Seasonal</strong> component is a repeated pattern occurring at a fixed time period such as the time of the year or the day of the week (the frequency of seasonality, which is always a fixed and known frequency). There is a clear seasonal variation in the AirPassenger time series: bookings were highest during the summer months of June, July, and August and lowest during the autumn/winter months.</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="structural-decomposition.html#cb160-1"></a><span class="kw">plot.xts</span>(AirPassengers_xts[<span class="st">&quot;1954-01/1955-12&quot;</span>])</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="structural-decomposition.html#cb166-1"></a><span class="kw">plot.xts</span>(AirPassengers_xts[<span class="st">&quot;1954-01/1955-12&quot;</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 <p>It is possible to plot the distributions of data by months by using the function <em>boxplot</em> and <em>cycle</em>, to visualize the increasing number of passengers during the summer months. In this case, <em>cycle</em> is used to refer to the positions of each observation in the (yearly, in this case) cycle of observations (every year is considered to be a cycle of 12 observations).</p>
-<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="structural-decomposition.html#cb161-1"></a><span class="kw">boxplot</span>(AirPassengers <span class="op">~</span><span class="st"> </span><span class="kw">cycle</span>(AirPassengers))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="structural-decomposition.html#cb167-1"></a><span class="kw">boxplot</span>(AirPassengers <span class="op">~</span><span class="st"> </span><span class="kw">cycle</span>(AirPassengers))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
 <p>The library <em>forecast</em>, an R package that provides methods and tools for displaying and analysing time series forecasts, includes a function to create a “polar” seasonal plot.</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="structural-decomposition.html#cb162-1"></a><span class="co"># install.packages(&quot;forecast&quot;)</span></span>
-<span id="cb162-2"><a href="structural-decomposition.html#cb162-2"></a><span class="kw">library</span>(forecast)</span>
-<span id="cb162-3"><a href="structural-decomposition.html#cb162-3"></a><span class="kw">ggseasonplot</span>(AirPassengers, <span class="dt">polar=</span><span class="ot">TRUE</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="structural-decomposition.html#cb168-1"></a><span class="co"># install.packages(&quot;forecast&quot;)</span></span>
+<span id="cb168-2"><a href="structural-decomposition.html#cb168-2"></a><span class="kw">library</span>(forecast)</span></code></pre></div>
+<pre><code>## Registered S3 method overwritten by &#39;quantmod&#39;:
+##   method            from
+##   as.zoo.data.frame zoo</code></pre>
+<pre><code>## This is forecast 8.13 
+##   Want to meet other forecasters? Join the International Institute of Forecasters:
+##   http://forecasters.org/</code></pre>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="structural-decomposition.html#cb171-1"></a><span class="kw">ggseasonplot</span>(AirPassengers, <span class="dt">polar=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
 <p>An example of weekly seasonality can be found in the COVID-19 statistics.</p>
-<div class="figure"><span id="fig:unnamed-chunk-113"></span>
+<div class="figure"><span id="fig:unnamed-chunk-112"></span>
 <img src="images/covid-italy.png" alt="Covid statistics (Google)" width="664" />
 <p class="caption">
 Figure 7.2: Covid statistics (Google)
@@ -324,11 +330,11 @@ Figure 7.2: Covid statistics (Google)
 <p>The <strong>irregular</strong> or remainder/residual component is the random-like part of the series.</p>
 <p>In general, when we fit mathematical models to time series data, the <em>residual</em> error series represents the discrepancies between the fitted values, calculated from the model, and the data. A good model encapsulates most of the deterministic features of the time series, and the residual error series should therefore appear to be a realization of independent random variables from some probability distribution.</p>
 <p>The analysis of residuals is thus important to judge the fit of a model. In this case, its residual error series appears to be a realization of <em>independent random variables</em>. Often the random variable is conceived as a Gaussian random variable. We’ll return to these topics in the last part of the chapter.</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="structural-decomposition.html#cb163-1"></a>AirPassengers_Random &lt;-<span class="st"> </span><span class="kw">decompose</span>(AirPassengers, <span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)<span class="op">$</span>random</span></code></pre></div>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="structural-decomposition.html#cb164-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
-<span id="cb164-2"><a href="structural-decomposition.html#cb164-2"></a><span class="kw">plot</span>(AirPassengers_Random, <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb164-3"><a href="structural-decomposition.html#cb164-3"></a><span class="kw">hist</span>(<span class="kw">na.omit</span>(AirPassengers_Random), <span class="dt">main =</span> <span class="st">&quot;&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="structural-decomposition.html#cb172-1"></a>AirPassengers_Random &lt;-<span class="st"> </span><span class="kw">decompose</span>(AirPassengers, <span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)<span class="op">$</span>random</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="structural-decomposition.html#cb173-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb173-2"><a href="structural-decomposition.html#cb173-2"></a><span class="kw">plot</span>(AirPassengers_Random, <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb173-3"><a href="structural-decomposition.html#cb173-3"></a><span class="kw">hist</span>(<span class="kw">na.omit</span>(AirPassengers_Random), <span class="dt">main =</span> <span class="st">&quot;&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 </div>
 </div>
 <div id="structural-decomposition-1" class="section level2">
@@ -347,21 +353,21 @@ Figure 7.2: Covid statistics (Google)
 <p>The number of neighbors in the past and future is determined by the analyst and is also called <em>width of the window</em>. The time window for the moving average is chosen by considering the frequency of the data and their seasonal effects. For instance, monthly data, which are supposed to show monthly seasonality (for instance, in the AirPassengers data there are more passengers during the summer months), can be averaged by using a period of 12 months (six months before and after each point. Since we have an even number of months, some other calculation are necessary. For instance, the moving average value for July, is calculated by averaging the average of January up to December, and the average of February up to January. R functions do this for you).</p>
 <p>The centered moving average is an example of a <strong>smoothing</strong> procedure that is applied retrospectively to a time series with the objective of identifying an underlying signal or trend. Smoothing procedures usually use points before and after the time at which the smoothed estimate is to be calculated. A consequence is that the smoothed series will have <em>some points missing at the beginning and the end</em> unless the smoothing algorithm is adapted for the end points. In the case of monthly data, for instance, the moving average filter determines the lost of the first and last six months of data.</p>
 <p>Smoothing procedures like moving average, allows the main underlying trend to emerge by filtering out seasonality and noise, so they are used to get an idea of the long-term underlying process of a time series.</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="structural-decomposition.html#cb165-1"></a>elections_news &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/elections-stories-over-time-20210111144254.csv&quot;</span>, </span>
-<span id="cb165-2"><a href="structural-decomposition.html#cb165-2"></a>                           <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">date =</span> <span class="kw">col_date</span>(<span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)))</span>
-<span id="cb165-3"><a href="structural-decomposition.html#cb165-3"></a></span>
-<span id="cb165-4"><a href="structural-decomposition.html#cb165-4"></a>en &lt;-<span class="st"> </span><span class="kw">as.xts</span>(<span class="dt">x =</span> elections_news<span class="op">$</span>ratio, <span class="dt">order.by =</span> elections_news<span class="op">$</span>date)</span>
-<span id="cb165-5"><a href="structural-decomposition.html#cb165-5"></a></span>
-<span id="cb165-6"><a href="structural-decomposition.html#cb165-6"></a>en2 &lt;-<span class="st"> </span><span class="kw">rollmean</span>(en, <span class="dt">k =</span> <span class="dv">2</span>)</span>
-<span id="cb165-7"><a href="structural-decomposition.html#cb165-7"></a>en4 &lt;-<span class="st"> </span><span class="kw">rollmean</span>(en, <span class="dt">k =</span> <span class="dv">4</span>)</span>
-<span id="cb165-8"><a href="structural-decomposition.html#cb165-8"></a>en8 &lt;-<span class="st"> </span><span class="kw">rollmean</span>(en, <span class="dt">k =</span> <span class="dv">8</span>)</span>
-<span id="cb165-9"><a href="structural-decomposition.html#cb165-9"></a>en16 &lt;-<span class="st"> </span><span class="kw">rollmean</span>(en, <span class="dt">k =</span> <span class="dv">16</span>)</span>
-<span id="cb165-10"><a href="structural-decomposition.html#cb165-10"></a>en32 &lt;-<span class="st"> </span><span class="kw">rollmean</span>(en, <span class="dt">k =</span> <span class="dv">32</span>)</span>
-<span id="cb165-11"><a href="structural-decomposition.html#cb165-11"></a></span>
-<span id="cb165-12"><a href="structural-decomposition.html#cb165-12"></a>enALL &lt;-<span class="st"> </span><span class="kw">merge.xts</span>(en, en2, en4, en8, en16, en32)</span>
-<span id="cb165-13"><a href="structural-decomposition.html#cb165-13"></a></span>
-<span id="cb165-14"><a href="structural-decomposition.html#cb165-14"></a><span class="co"># notice the NA elements increasing as the width of the moving average increase</span></span>
-<span id="cb165-15"><a href="structural-decomposition.html#cb165-15"></a><span class="kw">head</span>(enALL, <span class="dv">10</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="structural-decomposition.html#cb174-1"></a>elections_news &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/elections-stories-over-time-20210111144254.csv&quot;</span>, </span>
+<span id="cb174-2"><a href="structural-decomposition.html#cb174-2"></a>                           <span class="dt">col_types =</span> <span class="kw">cols</span>(<span class="dt">date =</span> <span class="kw">col_date</span>(<span class="dt">format =</span> <span class="st">&quot;%Y-%m-%d&quot;</span>)))</span>
+<span id="cb174-3"><a href="structural-decomposition.html#cb174-3"></a></span>
+<span id="cb174-4"><a href="structural-decomposition.html#cb174-4"></a>en &lt;-<span class="st"> </span><span class="kw">as.xts</span>(<span class="dt">x =</span> elections_news<span class="op">$</span>ratio, <span class="dt">order.by =</span> elections_news<span class="op">$</span>date)</span>
+<span id="cb174-5"><a href="structural-decomposition.html#cb174-5"></a></span>
+<span id="cb174-6"><a href="structural-decomposition.html#cb174-6"></a>en2 &lt;-<span class="st"> </span><span class="kw">rollmean</span>(en, <span class="dt">k =</span> <span class="dv">2</span>)</span>
+<span id="cb174-7"><a href="structural-decomposition.html#cb174-7"></a>en4 &lt;-<span class="st"> </span><span class="kw">rollmean</span>(en, <span class="dt">k =</span> <span class="dv">4</span>)</span>
+<span id="cb174-8"><a href="structural-decomposition.html#cb174-8"></a>en8 &lt;-<span class="st"> </span><span class="kw">rollmean</span>(en, <span class="dt">k =</span> <span class="dv">8</span>)</span>
+<span id="cb174-9"><a href="structural-decomposition.html#cb174-9"></a>en16 &lt;-<span class="st"> </span><span class="kw">rollmean</span>(en, <span class="dt">k =</span> <span class="dv">16</span>)</span>
+<span id="cb174-10"><a href="structural-decomposition.html#cb174-10"></a>en32 &lt;-<span class="st"> </span><span class="kw">rollmean</span>(en, <span class="dt">k =</span> <span class="dv">32</span>)</span>
+<span id="cb174-11"><a href="structural-decomposition.html#cb174-11"></a></span>
+<span id="cb174-12"><a href="structural-decomposition.html#cb174-12"></a>enALL &lt;-<span class="st"> </span><span class="kw">merge.xts</span>(en, en2, en4, en8, en16, en32)</span>
+<span id="cb174-13"><a href="structural-decomposition.html#cb174-13"></a></span>
+<span id="cb174-14"><a href="structural-decomposition.html#cb174-14"></a><span class="co"># notice the NA elements increasing as the width of the moving average increase</span></span>
+<span id="cb174-15"><a href="structural-decomposition.html#cb174-15"></a><span class="kw">head</span>(enALL, <span class="dv">10</span>) </span></code></pre></div>
 <pre><code>##                    en        en2        en4        en8       en16 en32
 ## 2015-01-01 0.01456405 0.01334178         NA         NA         NA   NA
 ## 2015-01-02 0.01211950 0.01192277 0.01275765         NA         NA   NA
@@ -373,37 +379,37 @@ Figure 7.2: Covid statistics (Google)
 ## 2015-01-08 0.01159633 0.01182664 0.01169304 0.01285992 0.01257820   NA
 ## 2015-01-09 0.01205695 0.01197492 0.01214178 0.01262867 0.01239793   NA
 ## 2015-01-10 0.01189290 0.01245691 0.01277492 0.01226887 0.01234396   NA</code></pre>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="structural-decomposition.html#cb167-1"></a><span class="kw">plot.xts</span>(enALL[<span class="st">&quot;2015-01-01/2016-01-01&quot;</span>], <span class="dt">multi.panel =</span> T)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="structural-decomposition.html#cb176-1"></a><span class="kw">plot.xts</span>(enALL[<span class="st">&quot;2015-01-01/2016-01-01&quot;</span>], <span class="dt">multi.panel =</span> T)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
 </div>
 <div id="decompose" class="section level3">
 <h3><span class="header-section-number">7.2.2</span> Decompose</h3>
 <p>To apply the function <em>decompose</em>, we need a <strong>ts</strong> object.</p>
 <p>Considering the AirPassengers time series, since the seasonal effect tends to increase as the trend increases, we can use a multiplicative model.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="structural-decomposition.html#cb168-1"></a>AirPassengers_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(AirPassengers, <span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)</span>
-<span id="cb168-2"><a href="structural-decomposition.html#cb168-2"></a><span class="kw">plot</span>(AirPassengers_dec)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="structural-decomposition.html#cb177-1"></a>AirPassengers_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(AirPassengers, <span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)</span>
+<span id="cb177-2"><a href="structural-decomposition.html#cb177-2"></a><span class="kw">plot</span>(AirPassengers_dec)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
 <p>As an example of <em>additive model</em> we can use data from the “Seatbels” data set.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="structural-decomposition.html#cb169-1"></a><span class="kw">data</span>(<span class="st">&quot;Seatbelts&quot;</span>)</span>
-<span id="cb169-2"><a href="structural-decomposition.html#cb169-2"></a>seatbelts &lt;-<span class="st"> </span>Seatbelts[,<span class="dv">5</span>]</span>
-<span id="cb169-3"><a href="structural-decomposition.html#cb169-3"></a><span class="kw">plot.ts</span>(seatbelts)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="structural-decomposition.html#cb178-1"></a><span class="kw">data</span>(<span class="st">&quot;Seatbelts&quot;</span>)</span>
+<span id="cb178-2"><a href="structural-decomposition.html#cb178-2"></a>seatbelts &lt;-<span class="st"> </span>Seatbelts[,<span class="dv">5</span>]</span>
+<span id="cb178-3"><a href="structural-decomposition.html#cb178-3"></a><span class="kw">plot.ts</span>(seatbelts)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="structural-decomposition.html#cb179-1"></a>seatbelts_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(seatbelts, <span class="dt">type=</span><span class="st">&quot;additive&quot;</span>)</span>
+<span id="cb179-2"><a href="structural-decomposition.html#cb179-2"></a><span class="kw">plot</span>(seatbelts_dec)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="structural-decomposition.html#cb170-1"></a>seatbelts_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(seatbelts, <span class="dt">type=</span><span class="st">&quot;additive&quot;</span>)</span>
-<span id="cb170-2"><a href="structural-decomposition.html#cb170-2"></a><span class="kw">plot</span>(seatbelts_dec)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 <p>The <strong>residual</strong> part of the model should be (approximately) <strong>random</strong>, which indicates that the model explained (most of) the significant patterns in the data (the <em>“signal”</em>), leaving out the <em>“noise”</em>.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="structural-decomposition.html#cb171-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb171-2"><a href="structural-decomposition.html#cb171-2"></a><span class="kw">plot.ts</span>(seatbelts_dec<span class="op">$</span>random, <span class="dt">main=</span><span class="st">&quot;Residuals&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb171-3"><a href="structural-decomposition.html#cb171-3"></a><span class="kw">hist</span>(seatbelts_dec<span class="op">$</span>random, <span class="dt">breaks =</span> <span class="dv">25</span>, <span class="dt">freq =</span> F, <span class="dt">main =</span> <span class="st">&quot;Histogram&quot;</span>)</span>
-<span id="cb171-4"><a href="structural-decomposition.html#cb171-4"></a><span class="kw">lines</span>(<span class="kw">density</span>(seatbelts_dec<span class="op">$</span>random, <span class="dt">na.rm =</span> T), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="structural-decomposition.html#cb180-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb180-2"><a href="structural-decomposition.html#cb180-2"></a><span class="kw">plot.ts</span>(seatbelts_dec<span class="op">$</span>random, <span class="dt">main=</span><span class="st">&quot;Residuals&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb180-3"><a href="structural-decomposition.html#cb180-3"></a><span class="kw">hist</span>(seatbelts_dec<span class="op">$</span>random, <span class="dt">breaks =</span> <span class="dv">25</span>, <span class="dt">freq =</span> F, <span class="dt">main =</span> <span class="st">&quot;Histogram&quot;</span>)</span>
+<span id="cb180-4"><a href="structural-decomposition.html#cb180-4"></a><span class="kw">lines</span>(<span class="kw">density</span>(seatbelts_dec<span class="op">$</span>random, <span class="dt">na.rm =</span> T), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 <p>We can re-create the original time series starting from its elements (we don’t actually need to do that, it is just for illustrative purposes).</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="structural-decomposition.html#cb172-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
-<span id="cb172-2"><a href="structural-decomposition.html#cb172-2"></a><span class="kw">plot</span>(AirPassengers_dec<span class="op">$</span>trend <span class="op">*</span><span class="st"> </span>AirPassengers_dec<span class="op">$</span>seasonal <span class="op">*</span><span class="st"> </span>AirPassengers_dec<span class="op">$</span>random,  </span>
-<span id="cb172-3"><a href="structural-decomposition.html#cb172-3"></a>     <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1950</span>, <span class="dv">1960</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">600</span>), <span class="dt">main =</span> <span class="st">&quot;&#39;Re-composed&#39; series&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb172-4"><a href="structural-decomposition.html#cb172-4"></a></span>
-<span id="cb172-5"><a href="structural-decomposition.html#cb172-5"></a><span class="kw">plot</span>(AirPassengers, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1950</span>, <span class="dv">1960</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">600</span>),  <span class="dt">main =</span> <span class="st">&quot;Original series&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="structural-decomposition.html#cb181-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb181-2"><a href="structural-decomposition.html#cb181-2"></a><span class="kw">plot</span>(AirPassengers_dec<span class="op">$</span>trend <span class="op">*</span><span class="st"> </span>AirPassengers_dec<span class="op">$</span>seasonal <span class="op">*</span><span class="st"> </span>AirPassengers_dec<span class="op">$</span>random,  </span>
+<span id="cb181-3"><a href="structural-decomposition.html#cb181-3"></a>     <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1950</span>, <span class="dv">1960</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">600</span>), <span class="dt">main =</span> <span class="st">&quot;&#39;Re-composed&#39; series&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb181-4"><a href="structural-decomposition.html#cb181-4"></a></span>
+<span id="cb181-5"><a href="structural-decomposition.html#cb181-5"></a><span class="kw">plot</span>(AirPassengers, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1950</span>, <span class="dv">1960</span>),<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">600</span>),  <span class="dt">main =</span> <span class="st">&quot;Original series&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
 </div>
 </div>
 <div id="adjust-time-series" class="section level2">
@@ -424,103 +430,103 @@ Figure 7.2: Covid statistics (Google)
 <p>Firms having seasonal fluctuations in demand for their products, for example, may need to make decisions based largely on the seasonal component (…) and a local government may try to partially control seasonal fluctuations in unemployment. (…) Only by having both the the adjusted and the unadjusted data available can these potential users gain the maximum benefit from all of the effort that goes into collecting the information.</p>
 </blockquote>
 <p>There are many different methods to adjust data for seasonality. A simple approach is based on the results of the decomposition process, and consists in substracting (in the case of an addittive decomposition model) the seasonal component from the original series, or dividing the original series by the seasonal component (in the case of a multiplicative model).</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="structural-decomposition.html#cb173-1"></a><span class="kw">data</span>(<span class="st">&quot;Seatbelts&quot;</span>)</span>
-<span id="cb173-2"><a href="structural-decomposition.html#cb173-2"></a>seatbelts &lt;-<span class="st"> </span>Seatbelts[,<span class="dv">5</span>]</span>
-<span id="cb173-3"><a href="structural-decomposition.html#cb173-3"></a>seatbelts_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(seatbelts, <span class="dt">type=</span><span class="st">&quot;additive&quot;</span>)</span>
-<span id="cb173-4"><a href="structural-decomposition.html#cb173-4"></a></span>
-<span id="cb173-5"><a href="structural-decomposition.html#cb173-5"></a>seatbelts_deseason &lt;-<span class="st"> </span>seatbelts <span class="op">-</span><span class="st"> </span>seatbelts_dec<span class="op">$</span>seasonal</span>
-<span id="cb173-6"><a href="structural-decomposition.html#cb173-6"></a></span>
-<span id="cb173-7"><a href="structural-decomposition.html#cb173-7"></a>seat &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(seatbelts, seatbelts_deseason)</span>
-<span id="cb173-8"><a href="structural-decomposition.html#cb173-8"></a></span>
-<span id="cb173-9"><a href="structural-decomposition.html#cb173-9"></a><span class="kw">plot.ts</span>(seat, </span>
-<span id="cb173-10"><a href="structural-decomposition.html#cb173-10"></a>        <span class="dt">plot.type =</span> <span class="st">&quot;single&quot;</span>,</span>
-<span id="cb173-11"><a href="structural-decomposition.html#cb173-11"></a>        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>),</span>
-<span id="cb173-12"><a href="structural-decomposition.html#cb173-12"></a>        <span class="dt">main =</span> <span class="st">&quot;Original (red) and Seasonally Adjusted Series (blue)&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="structural-decomposition.html#cb182-1"></a><span class="kw">data</span>(<span class="st">&quot;Seatbelts&quot;</span>)</span>
+<span id="cb182-2"><a href="structural-decomposition.html#cb182-2"></a>seatbelts &lt;-<span class="st"> </span>Seatbelts[,<span class="dv">5</span>]</span>
+<span id="cb182-3"><a href="structural-decomposition.html#cb182-3"></a>seatbelts_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(seatbelts, <span class="dt">type=</span><span class="st">&quot;additive&quot;</span>)</span>
+<span id="cb182-4"><a href="structural-decomposition.html#cb182-4"></a></span>
+<span id="cb182-5"><a href="structural-decomposition.html#cb182-5"></a>seatbelts_deseason &lt;-<span class="st"> </span>seatbelts <span class="op">-</span><span class="st"> </span>seatbelts_dec<span class="op">$</span>seasonal</span>
+<span id="cb182-6"><a href="structural-decomposition.html#cb182-6"></a></span>
+<span id="cb182-7"><a href="structural-decomposition.html#cb182-7"></a>seat &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(seatbelts, seatbelts_deseason)</span>
+<span id="cb182-8"><a href="structural-decomposition.html#cb182-8"></a></span>
+<span id="cb182-9"><a href="structural-decomposition.html#cb182-9"></a><span class="kw">plot.ts</span>(seat, </span>
+<span id="cb182-10"><a href="structural-decomposition.html#cb182-10"></a>        <span class="dt">plot.type =</span> <span class="st">&quot;single&quot;</span>,</span>
+<span id="cb182-11"><a href="structural-decomposition.html#cb182-11"></a>        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb182-12"><a href="structural-decomposition.html#cb182-12"></a>        <span class="dt">main =</span> <span class="st">&quot;Original (red) and Seasonally Adjusted Series (blue)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
 <p>Adjust for seasonal variations makes it possible to observe potentially noteworthy fluctuations. In the case of the AirPassengers data, for instance, the seasonally adjusted plot shows more clearly an anomaly in the year 1960 that was not noticeable in the raw data.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="structural-decomposition.html#cb174-1"></a>AirPassengers_decompose &lt;-<span class="st"> </span><span class="kw">decompose</span>(AirPassengers, <span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)</span>
-<span id="cb174-2"><a href="structural-decomposition.html#cb174-2"></a>AirPassengers_seasonal &lt;-<span class="st"> </span>AirPassengers_decompose<span class="op">$</span>seasonal</span>
-<span id="cb174-3"><a href="structural-decomposition.html#cb174-3"></a>AirPassengers_deseasonal &lt;-<span class="st"> </span>(AirPassengers<span class="op">/</span>AirPassengers_seasonal)</span>
-<span id="cb174-4"><a href="structural-decomposition.html#cb174-4"></a></span>
-<span id="cb174-5"><a href="structural-decomposition.html#cb174-5"></a>AirPass &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(AirPassengers, AirPassengers_deseasonal)</span>
-<span id="cb174-6"><a href="structural-decomposition.html#cb174-6"></a></span>
-<span id="cb174-7"><a href="structural-decomposition.html#cb174-7"></a><span class="kw">plot.ts</span>(AirPass, </span>
-<span id="cb174-8"><a href="structural-decomposition.html#cb174-8"></a>        <span class="dt">plot.type =</span> <span class="st">&quot;single&quot;</span>,</span>
-<span id="cb174-9"><a href="structural-decomposition.html#cb174-9"></a>        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>),</span>
-<span id="cb174-10"><a href="structural-decomposition.html#cb174-10"></a>        <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>),</span>
-<span id="cb174-11"><a href="structural-decomposition.html#cb174-11"></a>        <span class="dt">main =</span> <span class="st">&quot;Original (red) and Seasonally Adjusted Series (blue)&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="structural-decomposition.html#cb183-1"></a>AirPassengers_decompose &lt;-<span class="st"> </span><span class="kw">decompose</span>(AirPassengers, <span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)</span>
+<span id="cb183-2"><a href="structural-decomposition.html#cb183-2"></a>AirPassengers_seasonal &lt;-<span class="st"> </span>AirPassengers_decompose<span class="op">$</span>seasonal</span>
+<span id="cb183-3"><a href="structural-decomposition.html#cb183-3"></a>AirPassengers_deseasonal &lt;-<span class="st"> </span>(AirPassengers<span class="op">/</span>AirPassengers_seasonal)</span>
+<span id="cb183-4"><a href="structural-decomposition.html#cb183-4"></a></span>
+<span id="cb183-5"><a href="structural-decomposition.html#cb183-5"></a>AirPass &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(AirPassengers, AirPassengers_deseasonal)</span>
+<span id="cb183-6"><a href="structural-decomposition.html#cb183-6"></a></span>
+<span id="cb183-7"><a href="structural-decomposition.html#cb183-7"></a><span class="kw">plot.ts</span>(AirPass, </span>
+<span id="cb183-8"><a href="structural-decomposition.html#cb183-8"></a>        <span class="dt">plot.type =</span> <span class="st">&quot;single&quot;</span>,</span>
+<span id="cb183-9"><a href="structural-decomposition.html#cb183-9"></a>        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb183-10"><a href="structural-decomposition.html#cb183-10"></a>        <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>),</span>
+<span id="cb183-11"><a href="structural-decomposition.html#cb183-11"></a>        <span class="dt">main =</span> <span class="st">&quot;Original (red) and Seasonally Adjusted Series (blue)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
 <p>Below you can find another example with data from social media (you can download them here <a href="https://drive.google.com/file/d/16NyBB1YOICSQ8lmZpcq62ahkJff9Tx6E/view?usp=sharing">art1</a>, and <a href="https://drive.google.com/file/d/1UWodHEAAphThP-jkALA5u1qEbTBPqHiE/view?usp=sharing">art2</a>), consisting in posts published by pages of news media.</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="structural-decomposition.html#cb175-1"></a>art1 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/art1.csv&quot;</span>)</span>
-<span id="cb175-2"><a href="structural-decomposition.html#cb175-2"></a>art2 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/art2.csv&quot;</span>)</span>
-<span id="cb175-3"><a href="structural-decomposition.html#cb175-3"></a></span>
-<span id="cb175-4"><a href="structural-decomposition.html#cb175-4"></a>art1_summary &lt;-<span class="st"> </span>art1 <span class="op">%&gt;%</span></span>
-<span id="cb175-5"><a href="structural-decomposition.html#cb175-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">post_created_date =</span> <span class="kw">as.Date</span>(post_created_date)) <span class="op">%&gt;%</span></span>
-<span id="cb175-6"><a href="structural-decomposition.html#cb175-6"></a><span class="st">  </span><span class="kw">complete</span>(<span class="dt">post_created_date =</span> <span class="kw">seq.Date</span>(<span class="kw">min</span>(post_created_date), </span>
-<span id="cb175-7"><a href="structural-decomposition.html#cb175-7"></a>           <span class="kw">max</span>(post_created_date), <span class="dt">by =</span> <span class="st">&quot;day&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb175-8"><a href="structural-decomposition.html#cb175-8"></a><span class="st">  </span><span class="kw">group_by</span>(post_created_date) <span class="op">%&gt;%</span></span>
-<span id="cb175-9"><a href="structural-decomposition.html#cb175-9"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">posts =</span> <span class="kw">n</span>())</span>
-<span id="cb175-10"><a href="structural-decomposition.html#cb175-10"></a></span>
-<span id="cb175-11"><a href="structural-decomposition.html#cb175-11"></a>art2_summary &lt;-<span class="st"> </span>art2 <span class="op">%&gt;%</span></span>
-<span id="cb175-12"><a href="structural-decomposition.html#cb175-12"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">post_created_date =</span> <span class="kw">as.Date</span>(post_created_date)) <span class="op">%&gt;%</span></span>
-<span id="cb175-13"><a href="structural-decomposition.html#cb175-13"></a><span class="st">  </span><span class="kw">complete</span>(<span class="dt">post_created_date =</span> <span class="kw">seq.Date</span>(<span class="kw">min</span>(post_created_date), </span>
-<span id="cb175-14"><a href="structural-decomposition.html#cb175-14"></a>           <span class="kw">max</span>(post_created_date), <span class="dt">by =</span> <span class="st">&quot;day&quot;</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb175-15"><a href="structural-decomposition.html#cb175-15"></a><span class="st">  </span><span class="kw">group_by</span>(post_created_date) <span class="op">%&gt;%</span></span>
-<span id="cb175-16"><a href="structural-decomposition.html#cb175-16"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">posts =</span> <span class="kw">n</span>())</span>
-<span id="cb175-17"><a href="structural-decomposition.html#cb175-17"></a></span>
-<span id="cb175-18"><a href="structural-decomposition.html#cb175-18"></a>art1_ts &lt;-<span class="st"> </span><span class="kw">ts</span>(<span class="dt">data =</span> art1_summary<span class="op">$</span>posts, <span class="dt">frequency =</span> <span class="dv">7</span>)</span>
-<span id="cb175-19"><a href="structural-decomposition.html#cb175-19"></a>art2_ts &lt;-<span class="st"> </span><span class="kw">ts</span>(<span class="dt">data =</span> art2_summary<span class="op">$</span>posts, <span class="dt">frequency =</span> <span class="dv">7</span>)</span>
-<span id="cb175-20"><a href="structural-decomposition.html#cb175-20"></a></span>
-<span id="cb175-21"><a href="structural-decomposition.html#cb175-21"></a>art &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(art1_ts, art2_ts)</span>
-<span id="cb175-22"><a href="structural-decomposition.html#cb175-22"></a></span>
-<span id="cb175-23"><a href="structural-decomposition.html#cb175-23"></a>art1_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(art1_ts)</span>
-<span id="cb175-24"><a href="structural-decomposition.html#cb175-24"></a>art2_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(art2_ts)</span>
-<span id="cb175-25"><a href="structural-decomposition.html#cb175-25"></a></span>
-<span id="cb175-26"><a href="structural-decomposition.html#cb175-26"></a>art1_seas &lt;-<span class="st"> </span>art1_dec<span class="op">$</span>seasonal</span>
-<span id="cb175-27"><a href="structural-decomposition.html#cb175-27"></a>art2_seas &lt;-<span class="st"> </span>art2_dec<span class="op">$</span>seasonal</span>
-<span id="cb175-28"><a href="structural-decomposition.html#cb175-28"></a></span>
-<span id="cb175-29"><a href="structural-decomposition.html#cb175-29"></a>art1_deseas &lt;-<span class="st"> </span>art1_ts <span class="op">-</span><span class="st"> </span>art1_seas</span>
-<span id="cb175-30"><a href="structural-decomposition.html#cb175-30"></a>art2_deseas &lt;-<span class="st"> </span>art2_ts <span class="op">-</span><span class="st"> </span>art2_seas</span>
-<span id="cb175-31"><a href="structural-decomposition.html#cb175-31"></a></span>
-<span id="cb175-32"><a href="structural-decomposition.html#cb175-32"></a>art_des &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(art1_deseas, art2_deseas)</span>
-<span id="cb175-33"><a href="structural-decomposition.html#cb175-33"></a></span>
-<span id="cb175-34"><a href="structural-decomposition.html#cb175-34"></a>art_all &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(art, art_des)</span>
-<span id="cb175-35"><a href="structural-decomposition.html#cb175-35"></a></span>
-<span id="cb175-36"><a href="structural-decomposition.html#cb175-36"></a><span class="kw">plot.ts</span>(art_all, </span>
-<span id="cb175-37"><a href="structural-decomposition.html#cb175-37"></a>        <span class="dt">plot.type =</span> <span class="st">&quot;single&quot;</span>,</span>
-<span id="cb175-38"><a href="structural-decomposition.html#cb175-38"></a>        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>),</span>
-<span id="cb175-39"><a href="structural-decomposition.html#cb175-39"></a>        <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
-<span id="cb175-40"><a href="structural-decomposition.html#cb175-40"></a>        <span class="dt">main =</span> <span class="st">&quot;Original (red) and Seasonally Adjusted Series (blue)&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="structural-decomposition.html#cb184-1"></a>art1 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/art1.csv&quot;</span>)</span>
+<span id="cb184-2"><a href="structural-decomposition.html#cb184-2"></a>art2 &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/art2.csv&quot;</span>)</span>
+<span id="cb184-3"><a href="structural-decomposition.html#cb184-3"></a></span>
+<span id="cb184-4"><a href="structural-decomposition.html#cb184-4"></a>art1_summary &lt;-<span class="st"> </span>art1 <span class="op">%&gt;%</span></span>
+<span id="cb184-5"><a href="structural-decomposition.html#cb184-5"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">post_created_date =</span> <span class="kw">as.Date</span>(post_created_date)) <span class="op">%&gt;%</span></span>
+<span id="cb184-6"><a href="structural-decomposition.html#cb184-6"></a><span class="st">  </span><span class="kw">complete</span>(<span class="dt">post_created_date =</span> <span class="kw">seq.Date</span>(<span class="kw">min</span>(post_created_date), </span>
+<span id="cb184-7"><a href="structural-decomposition.html#cb184-7"></a>           <span class="kw">max</span>(post_created_date), <span class="dt">by =</span> <span class="st">&quot;day&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb184-8"><a href="structural-decomposition.html#cb184-8"></a><span class="st">  </span><span class="kw">group_by</span>(post_created_date) <span class="op">%&gt;%</span></span>
+<span id="cb184-9"><a href="structural-decomposition.html#cb184-9"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">posts =</span> <span class="kw">n</span>())</span>
+<span id="cb184-10"><a href="structural-decomposition.html#cb184-10"></a></span>
+<span id="cb184-11"><a href="structural-decomposition.html#cb184-11"></a>art2_summary &lt;-<span class="st"> </span>art2 <span class="op">%&gt;%</span></span>
+<span id="cb184-12"><a href="structural-decomposition.html#cb184-12"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">post_created_date =</span> <span class="kw">as.Date</span>(post_created_date)) <span class="op">%&gt;%</span></span>
+<span id="cb184-13"><a href="structural-decomposition.html#cb184-13"></a><span class="st">  </span><span class="kw">complete</span>(<span class="dt">post_created_date =</span> <span class="kw">seq.Date</span>(<span class="kw">min</span>(post_created_date), </span>
+<span id="cb184-14"><a href="structural-decomposition.html#cb184-14"></a>           <span class="kw">max</span>(post_created_date), <span class="dt">by =</span> <span class="st">&quot;day&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb184-15"><a href="structural-decomposition.html#cb184-15"></a><span class="st">  </span><span class="kw">group_by</span>(post_created_date) <span class="op">%&gt;%</span></span>
+<span id="cb184-16"><a href="structural-decomposition.html#cb184-16"></a><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">posts =</span> <span class="kw">n</span>())</span>
+<span id="cb184-17"><a href="structural-decomposition.html#cb184-17"></a></span>
+<span id="cb184-18"><a href="structural-decomposition.html#cb184-18"></a>art1_ts &lt;-<span class="st"> </span><span class="kw">ts</span>(<span class="dt">data =</span> art1_summary<span class="op">$</span>posts, <span class="dt">frequency =</span> <span class="dv">7</span>)</span>
+<span id="cb184-19"><a href="structural-decomposition.html#cb184-19"></a>art2_ts &lt;-<span class="st"> </span><span class="kw">ts</span>(<span class="dt">data =</span> art2_summary<span class="op">$</span>posts, <span class="dt">frequency =</span> <span class="dv">7</span>)</span>
+<span id="cb184-20"><a href="structural-decomposition.html#cb184-20"></a></span>
+<span id="cb184-21"><a href="structural-decomposition.html#cb184-21"></a>art &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(art1_ts, art2_ts)</span>
+<span id="cb184-22"><a href="structural-decomposition.html#cb184-22"></a></span>
+<span id="cb184-23"><a href="structural-decomposition.html#cb184-23"></a>art1_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(art1_ts)</span>
+<span id="cb184-24"><a href="structural-decomposition.html#cb184-24"></a>art2_dec &lt;-<span class="st"> </span><span class="kw">decompose</span>(art2_ts)</span>
+<span id="cb184-25"><a href="structural-decomposition.html#cb184-25"></a></span>
+<span id="cb184-26"><a href="structural-decomposition.html#cb184-26"></a>art1_seas &lt;-<span class="st"> </span>art1_dec<span class="op">$</span>seasonal</span>
+<span id="cb184-27"><a href="structural-decomposition.html#cb184-27"></a>art2_seas &lt;-<span class="st"> </span>art2_dec<span class="op">$</span>seasonal</span>
+<span id="cb184-28"><a href="structural-decomposition.html#cb184-28"></a></span>
+<span id="cb184-29"><a href="structural-decomposition.html#cb184-29"></a>art1_deseas &lt;-<span class="st"> </span>art1_ts <span class="op">-</span><span class="st"> </span>art1_seas</span>
+<span id="cb184-30"><a href="structural-decomposition.html#cb184-30"></a>art2_deseas &lt;-<span class="st"> </span>art2_ts <span class="op">-</span><span class="st"> </span>art2_seas</span>
+<span id="cb184-31"><a href="structural-decomposition.html#cb184-31"></a></span>
+<span id="cb184-32"><a href="structural-decomposition.html#cb184-32"></a>art_des &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(art1_deseas, art2_deseas)</span>
+<span id="cb184-33"><a href="structural-decomposition.html#cb184-33"></a></span>
+<span id="cb184-34"><a href="structural-decomposition.html#cb184-34"></a>art_all &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(art, art_des)</span>
+<span id="cb184-35"><a href="structural-decomposition.html#cb184-35"></a></span>
+<span id="cb184-36"><a href="structural-decomposition.html#cb184-36"></a><span class="kw">plot.ts</span>(art_all, </span>
+<span id="cb184-37"><a href="structural-decomposition.html#cb184-37"></a>        <span class="dt">plot.type =</span> <span class="st">&quot;single&quot;</span>,</span>
+<span id="cb184-38"><a href="structural-decomposition.html#cb184-38"></a>        <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb184-39"><a href="structural-decomposition.html#cb184-39"></a>        <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb184-40"><a href="structural-decomposition.html#cb184-40"></a>        <span class="dt">main =</span> <span class="st">&quot;Original (red) and Seasonally Adjusted Series (blue)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
 <p>By calculating a simple correlation between the original series and the de-seasonalized series, it can be observed that the correlation coefficients changes.</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="structural-decomposition.html#cb176-1"></a><span class="kw">cor</span>(art)[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="structural-decomposition.html#cb185-1"></a><span class="kw">cor</span>(art)[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>## [1] 0.9641655</code></pre>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="structural-decomposition.html#cb178-1"></a><span class="kw">cor</span>(art_des)[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="structural-decomposition.html#cb187-1"></a><span class="kw">cor</span>(art_des)[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
 <pre><code>## [1] 0.7209823</code></pre>
 </div>
 <div id="detrended-series" class="section level3">
 <h3><span class="header-section-number">7.3.2</span> Detrended series</h3>
 <p>As the series can be asjusted for seasonality, they can be also adjusted for trend based on the same reasons. A similar process can also be used to remove the trend from the data, in particular in the case of a <em>deterministic</em> trend.</p>
 <p>In the case of a <em>stochastic</em> trend, instead, the usual practice is to detrend the data through <strong>differencing</strong>. Differecing means taking the first difference of consecutive points in time <span class="math inline">\(x_t\)</span> - <span class="math inline">\(x_{t-1}\)</span>. In this way, the resulting series represents the <em>relative change from one point in time to another</em>.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="structural-decomposition.html#cb180-1"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
-<span id="cb180-2"><a href="structural-decomposition.html#cb180-2"></a></span>
-<span id="cb180-3"><a href="structural-decomposition.html#cb180-3"></a>Random_Walk_diff &lt;-<span class="st"> </span><span class="kw">diff</span>(Random_Walk)</span>
-<span id="cb180-4"><a href="structural-decomposition.html#cb180-4"></a></span>
-<span id="cb180-5"><a href="structural-decomposition.html#cb180-5"></a><span class="kw">plot.ts</span>(Random_Walk,</span>
-<span id="cb180-6"><a href="structural-decomposition.html#cb180-6"></a>        <span class="dt">main =</span> <span class="st">&quot;Random Walk&quot;</span>, </span>
-<span id="cb180-7"><a href="structural-decomposition.html#cb180-7"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="structural-decomposition.html#cb181-1"></a><span class="kw">plot.ts</span>(Random_Walk_diff, </span>
-<span id="cb181-2"><a href="structural-decomposition.html#cb181-2"></a>        <span class="dt">main =</span> <span class="st">&quot;Differenced Random Walk&quot;</span>, </span>
-<span id="cb181-3"><a href="structural-decomposition.html#cb181-3"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-127-2.png" width="672" /></p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="structural-decomposition.html#cb189-1"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
+<span id="cb189-2"><a href="structural-decomposition.html#cb189-2"></a></span>
+<span id="cb189-3"><a href="structural-decomposition.html#cb189-3"></a>Random_Walk_diff &lt;-<span class="st"> </span><span class="kw">diff</span>(Random_Walk)</span>
+<span id="cb189-4"><a href="structural-decomposition.html#cb189-4"></a></span>
+<span id="cb189-5"><a href="structural-decomposition.html#cb189-5"></a><span class="kw">plot.ts</span>(Random_Walk,</span>
+<span id="cb189-6"><a href="structural-decomposition.html#cb189-6"></a>        <span class="dt">main =</span> <span class="st">&quot;Random Walk&quot;</span>, </span>
+<span id="cb189-7"><a href="structural-decomposition.html#cb189-7"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="structural-decomposition.html#cb190-1"></a><span class="kw">plot.ts</span>(Random_Walk_diff, </span>
+<span id="cb190-2"><a href="structural-decomposition.html#cb190-2"></a>        <span class="dt">main =</span> <span class="st">&quot;Differenced Random Walk&quot;</span>, </span>
+<span id="cb190-3"><a href="structural-decomposition.html#cb190-3"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-126-2.png" width="672" /></p>
 <p>Detrending a time series can be important before applying some statistical techniques, for instance before calculating the correlation between two time series. Time series with a trend component can reveal spurious correlations, since correlations may exist just because two variables are trending up or down at the same time. By detrending the time series, it can be more appropriately measured if the change in one time series over time is related to the change in another time series.</p>
 <p>Detrending time series is also used when researchers consider irrelevant the trend. This is the case when the trend is considered an obvious characteristic of the process. For instance, economists can take for granted that there is an increasing trend in GDP due to inflation, and thus they may want to “clean” the data to eliminate this trivial trend. They are more interested in deviations from the growth, than in the growth that they consider a “normal” characteristic of the process.</p>
 <p>There are also statistical tests to ascertain the presence of a trend.</p>
 <p>A <em>monotonic</em> trend can be detected with the <strong>Mann–Kendall trend test</strong>. The null hypothesis is that the data come from a population with independent realizations and are identically distributed. For the two sided test, the alternative hypothesis is that the data follow a monotonic trend (read the help: <em>?mk.test</em>). The function to calculate this test is included in the package “trend”.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="structural-decomposition.html#cb182-1"></a><span class="co"># install.packages(&quot;trend&quot;)</span></span>
-<span id="cb182-2"><a href="structural-decomposition.html#cb182-2"></a><span class="kw">library</span>(trend)</span>
-<span id="cb182-3"><a href="structural-decomposition.html#cb182-3"></a><span class="kw">mk.test</span>(AirPassengers, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="structural-decomposition.html#cb191-1"></a><span class="co"># install.packages(&quot;trend&quot;)</span></span>
+<span id="cb191-2"><a href="structural-decomposition.html#cb191-2"></a><span class="kw">library</span>(trend)</span>
+<span id="cb191-3"><a href="structural-decomposition.html#cb191-3"></a><span class="kw">mk.test</span>(AirPassengers, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Mann-Kendall trend test
 ## 
@@ -536,7 +542,7 @@ Figure 7.2: Covid statistics (Google)
 <h2><span class="header-section-number">7.4</span> White Noise and Stationarity</h2>
 <p>We said that the <strong>residual</strong> part of the model should be (approximately) <strong>random</strong>, which indicates that the model explained most of the significant patterns in the data (the <em>“signal”</em>), leaving out the <em>“noise”</em>.</p>
 <p>The standard model of independent random variation in time series analysis is known as <strong>white noise</strong> (a term coined in an article published in Nature in 1922, where it was used to refer to series that contained all frequencies in equal proportions, analogous to white light). The charts below show how a white noise process looks like.</p>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-129-1.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-129-2.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-128-1.png" width="672" /><img src="bookdownproj_files/figure-html/unnamed-chunk-128-2.png" width="672" /></p>
 <p>When we introduced the concept of deterministic and stochastic trend, we said that the series showing the first type of trend are also called <strong>trend stationary</strong>, and the series showing the second type of trend are also called <strong>difference stationary</strong>. Both these names refer to the concept of <strong>stationarity</strong>.</p>
 <p>A process is <em>stationary</em> if it is homogeneous, that is, if it has no distinguished points in times or, in other words, its statistical qualities are the same for any point in time. There are more or less stringent definition of stationarity (<em>strict and weak stationarity</em>), and the most used for practical purposes is the so-called <strong>weak-stationarity</strong>. In this sense, a time series is said to be stationary if there is:</p>
 <ul>
@@ -546,10 +552,10 @@ Figure 7.2: Covid statistics (Google)
 </ul>
 <p><em>White noise is an example of stationary time series</em>. As you can see in the chart above, white noise time series is pretty regular, the mean is always the same (0) and there are no changes in variance over time: the plot looks much the same at any point in time!</p>
 <p>Also through differencing, the series can achive a stationary form. This is the case, in particular, of the series with a stochastic trend, that are also called <em>difference-stationary</em>, exactly because through differencing they become stationary.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="structural-decomposition.html#cb184-1"></a><span class="kw">plot.ts</span>(Random_Walk_diff, </span>
-<span id="cb184-2"><a href="structural-decomposition.html#cb184-2"></a>        <span class="dt">main =</span> <span class="st">&quot;Differenced Random Walk&quot;</span>, </span>
-<span id="cb184-3"><a href="structural-decomposition.html#cb184-3"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="structural-decomposition.html#cb193-1"></a><span class="kw">plot.ts</span>(Random_Walk_diff, </span>
+<span id="cb193-2"><a href="structural-decomposition.html#cb193-2"></a>        <span class="dt">main =</span> <span class="st">&quot;Differenced Random Walk&quot;</span>, </span>
+<span id="cb193-3"><a href="structural-decomposition.html#cb193-3"></a>        <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
 <p>The process through which stationarity is reached is also called <em>Pre-Whitening</em>, and it can be used as a pre-processing phase before conducting correlation and regression analysis:</p>
 <blockquote>
 <p>Once the form(s) of serial dependency that best account for the series are identified, they are removed from the series. This is called <em>prewhitening</em> and is used to produce a series that is a “white noise” process (i.e., a process that is free of serial dependency with each value statistically independent of other values in the series). Once pre-whitening is accomplished the values of that series can be correlated with, used to predict, or predicted from, the values in other contemporaneous time series (usually also pre-whitened) representing other variables of interest. By removing serial dependency, the pre-whitening process makes these analyses free of correlated errors. It also removes the possibility that a common temporal trend or pattern is a confounding explanation for the observed association between the two variable series (VanLear, <a href="https://us.sagepub.com/en-us/nam/the-sage-encyclopedia-of-communication-research-methods/book244974">“Time Series Analysis”</a>)</p>

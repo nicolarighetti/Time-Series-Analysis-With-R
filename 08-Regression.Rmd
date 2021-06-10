@@ -669,9 +669,11 @@ Statistical modeling is, usually, a recursive process that requires to fit sever
 
 To compare the models and select the most appropriate one, it is necessary to use some criteria. In the example above we have employed the AIC criterion. Other similar criteria are the AICc, and the BIC. They all can be used to find the most appropriate model, by comparing the *goodness-of-fit* of different models fitted to the same dataset. For instance, the documentation of the "auto.arima" function says that the function *"returns best ARIMA model according to either AIC, AICc or BIC value"*.
 
-*       The **AIC** criterion is the acronym for [*Akaike information criterion)*](https://en.wikipedia.org/wiki/Akaike_information_criterion). The lower the AIC value, the better the fit (see also the next paragraph). 
-*       The **AICc** criterion, is the same, but with a *correction for small sample size*. When the sample is small it can be used in place of the AIC criterion. As the sample size increases, the AICc converges to the AIC.
-*       The **BIC** criterion is the *Bayesian Information Criterion (or Schwartz's Bayesian Criterion)* and has a stronger penalty than the AIC for overparametrized models (more complex models, with several predictors).
+The **AIC** criterion is the acronym for [*Akaike information criterion)*](https://en.wikipedia.org/wiki/Akaike_information_criterion). The lower the AIC value, the better the fit (see also the next paragraph). 
+
+The **AICc** criterion, is the same, but with a *correction for small sample size*. When the sample is small it can be used in place of the AIC criterion. As the sample size increases, the AICc converges to the AIC.
+
+The **BIC** criterion is the *Bayesian Information Criterion (or Schwartz's Bayesian Criterion)* and has a stronger penalty than the AIC for overparametrized models (more complex models, with several predictors).
 
 These criteria can also be used when searching for an appropriate "dynamic" regression model, to compare several different models including different lags of the variables.
 
