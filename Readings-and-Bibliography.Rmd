@@ -1,10 +1,18 @@
 # Readings
 
-*This page will be updated as the course goes on.*
+*This page will be updated as the course goes on*
 
 Wells, C., Shah, D. V., Pevehouse, J. C., Foley, J., Lukito, J., Pelled, A., & Yang, J. (2019). [The Temporal Turn in Communication Research: Time Series Analyses Using Computational Approaches](https://ijoc.org/index.php/ijoc/article/view/10635). International Journal of Communication (19328036), 13.
-
 
 ## Bibliographical References
 
 Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://methods.sagepub.com/Book/a-survivors-guide-to-r). SAGE Publications.
+
+Liboschik, T., Fokianos, K., & Fried, R. (2017). [tscount: An R package for analysis of count time series following generalized linear models](https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf). Journal of Statistical Software, 82(1), 1-51.
+
+Zivot E., Wang J. (2003) [Unit Root Tests](https://faculty.washington.edu/ezivot/econ584/notes/unitroot.pdf). In: Modeling Financial Time Series with S-Plus®. Springer, New York, NY. https://doi.org/10.1007/978-0-387-21763-5_4
+
+## Useful resources
+
+[Cross Validated](https://stats.stackexchange.com) for statistics-related questions
+[Stackoverflow](https://stackoverflow.com/questions) for coding-related questions

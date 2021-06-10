@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-05-27" />
+<meta name="date" content="2021-06-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -224,14 +224,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a><ul>
 <li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#static-and-dynamic-models"><i class="fa fa-check"></i><b>9.1</b> Static and Dynamic Models</a></li>
 <li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-models"><i class="fa fa-check"></i><b>9.2</b> Regression models</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="regression.html"><a href="regression.html#non-autocorrelated-residuals"><i class="fa fa-check"></i><b>9.2.1</b> Non-autocorrelated residuals</a></li>
+<li class="chapter" data-level="9.2.1" data-path="regression.html"><a href="regression.html#stationarity"><i class="fa fa-check"></i><b>9.2.1</b> Stationarity</a></li>
+<li class="chapter" data-level="9.2.2" data-path="regression.html"><a href="regression.html#non-autocorrelated-residuals"><i class="fa fa-check"></i><b>9.2.2</b> Non-autocorrelated residuals</a></li>
+<li class="chapter" data-level="9.2.3" data-path="regression.html"><a href="regression.html#regression-with-arma-errors"><i class="fa fa-check"></i><b>9.2.3</b> Regression with ARMA errors</a></li>
+<li class="chapter" data-level="9.2.4" data-path="regression.html"><a href="regression.html#count-regression-models"><i class="fa fa-check"></i><b>9.2.4</b> Count regression models</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#regression-with-arima-errors"><i class="fa fa-check"></i><b>9.3</b> Regression with ARIMA errors</a></li>
+<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#model-selection-aic-aicc-bic"><i class="fa fa-check"></i><b>9.3</b> Model Selection (AIC, AICc, BIC)</a></li>
 <li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#some-examples-in-the-literature"><i class="fa fa-check"></i><b>9.4</b> Some examples in the literature</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="intervention-analysis.html"><a href="intervention-analysis.html"><i class="fa fa-check"></i><b>10</b> Intervention Analysis</a></li>
+<li class="chapter" data-level="10" data-path="intervention-analysis.html"><a href="intervention-analysis.html"><i class="fa fa-check"></i><b>10</b> Intervention Analysis</a><ul>
+<li class="chapter" data-level="10.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#structural-breaks"><i class="fa fa-check"></i><b>10.1</b> Structural breaks</a></li>
+<li class="chapter" data-level="10.2" data-path="intervention-analysis.html"><a href="intervention-analysis.html#anomaly-detection"><i class="fa fa-check"></i><b>10.2</b> Anomaly detection</a></li>
+</ul></li>
 <li class="chapter" data-level="11" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>11</b> Readings</a><ul>
 <li class="chapter" data-level="11.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>11.1</b> Bibliographical References</a></li>
+<li class="chapter" data-level="11.2" data-path="readings.html"><a href="readings.html#useful-resources"><i class="fa fa-check"></i><b>11.2</b> Useful resources</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -255,15 +262,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="intervention-analysis" class="section level1">
 <h1><span class="header-section-number">Chapter 10</span> Intervention Analysis</h1>
 <p>In this chapter we are going to see how to conduct a intervention analysis.</p>
-<p>Intervention analysis is a method introduced by <a href="https://www.jstor.org/stable/pdf/2285379.pdf">Box and Tiao (1975)</a><a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>, which provides a framework for assessing <em>the effect of an intervention on a time series</em> under study. As summarized by Box and Tiao: <em>Given a known intervention, is there evidence that change in the series of the kind expected actually occurred, and, if so, what can be said of the nature and magnitude of the change?</em>.</p>
+<p>Intervention analysis is a method introduced by <a href="https://www.jstor.org/stable/pdf/2285379.pdf">Box and Tiao (1975)</a><a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, which provides a framework for assessing <em>the effect of an intervention on a time series</em> under study. As summarized by Box and Tiao: <em>Given a known intervention, is there evidence that change in the series of the kind expected actually occurred, and, if so, what can be said of the nature and magnitude of the change?</em>.</p>
 <p>Intervention analysis is a “quasi-experimental” design and an interesting approach to test whether <em>exogenous shocks</em>, such as, for instance, the introduction of a new policy, <em>impact on a time series process in a significant way</em>, that is, <strong>by changing the mean function or trend</strong> of a time series.</p>
 <p>Interventions can have different impacts. For instance, an intervention can have an abrupt impact determining a permanent or temporary change, a sudden and short-lived change due to an event, or a more gradual yet permanent change.</p>
 <p><img src="images/intervention.png" width="694" /></p>
-<p>To conduct such an analysis, it is necessary to know, at least, the date of the intervention. Regarding the statistical approach, different approaches are possible. ARIMA modeling is a classic choice, and we can come back to it later. Instead, we start from a more complex Bayesian approach implemented in the convenient package <em>CausalImpact</em> developed and used at Google to <a href="https://www.youtube.com/watch?v=GTgZfCltMm8">estimate causal impacts in a quasi-experimental framework</a><a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>.</p>
+<p>To conduct such an analysis, it is necessary to know, at least, the date of the intervention. Regarding the statistical approach, different approaches are possible. ARIMA modeling is a classic choice, and we can come back to it later. Instead, we start from a more complex Bayesian approach implemented in the convenient package <em>CausalImpact</em> developed and used at Google to <a href="https://www.youtube.com/watch?v=GTgZfCltMm8">estimate causal impacts in a quasi-experimental framework</a><a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.</p>
 <p><img src="images/causal-impact.png" width="738" /></p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="intervention-analysis.html#cb258-1"></a><span class="co"># Install and load the package</span></span>
-<span id="cb258-2"><a href="intervention-analysis.html#cb258-2"></a><span class="co"># install.packages(&quot;CausalImpact&quot;)</span></span>
-<span id="cb258-3"><a href="intervention-analysis.html#cb258-3"></a><span class="kw">library</span>(CausalImpact)</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="intervention-analysis.html#cb293-1"></a><span class="co"># Install and load the package</span></span>
+<span id="cb293-2"><a href="intervention-analysis.html#cb293-2"></a><span class="co"># install.packages(&quot;CausalImpact&quot;)</span></span>
+<span id="cb293-3"><a href="intervention-analysis.html#cb293-3"></a><span class="kw">library</span>(CausalImpact)</span></code></pre></div>
 <pre><code>## Loading required package: bsts</code></pre>
 <pre><code>## Loading required package: BoomSpikeSlab</code></pre>
 <pre><code>## Loading required package: Boom</code></pre>
@@ -289,25 +296,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ##     SuggestBurn</code></pre>
 <p>We use the simulated dataset used by the Google tutorial on the package, creating two time series <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> of length 100, simulating an abrupt intervention at time 71 determining a permanent increment of 10 points in the <span class="math inline">\(y\)</span> series.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="intervention-analysis.html#cb271-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb271-2"><a href="intervention-analysis.html#cb271-2"></a>x1 &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.999</span>), <span class="dt">n =</span> <span class="dv">100</span>)</span>
-<span id="cb271-3"><a href="intervention-analysis.html#cb271-3"></a>y &lt;-<span class="st"> </span><span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb271-4"><a href="intervention-analysis.html#cb271-4"></a>y[<span class="dv">71</span><span class="op">:</span><span class="dv">100</span>] &lt;-<span class="st"> </span>y[<span class="dv">71</span><span class="op">:</span><span class="dv">100</span>] <span class="op">+</span><span class="st"> </span><span class="dv">10</span></span>
-<span id="cb271-5"><a href="intervention-analysis.html#cb271-5"></a>dat &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(y, x1)</span></code></pre></div>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="intervention-analysis.html#cb306-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb306-2"><a href="intervention-analysis.html#cb306-2"></a>x1 &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.999</span>), <span class="dt">n =</span> <span class="dv">100</span>)</span>
+<span id="cb306-3"><a href="intervention-analysis.html#cb306-3"></a>y &lt;-<span class="st"> </span><span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb306-4"><a href="intervention-analysis.html#cb306-4"></a>y[<span class="dv">71</span><span class="op">:</span><span class="dv">100</span>] &lt;-<span class="st"> </span>y[<span class="dv">71</span><span class="op">:</span><span class="dv">100</span>] <span class="op">+</span><span class="st"> </span><span class="dv">10</span></span>
+<span id="cb306-5"><a href="intervention-analysis.html#cb306-5"></a>dat &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(y, x1)</span></code></pre></div>
 <p>Then, it is necessary to specify the pre-intervention and post-intervention period. In the pre-intervention period no impact is expected.</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="intervention-analysis.html#cb272-1"></a>pre.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">70</span>)</span>
-<span id="cb272-2"><a href="intervention-analysis.html#cb272-2"></a>post.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">71</span>, <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="intervention-analysis.html#cb307-1"></a>pre.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">70</span>)</span>
+<span id="cb307-2"><a href="intervention-analysis.html#cb307-2"></a>post.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">71</span>, <span class="dv">100</span>)</span></code></pre></div>
 <p>The function <em>CausalImpact</em> uses the values of the original time series <span class="math inline">\(y\)</span> in the pre-intervention period, and the predictors correlated to the <span class="math inline">\(y\)</span> (in this case <span class="math inline">\(x\)</span>), to forecast the values that <span class="math inline">\(y\)</span> would have had without the intervention (<em>counterfactual</em>).</p>
 <p>To accurately forecast the <span class="math inline">\(y\)</span> values, which is necessary to obtain valid results from the analysis, it is necessary to have a proper model of the <span class="math inline">\(y\)</span> series (based on the series itself and its predictors). Then, the differences in the expected (forecasted) <span class="math inline">\(y\)</span> values without intervention, and the actual <span class="math inline">\(y\)</span> values following the intervention, are compared in order to estimate the impact of the intervention.</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="intervention-analysis.html#cb273-1"></a>impact &lt;-<span class="st"> </span><span class="kw">CausalImpact</span>(dat, pre.period, post.period)</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="intervention-analysis.html#cb308-1"></a>impact &lt;-<span class="st"> </span><span class="kw">CausalImpact</span>(dat, pre.period, post.period)</span></code></pre></div>
 <p>By using the function <em>plot</em> on the resulting model, three plots are visualized:</p>
 <blockquote>
 <p>The first panel shows the data and a counterfactual prediction for the post-treatment period. The second panel shows the difference between observed data and counterfactual predictions. This is the pointwise causal effect, as estimated by the model. The third panel adds up the pointwise contributions from the second panel, resulting in a plot of the cumulative effect of the intervention. (…) the above inferences depend critically on the assumption that the covariates were not themselves affected by the intervention. The model also assumes that the relationship between covariates and treated time series, as established during the pre-period, remains stable throughout the post-period.</p>
 </blockquote>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="intervention-analysis.html#cb274-1"></a><span class="kw">plot</span>(impact)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-185-1.png" width="672" /></p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="intervention-analysis.html#cb309-1"></a><span class="kw">plot</span>(impact)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-211-1.png" width="672" /></p>
 <p>Besides plotting the results, it is possible to create a summary of the model, and by adding the argument “report” inside the function <em>summary</em>, a convenient explanations of the results is printed.</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="intervention-analysis.html#cb275-1"></a><span class="kw">summary</span>(impact)</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="intervention-analysis.html#cb310-1"></a><span class="kw">summary</span>(impact)</span></code></pre></div>
 <pre><code>## Posterior inference {CausalImpact}
 ## 
 ##                          Average        Cumulative  
@@ -325,7 +332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Posterior prob. of a causal effect:  99.8993%
 ## 
 ## For more details, type: summary(impact, &quot;report&quot;)</code></pre>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="intervention-analysis.html#cb277-1"></a><span class="kw">summary</span>(impact, <span class="st">&quot;report&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="intervention-analysis.html#cb312-1"></a><span class="kw">summary</span>(impact, <span class="st">&quot;report&quot;</span>)</span></code></pre></div>
 <pre><code>## Analysis report {CausalImpact}
 ## 
 ## 
@@ -342,13 +349,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <blockquote>
 <p>Here are a few ways of getting started. First of all, it is critical to reason why the covariates that are included in the model (this was x1 in the example) were not themselves affected by the intervention. Sometimes it helps to plot all covariates and do a visual sanity check. Next, it is a good idea to examine how well the outcome data y can be predicted before the beginning of the intervention. This can be done by running CausalImpact() on an imaginary intervention. Then check how well the model predicted the data following this imaginary intervention. We would expect not to find a significant effect, i.e., counterfactual estimates and actual data should agree reasonably closely. Finally, when presenting or writing up results, be sure to list the above assumptions explicitly, including the priors in model.args, and discuss them with your audience.</p>
 </blockquote>
+<div id="structural-breaks" class="section level2">
+<h2><span class="header-section-number">10.1</span> Structural breaks</h2>
+</div>
+<div id="anomaly-detection" class="section level2">
+<h2><span class="header-section-number">10.2</span> Anomaly detection</h2>
+<p><a href="https://business-science.github.io/anomalize/" class="uri">https://business-science.github.io/anomalize/</a>
+<a href="https://github.com/twitter/AnomalyDetection" class="uri">https://github.com/twitter/AnomalyDetection</a>
+<a href="https://blog.twitter.com/engineering/en_us/a/2015/introducing-practical-and-robust-anomaly-detection-in-a-time-series.html" class="uri">https://blog.twitter.com/engineering/en_us/a/2015/introducing-practical-and-robust-anomaly-detection-in-a-time-series.html</a></p>
 
+</div>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="7">
-<li id="fn7"><p>Box, G. E., &amp; Tiao, G. C. (1975). Intervention analysis with applications to economic and environmental problems. Journal of the American Statistical association, 70(349), 70-79<a href="intervention-analysis.html#fnref7" class="footnote-back">↩︎</a></p></li>
-<li id="fn8"><p>CausalImpact 1.2.1, Brodersen et al., Annals of Applied Statistics (2015). <a href="http://google.github.io/CausalImpact/" class="uri">http://google.github.io/CausalImpact/</a><a href="intervention-analysis.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<ol start="8">
+<li id="fn8"><p>Box, G. E., &amp; Tiao, G. C. (1975). Intervention analysis with applications to economic and environmental problems. Journal of the American Statistical association, 70(349), 70-79<a href="intervention-analysis.html#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>CausalImpact 1.2.1, Brodersen et al., Annals of Applied Statistics (2015). <a href="http://google.github.io/CausalImpact/" class="uri">http://google.github.io/CausalImpact/</a><a href="intervention-analysis.html#fnref9" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

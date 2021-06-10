@@ -48,11 +48,15 @@ Despite the differences between these two analytic perspectives, the term *dynam
 
 Except for the possible use of lagged regressors, which are typical of time series, the above described statistical models are standard regression models, commonly used with cross-sectional data. 
 
-Standard linear regression models can sometimes work well enough with time series data, **if specific conditions are met**. Besides standard assumptions of linear regression^[1) Linearity: The relationship between X and Y must be linear; 2) Independence of errors: There is not a relationship between the residuals and the Y variable; 3) Normality of errors: The residuals must be approximately normally distributed; 4) Equal variances: The variance of the residuals is the same for all values of X], a careful analysis should be done in order to ascertain that **residuals are not autocorrelated**, since this can cause problems in the estimated model.
+Standard linear regression models can sometimes work well enough with time series data, **if specific conditions are met**. Besides standard assumptions of linear regression^[1) Linearity: The relationship between X and Y must be linear; 2) Independence of errors: There is not a relationship between the residuals and the Y variable; 3) Normality of errors: The residuals must be approximately normally distributed; 4) Equal variances: The variance of the residuals is the same for all values of X], a careful analysis should be done in order to ascertain that **residuals are not autocorrelated**, since this can cause problems in the estimated model. 
 
-Even before that, it is important that the series are **stationary**, in order to avoid possible *spurious correlations*. Since time series can be nonstationary due to different reasons, different strategies can be employed to *stationarize* the data.
+In this chapter we'll see how to deal with autocorrelated residuals. However, even before that, it is important that the series are **stationary**, in order to avoid possible *spurious correlations*. 
 
-For instance, a nonstationary series can be a series with **unequal variance** over time. A common way to try to fix the problem is applying the log-transformation.
+### Stationarity
+
+We already discussed stationarity in the previous chapters. Here we can observe that time series can be nonstationary due to different reasons, thus different strategies can be employed to *stationarize* the data.
+
+For instance, a nonstationary series can be a series with **unequal variance** over time. A common way to try to fix the problem is by applying a log-transformation.
 
 ```{r}
 library(xts)
@@ -90,7 +94,7 @@ plot.ts(AirPassengers_seasonally_adjusted, col = "blue",
         ylab = "Seasonally-adjusted values")
 ```
 
-An important reason for nonstationarity is also the presence of a trend in the data. There are **stochastic** and **deterministic trends**. Deterministic trends are a fixed function of time, while stochastic trends change in an unpredictable way. 
+An important reason for nonstationarity is also the presence of a trend in the data. There are **stochastic trends** and **deterministic trends**. Deterministic trends are a fixed function of time, while stochastic trends change in an unpredictable way. 
 
 Series with a deterministic trend are also called *trend stationary* because they can be stationary around a deterministic trend, and it could be possible to achieve stationarity by removing the time trend. In trend stationary processes, the shocks to the process are transitory and the process is *mean reverting*. 
 
@@ -111,7 +115,7 @@ plot.ts(AirPassengers_detrended, col = "blue",
         ylab = "Detrended values")
 ```
 
-Otherwise, in regression analysis, it is also commonly add a dummy variable consisting of a value that increases with time, to account for a linear deterministic time trend. This time-count variable will remove the deterministic trend from the dependent variable, allowing the other predictors to explain the remaining variance.
+Otherwise, in regression analysis, it is more common to add a dummy variable consisting of a value that increases with time, to account for a linear deterministic time trend. This time-count variable will remove the deterministic trend from the dependent variable, allowing the other predictors to explain the remaining variance.
 
 ```{r}
 # create a simulate series
@@ -149,26 +153,158 @@ plot.ts(Random_Walk_diff,
         col = "blue", ylab="")
 ```
 
-There are *tests for detecting different types of trends*. We will learn more about them in the next lecture.
+#### Tests for Stochastic and Deterministic Trend
+
+The correct detrending method depends on the type of trend. First differencing is appropriate for intergrated *I(1)* time series and time-trend regression is appropriate for trend stationary *I(0)* time series.
+
+In case of deterministic trend, differencing is the incorrect solution, while detrending the series in function of time (regressing the series on a variable such as time and saving the residuals) is the correct solution. Differencing when none is required (*over-differencing*) may induce dynamics into the series that are not part of the data-generating process (for instance, it could create a first-order moving average process).
+
+Specific statistical tests have been developed to distinguish between the two types of trends. In particular, *unit root tests* and *stationary test* can be used to determine if trending data should be first differenced or regressed on deterministic functions of time to render the data stationary.
+
+Considering a simple model like the following, where $Td$ is a deterministic linear trend and $z_t$ is an autoregressive process of order 1 *AR(1)*. The difference between a process with stochastic and deterministic trend can be traced back to the parameter $|\phi|$: When $|\phi| = 1$, then $z_t$ is a *stochastic trend* and $y_t$ is an integrated process *I(1)* with *drift* (the so-called "drift" refers to the presence of a constant term, in this case $\kappa$). When $\phi < 1$, the process is not integrated (*I(0)*) and $y_t$ exhibits a *deterministic trend*^[Reference of this part is Zivot E., Wang J. (2003), Unit Root Tests, in *Modeling Financial Time Series with S-Plus®*. Springer, New York]: 
+
+$$
+\begin{aligned} 
+& y_t = Td_t + z_t \\
+& Td_t = \kappa + \delta_t \\
+& z_t = \phi z_{t-1} + \epsilon_t, \ \epsilon_t \sim N(0, \sigma^2)
+\end{aligned} 
+$$
+Let's simulate and visualize the above equation ($y_t = \kappa + \delta_t + \phi z_{t-1} + \epsilon_t$):
+
+```{r}
+set.seed(123)
+t <- 1:500 
+kappa <- 5 # costant term (or "drift")
+delta <- 0.1 
+epsilon <- function(n){ # function for the error term
+    rnorm(n = 500, mean = 0, sd = 0.8)
+    } 
+
+y_I1 <- kappa + (delta * t) + arima.sim(n=499, list(order = c(0,1,0)), 
+                                        rand.gen = epsilon)
+y_I0 <- kappa + (delta * t) + arima.sim(n=500, list(order = c(1,0,0), ar = 0.8),
+                                        rand.gen = epsilon)
+
+ts_y <- ts.intersect(y_I1, y_I0)
+
+plot.ts(ts_y, plot.type = "single", 
+        lty=c(1,3), col=c("red", "blue"),
+        main = "Stochastic w/ drift (red) Deterministic Trend (blue)",
+        ylab="")
+```
+
+**Unit root tests** are aimed at testing the null hypothesis that $|\phi| = 1$ (*difference stationary*), against the alternative hypothesis that $|\phi| < 1$ (*trend stationary*).
+
+**Stationarity tests** take the null hypothesis that $y_t$ is trend stationary, and are based on testing for a moving average element in $\Delta z_t$ ($\Delta$ represents the operation of differencing).
+
+$$
+\begin{aligned} 
+& Original \ & & First \ difference  \\
+
+& y_t = Td_t + z_t \ & & \Delta y_t = \Delta Td_t + \Delta z_t  \\
+& \ Td_t = \kappa + \delta_t \ & & \Delta Td_t = \Delta \kappa + \Delta \delta_t = \delta \\
+& z_t = \phi z_{t-1} + \epsilon_t, \ \epsilon_t \sim N(0, \sigma^2) & & \Delta z_t = \phi \Delta z_{t-1} + \Delta \epsilon_t = \phi \Delta z_{t-1} + \epsilon_t - \epsilon_{t-1}
+\end{aligned} 
+$$
+$\Delta z_t$ can be also written as:
+
+$$
+\Delta \epsilon_t = \phi \Delta z_{t-1} + \epsilon_t + \theta \epsilon_{t-1}
+$$
+
+with $\theta = -1$. That is, when the series is trend stationary, taking the first difference results in overdifferencing and in the creation of a moving average (MA) term $\theta \epsilon_{t-1}$. The creation of a moving average element, which is missing in the original series, is also why differencing a trend-stationary process is problematic.
+
+##### KPSS Test
+
+A test to verify if the series is *trend stationary* is the **Kwiatkowski-Phillips-Schmidt-Shin (KPSS)** test. It is one of the most commonly used stationarity test, and is implemented in the library *tseries* (function *kpss.test*). KPSS test the *null hypothesis* that the series is *trend stationary*.
+
+In this case, the *p-value* of the test is higher than 0.05, so the test cannot reject the null hypothesis of trend stationarity. That is to say, there are some evidence of trend-stationary process.
+
+```{r message=FALSE, warning=FALSE}
+# install.packages("tseries") # install the library if not yet installed
+library(tseries)
+kpss.test(y_I0, null = "Trend")
+```
+
+By changing the null from "Trend" to "Level", the KPSS test can also test the *null hypothesis* of **level stationarity**. A level stationary time series is a *time series with a non-zero but constant mean*, that is to say, without trend.
+
+```{r message=FALSE, warning=FALSE}
+kpss.test(y_I0, null = "Level")
+```
+
+In this case, the KPSS test for level stationarity reject the null hypothesis, that is to say, the process seems not to be level stationary. Considered together, the KPSS tests suggest that the series has a deterministic trend.
+
+If we use the KPSS test to test if the *stochastic trend* series we created above is trend or level stationary, the test *rejects* the null hypothesis (i.e.: reject the hypothesis of both a trend and level stationary process).
+
+```{r message=FALSE, warning=FALSE}
+kpss.test(y_I1, null = "Trend")
+```
+
+```{r message=FALSE, warning=FALSE}
+kpss.test(y_I1, null = "Level")
+```
+
+When a series has a stochastic trend, we can achieve stationarity through differencing. Indeed, the KPSS test does not reject the null hypothesis of level stationarity when applied to the the stochastic-trend series, once differenced.
+
+```{r message=FALSE, warning=FALSE}
+kpss.test(diff(y_I1), null = "Level")
+```
+
+In the above cases the KPSS results are correct, since we have simulated and tested a time series with a deterministic and stochastic trend. However, these kind of tests can also be wrong. For instance, it is possible they reject the null hypothesis when it is actually true (["Type I error"](https://en.wikipedia.org/wiki/Type_I_and_type_II_errors)). For this reason, it can be useful to use more than one test. For instance, the KPSS can be used along with the Augmented Dickey-Fuller Test (ADF), a popular *unit root test*.
+
+##### Augmented Dickey-Fuller (ADF) Test
+
+The Augmented Dickey-Fuller Test (ADF) is a popular *unit root test*. An R implementation of the test can be found in the library *tseries* (function *adf.test*). The null hypothesis is that the series has a unit root, and the alternative hypothesis is that the series is stationary or trend stationary.
+
+If we use the ADF test on the integrated series (which has a unit root), the test fails to reject the null hypothesis of unit root, which is correct.
+
+```{r message=FALSE, warning=FALSE}
+adf.test(y_I1)
+```
+
+If we use the ADF test on the trend-stationary series (without unit root), the test reject the null hypothesis of unit root, which is correct.
+
+```{r message=FALSE, warning=FALSE}
+adf.test(y_I0)
+```
+
+If we use the ADF test on the integrated series, after having transformed through differencing, the test reject the null hypothesis of unit root, which is correct.
+
+```{r message=FALSE, warning=FALSE}
+adf.test(diff(y_I1))
+```
+
+##### Phillips-Perron Test
+
+Another *unit root test* is the **Phillips-Perron** test. It differs from the ADF test in some aspects (how it deals with serial correlation and heteroskedasticity in the errors). Also this test is implemented in the library *tseries* (funtion *pp.test*). Results of the test are similar to those of the ADF test:
+
+```{r message=FALSE, warning=FALSE}
+# series with deterministic trend
+pp.test(y_I0)
+
+# series with unit roots
+pp.test(y_I1)
+
+# series with unit roots, differenced
+pp.test(diff(y_I1))
+```
+
+In case of uncertainty, more than one test can be used.
+
 
 ### Non-autocorrelated residuals
 
 We try to fit a linear regression model. First, we create two series $x$ and $y$, with $x$ correlated with $y$ at lags $x_{t-3}$ and $x_{t-4}$.
 
-```{r}
-# simulated data 
-# the x series is correlated at lag 3 and 4
+```{r message=FALSE, warning=FALSE}
+# simulated data of x series correlated to y at lag 3 and 4
 set.seed(999)
 x_series <- arima.sim(n = 200, list(order = c(1,0,0), ar = 0.7, sd=1))
-z <- ts.intersect(x_series, stats::lag(x_series, -3), stats::lag(x_series, -4)) 
-y_series <- 15 + 0.8*z[,2] + 1.5*z[,3] + rnorm(196,0,1)
+z <- ts.intersect(stats::lag(x_series, -3), stats::lag(x_series, -4)) 
+y_series <- 15 + 0.8*z[,1] + 1.5*z[,2] + rnorm(196,0,1)
 
-xLagged <- cbind(
-    xLag0 = x_series,
-    xLag3 = stats::lag(x_series,-3),
-    xLag4 = stats::lag(x_series,-4))
-
-xy_series <- ts.union(y_series, xLagged)
+xy_series <- ts.intersect(y_series, z)
 ```
 
 The *real* model (in this case we know it because we created it through the above simulation), is as follows:
@@ -177,13 +313,15 @@ $$
 y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 \epsilon \sim N(0, 1)
 $$
-To fit a linear regression, we use the function **lm** (it's in base R, no additional packages are necessary).
+#### lm
+
+To fit a linear regression, we can use the function **lm** (the standard funtion to perform linear regression analysis in base R, no additional packages are necessary).
 
 ```{r}
-lm1 <- lm(xy_series[,1] ~ xy_series[,3:4])
+lm1 <- lm(xy_series[,1] ~ xy_series[,2] + xy_series[,3])
 ```
 
-The function **summary** is used to print the summary of the model, which includes the estimates (the "coefficients" of the variables) and other important information.
+The function **summary** prints the summary of the model, which includes the estimates (the "coefficients" of the variables), the standard errors, the statistical significance of the variables, and other information.
 
 ```{r}
 summary(lm1)
@@ -207,8 +345,8 @@ If we look at the model summary printed above, we can see that the estimated mod
 
 $$
 \begin{equation} 
-y_t = 14.96732 + 0.86046x_{t-3} + 1.41678x_{t-4} + \epsilon_t \\
-\epsilon \sim N(0, 1.007^2)
+y_t = 14.96869 + 0.85549x_{t-3} + 1.42126x_{t-4} + \epsilon_t \\
+\epsilon \sim N(0, 1.002^2)
 \end{equation} 
 $$
 The estimated model is also close to the "true" model:
@@ -217,9 +355,33 @@ $$
 y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 \epsilon \sim N(0, 1)
 $$
-### Autocorrelated residuals
+#### dynml 
 
-While in the previous case a standard linear model works well, *often the residuals of times series regressions are autocorrelated*, and a linear regression model can be suboptimal or even wrong. For instance, let's create other two time series that are, as the previous ones, cross-correlated at lag 3 and 4, but with a bit more complicated structure.
+Instead of *lm*, the package **dynml** and the function with the same name (*dynml*) can be used to fit a dynamic regression models in R. One of the main advantages of this package is that it allows users to fit time series linear regression models without calculating the lagged values by hand. To add a lagged variable, it can simply be used the *L* (*Lag*) function. The *L* function takes as arguments the name of the variable and the lag length. For instance *L(x, 4)* corresponds to $x_{t-4}$.
+
+```{r message=FALSE, warning=FALSE}
+# install.packages("dynml") # install the package if necessary
+library(dynlm)
+
+dynlm.fit <- dynlm(y_series ~ L(x_series, 3) + L(x_series, 4))
+summary(dynlm.fit)
+```
+
+The *dynlm* function also permits to include trend (function *trend*) and seasonal (function *season*) components in the model (it is also possible to change the reference value for the seasonal period, see *?dynlm*). Just to make an example of the code to perform a dynamic regression with *dynlm*:
+
+```{r message=FALSE, warning=FALSE}
+set.seed(123)
+data("AirPassengers")
+ap <- log(AirPassengers)
+ap_x <- 2 * stats::lag(ap, -3) + rnorm(length(ap), 0, 0.2)
+
+ap_fm <- dynlm(ap ~ trend(ap) + season(ap) + L(ap_x, 3))
+summary(ap_fm)
+```
+
+### Regression with ARMA errors
+
+While in the previous case a standard linear model works well, it is often the case that *residuals of times series regressions are autocorrelated*, and a linear regression model can be suboptimal or even wrong. For instance, let's create other two time series that are, as the previous ones, cross-correlated at lag 3 and 4, but with a bit more complicated structure.
 
 ```{r}
 # another set of simulated data 
@@ -230,13 +392,6 @@ z2 <- ts.intersect(x2_series, stats::lag(x2_series, -3), stats::lag(x2_series, -
 y2_series <- 15 + 0.8*z2[,2] + 1.5*z2[,3] 
 y2_errors <- arima.sim(n = 196, list(order = c(1,0,1), ar = 0.6, ma = 0.6), sd=1)
 y2_series <- y2_series + y2_errors
-
-x2Lagged <- cbind(
-    xLag0 = x2_series,
-    xLag3 = stats::lag(x2_series,-3),
-    xLag4 = stats::lag(x2_series,-4))
-
-xy2_series <- ts.union(y2_series, x2Lagged)
 
 # check the cross-correlations at lag 3 and 4
 library(TSA)
@@ -252,10 +407,23 @@ $$
 & \epsilon \sim N(0, 1)
 \end{aligned} 
 $$
+It is possible to calculate the regression using the *lm* function, calculating the lagged variables by hand, or to use the *dynml* library and function.
 
 ```{r}
+# Calculate the lagged variables by hand and apply the lm function...
+x2Lagged <- cbind(
+    xLag0 = x2_series,
+    xLag3 = stats::lag(x2_series,-3),
+    xLag4 = stats::lag(x2_series,-4))
+
+xy2_series <- ts.union(y2_series, x2Lagged)
+
 lm2 <- lm(xy2_series[,1] ~ xy2_series[,3:4])
 summary(lm2) # AIC: 821.45
+
+# ... or use the dynml function
+dynlm.fit2 <- dynlm(y2_series ~ L(x2_series, 3) + L(x2_series, 4))
+summary(dynlm.fit2)
 ```
 
 The estimated model is the following:
@@ -270,6 +438,7 @@ The original series can also be visualized with the fitted values (the values re
 
 ```{r}
 lm2d <- ts.intersect(na.omit(xy2_series[,1]), lm2$fitted.values)
+
 plot.ts(lm2d, plot.type = "single", col=c("orange","blue"), 
         lty=c(1,4), lwd=c(1,1),
         main = "'Classic' Linear Model - Original (orange) and Fitted series (blue)") 
@@ -284,8 +453,6 @@ pacf(lm2$residuals)
 
 In this case, it's better to take into account the residuals' autocorrelation by using a regression model capable to handle autocorrelated time series structures.
 
-## Regression with ARIMA errors
-
 In the previous chapter we said that ARIMA models are a special type of regression model, in which the dependent variable is the time series itself, and the independent variables are all lags of the time series. This model is capable to take into account the *autocorrelated* structure of time series. 
 
 ARIMA is a modeling technique that can be applied to a single time series, but it can be extended to include additional, **exogenous variables**. The ARIMA model including exogenous regressors (i.e.: other time series besides the lagged dependent variable) is like a multiple regression models for time series. In particular, it can be considered a regression model capable to control for autocorrelation in residuals.
@@ -298,7 +465,7 @@ arima1 <- auto.arima(xy2_series[,1], xreg = xy2_series[,3:4])
 arima1
 ```
 
-The resulting model seems to be more appropriate than the previous one, fitted by using just a "classic" linear regression. This is clear also by comparing the two models through the [**AIC criterium (Akaike information criterion)**](https://en.wikipedia.org/wiki/Akaike_information_criterion). The AIC value is used to compare the *goodness-of-fit* of different models fitted to the same dataset. The lower the AIC value, the better the fit. 
+The resulting model seems to be more appropriate than the previous one, fitted by using just a "classic" linear regression. This is clear also by comparing the two models through the [**AIC criterion (Akaike information criterion)**](https://en.wikipedia.org/wiki/Akaike_information_criterion). The AIC value is used to compare the *goodness-of-fit* of different models fitted to the same dataset. The lower the AIC value, the better the fit (see also the next paragraph). 
 
 The auto.arima function prints the AIC value by default, while this value is not given with the *lm* function. To get it, we need to use the **AIC** function.
 
@@ -337,6 +504,183 @@ par(mfrow=c(1,2))
 plot(na.omit(xy2_series[,1]), lm2$fitted.values, main = "LM", xlab="Original", ylab="Fitted")
 plot(na.omit(xy2_series[,1]), arima1$fitted, main = "ARIMA regression model", xlab="Original", ylab="Fitted")
 ```
+
+
+### Count regression models
+
+The models described above are mostly used with **continuous** variables (expressed as *numeric* or *double* in the R data format). However, it is often the case that time series are composed of integer values, or **count data** (expressed as *integer*). 
+
+Sometimes, the above mentioned methods work well also with this type of data (for instance, when the counts are large). Other times, time series model developed for count data can be a better choice (for instance, when the series include mostly small integer values).
+
+Two of the most common statistical models to deal with count data are based on the [**Poisson**](https://en.wikipedia.org/wiki/Poisson_distribution) and the [**Negative Binomial**](https://en.wikipedia.org/wiki/Negative_binomial_distribution) distributions. These probability distributions are the ones that are usually employed to model count data.
+
+There are a few libraries to fit count time series regression models in R. We take into consideration **tscount**, and its function *tsglm*.
+
+```{r}
+# install.packages("tscount")
+library(tscount)
+```
+
+We consider, as an example of the *tscount* function to fit count time series regression models, the dataset "Seatbelts" (monthly number of killed drivers of light goods vehicles in Great Britain between January 1969 and December 1984), following the [paper](https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf) that describes the *tscount* library.
+
+The authors of the package write in the [paper (par. 7.2)](https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf) describing the library:
+
+>This time series is part of a dataset which was first considered by Harvey and Durbin (1986) for studying the effect of compulsory wearing of seatbelts introduced on 31 January 1983. The dataset, including additional covariates, is available in R in the object Seatbelts. In their paper Harvey and Durbin (1986) analyze the numbers of casualties for drivers and passengers of cars, which are **so large** that they can be treated with **methods for continuous-valued data**. The monthly number of killed drivers of vans analyzed here is **much smaller** (its *minimum is 2 and its maximum 17*) and **therefore methods for count data are to be preferred**.
+
+```{r}
+data("Seatbelts")
+
+timeseries <- Seatbelts[, "VanKilled"]
+
+regressors <- cbind(PetrolPrice = Seatbelts[, c("PetrolPrice")], 
+                    linearTrend = seq(along = timeseries))
+
+timeseries_until1981 <- window(timeseries, end = c(1981, 12))
+regressors_until1981 <- window(regressors, end = c(1981, 12))
+
+```
+
+We are going to fit a model aimed at capturing a first order autoregressive *AR(1)* term and a yearly *seasonality* by a 12th order autoregressive term. 
+
+```{r}
+par(mfrow=c(2,2))
+plot.ts(timeseries, main="")
+hist(timeseries, main="")
+acf(timeseries, main="")
+pacf(timeseries, main="")
+```
+The function *tsglm* allows users to declare the autoregressive and seasonal autoregressive terms in a convenient way (in the following part of the function: *model = list(past_obs = c(1, 12))*).
+
+```{r}
+poisson_fit <- tsglm(timeseries_until1981,
+                     model = list(past_obs = c(1, 12)), 
+                     xreg = regressors_until1981,
+                     distr = "poisson", link = "log")
+```
+
+It is possible to check the residuals with the usual plots.
+
+```{r}
+par(mfrow=c(2,2))
+
+plot(poisson_fit$residuals, main="")
+hist(poisson_fit$residuals, main="")
+acf(poisson_fit$residuals, main="")
+pacf(poisson_fit$residuals, main="")
+```
+To function *summary* can be used to get the parameter estimates for the model (in this case the function can also emply a parametric bootstrap procedure (*B*) to obtain standard errors and confidence intervals of the regression parameters. The authors use *B=500* in the original paper, since in their experience this value yields stable results. Higher B values can be more precise but require time to be calculated).
+
+```{r}
+summary(poisson_fit)
+# summary(poisson_fit, B=500) # to use the bootstrap procedure
+```
+
+The model is as follows:
+
+$$
+log(\lambda_t) = 1.83 + 0.09Y_{t-1} + 0.15Y_{t-12} + 0.83X_t - 0.003t
+$$
+
+In the above equation notice that, the Poisson regression, models the logarithm of the *Y* values at times *t* (expressed as $log(\lambda_t)$). 
+
+Another example (using the dataset you can download [here](https://drive.google.com/file/d/1eIOERBLCUCaap3WCoM5QT6I0iTW-Hqwa/view?usp=sharing)):
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+gtrend_fakenews_qanon <- read_csv("data/gtrend_fakenews_qanon.csv",
+                                  col_types = cols(date = col_date(format = "%Y-%m"),
+                                                   fake_news = col_integer(), 
+                                                   qanon = col_integer()))
+
+# head(gtrend_fakenews_qanon$date,1) # 2015-01-01
+# tail(gtrend_fakenews_qanon$date,1) # 2020-12-01
+
+fake_news <- ts(gtrend_fakenews_qanon$fake_news, 
+                start = c(2015,1), end = c(2020,12), frequency = 12)
+
+qanon <- ts(gtrend_fakenews_qanon$qanon, 
+            start = c(2015,1), end = c(2020,12), frequency = 12)
+```
+
+```{r}
+layout(matrix(c(1,1,2,3,4,5), 2,3, byrow=T))
+plot.ts(qanon, main="")
+hist(qanon, main="")
+acf(qanon, 48, main="")
+pacf(qanon, 48, main="")
+qanon_fake_ccf <- prewhiten(fake_news, qanon, main="")
+qanon_fake_ccf$ccf
+```
+```{r}
+reg <- cbind(fake_news_lag4 = stats::lag(fake_news, -4),
+             fake_news_lag5 = stats::lag(fake_news, -5),
+             fake_news_lag6 = stats::lag(fake_news, -6))
+
+# NA values derives from the application of the "lag" function
+# and have to be removed, since the regression function cannot
+# work properly with them
+reg <- na.omit(reg)
+
+# start(reg) # 2015, 6
+# end(reg) # 2021, 4
+
+reg <-  window(reg, start = c(2015, 7), end = c(2020, 12))
+qanon <- window(qanon, start = c(2015, 7), end = c(2020, 12))
+```
+
+```{r}
+poisson_gtrend_fit <- tsglm(qanon,
+                            model = list(past_obs = 1), 
+                            xreg = reg,
+                            distr = "poisson", link = "log")
+```
+
+
+```{r}
+layout(matrix(c(1,1,2,3,4,5), 3,2, byrow=T))
+
+plot(poisson_gtrend_fit$residuals, main="")
+hist(poisson_gtrend_fit$residuals, main="")
+acf(poisson_gtrend_fit$residuals, main="")
+pacf(poisson_gtrend_fit$residuals, main="")
+
+plot(as.vector(poisson_gtrend_fit$response), 
+     as.vector(poisson_gtrend_fit$fitted.values),
+     xlab="response", ylab="fitted")
+```
+Besides checking the residuals, it is possible to plot the **PIT histogram**, provided by the function **pit** in *tscount*:
+>A PIT histogram is a tool for evaluating the statistical consistency between the probabilistic forecast and the observation. The predictive distributions of the observations are compared with the actual observations. If the predictive distribution is ideal the result should be a flat PIT histogram with no bin having an extraordinary high or low level. For more information about PIT histograms see the references listed below.
+
+```{r}
+pit(poisson_gtrend_fit, ylim = c(0, 1.5), main = "PIT Poisson") 
+```
+In the library are included other diagnostic tools and metrics that can help choosing between poisson and negative binomial models (see the [paper](https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf) for further information).
+
+The function *summary* prints the coefficients of the model and their confidence interval.
+
+```{r}
+summary(poisson_gtrend_fit)
+```
+
+
+## Model Selection (AIC, AICc, BIC)
+
+Statistical modeling is, usually, a recursive process that requires to fit several different models and, eventually, to select the most appropriate one. For instance, the Box and Jenkins approach employed to find an appropriate ARIMA model for a time series (see the previous chapter), requires the fitting of multiple models to find the most suitable one based on the data. Similarly, the "auto.arima" function in the library *forecast*, that automatizes the search for an appropriate ARIMA model, conducts a search over possible model. 
+
+To compare the models and select the most appropriate one, it is necessary to use some criteria. In the example above we have employed the AIC criterion. Other similar criteria are the AICc, and the BIC. They all can be used to find the most appropriate model, by comparing the *goodness-of-fit* of different models fitted to the same dataset. For instance, the documentation of the "auto.arima" function says that the function *"returns best ARIMA model according to either AIC, AICc or BIC value"*.
+
+*       The **AIC** criterion is the acronym for [*Akaike information criterion)*](https://en.wikipedia.org/wiki/Akaike_information_criterion). The lower the AIC value, the better the fit (see also the next paragraph). 
+*       The **AICc** criterion, is the same, but with a *correction for small sample size*. When the sample is small it can be used in place of the AIC criterion. As the sample size increases, the AICc converges to the AIC.
+*       The **BIC** criterion is the *Bayesian Information Criterion (or Schwartz's Bayesian Criterion)* and has a stronger penalty than the AIC for overparametrized models (more complex models, with several predictors).
+
+These criteria can also be used when searching for an appropriate "dynamic" regression model, to compare several different models including different lags of the variables.
+
+When comparing models by using these criteria, it is important that the models are fitted to **the same dataset**, otherwise the results are not comparable.
+
+Besides these criteria, there are also other strategies for [model selection](https://en.wikipedia.org/wiki/Model_selection).
+
+
+
 
 ## Some examples in the literature
 
