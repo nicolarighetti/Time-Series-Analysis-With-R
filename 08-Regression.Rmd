@@ -675,7 +675,7 @@ The **AICc** criterion, is the same, but with a *correction for small sample siz
 
 The **BIC** criterion is the *Bayesian Information Criterion (or Schwartz's Bayesian Criterion)* and has a stronger penalty than the AIC for overparametrized models (more complex models, with several predictors).
 
-These criteria can also be used when searching for an appropriate "dynamic" regression model, to compare several different models including different lags of the variables.
+These criteria can also be used when searching for an appropriate regression model, to compare several different models including different lags of the variables.
 
 When comparing models by using these criteria, it is important that the models are fitted to **the same dataset**, otherwise the results are not comparable.
 
