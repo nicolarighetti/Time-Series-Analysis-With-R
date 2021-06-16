@@ -1,7 +1,5 @@
 # Intervention Analysis
 
-https://slides.com/tonyg/intervention-analysis/fullscreen#/5
-
 In this chapter we are going to learn about *intervention analysis* (sometimes also called *interrupted time-series analysis*) and to see how to conduct a intervention analysis.
 
 **Intervention analysis** is typically conducted with the Box & Jenkins ARIMA framework and traditionally uses a method introduced by [Box and Tiao (1975)](https://www.jstor.org/stable/pdf/2285379.pdf)^[Box, G. E., & Tiao, G. C. (1975). Intervention analysis with applications to economic and environmental problems. Journal of the American Statistical association, 70(349), 70-79], who provided a framework for assessing *the effect of an intervention on a time series* under study.
