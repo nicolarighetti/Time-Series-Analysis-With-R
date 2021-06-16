@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-06-10" />
+<meta name="date" content="2021-06-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -233,12 +233,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#some-examples-in-the-literature"><i class="fa fa-check"></i><b>9.4</b> Some examples in the literature</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="intervention-analysis.html"><a href="intervention-analysis.html"><i class="fa fa-check"></i><b>10</b> Intervention Analysis</a><ul>
-<li class="chapter" data-level="10.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#structural-breaks"><i class="fa fa-check"></i><b>10.1</b> Structural breaks</a></li>
-<li class="chapter" data-level="10.2" data-path="intervention-analysis.html"><a href="intervention-analysis.html#anomaly-detection"><i class="fa fa-check"></i><b>10.2</b> Anomaly detection</a></li>
+<li class="chapter" data-level="10.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#types-of-intervention"><i class="fa fa-check"></i><b>10.1</b> Types of intervention</a></li>
+<li class="chapter" data-level="10.2" data-path="intervention-analysis.html"><a href="intervention-analysis.html#intervention-analysis-with-arima"><i class="fa fa-check"></i><b>10.2</b> Intervention analysis with ARIMA</a></li>
+<li class="chapter" data-level="10.3" data-path="intervention-analysis.html"><a href="intervention-analysis.html#causalimpact"><i class="fa fa-check"></i><b>10.3</b> CausalImpact</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="readings.html"><a href="readings.html"><i class="fa fa-check"></i><b>11</b> Readings</a><ul>
-<li class="chapter" data-level="11.1" data-path="readings.html"><a href="readings.html#bibliographical-references"><i class="fa fa-check"></i><b>11.1</b> Bibliographical References</a></li>
-<li class="chapter" data-level="11.2" data-path="readings.html"><a href="readings.html#useful-resources"><i class="fa fa-check"></i><b>11.2</b> Useful resources</a></li>
+<li class="chapter" data-level="11" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html"><i class="fa fa-check"></i><b>11</b> Readings and Bibliographical References</a><ul>
+<li class="chapter" data-level="11.1" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#useful-resources"><i class="fa fa-check"></i><b>11.1</b> Useful resources</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -368,17 +368,28 @@ Figure 7.2: Covid statistics (Google)
 <span id="cb174-13"><a href="structural-decomposition.html#cb174-13"></a></span>
 <span id="cb174-14"><a href="structural-decomposition.html#cb174-14"></a><span class="co"># notice the NA elements increasing as the width of the moving average increase</span></span>
 <span id="cb174-15"><a href="structural-decomposition.html#cb174-15"></a><span class="kw">head</span>(enALL, <span class="dv">10</span>) </span></code></pre></div>
-<pre><code>##                    en        en2        en4        en8       en16 en32
-## 2015-01-01 0.01456405 0.01334178         NA         NA         NA   NA
-## 2015-01-02 0.01211950 0.01192277 0.01275765         NA         NA   NA
-## 2015-01-03 0.01172604 0.01217353 0.01266199         NA         NA   NA
-## 2015-01-04 0.01262102 0.01340120 0.01332611 0.01285129         NA   NA
-## 2015-01-05 0.01418138 0.01447869 0.01320110 0.01253790         NA   NA
-## 2015-01-06 0.01477600 0.01300100 0.01294493 0.01250958         NA   NA
-## 2015-01-07 0.01122600 0.01141117 0.01241382 0.01267144         NA   NA
-## 2015-01-08 0.01159633 0.01182664 0.01169304 0.01285992 0.01257820   NA
-## 2015-01-09 0.01205695 0.01197492 0.01214178 0.01262867 0.01239793   NA
-## 2015-01-10 0.01189290 0.01245691 0.01277492 0.01226887 0.01234396   NA</code></pre>
+<pre><code>##                    en        en2        en4        en8       en16
+## 2015-01-01 0.01456405 0.01334178         NA         NA         NA
+## 2015-01-02 0.01211950 0.01192277 0.01275765         NA         NA
+## 2015-01-03 0.01172604 0.01217353 0.01266199         NA         NA
+## 2015-01-04 0.01262102 0.01340120 0.01332611 0.01285129         NA
+## 2015-01-05 0.01418138 0.01447869 0.01320110 0.01253790         NA
+## 2015-01-06 0.01477600 0.01300100 0.01294493 0.01250958         NA
+## 2015-01-07 0.01122600 0.01141117 0.01241382 0.01267144         NA
+## 2015-01-08 0.01159633 0.01182664 0.01169304 0.01285992 0.01257820
+## 2015-01-09 0.01205695 0.01197492 0.01214178 0.01262867 0.01239793
+## 2015-01-10 0.01189290 0.01245691 0.01277492 0.01226887 0.01234396
+##            en32
+## 2015-01-01   NA
+## 2015-01-02   NA
+## 2015-01-03   NA
+## 2015-01-04   NA
+## 2015-01-05   NA
+## 2015-01-06   NA
+## 2015-01-07   NA
+## 2015-01-08   NA
+## 2015-01-09   NA
+## 2015-01-10   NA</code></pre>
 <div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="structural-decomposition.html#cb176-1"></a><span class="kw">plot.xts</span>(enALL[<span class="st">&quot;2015-01-01/2016-01-01&quot;</span>], <span class="dt">multi.panel =</span> T)</span></code></pre></div>
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
 </div>

@@ -1,31 +1,181 @@
 # Intervention Analysis
 
-In this chapter we are going to see how to conduct a intervention analysis.
+https://slides.com/tonyg/intervention-analysis/fullscreen#/5
 
-Intervention analysis is a method introduced by [Box and Tiao (1975)](https://www.jstor.org/stable/pdf/2285379.pdf)^[Box, G. E., & Tiao, G. C. (1975). Intervention analysis with applications to economic and environmental problems. Journal of the American Statistical association, 70(349), 70-79], which provides a framework for assessing *the effect of an intervention on a time series* under study. As summarized by Box and Tiao: *Given a known intervention, is there evidence that change in the series of the kind expected actually occurred, and, if so, what can be said of the nature and magnitude of the change?*.
+In this chapter we are going to learn about *intervention analysis* (sometimes also called *interrupted time-series analysis*) and to see how to conduct a intervention analysis.
 
-Intervention analysis is a "quasi-experimental" design and an interesting approach to test whether *exogenous shocks*, such as, for instance, the introduction of a new policy, *impact on a time series process in a significant way*, that is, **by changing the mean function or trend** of a time series.
+**Intervention analysis** is typically conducted with the Box & Jenkins ARIMA framework and traditionally uses a method introduced by [Box and Tiao (1975)](https://www.jstor.org/stable/pdf/2285379.pdf)^[Box, G. E., & Tiao, G. C. (1975). Intervention analysis with applications to economic and environmental problems. Journal of the American Statistical association, 70(349), 70-79], who provided a framework for assessing *the effect of an intervention on a time series* under study.
 
-Interventions can have different impacts. For instance, an intervention can have an abrupt impact determining a permanent or temporary change, a sudden and short-lived change due to an event, or a more gradual yet permanent change. 
+As summarized by Box and Tiao: *Given a known intervention, is there evidence that change in the series of the kind expected actually occurred, and, if so, what can be said of the nature and magnitude of the change?*. In other words *Intervention analysis estimates the effect of an external or exogenous intervention on a time-series*. To conduct such an analysis, it is necessary to know the date of the intervention. 
+
+Intervention analysis is a "quasi-experimental" design and an interesting approach to test whether *exogenous shocks*, such as, for instance, the introduction of a new policy, *impact on a time series process in a significant way*, that is, **by changing the mean function or trend** of a time series. 
+
+Behind intervention analysis there is the *causal hypothesis* that observations *after* a **treatment** (the **"intervention"**) have a different level or slope from those before the intervention/interruption.
+
+Besides *intervention* or *interrupted time-series analysis*, the analysis can be conducted through the *segmented regression* method. However, as in the case of traditional regression models applied to time series data, this approach does not take into account the autocorrelated structure of time series. Other methods include more complex computational approaches.
+
+## Types of intervention
+
+There are different types of interventions. For instance, an intervention can have an abrupt impact determining a permanent or temporary change, a sudden and short-lived change due to an event, or a more gradual yet permanent change. 
 
 ```{r  echo=FALSE, caption="Box-Steffensmeier, J. M., Freeman, J. R., Hitt, M. P., & Pevehouse, J. C. (2014). Time series analysis for the social sciences. Cambridge University Press"}
 knitr::include_graphics("images/intervention.png")
 ```
 
-To conduct such an analysis, it is necessary to know, at least, the date of the intervention. Regarding the statistical approach, different approaches are possible. ARIMA modeling is a classic choice, and we can come back to it later. Instead, we start from a more complex Bayesian approach implemented in the convenient package *CausalImpact* developed and used at Google to [estimate causal impacts in a quasi-experimental framework](https://www.youtube.com/watch?v=GTgZfCltMm8)^[CausalImpact 1.2.1, Brodersen et al., Annals of Applied Statistics (2015). http://google.github.io/CausalImpact/]. 
+## Intervention analysis with ARIMA
+
+To exemplify an intervention analysis we are going to reproduce the example in the paper [Interrupted time series analysis using autoregressive integrated moving average (ARIMA) models: a guide for evaluating large-scale health interventions](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-021-01235-8#Sec13).
+
+The data to run the analysis can be downloaded [here](https://static-content.springer.com/esm/art%3A10.1186%2Fs12874-021-01235-8/MediaObjects/12874_2021_1235_MOESM1_ESM.csv).
+
+The example evaulates the impact of a health policy intervention (an Australian health policy intervention that restricted the conditions under which a particular medicine (quetiapine) could be subsidised). The same methodological process can be applied to evaluate any intervention in any context.
+
+The case study is described as follows:
+
+>(...) due to growing concerns about inappropriate prescribing, after January 1, 2014 new prescriptions for this tablet strength could not include refills. Our primary outcome was the **number of monthly dispensings** of 25 mg quetiapine, of which we had **48 months of observations** (January 2011 to December 2014). 
+
+Thus, data comprises 48 months of observations, and the date of the intervention is January 1, 2014.
+
+There is also seasonality in the process:
+
+>In Australia, medicine dispensing claims have significant **yearly seasonality**. Medicines are subsidised for citizens and eligible residents through the Pharmaceutical Benefits Scheme (PBS), with people paying an out-of-pocket co-payment towards the cost of their medicines, while the remainder is subsidised. If a person’s (or family’s) total out-of-pocket costs reach the “Safety Net threshold” for the calendar year, they are eligible for a reduced co-payment for the remainder of that year. Thus, there is an incentive for people reaching their Safety Net to refill their medicines more frequently towards the end of the year. Hence, we see an *increase in prescriptions at the end of the year, followed by a decrease in January*.
+
+The researchers hypothesize the nature of the intervention as follows (see the picture below):
+
+>(...) due to the nature of the intervention we postulated there would be an immediate drop in dispensings post-intervention (step change), as well as a change in slope (ramp). Thus, we included variables representing both types of impacts in our model. For both impacts, h = 0 and r = 0.
+
+In the sentence above, *h* describes when the effect happens  while *r* represents the decay pattern (see the picture below).
+
+```{r  echo=FALSE, caption="Schaffer, A. L., Dobbins, T. A., & Pearson, S. A. (2021)"}
+knitr::include_graphics("images/intervention-functions.png")
+```
+
+First we load the data, converting it to a time series format, and we visualize the time series along with a vertical lines representing the date of the intervention.  
+
+```{r}
+# Load data
+quet <- read.csv(file = "./data/12874_2021_1235_MOESM1_ESM.csv")
+
+# Convert data to time series object
+quet.ts <- ts(quet[,2], frequency=12, start=c(2011, 1))
+
+# Plot data to visualize time series
+plot.ts(quet.ts, ylim=c(0, 40000), col = "blue", xlab = "Month", ylab = "Dispensings")
+# Add vertical line indicating date of intervention (January 1, 2014)
+abline(v=2014, col = "gray", lty = "dashed", lwd=2)
+
+```
+Next, we have to create the dummy variables representing our intervention.
+This can be tricky in R. In this case, the authors convert the time of the *ts* object in a more human-readable format through the *as.yearmon* function (this is a *zoo* function and you can use it by loading the *xts* library).
+
+```{r}
+library(xts)
+# Create variable representing step change and view
+step <- as.numeric(as.yearmon(time(quet.ts)) >= "Jan 2014")
+step
+```
+
+The above vectors is a dummy variable for the intervention. It has value equal zero before the date of the intervention, and 1 after that.
+
+Next, in this specific case, we also want to create a variable representing a constant increasing change, capturing an increasing effect of the intervention over time. 
+Also in this case the creation of the variable can be a little tricky. We create two vectors by using the *rep* and the *seq* function, and concatenate them by using the *c* function.
+
+The argument of the *rep* function are two integers *x* and *times* (*rep(x, times)*), and the function creates a vectors that repeat ("rep") the *x* values the number of times specified by *times*. We have 36 months before the intervention, and we assign them the value zero.
+
+```{r}
+rep(0, 36)
+```
+
+Instead, we use the *seq* function to create a vectors with increasing values. This part of the variable represent a gradual increase after the intervention (we have 12 months of data after the intervention). The function *seq* takes the three arguments *from*, *to*, and *by*: *from* and *to* are the starting and end values of the sequence, *by* is the increment of the sequence. In our case we create a sequence of values that increases from 1 to 12 by 1.
+
+```{r}
+seq(from = 1, to = 12, by = 1)
+```
+
+To create the variable we need, we concatenate both the function with the *c* function, as follows:
+
+```{r}
+# Create variable representing ramp (change in slope) and view
+ramp <- c(rep(0, 36), seq(1, 12, 1))
+ramp 
+```
+We search for an appropriate ARIMA model for the data by using the *auto.arima* function (*forecast* package). We include the variables we have created as external regressors.
+
+```{r}
+library(forecast)
+
+# Use automated algorithm to identify parameters
+model1 <- auto.arima(quet.ts, xreg = cbind(step, ramp), stepwise=FALSE)
+
+# Check residuals
+checkresiduals(model1)
+```
+
+The resulting model is an *ARIMA(2,1,0)(0,1,1)[12]*.
+
+```{r}
+model1
+```
+
+We use the information retrieved from the auto.arima function to fit the same ARIMA model to the data, without including the intervention (the variables we created), using just the data up to the date of the intervention (up to January 2014). To do that, we use the *window* function in order to restrict the set of data we consider, indicating December 2013 as the end of our series.
+
+```{r}
+# To forecast the counterfactual, model data excluding post-intervention time period
+model2 <- Arima(window(quet.ts, end = c(2013, 12)), order = c(2, 1, 0), 
+                seasonal = list(order = c(0, 1, 1), period = 12))
+```
+
+Next, we forecast the 12 months we didn't include (starting from January 2014 until the end of the period of observation, December 2014) by using the *forecast* function (library *forecast*). The logic behind this operation is to see what would have happened to the series in the absence of the intervention. In other words, we use the prediction as a *couterfactual* in order to describe a possible effect of the intervention on the series, by determining how the observed values diverges from this forecast.
+
+```{r}
+# Forecast 12 months post-intervention and convert to time series object
+fc <- forecast(model2, h = 12)
+
+# covert the average forecast (fc$mean) in a time series object
+fc.ts <- ts(as.numeric(fc$mean), start=c(2014, 1), frequency = 12)
+
+# Combine the observed and the forecast data
+quet.ts.2 <- ts.union(quet.ts, fc.ts)
+quet.ts.2
+```
+
+By plotting the data, we can visualize the predicted values in the absence of the intervention (red dashed line) as well as the observed values (blue line). It seems that the health policy considerably impacted the analyzed prescriptions.
+
+```{r}
+# Plot
+plot.ts(quet.ts.2, plot.type = "single", 
+     col=c('blue','red'), xlab="Month", ylab="Dispensings", 
+     lty=c("solid", "dashed"), ylim=c(0,40000))
+
+abline(v=2014, lty="dashed", col="gray")
+```
+Coming back to our initial ARIMA model including the intervention variables, calculating also the confidence intervals and the significance of the coefficients by using the *coeftest* and the *confint* function in the *lmtest* library, we can quantify the impact of the policy. 
+
+```{r}
+library(lmtest)
+
+model1
+coeftest(model1)
+confint(model1)
+```
+
+>The estimated step change was − 3285 dispensings (95% CI − 4465 to − 2104) while the estimated change in slope was − 1397 dispensings per month (95% CI − 1606 to − 1188). (The figure, ndr) shows the values predicted by our ARIMA model in absence of the intervention (counterfactual) compared with the observed values. This means that the change in subsidy for 25 mg quetiapine in January 2014 was associated with an immediate, sustained decrease of 3285 dispensings, with a further decrease of 1397 dispensings every month. In other words, there were 4682 (3285 + 1397) fewer dispensings in January 2014 than predicted had the subsidy changes not been implemented. In February 2014, there were 6079 fewer dispensings (3285 + 2*1397). Importantly, our findings should only be considered valid for the duration of the study period (i.e. until December 2014).
+
+## CausalImpact
+
+While ARIMA modeling is the classic choice for intervention models, more complex computational apporaches have been developed. We can consider the Bayesian approach implemented in the package *CausalImpact* developed at *Google* to estimate causal impacts in a quasi-experimental framework (you can find here a [video presentation](https://www.youtube.com/watch?v=GTgZfCltMm8))^[CausalImpact 1.2.1, Brodersen et al., Annals of Applied Statistics (2015). http://google.github.io/CausalImpact/]. 
 
 ```{r  echo=FALSE, caption="The model used in the CasualImpact package. Image from Brodersen, K. H., Gallusser, F., Koehler, J., Remy, N., & Scott, S. L. (2015). Inferring causal impact using Bayesian structural time-series models. Annals of Applied Statistics, 9(1), 247-274."}
 knitr::include_graphics("images/causal-impact.png")
 ```
 
-
-```{r}
+```{r message=FALSE, warning=FALSE}
 # Install and load the package
 # install.packages("CausalImpact")
 library(CausalImpact)
 ```
 
-We use the simulated dataset used by the Google tutorial on the package, creating two time series $y$ and $x$ of length 100, simulating an abrupt intervention at time 71 determining a permanent increment of 10 points in the $y$ series.
+We use the simulated dataset used in the Google tutorial on the package, creating two time series $y$ and $x$ of length 100, simulating an abrupt intervention at time 71 determining a permanent increment of 10 points in the $y$ series.
 
 ```{r}
 set.seed(1)
@@ -73,10 +223,31 @@ The authors of the package underline the importance of the statistical assumptio
 >Here are a few ways of getting started. First of all, it is critical to reason why the covariates that are included in the model (this was x1 in the example) were not themselves affected by the intervention. Sometimes it helps to plot all covariates and do a visual sanity check. Next, it is a good idea to examine how well the outcome data y can be predicted before the beginning of the intervention. This can be done by running CausalImpact() on an imaginary intervention. Then check how well the model predicted the data following this imaginary intervention. We would expect not to find a significant effect, i.e., counterfactual estimates and actual data should agree reasonably closely. Finally, when presenting or writing up results, be sure to list the above assumptions explicitly, including the priors in model.args, and discuss them with your audience.
 
 
-## Structural breaks 
+We can now try to use the library with the data from the previous example (the library requires data with the same format, thus some preprocessing is needed). 
 
-## Anomaly detection
-https://business-science.github.io/anomalize/ 
-https://github.com/twitter/AnomalyDetection 
-https://blog.twitter.com/engineering/en_us/a/2015/introducing-practical-and-robust-anomaly-detection-in-a-time-series.html
+```{r}
+quet$month <- as.Date(quet$month, format="%d-%b-%y")
+quet_xts <- xts(quet$dispensings, order.by = quet$month)
+pre.period <- c(as.Date("2011-01-01"), as.Date("2014-01-01"))
+post.period <- c(as.Date("2014-02-01"), as.Date("2014-12-01"))
+```
+
+We fit an automated model (without specifying a particular form for the intervention).
+
+```{r}
+impact2 <- CausalImpact(quet_xts, pre.period, post.period)
+```
+
+```{r}
+plot(impact2)
+```
+
+```{r}
+summary(impact)
+```
+
+```{r}
+summary(impact, "report")
+```
+
 

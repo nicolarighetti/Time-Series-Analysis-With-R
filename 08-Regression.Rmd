@@ -504,7 +504,13 @@ par(mfrow=c(1,2))
 plot(na.omit(xy2_series[,1]), lm2$fitted.values, main = "LM", xlab="Original", ylab="Fitted")
 plot(na.omit(xy2_series[,1]), arima1$fitted, main = "ARIMA regression model", xlab="Original", ylab="Fitted")
 ```
+The *auto.arima* function does not give the statistical significance of the coefficients (the approach adopted by the *forecast* library is different, based on the choice of the best model to do forecasting), but it is possible to get that by using the function *coeftest* in the library *lmtest*.
 
+```{r}
+# install.packages(lmtest) # installa the package
+library(lmtest)
+coeftest(arima1)
+```
 
 ### Count regression models
 

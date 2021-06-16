@@ -86,8 +86,8 @@ count-regression-models
 model-selection-aic-aicc-bic
 some-examples-in-the-literature
 intervention-analysis
-structural-breaks
-anomaly-detection
-readings
-bibliographical-references
+types-of-intervention
+intervention-analysis-with-arima
+causalimpact
+readings-and-bibliographical-references
 useful-resources
