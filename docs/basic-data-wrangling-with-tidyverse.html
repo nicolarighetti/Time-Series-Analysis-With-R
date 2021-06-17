@@ -275,18 +275,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>After having installed tidyverse (or any other library), it is necessary to load it, so as we can work with its functions in the current R session:</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="basic-data-wrangling-with-tidyverse.html#cb56-1"></a><span class="co"># to load a library used the command library(NAME-OF-THE-LIBRARY)</span></span>
 <span id="cb56-2"><a href="basic-data-wrangling-with-tidyverse.html#cb56-2"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## ── Attaching packages ───────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ── Attaching packages ────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
 ## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
 ## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
 ## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## x stringr::boundary() masks strucchange::boundary()
-## x dplyr::filter()     masks stats::filter()
-## x dplyr::first()      masks xts::first()
-## x dplyr::lag()        masks stats::lag()
-## x dplyr::last()       masks xts::last()
-## x dplyr::select()     masks MASS::select()</code></pre>
+<pre><code>## ── Conflicts ───────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
 <p>Besides using the function <em>install.packages(NAME-OF-THE-LIBRARY)</em> by using a line of code, it is also possible to use the RStudio interface.</p>
 <div class="figure">
 <video src="videos/install-load-library.mov" style="width:80.0%" controls=""><a href="videos/install-load-library.mov"></a></video>

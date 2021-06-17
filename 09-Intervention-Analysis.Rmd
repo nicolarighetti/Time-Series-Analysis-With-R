@@ -262,7 +262,9 @@ Some background information: On 9 March 2020, the government of Italy under Prim
 
 We can also repeat the same analysis with the data from the Facebook page of the Austrian Ministry of Health ("Bundesministerium für Soziales, Gesundheit, Pflege und Konsumentenschutz - Eingang Sozialministerium"): [Download here the data](https://drive.google.com/file/d/1ogZxpKd6jLyhFRn8I1Z-Kt5gQQX7h5cH/view?usp=sharing), save it in your *data* folder, and perform the intervention analysis.
 
-```{r  echo=FALSE, caption="Markus Pollak, Nikolaus Kowarz und Julia Partheymüller (2020). [Chronology of the Corona Crisis in Austria - Part 1: Background, the way to the lockdown, the acute phase and economic consequences](https://viecer.univie.ac.at/en/projects-and-cooperations/austrian-corona-panel-project/corona-blog/corona-blog-beitraege/blog51/)"}
+The chart below is from Markus Pollak, Nikolaus Kowarz und Julia Partheymüller (2020): [Chronology of the Corona Crisis in Austria - Part 1: Background, the way to the lockdown, the acute phase and economic consequences](https://viecer.univie.ac.at/en/projects-and-cooperations/austrian-corona-panel-project/corona-blog/corona-blog-beitraege/blog51/)
+
+```{r}
 knitr::include_graphics("images/covid-austria.png")
 ```
 
