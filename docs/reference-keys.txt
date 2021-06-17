@@ -1,6 +1,6 @@
-fig:unnamed-chunk-39
-fig:unnamed-chunk-108
-fig:unnamed-chunk-112
+fig:unnamed-chunk-137
+fig:unnamed-chunk-206
+fig:unnamed-chunk-210
 time-series-analysis-with-r
 objectives
 lectures
@@ -89,5 +89,6 @@ intervention-analysis
 types-of-intervention
 intervention-analysis-with-arima
 causalimpact
+exercise-2
 readings-and-bibliographical-references
 useful-resources

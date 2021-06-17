@@ -221,13 +221,13 @@ The authors of the package underline the importance of the statistical assumptio
 >Here are a few ways of getting started. First of all, it is critical to reason why the covariates that are included in the model (this was x1 in the example) were not themselves affected by the intervention. Sometimes it helps to plot all covariates and do a visual sanity check. Next, it is a good idea to examine how well the outcome data y can be predicted before the beginning of the intervention. This can be done by running CausalImpact() on an imaginary intervention. Then check how well the model predicted the data following this imaginary intervention. We would expect not to find a significant effect, i.e., counterfactual estimates and actual data should agree reasonably closely. Finally, when presenting or writing up results, be sure to list the above assumptions explicitly, including the priors in model.args, and discuss them with your audience.
 
 
-We can now try to use the library with the data from the previous example (the library requires data with the same format, thus some preprocessing is needed). 
+We can now try to use the library with the data from the previous example (the library requires data in the same format, thus some pre-processing is needed). 
 
 ```{r}
 quet$month <- as.Date(quet$month, format="%d-%b-%y")
 quet_xts <- xts(quet$dispensings, order.by = quet$month)
-pre.period <- c(as.Date("2011-01-01"), as.Date("2014-01-01"))
-post.period <- c(as.Date("2014-02-01"), as.Date("2014-12-01"))
+pre.period <- c(as.Date("2011-01-01"), as.Date("2013-12-01"))
+post.period <- c(as.Date("2014-01-01"), as.Date("2014-12-01"))
 ```
 
 We fit an automated model (without specifying a particular form for the intervention).
@@ -247,5 +247,30 @@ summary(impact)
 ```{r}
 summary(impact, "report")
 ```
+
+### Exercise
+
+Let's try to analyze a real-world case study in the field of online communication.
+
+We hypothesize that the uncertainty and anxiety caused by the pandemic has increased people's need of information. Social media are an important information source today, and the pages of the Health Ministries can be considered trustable information sources. At the same time, Facebook has favored the circulation of posts from verified health and government organization. It is therefore possible that the pages of the Ministries of Health have increased their follower base during the pandemic. 
+
+Thus, let's try to assess the impact of the pandemic on the growth in "page likes" of some Facebook pages of Health Ministry. We'll use the *CausalImpact* library. It is the easiest solution, since we just need to indicate the intervention period, but it does not (necessarily) require other variables.
+
+Download here the dataset of the [Facebook page of the Italian Ministry of Health](https://drive.google.com/file/d/1t4ncdNlanQwZwBvWx9AQe6R2dp-7Faew/view?usp=sharing) and save it in your *data* folder.
+
+Some background information: On 9 March 2020, the government of Italy under Prime Minister Giuseppe Conte imposed a national lockdown. The World Health Organization (WHO) on March 11 declared COVID-19 a pandemic. For the sake of simplicity, we can use the declaration of WHO as the date of our "intervention" (more fine-grained analysis are possible as well).
+
+We can also repeat the same analysis with the data from the Facebook page of the Austrian Ministry of Health ("Bundesministerium für Soziales, Gesundheit, Pflege und Konsumentenschutz - Eingang Sozialministerium"): [Download here the data](https://drive.google.com/file/d/1ogZxpKd6jLyhFRn8I1Z-Kt5gQQX7h5cH/view?usp=sharing), save it in your *data* folder, and perform the intervention analysis.
+
+```{r  echo=FALSE, caption="Markus Pollak, Nikolaus Kowarz und Julia Partheymüller (2020). [Chronology of the Corona Crisis in Austria - Part 1: Background, the way to the lockdown, the acute phase and economic consequences](https://viecer.univie.ac.at/en/projects-and-cooperations/austrian-corona-panel-project/corona-blog/corona-blog-beitraege/blog51/)"}
+knitr::include_graphics("images/covid-austria.png")
+```
+
+
+
+
+
+
+
 
 
