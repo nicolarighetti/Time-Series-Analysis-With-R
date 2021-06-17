@@ -1,6 +1,6 @@
-fig:unnamed-chunk-39
-fig:unnamed-chunk-108
-fig:unnamed-chunk-112
+fig:unnamed-chunk-71
+fig:unnamed-chunk-140
+fig:unnamed-chunk-144
 time-series-analysis-with-r
 objectives
 lectures

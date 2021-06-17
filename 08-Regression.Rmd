@@ -683,7 +683,43 @@ The **BIC** criterion is the *Bayesian Information Criterion (or Schwartz's Baye
 
 These criteria can also be used when searching for an appropriate regression model, to compare several different models including different lags of the variables.
 
-When comparing models by using these criteria, it is important that the models are fitted to **the same dataset**, otherwise the results are not comparable.
+When comparing models by using these criteria, it is important that the models are fitted to **the same dataset**, otherwise the results are not comparable. This is an important aspect to take into account when using lagged predictors. For instance, you may want to try a model including one lagged predictor $x_{t-1}$ and a model including two lagged predictors $x_{t-1}$ and $x_{t-2}$, and to compare them in order to select the best one according to AIC, AICc or the BIC criterion. However, when you add lagged predictor you loose data points.
+
+```{r}
+x_example <- ts(rnorm(40))
+y_example <- ts(rnorm(40))
+
+example_data <- cbind(y = y_example,
+                      xLag0 = x_example,
+                      xLag1 = stats::lag(x_example, -1),
+                      xLag2 = stats::lag(x_example, -2))
+
+example_data
+```
+
+Thus, when you fit models with different lags, you have to fit them on the same dataset. In this case, for instance, you have to skip the NA rows, and use just the rows from 3 to 40.
+
+```{r}
+# Restrict data so models use same fitting period
+fit1 <- auto.arima(example_data[3:40,1], xreg=example_data[3:40,2])
+fit2 <- auto.arima(example_data[3:40,1], xreg=example_data[3:40,2:3])
+fit3 <- auto.arima(example_data[3:40,1], xreg=example_data[3:40,2:4])
+```
+
+Then you can compare the model, for instance, using the AIC criterion, and choose the model with the smallest value.
+
+```{r}
+fit1$aic
+fit2$aic
+fit3$aic
+```
+
+Finally, you fit the model using all the available data.
+
+```{r}
+fit1 <- auto.arima(example_data[,1], xreg=example_data[,2])
+fit1
+```
 
 Besides these criteria, there are also other strategies for [model selection](https://en.wikipedia.org/wiki/Model_selection).
 
