@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-06-17" />
+<meta name="date" content="2021-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -194,16 +194,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition</a><ul>
 <li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#components-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Components of a time series</a><ul>
 <li class="chapter" data-level="7.1.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#trend-and-cycle"><i class="fa fa-check"></i><b>7.1.1</b> Trend and Cycle</a></li>
-<li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.2</b> Seasonality</a></li>
-<li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.3</b> Residuals</a></li>
+<li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#stochastic-and-deterministic-trend"><i class="fa fa-check"></i><b>7.1.2</b> Stochastic and Deterministic Trend</a></li>
+<li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.3</b> Seasonality</a></li>
+<li class="chapter" data-level="7.1.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.4</b> Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
 <li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
+<li class="chapter" data-level="7.2.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#compare-additive-and-multiplicative-models"><i class="fa fa-check"></i><b>7.2.3</b> Compare Additive and Multiplicative Models</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
 <li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
+<li class="chapter" data-level="7.3.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#other-decomposition-methods-in-r"><i class="fa fa-check"></i><b>7.3.3</b> Other Decomposition Methods in R</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
 </ul></li>
@@ -295,49 +298,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In the sentence above, <em>h</em> describes when the effect happens while <em>r</em> represents the decay pattern (see the picture below).</p>
 <p><img src="images/intervention-functions.png" width="1121" /></p>
 <p>First we load the data, converting it to a time series format, and we visualize the time series along with a vertical lines representing the date of the intervention.</p>
-<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="intervention-analysis.html#cb315-1"></a><span class="co"># Load data</span></span>
-<span id="cb315-2"><a href="intervention-analysis.html#cb315-2"></a>quet &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;./data/12874_2021_1235_MOESM1_ESM.csv&quot;</span>)</span>
-<span id="cb315-3"><a href="intervention-analysis.html#cb315-3"></a></span>
-<span id="cb315-4"><a href="intervention-analysis.html#cb315-4"></a><span class="co"># Convert data to time series object</span></span>
-<span id="cb315-5"><a href="intervention-analysis.html#cb315-5"></a>quet.ts &lt;-<span class="st"> </span><span class="kw">ts</span>(quet[,<span class="dv">2</span>], <span class="dt">frequency=</span><span class="dv">12</span>, <span class="dt">start=</span><span class="kw">c</span>(<span class="dv">2011</span>, <span class="dv">1</span>))</span>
-<span id="cb315-6"><a href="intervention-analysis.html#cb315-6"></a></span>
-<span id="cb315-7"><a href="intervention-analysis.html#cb315-7"></a><span class="co"># Plot data to visualize time series</span></span>
-<span id="cb315-8"><a href="intervention-analysis.html#cb315-8"></a><span class="kw">plot.ts</span>(quet.ts, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">40000</span>), <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Month&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Dispensings&quot;</span>)</span>
-<span id="cb315-9"><a href="intervention-analysis.html#cb315-9"></a><span class="co"># Add vertical line indicating date of intervention (January 1, 2014)</span></span>
-<span id="cb315-10"><a href="intervention-analysis.html#cb315-10"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">2014</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-243-1.png" width="672" />
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="intervention-analysis.html#cb328-1"></a><span class="co"># Load data</span></span>
+<span id="cb328-2"><a href="intervention-analysis.html#cb328-2"></a>quet &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;./data/12874_2021_1235_MOESM1_ESM.csv&quot;</span>)</span>
+<span id="cb328-3"><a href="intervention-analysis.html#cb328-3"></a></span>
+<span id="cb328-4"><a href="intervention-analysis.html#cb328-4"></a><span class="co"># Convert data to time series object</span></span>
+<span id="cb328-5"><a href="intervention-analysis.html#cb328-5"></a>quet.ts &lt;-<span class="st"> </span><span class="kw">ts</span>(quet[,<span class="dv">2</span>], <span class="dt">frequency=</span><span class="dv">12</span>, <span class="dt">start=</span><span class="kw">c</span>(<span class="dv">2011</span>, <span class="dv">1</span>))</span>
+<span id="cb328-6"><a href="intervention-analysis.html#cb328-6"></a></span>
+<span id="cb328-7"><a href="intervention-analysis.html#cb328-7"></a><span class="co"># Plot data to visualize time series</span></span>
+<span id="cb328-8"><a href="intervention-analysis.html#cb328-8"></a><span class="kw">plot.ts</span>(quet.ts, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">40000</span>), <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;Month&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Dispensings&quot;</span>)</span>
+<span id="cb328-9"><a href="intervention-analysis.html#cb328-9"></a><span class="co"># Add vertical line indicating date of intervention (January 1, 2014)</span></span>
+<span id="cb328-10"><a href="intervention-analysis.html#cb328-10"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">2014</span>, <span class="dt">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="dt">lty =</span> <span class="st">&quot;dashed&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-216-1.png" width="672" />
 Next, we have to create the dummy variables representing our intervention.
 This can be tricky in R. In this case, the authors convert the time of the <em>ts</em> object in a more human-readable format through the <em>as.yearmon</em> function (this is a <em>zoo</em> function and you can use it by loading the <em>xts</em> library).</p>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="intervention-analysis.html#cb316-1"></a><span class="kw">library</span>(xts)</span>
-<span id="cb316-2"><a href="intervention-analysis.html#cb316-2"></a><span class="co"># Create variable representing step change and view</span></span>
-<span id="cb316-3"><a href="intervention-analysis.html#cb316-3"></a>step &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">as.yearmon</span>(<span class="kw">time</span>(quet.ts)) <span class="op">&gt;=</span><span class="st"> &quot;Jan 2014&quot;</span>)</span>
-<span id="cb316-4"><a href="intervention-analysis.html#cb316-4"></a>step</span></code></pre></div>
-<pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1
-## [48] 1</code></pre>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="intervention-analysis.html#cb329-1"></a><span class="kw">library</span>(xts)</span>
+<span id="cb329-2"><a href="intervention-analysis.html#cb329-2"></a><span class="co"># Create variable representing step change and view</span></span>
+<span id="cb329-3"><a href="intervention-analysis.html#cb329-3"></a>step &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">as.yearmon</span>(<span class="kw">time</span>(quet.ts)) <span class="op">&gt;=</span><span class="st"> &quot;Jan 2014&quot;</span>)</span>
+<span id="cb329-4"><a href="intervention-analysis.html#cb329-4"></a>step</span></code></pre></div>
+<pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [30] 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1</code></pre>
 <p>The above vectors is a dummy variable for the intervention. It has value equal zero before the date of the intervention, and 1 after that.</p>
 <p>Next, in this specific case, we also want to create a variable representing a constant increasing change, capturing an increasing effect of the intervention over time.
 Also in this case the creation of the variable can be a little tricky. We create two vectors by using the <em>rep</em> and the <em>seq</em> function, and concatenate them by using the <em>c</em> function.</p>
 <p>The argument of the <em>rep</em> function are two integers <em>x</em> and <em>times</em> (<em>rep(x, times)</em>), and the function creates a vectors that repeat (“rep”) the <em>x</em> values the number of times specified by <em>times</em>. We have 36 months before the intervention, and we assign them the value zero.</p>
-<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="intervention-analysis.html#cb318-1"></a><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>)</span></code></pre></div>
-<pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="intervention-analysis.html#cb331-1"></a><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>)</span></code></pre></div>
+<pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+## [30] 0 0 0 0 0 0 0</code></pre>
 <p>Instead, we use the <em>seq</em> function to create a vectors with increasing values. This part of the variable represent a gradual increase after the intervention (we have 12 months of data after the intervention). The function <em>seq</em> takes the three arguments <em>from</em>, <em>to</em>, and <em>by</em>: <em>from</em> and <em>to</em> are the starting and end values of the sequence, <em>by</em> is the increment of the sequence. In our case we create a sequence of values that increases from 1 to 12 by 1.</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="intervention-analysis.html#cb320-1"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">12</span>, <span class="dt">by =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="intervention-analysis.html#cb333-1"></a><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">1</span>, <span class="dt">to =</span> <span class="dv">12</span>, <span class="dt">by =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
 <p>To create the variable we need, we concatenate both the function with the <em>c</em> function, as follows:</p>
-<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="intervention-analysis.html#cb322-1"></a><span class="co"># Create variable representing ramp (change in slope) and view</span></span>
-<span id="cb322-2"><a href="intervention-analysis.html#cb322-2"></a>ramp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>), <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dv">1</span>))</span>
-<span id="cb322-3"><a href="intervention-analysis.html#cb322-3"></a>ramp </span></code></pre></div>
-<pre><code>##  [1]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-## [32]  0  0  0  0  0  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="intervention-analysis.html#cb335-1"></a><span class="co"># Create variable representing ramp (change in slope) and view</span></span>
+<span id="cb335-2"><a href="intervention-analysis.html#cb335-2"></a>ramp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>), <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dv">1</span>))</span>
+<span id="cb335-3"><a href="intervention-analysis.html#cb335-3"></a>ramp </span></code></pre></div>
+<pre><code>##  [1]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+## [20]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  2
+## [39]  3  4  5  6  7  8  9 10 11 12</code></pre>
 <p>We search for an appropriate ARIMA model for the data by using the <em>auto.arima</em> function (<em>forecast</em> package). We include the variables we have created as external regressors.</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="intervention-analysis.html#cb324-1"></a><span class="kw">library</span>(forecast)</span>
-<span id="cb324-2"><a href="intervention-analysis.html#cb324-2"></a></span>
-<span id="cb324-3"><a href="intervention-analysis.html#cb324-3"></a><span class="co"># Use automated algorithm to identify parameters</span></span>
-<span id="cb324-4"><a href="intervention-analysis.html#cb324-4"></a>model1 &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(quet.ts, <span class="dt">xreg =</span> <span class="kw">cbind</span>(step, ramp), <span class="dt">stepwise=</span><span class="ot">FALSE</span>)</span>
-<span id="cb324-5"><a href="intervention-analysis.html#cb324-5"></a></span>
-<span id="cb324-6"><a href="intervention-analysis.html#cb324-6"></a><span class="co"># Check residuals</span></span>
-<span id="cb324-7"><a href="intervention-analysis.html#cb324-7"></a><span class="kw">checkresiduals</span>(model1)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-248-1.png" width="672" /></p>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="intervention-analysis.html#cb337-1"></a><span class="kw">library</span>(forecast)</span>
+<span id="cb337-2"><a href="intervention-analysis.html#cb337-2"></a></span>
+<span id="cb337-3"><a href="intervention-analysis.html#cb337-3"></a><span class="co"># Use automated algorithm to identify parameters</span></span>
+<span id="cb337-4"><a href="intervention-analysis.html#cb337-4"></a>model1 &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(quet.ts, <span class="dt">xreg =</span> <span class="kw">cbind</span>(step, ramp), <span class="dt">stepwise=</span><span class="ot">FALSE</span>)</span>
+<span id="cb337-5"><a href="intervention-analysis.html#cb337-5"></a></span>
+<span id="cb337-6"><a href="intervention-analysis.html#cb337-6"></a><span class="co"># Check residuals</span></span>
+<span id="cb337-7"><a href="intervention-analysis.html#cb337-7"></a><span class="kw">checkresiduals</span>(model1)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-221-1.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -346,7 +351,7 @@ Also in this case the creation of the variable can be a little tricky. We create
 ## 
 ## Model df: 5.   Total lags used: 10</code></pre>
 <p>The resulting model is an <em>ARIMA(2,1,0)(0,1,1)[12]</em>.</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="intervention-analysis.html#cb326-1"></a>model1</span></code></pre></div>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="intervention-analysis.html#cb339-1"></a>model1</span></code></pre></div>
 <pre><code>## Series: quet.ts 
 ## Regression with ARIMA(2,1,0)(0,1,1)[12] errors 
 ## 
@@ -358,19 +363,19 @@ Also in this case the creation of the variable can be a little tricky. We create
 ## sigma^2 estimated as 648828:  log likelihood=-284.45
 ## AIC=580.89   AICc=583.89   BIC=590.23</code></pre>
 <p>We use the information retrieved from the auto.arima function to fit the same ARIMA model to the data, without including the intervention (the variables we created), using just the data up to the date of the intervention (up to January 2014). To do that, we use the <em>window</em> function in order to restrict the set of data we consider, indicating December 2013 as the end of our series.</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="intervention-analysis.html#cb328-1"></a><span class="co"># To forecast the counterfactual, model data excluding post-intervention time period</span></span>
-<span id="cb328-2"><a href="intervention-analysis.html#cb328-2"></a>model2 &lt;-<span class="st"> </span><span class="kw">Arima</span>(<span class="kw">window</span>(quet.ts, <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">2013</span>, <span class="dv">12</span>)), <span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
-<span id="cb328-3"><a href="intervention-analysis.html#cb328-3"></a>                <span class="dt">seasonal =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">period =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="intervention-analysis.html#cb341-1"></a><span class="co"># To forecast the counterfactual, model data excluding post-intervention time period</span></span>
+<span id="cb341-2"><a href="intervention-analysis.html#cb341-2"></a>model2 &lt;-<span class="st"> </span><span class="kw">Arima</span>(<span class="kw">window</span>(quet.ts, <span class="dt">end =</span> <span class="kw">c</span>(<span class="dv">2013</span>, <span class="dv">12</span>)), <span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb341-3"><a href="intervention-analysis.html#cb341-3"></a>                <span class="dt">seasonal =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">period =</span> <span class="dv">12</span>))</span></code></pre></div>
 <p>Next, we forecast the 12 months we didn’t include (starting from January 2014 until the end of the period of observation, December 2014) by using the <em>forecast</em> function (library <em>forecast</em>). The logic behind this operation is to see what would have happened to the series in the absence of the intervention. In other words, we use the prediction as a <em>couterfactual</em> in order to describe a possible effect of the intervention on the series, by determining how the observed values diverges from this forecast.</p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="intervention-analysis.html#cb329-1"></a><span class="co"># Forecast 12 months post-intervention and convert to time series object</span></span>
-<span id="cb329-2"><a href="intervention-analysis.html#cb329-2"></a>fc &lt;-<span class="st"> </span><span class="kw">forecast</span>(model2, <span class="dt">h =</span> <span class="dv">12</span>)</span>
-<span id="cb329-3"><a href="intervention-analysis.html#cb329-3"></a></span>
-<span id="cb329-4"><a href="intervention-analysis.html#cb329-4"></a><span class="co"># covert the average forecast (fc$mean) in a time series object</span></span>
-<span id="cb329-5"><a href="intervention-analysis.html#cb329-5"></a>fc.ts &lt;-<span class="st"> </span><span class="kw">ts</span>(<span class="kw">as.numeric</span>(fc<span class="op">$</span>mean), <span class="dt">start=</span><span class="kw">c</span>(<span class="dv">2014</span>, <span class="dv">1</span>), <span class="dt">frequency =</span> <span class="dv">12</span>)</span>
-<span id="cb329-6"><a href="intervention-analysis.html#cb329-6"></a></span>
-<span id="cb329-7"><a href="intervention-analysis.html#cb329-7"></a><span class="co"># Combine the observed and the forecast data</span></span>
-<span id="cb329-8"><a href="intervention-analysis.html#cb329-8"></a>quet.ts<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">ts.union</span>(quet.ts, fc.ts)</span>
-<span id="cb329-9"><a href="intervention-analysis.html#cb329-9"></a>quet.ts<span class="fl">.2</span></span></code></pre></div>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="intervention-analysis.html#cb342-1"></a><span class="co"># Forecast 12 months post-intervention and convert to time series object</span></span>
+<span id="cb342-2"><a href="intervention-analysis.html#cb342-2"></a>fc &lt;-<span class="st"> </span><span class="kw">forecast</span>(model2, <span class="dt">h =</span> <span class="dv">12</span>)</span>
+<span id="cb342-3"><a href="intervention-analysis.html#cb342-3"></a></span>
+<span id="cb342-4"><a href="intervention-analysis.html#cb342-4"></a><span class="co"># covert the average forecast (fc$mean) in a time series object</span></span>
+<span id="cb342-5"><a href="intervention-analysis.html#cb342-5"></a>fc.ts &lt;-<span class="st"> </span><span class="kw">ts</span>(<span class="kw">as.numeric</span>(fc<span class="op">$</span>mean), <span class="dt">start=</span><span class="kw">c</span>(<span class="dv">2014</span>, <span class="dv">1</span>), <span class="dt">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb342-6"><a href="intervention-analysis.html#cb342-6"></a></span>
+<span id="cb342-7"><a href="intervention-analysis.html#cb342-7"></a><span class="co"># Combine the observed and the forecast data</span></span>
+<span id="cb342-8"><a href="intervention-analysis.html#cb342-8"></a>quet.ts<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">ts.union</span>(quet.ts, fc.ts)</span>
+<span id="cb342-9"><a href="intervention-analysis.html#cb342-9"></a>quet.ts<span class="fl">.2</span></span></code></pre></div>
 <pre><code>##          quet.ts    fc.ts
 ## Jan 2011   16831       NA
 ## Feb 2011   17234       NA
@@ -421,17 +426,17 @@ Also in this case the creation of the variable can be a little tricky. We create
 ## Nov 2014   16624 36184.57
 ## Dec 2014   18450 37792.03</code></pre>
 <p>By plotting the data, we can visualize the predicted values in the absence of the intervention (red dashed line) as well as the observed values (blue line). It seems that the health policy considerably impacted the analyzed prescriptions.</p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="intervention-analysis.html#cb331-1"></a><span class="co"># Plot</span></span>
-<span id="cb331-2"><a href="intervention-analysis.html#cb331-2"></a><span class="kw">plot.ts</span>(quet.ts<span class="fl">.2</span>, <span class="dt">plot.type =</span> <span class="st">&quot;single&quot;</span>, </span>
-<span id="cb331-3"><a href="intervention-analysis.html#cb331-3"></a>     <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;red&#39;</span>), <span class="dt">xlab=</span><span class="st">&quot;Month&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Dispensings&quot;</span>, </span>
-<span id="cb331-4"><a href="intervention-analysis.html#cb331-4"></a>     <span class="dt">lty=</span><span class="kw">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">40000</span>))</span>
-<span id="cb331-5"><a href="intervention-analysis.html#cb331-5"></a></span>
-<span id="cb331-6"><a href="intervention-analysis.html#cb331-6"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">2014</span>, <span class="dt">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="dt">col=</span><span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-252-1.png" width="672" />
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="intervention-analysis.html#cb344-1"></a><span class="co"># Plot</span></span>
+<span id="cb344-2"><a href="intervention-analysis.html#cb344-2"></a><span class="kw">plot.ts</span>(quet.ts<span class="fl">.2</span>, <span class="dt">plot.type =</span> <span class="st">&quot;single&quot;</span>, </span>
+<span id="cb344-3"><a href="intervention-analysis.html#cb344-3"></a>     <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;red&#39;</span>), <span class="dt">xlab=</span><span class="st">&quot;Month&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Dispensings&quot;</span>, </span>
+<span id="cb344-4"><a href="intervention-analysis.html#cb344-4"></a>     <span class="dt">lty=</span><span class="kw">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">40000</span>))</span>
+<span id="cb344-5"><a href="intervention-analysis.html#cb344-5"></a></span>
+<span id="cb344-6"><a href="intervention-analysis.html#cb344-6"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="dv">2014</span>, <span class="dt">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="dt">col=</span><span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-225-1.png" width="672" />
 Coming back to our initial ARIMA model including the intervention variables, calculating also the confidence intervals and the significance of the coefficients by using the <em>coeftest</em> and the <em>confint</em> function in the <em>lmtest</em> library, we can quantify the impact of the policy.</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="intervention-analysis.html#cb332-1"></a><span class="kw">library</span>(lmtest)</span>
-<span id="cb332-2"><a href="intervention-analysis.html#cb332-2"></a></span>
-<span id="cb332-3"><a href="intervention-analysis.html#cb332-3"></a>model1</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="intervention-analysis.html#cb345-1"></a><span class="kw">library</span>(lmtest)</span>
+<span id="cb345-2"><a href="intervention-analysis.html#cb345-2"></a></span>
+<span id="cb345-3"><a href="intervention-analysis.html#cb345-3"></a>model1</span></code></pre></div>
 <pre><code>## Series: quet.ts 
 ## Regression with ARIMA(2,1,0)(0,1,1)[12] errors 
 ## 
@@ -442,7 +447,7 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 ## 
 ## sigma^2 estimated as 648828:  log likelihood=-284.45
 ## AIC=580.89   AICc=583.89   BIC=590.23</code></pre>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="intervention-analysis.html#cb334-1"></a><span class="kw">coeftest</span>(model1)</span></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="intervention-analysis.html#cb347-1"></a><span class="kw">coeftest</span>(model1)</span></code></pre></div>
 <pre><code>## 
 ## z test of coefficients:
 ## 
@@ -454,7 +459,7 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 ## ramp -1396.65226   106.63266 -13.0978 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="intervention-analysis.html#cb336-1"></a><span class="kw">confint</span>(model1)</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="intervention-analysis.html#cb349-1"></a><span class="kw">confint</span>(model1)</span></code></pre></div>
 <pre><code>##              2.5 %        97.5 %
 ## ar1     -1.1159662    -0.6300574
 ## ar2     -0.9198342    -0.4264429
@@ -469,29 +474,29 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 <h2><span class="header-section-number">10.3</span> CausalImpact</h2>
 <p>While ARIMA modeling is the classic choice for intervention models, more complex computational apporaches have been developed. We can consider the Bayesian approach implemented in the package <em>CausalImpact</em> developed at <em>Google</em> to estimate causal impacts in a quasi-experimental framework (you can find here a <a href="https://www.youtube.com/watch?v=GTgZfCltMm8">video presentation</a>)<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.</p>
 <p><img src="images/causal-impact.png" width="738" /></p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="intervention-analysis.html#cb338-1"></a><span class="co"># Install and load the package</span></span>
-<span id="cb338-2"><a href="intervention-analysis.html#cb338-2"></a><span class="co"># install.packages(&quot;CausalImpact&quot;)</span></span>
-<span id="cb338-3"><a href="intervention-analysis.html#cb338-3"></a><span class="kw">library</span>(CausalImpact)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="intervention-analysis.html#cb351-1"></a><span class="co"># Install and load the package</span></span>
+<span id="cb351-2"><a href="intervention-analysis.html#cb351-2"></a><span class="co"># install.packages(&quot;CausalImpact&quot;)</span></span>
+<span id="cb351-3"><a href="intervention-analysis.html#cb351-3"></a><span class="kw">library</span>(CausalImpact)</span></code></pre></div>
 <p>We use the simulated dataset used in the Google tutorial on the package, creating two time series <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> of length 100, simulating an abrupt intervention at time 71 determining a permanent increment of 10 points in the <span class="math inline">\(y\)</span> series.</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="intervention-analysis.html#cb339-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb339-2"><a href="intervention-analysis.html#cb339-2"></a>x1 &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.999</span>), <span class="dt">n =</span> <span class="dv">100</span>)</span>
-<span id="cb339-3"><a href="intervention-analysis.html#cb339-3"></a>y &lt;-<span class="st"> </span><span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb339-4"><a href="intervention-analysis.html#cb339-4"></a>y[<span class="dv">71</span><span class="op">:</span><span class="dv">100</span>] &lt;-<span class="st"> </span>y[<span class="dv">71</span><span class="op">:</span><span class="dv">100</span>] <span class="op">+</span><span class="st"> </span><span class="dv">10</span></span>
-<span id="cb339-5"><a href="intervention-analysis.html#cb339-5"></a>dat &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(y, x1)</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="intervention-analysis.html#cb352-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb352-2"><a href="intervention-analysis.html#cb352-2"></a>x1 &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">+</span><span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">ar =</span> <span class="fl">0.999</span>), <span class="dt">n =</span> <span class="dv">100</span>)</span>
+<span id="cb352-3"><a href="intervention-analysis.html#cb352-3"></a>y &lt;-<span class="st"> </span><span class="fl">1.2</span> <span class="op">*</span><span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb352-4"><a href="intervention-analysis.html#cb352-4"></a>y[<span class="dv">71</span><span class="op">:</span><span class="dv">100</span>] &lt;-<span class="st"> </span>y[<span class="dv">71</span><span class="op">:</span><span class="dv">100</span>] <span class="op">+</span><span class="st"> </span><span class="dv">10</span></span>
+<span id="cb352-5"><a href="intervention-analysis.html#cb352-5"></a>dat &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(y, x1)</span></code></pre></div>
 <p>Then, it is necessary to specify the pre-intervention and post-intervention period. In the pre-intervention period no impact is expected.</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="intervention-analysis.html#cb340-1"></a>pre.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">70</span>)</span>
-<span id="cb340-2"><a href="intervention-analysis.html#cb340-2"></a>post.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">71</span>, <span class="dv">100</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="intervention-analysis.html#cb353-1"></a>pre.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">70</span>)</span>
+<span id="cb353-2"><a href="intervention-analysis.html#cb353-2"></a>post.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">71</span>, <span class="dv">100</span>)</span></code></pre></div>
 <p>The function <em>CausalImpact</em> uses the values of the original time series <span class="math inline">\(y\)</span> in the pre-intervention period, and the predictors correlated to the <span class="math inline">\(y\)</span> (in this case <span class="math inline">\(x\)</span>), to forecast the values that <span class="math inline">\(y\)</span> would have had without the intervention (<em>counterfactual</em>).</p>
 <p>To accurately forecast the <span class="math inline">\(y\)</span> values, which is necessary to obtain valid results from the analysis, it is necessary to have a proper model of the <span class="math inline">\(y\)</span> series (based on the series itself and its predictors). Then, the differences in the expected (forecasted) <span class="math inline">\(y\)</span> values without intervention, and the actual <span class="math inline">\(y\)</span> values following the intervention, are compared in order to estimate the impact of the intervention.</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="intervention-analysis.html#cb341-1"></a>impact &lt;-<span class="st"> </span><span class="kw">CausalImpact</span>(dat, pre.period, post.period)</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="intervention-analysis.html#cb354-1"></a>impact &lt;-<span class="st"> </span><span class="kw">CausalImpact</span>(dat, pre.period, post.period)</span></code></pre></div>
 <p>By using the function <em>plot</em> on the resulting model, three plots are visualized:</p>
 <blockquote>
 <p>The first panel shows the data and a counterfactual prediction for the post-treatment period. The second panel shows the difference between observed data and counterfactual predictions. This is the pointwise causal effect, as estimated by the model. The third panel adds up the pointwise contributions from the second panel, resulting in a plot of the cumulative effect of the intervention. (…) the above inferences depend critically on the assumption that the covariates were not themselves affected by the intervention. The model also assumes that the relationship between covariates and treated time series, as established during the pre-period, remains stable throughout the post-period.</p>
 </blockquote>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="intervention-analysis.html#cb342-1"></a><span class="kw">plot</span>(impact)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-259-1.png" width="672" /></p>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="intervention-analysis.html#cb355-1"></a><span class="kw">plot</span>(impact)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-232-1.png" width="672" /></p>
 <p>Besides plotting the results, it is possible to create a summary of the model, and by adding the argument “report” inside the function <em>summary</em>, a convenient explanations of the results is printed.</p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="intervention-analysis.html#cb343-1"></a><span class="kw">summary</span>(impact)</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="intervention-analysis.html#cb356-1"></a><span class="kw">summary</span>(impact)</span></code></pre></div>
 <pre><code>## Posterior inference {CausalImpact}
 ## 
 ##                          Average        Cumulative  
@@ -509,7 +514,7 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 ## Posterior prob. of a causal effect:  99.8993%
 ## 
 ## For more details, type: summary(impact, &quot;report&quot;)</code></pre>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="intervention-analysis.html#cb345-1"></a><span class="kw">summary</span>(impact, <span class="st">&quot;report&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="intervention-analysis.html#cb358-1"></a><span class="kw">summary</span>(impact, <span class="st">&quot;report&quot;</span>)</span></code></pre></div>
 <pre><code>## Analysis report {CausalImpact}
 ## 
 ## 
@@ -527,15 +532,15 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 <p>Here are a few ways of getting started. First of all, it is critical to reason why the covariates that are included in the model (this was x1 in the example) were not themselves affected by the intervention. Sometimes it helps to plot all covariates and do a visual sanity check. Next, it is a good idea to examine how well the outcome data y can be predicted before the beginning of the intervention. This can be done by running CausalImpact() on an imaginary intervention. Then check how well the model predicted the data following this imaginary intervention. We would expect not to find a significant effect, i.e., counterfactual estimates and actual data should agree reasonably closely. Finally, when presenting or writing up results, be sure to list the above assumptions explicitly, including the priors in model.args, and discuss them with your audience.</p>
 </blockquote>
 <p>We can now try to use the library with the data from the previous example (the library requires data in the same format, thus some pre-processing is needed).</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="intervention-analysis.html#cb347-1"></a>quet<span class="op">$</span>month &lt;-<span class="st"> </span><span class="kw">as.Date</span>(quet<span class="op">$</span>month, <span class="dt">format=</span><span class="st">&quot;%d-%b-%y&quot;</span>)</span>
-<span id="cb347-2"><a href="intervention-analysis.html#cb347-2"></a>quet_xts &lt;-<span class="st"> </span><span class="kw">xts</span>(quet<span class="op">$</span>dispensings, <span class="dt">order.by =</span> quet<span class="op">$</span>month)</span>
-<span id="cb347-3"><a href="intervention-analysis.html#cb347-3"></a>pre.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2011-01-01&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2013-12-01&quot;</span>))</span>
-<span id="cb347-4"><a href="intervention-analysis.html#cb347-4"></a>post.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2014-01-01&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2014-12-01&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="intervention-analysis.html#cb360-1"></a>quet<span class="op">$</span>month &lt;-<span class="st"> </span><span class="kw">as.Date</span>(quet<span class="op">$</span>month, <span class="dt">format=</span><span class="st">&quot;%d-%b-%y&quot;</span>)</span>
+<span id="cb360-2"><a href="intervention-analysis.html#cb360-2"></a>quet_xts &lt;-<span class="st"> </span><span class="kw">xts</span>(quet<span class="op">$</span>dispensings, <span class="dt">order.by =</span> quet<span class="op">$</span>month)</span>
+<span id="cb360-3"><a href="intervention-analysis.html#cb360-3"></a>pre.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2011-01-01&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2013-12-01&quot;</span>))</span>
+<span id="cb360-4"><a href="intervention-analysis.html#cb360-4"></a>post.period &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2014-01-01&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2014-12-01&quot;</span>))</span></code></pre></div>
 <p>We fit an automated model (without specifying a particular form for the intervention).</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="intervention-analysis.html#cb348-1"></a>impact2 &lt;-<span class="st"> </span><span class="kw">CausalImpact</span>(quet_xts, pre.period, post.period)</span></code></pre></div>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="intervention-analysis.html#cb349-1"></a><span class="kw">plot</span>(impact2)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-264-1.png" width="672" /></p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="intervention-analysis.html#cb350-1"></a><span class="kw">summary</span>(impact)</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="intervention-analysis.html#cb361-1"></a>impact2 &lt;-<span class="st"> </span><span class="kw">CausalImpact</span>(quet_xts, pre.period, post.period)</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="intervention-analysis.html#cb362-1"></a><span class="kw">plot</span>(impact2)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-237-1.png" width="672" /></p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="intervention-analysis.html#cb363-1"></a><span class="kw">summary</span>(impact)</span></code></pre></div>
 <pre><code>## Posterior inference {CausalImpact}
 ## 
 ##                          Average        Cumulative  
@@ -553,7 +558,7 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 ## Posterior prob. of a causal effect:  99.8993%
 ## 
 ## For more details, type: summary(impact, &quot;report&quot;)</code></pre>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="intervention-analysis.html#cb352-1"></a><span class="kw">summary</span>(impact, <span class="st">&quot;report&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="intervention-analysis.html#cb365-1"></a><span class="kw">summary</span>(impact, <span class="st">&quot;report&quot;</span>)</span></code></pre></div>
 <pre><code>## Analysis report {CausalImpact}
 ## 
 ## 
@@ -573,9 +578,76 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 <p>Thus, let’s try to assess the impact of the pandemic on the growth in “page likes” of some Facebook pages of Health Ministry. We’ll use the <em>CausalImpact</em> library. It is the easiest solution, since we just need to indicate the intervention period, but it does not (necessarily) require other variables.</p>
 <p>Download here the dataset of the <a href="https://drive.google.com/file/d/1t4ncdNlanQwZwBvWx9AQe6R2dp-7Faew/view?usp=sharing">Facebook page of the Italian Ministry of Health</a> and save it in your <em>data</em> folder.</p>
 <p>Some background information: On 9 March 2020, the government of Italy under Prime Minister Giuseppe Conte imposed a national lockdown. The World Health Organization (WHO) on March 11 declared COVID-19 a pandemic. For the sake of simplicity, we can use the declaration of WHO as the date of our “intervention” (more fine-grained analysis are possible as well).</p>
+<p>Upload the data:</p>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="intervention-analysis.html#cb367-1"></a>MinisteroSalute &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./data/MinisteroSalute.csv&quot;</span>)</span></code></pre></div>
+<p>Let’s use the <em>xts</em> format, since in this case it is easier to use (in particular, it’s easier to work with the date format).</p>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="intervention-analysis.html#cb368-1"></a><span class="co"># dates in format &quot;date&quot;</span></span>
+<span id="cb368-2"><a href="intervention-analysis.html#cb368-2"></a>MinisteroSalute<span class="op">$</span>beginning_of_interval &lt;-<span class="st"> </span><span class="kw">as.Date</span>(MinisteroSalute<span class="op">$</span>beginning_of_interval)</span>
+<span id="cb368-3"><a href="intervention-analysis.html#cb368-3"></a></span>
+<span id="cb368-4"><a href="intervention-analysis.html#cb368-4"></a><span class="co"># xts time seires</span></span>
+<span id="cb368-5"><a href="intervention-analysis.html#cb368-5"></a>MinisteroSalute &lt;-<span class="st"> </span><span class="kw">xts</span>(MinisteroSalute<span class="op">$</span>page_likes, </span>
+<span id="cb368-6"><a href="intervention-analysis.html#cb368-6"></a>                       <span class="dt">order.by =</span> MinisteroSalute<span class="op">$</span>beginning_of_interval)</span></code></pre></div>
+<p>Let’s take a look at the data.</p>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="intervention-analysis.html#cb369-1"></a><span class="kw">plot.xts</span>(MinisteroSalute, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>,</span>
+<span id="cb369-2"><a href="intervention-analysis.html#cb369-2"></a>         <span class="dt">main=</span><span class="st">&quot;Page Likes - Italian Ministry of Health Facebook Page&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-242-1.png" width="672" /></p>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="intervention-analysis.html#cb370-1"></a><span class="kw">start</span>(MinisteroSalute)</span></code></pre></div>
+<pre><code>## [1] &quot;2018-12-30&quot;</code></pre>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="intervention-analysis.html#cb372-1"></a><span class="kw">end</span>(MinisteroSalute)</span></code></pre></div>
+<pre><code>## [1] &quot;2020-12-31&quot;</code></pre>
+<p>The dates of the intervention:</p>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="intervention-analysis.html#cb374-1"></a>date_pre &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2018-12-30&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2020-03-10&quot;</span>))</span>
+<span id="cb374-2"><a href="intervention-analysis.html#cb374-2"></a>date_post &lt;-<span class="st">  </span><span class="kw">c</span>(<span class="kw">as.Date</span>(<span class="st">&quot;2020-03-11&quot;</span>), <span class="kw">as.Date</span>(<span class="st">&quot;2020-12-31&quot;</span>))</span></code></pre></div>
+<p>Fit the model:</p>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="intervention-analysis.html#cb375-1"></a>impact2 &lt;-<span class="st"> </span><span class="kw">CausalImpact</span>(MinisteroSalute, </span>
+<span id="cb375-2"><a href="intervention-analysis.html#cb375-2"></a>                       <span class="dt">pre.period =</span>  date_pre, </span>
+<span id="cb375-3"><a href="intervention-analysis.html#cb375-3"></a>                       <span class="dt">post.period =</span> date_post)</span></code></pre></div>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="intervention-analysis.html#cb376-1"></a><span class="kw">plot</span>(impact2)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-246-1.png" width="672" /></p>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="intervention-analysis.html#cb377-1"></a><span class="kw">summary</span>(impact2)</span></code></pre></div>
+<pre><code>## Posterior inference {CausalImpact}
+## 
+##                          Average           
+## Actual                   5.5e+05           
+## Prediction (s.d.)        1.8e+05 (13743)   
+## 95% CI                   [1.5e+05, 2e+05]  
+##                                            
+## Absolute effect (s.d.)   3.8e+05 (13743)   
+## 95% CI                   [3.5e+05, 4.0e+05]
+##                                            
+## Relative effect (s.d.)   214% (7.8%)       
+## 95% CI                   [199%, 228%]      
+##                          Cumulative        
+## Actual                   1.6e+08           
+## Prediction (s.d.)        5.2e+07 (4068069) 
+## 95% CI                   [4.5e+07, 6e+07]  
+##                                            
+## Absolute effect (s.d.)   1.1e+08 (4068069) 
+## 95% CI                   [1.0e+08, 1.2e+08]
+##                                            
+## Relative effect (s.d.)   214% (7.8%)       
+## 95% CI                   [199%, 228%]      
+## 
+## Posterior tail-area probability p:   0.00107
+## Posterior prob. of a causal effect:  99.89293%
+## 
+## For more details, type: summary(impact, &quot;report&quot;)</code></pre>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="intervention-analysis.html#cb379-1"></a><span class="kw">summary</span>(impact2, <span class="st">&quot;report&quot;</span>)</span></code></pre></div>
+<pre><code>## Analysis report {CausalImpact}
+## 
+## 
+## During the post-intervention period, the response variable had an average value of approx. 554.03K. By contrast, in the absence of an intervention, we would have expected an average response of 176.52K. The 95% interval of this counterfactual prediction is [151.27K, 202.82K]. Subtracting this prediction from the observed response yields an estimate of the causal effect the intervention had on the response variable. This effect is 377.51K with a 95% interval of [351.21K, 402.75K]. For a discussion of the significance of this effect, see below.
+## 
+## Summing up the individual data points during the post-intervention period (which can only sometimes be meaningfully interpreted), the response variable had an overall value of 163.99M. By contrast, had the intervention not taken place, we would have expected a sum of 52.25M. The 95% interval of this prediction is [44.78M, 60.03M].
+## 
+## The above results are given in terms of absolute numbers. In relative terms, the response variable showed an increase of +214%. The 95% interval of this percentage is [+199%, +228%].
+## 
+## This means that the positive effect observed during the intervention period is statistically significant and unlikely to be due to random fluctuations. It should be noted, however, that the question of whether this increase also bears substantive significance can only be answered by comparing the absolute effect (377.51K) to the original goal of the underlying intervention.
+## 
+## The probability of obtaining this effect by chance is very small (Bayesian one-sided tail-area probability p = 0.001). This means the causal effect can be considered statistically significant.</code></pre>
 <p>We can also repeat the same analysis with the data from the Facebook page of the Austrian Ministry of Health (“Bundesministerium für Soziales, Gesundheit, Pflege und Konsumentenschutz - Eingang Sozialministerium”): <a href="https://drive.google.com/file/d/1ogZxpKd6jLyhFRn8I1Z-Kt5gQQX7h5cH/view?usp=sharing">Download here the data</a>, save it in your <em>data</em> folder, and perform the intervention analysis.</p>
 <p>The chart below is from Markus Pollak, Nikolaus Kowarz und Julia Partheymüller (2020): <a href="https://viecer.univie.ac.at/en/projects-and-cooperations/austrian-corona-panel-project/corona-blog/corona-blog-beitraege/blog51/">Chronology of the Corona Crisis in Austria - Part 1: Background, the way to the lockdown, the acute phase and economic consequences</a></p>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="intervention-analysis.html#cb354-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;images/covid-austria.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="intervention-analysis.html#cb381-1"></a>knitr<span class="op">::</span><span class="kw">include_graphics</span>(<span class="st">&quot;images/covid-austria.png&quot;</span>)</span></code></pre></div>
 <p><img src="images/covid-austria.png" width="214" /></p>
 
 </div>

@@ -20,7 +20,7 @@ AirPassengers_xts <- as.xts(AirPassengers)
 plot.xts(AirPassengers_xts)
 ```  
 
-#### Stochastic and Deterministic Trend
+### Stochastic and Deterministic Trend
 
 There is a distinction between **deterministic** and **stochastic** trends.
 
@@ -185,6 +185,121 @@ plot(AirPassengers_dec$trend * AirPassengers_dec$seasonal * AirPassengers_dec$ra
 plot(AirPassengers, xlim=c(1950, 1960),ylim=c(0,600),  main = "Original series", ylab="")
 ```
 
+### Compare Additive and Multiplicative Models
+
+Sometimes it could be hard to choose between additive or multiplicative models. In general, when seasonality or the variation around the trend-cycle component change proportionally to the level of the series (the trend, or the average), the multiplicative model works better. However, it might be difficult to assess the variability of the series from a time series plot.
+
+Exploratory methods, such as representing the variability in the data through [box plots](https://en.wikipedia.org/wiki/Box_plot) can help. The following "custom" function (which I called  *ts.year.boxplot*) takes as argument a time series *ts*, and shows the [spread](https://en.wikipedia.org/wiki/Statistical_dispersion) of the data by year.
+
+```{r}
+# Run the code to "create" the function 
+ts.year.boxplot <- function(ts) {
+  
+  ts %>%
+    fortify() %>%
+    mutate(x = substring(x, 1, 4)) %>%
+    mutate(x = as.Date(x, "%Y")) %>%
+    mutate(year = format(as.Date(cut(x, breaks ="year")), "%Y")) %>%
+    ggplot() + 
+    geom_boxplot(aes(x=year, y=y, group=year)) +
+    ylab("") +
+    theme_linedraw()
+}
+```
+
+A multiplicative time series like the *AirPassengers* shows a clear increasing spread as the level of the series goes up:
+
+```{r}
+# Apply the function
+ts.year.boxplot(AirPassengers)
+```
+
+The box plots of an additive time series looks more regular. There is no evident systematic  
+
+```{r}
+ts.year.boxplot(seatbelts)
+```
+
+Below you can find another function (I called it *compare.decomposition.methods*) that compares the additive and multiplicative decomposition models applied to the same *ts* series. It creates plots of residuals (the time series plot, histogram, acf and pacf plots) and (roughly) measures the total residuals and residuals' autocorrelation (lower values are better). It also create a plot showing the different fit of the adittive and multiplicative model to the data, and includes the boxplot introduced above. We can try looking at these plots and the total autocorrelation measure to get further hints into the most appropriate method.
+
+```{r}
+compare.decomposition.methods <- function(ts){
+
+    boxplot_ts <- ts %>%
+    fortify() %>%
+    mutate(x = substring(x, 1, 4)) %>%
+    mutate(x = as.Date(x, "%Y")) %>%
+    mutate(year = format(as.Date(cut(x, breaks ="year")), "%Y")) %>%
+    ggplot() + 
+    geom_boxplot(aes(x=year, y=y, group=year)) +
+    ylab("") +
+    theme_linedraw()
+  
+  # decompose the series with both the methods
+  xad <- decompose(ts, type = "additive")
+  ymu <- decompose(ts, type = "multiplicative")
+  
+  # plots
+  print(boxplot_ts)
+  
+  par(mfrow=c(1,1))
+  plot(ts, main="ADDITIVE (BLUE) - MULTIPLICATIVE (RED)")
+  lines(xad$seasonal+xad$trend, col="blue", lty=2)
+  lines(ymu$seasonal*ymu$trend, col="red", lty=2)
+  
+  par(mfrow=c(1,2))
+  
+  am <- as.vector(xad$seasonal)+as.vector(xad$trend)
+  am <- ts(am, start = c(start(ts)[1], start(ts)[2]), 
+         end = c(end(ts)[1], end(ts)[2]),
+         frequency = frequency(ts))
+  am <- ts.union(am, ts)
+  am <- am[complete.cases(am),]
+  
+  mm <- as.vector(ymu$seasonal)*as.vector(ymu$trend)
+  mm <- ts(mm, start = c(start(ts)[1], start(ts)[2]), 
+         end = c(end(ts)[1], end(ts)[2]),
+         frequency = frequency(ts))
+  mm <- ts.union(mm, ts)
+  mm <- mm[complete.cases(mm),]
+  
+  plot(as.vector(am[,1]), as.vector(am[,2]), xlab="ADDITIVE")
+  plot(as.vector(mm[,1]), as.vector(mm[,2]), xlab="MULTIPLICATIVE")
+
+  par(mfrow=c(2,4))
+  plot(xad$random, main="", ylab="ADDITIVE")
+  hist(xad$random, main="", ylab="")
+  acf(na.omit(xad$random), main="", ylab="")
+  pacf(na.omit(xad$random), main="", ylab="")
+
+  plot(ymu$random, main="", ylab="MULTIPLICATIVE")
+  hist(ymu$random, main="", ylab="")
+  acf(na.omit(ymu$random), main="", ylab="")
+  pacf(na.omit(ymu$random), main="", ylab="")
+
+
+  # Sum of squares of residual auto-correlation (acf)
+  cat(paste(
+    "###################################\nTOTAL AUTOCORRELATION (ABSOLUTE VALUES)\n###################################",
+            "\nADITTIVE MODEL = ", 
+    round(sum(abs(acf(na.omit(xad$random), plot = F)$acf)),2),
+    "\nMULTIPLICATIVE MODEL = ", 
+    round(abs(sum(acf(na.omit(ymu$random), plot = F)$acf)),2),
+        "\n\n###################################\nSUM OF RESIDUALS (ABSOLUTE VALUES)\n###################################",
+    "\nADITTIVE MODEL = ", 
+    round(sum(abs(scale(xad$random)), na.rm=T),2),
+    "\nMULTIPLICATIVE = ", 
+    round(sum(abs(scale(ymu$random)), na.rm=T),2)
+    ))
+}
+```
+
+In this case, the multiplicative model looks better.
+
+```{r message=FALSE, warning=FALSE}
+compare.decomposition.methods(AirPassengers)
+```
+
 ## Adjust time series 
 
 Sometimes the analyst is not interested in the trend or in the seasonal variation in the data, and might want to remove them, in order to let other underlying process to emerge more clearly. Other times, some components of time series can be misleading, leading to inflated or spurious correlations, and can be preferable to remove them before proceding with the analysis.
@@ -323,6 +438,14 @@ A *monotonic* trend can be detected with the **Mann–Kendall trend test**. The 
 library(trend)
 mk.test(AirPassengers, alternative = "greater")
 ```
+
+### Other Decomposition Methods in R
+
+There are many different methods to decompose (and adjust) time series. Besides the classic *decompose* function, the following can be mentioned:
+
+*     [**STL**](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/stl.html) (in the base-R *stats* library): Decompose a time series into seasonal, trend and irregular components using loess
+*     [**X11**], a method for decomposing quarterly and monthly data developed by the US Census Bureau and Statistics Canada, and the [**SEATS**] methods, implemented in the [*seasonal*](http://www.seasonal.website/seasonal.html) package.
+
 
 ## White Noise and Stationarity
 

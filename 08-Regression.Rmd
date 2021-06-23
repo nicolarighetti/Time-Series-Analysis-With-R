@@ -395,7 +395,9 @@ y2_series <- y2_series + y2_errors
 
 # check the cross-correlations at lag 3 and 4
 library(TSA)
-prewhiten(x2_series, y2_series) 
+prew <- prewhiten(x2_series, y2_series) 
+prewhiten(x2_series, y2_series)
+prew
 ```
 
 Considering the autocorrelated structure of the series, the true model can be written as follows:

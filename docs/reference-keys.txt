@@ -1,6 +1,6 @@
-fig:unnamed-chunk-71
-fig:unnamed-chunk-140
-fig:unnamed-chunk-144
+fig:unnamed-chunk-39
+fig:unnamed-chunk-108
+fig:unnamed-chunk-112
 time-series-analysis-with-r
 objectives
 lectures
@@ -55,9 +55,11 @@ residuals
 structural-decomposition-1
 moving-average
 decompose
+compare-additive-and-multiplicative-models
 adjust-time-series
 seasonal-adjusted-data
 detrended-series
+other-decomposition-methods-in-r
 white-noise-and-stationarity
 correlations-and-arima
 auto-correlation-acf-and-pacf

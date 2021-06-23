@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-06-17" />
+<meta name="date" content="2021-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -194,16 +194,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition</a><ul>
 <li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#components-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Components of a time series</a><ul>
 <li class="chapter" data-level="7.1.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#trend-and-cycle"><i class="fa fa-check"></i><b>7.1.1</b> Trend and Cycle</a></li>
-<li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.2</b> Seasonality</a></li>
-<li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.3</b> Residuals</a></li>
+<li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#stochastic-and-deterministic-trend"><i class="fa fa-check"></i><b>7.1.2</b> Stochastic and Deterministic Trend</a></li>
+<li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.3</b> Seasonality</a></li>
+<li class="chapter" data-level="7.1.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.4</b> Residuals</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition</a><ul>
 <li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
 <li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
+<li class="chapter" data-level="7.2.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#compare-additive-and-multiplicative-models"><i class="fa fa-check"></i><b>7.2.3</b> Compare Additive and Multiplicative Models</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a><ul>
 <li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
 <li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
+<li class="chapter" data-level="7.3.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#other-decomposition-methods-in-r"><i class="fa fa-check"></i><b>7.3.3</b> Other Decomposition Methods in R</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
 </ul></li>
@@ -282,27 +285,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>the partial autocorrelation function (PACF)</strong>. The PACF(k) is a measure of correlation between times series observations that are k units apart, after the correlation at intermediate lags has been controlled for or “partialed” out. In other words, the PACF measures the correlation between <span class="math inline">\(x_t\)</span> and <span class="math inline">\(x_{t+k}\)</span> after it has stripped out the effect of the intermediate <em>x</em>’s. In R, the PACF is calculated and visualized with the function “pacf”. It is useful to detect correlations that are not evident in ACF.</li>
 </ul>
 <p>Let’s consider, as an example, the correlogram of a random walk process. We know that this is a particular time series process in which the current values are combinations of the previous ones (<span class="math inline">\(x_t = x_{t-1} + w_t\)</span>, where <span class="math inline">\(x_{t-1}\)</span> is the value immediately before x, and <span class="math inline">\(w_t\)</span> is a random component). The resulting time series is characterized by a discernible pattern over time which is not exactly predictable (<em>stochastic trend</em>). The ACF of a random walk time series, indeed, shows a correlation between values in the series: even values not so close are notwithstanding correlated.</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="correlations-and-arima.html#cb191-1"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">499</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
-<span id="cb191-2"><a href="correlations-and-arima.html#cb191-2"></a></span>
-<span id="cb191-3"><a href="correlations-and-arima.html#cb191-3"></a><span class="kw">acf</span>(Random_Walk)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="correlations-and-arima.html#cb202-1"></a>Random_Walk &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">499</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
+<span id="cb202-2"><a href="correlations-and-arima.html#cb202-2"></a></span>
+<span id="cb202-3"><a href="correlations-and-arima.html#cb202-3"></a><span class="kw">acf</span>(Random_Walk)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
 <p>Instead, the PACF, which removes the correlations between intermediate values, shows a correlation at lag 1, that is, it shows that the overall correlation depends on consequent values. The dotted blue lines signal the boundaries of statistical significance.</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="correlations-and-arima.html#cb192-1"></a><span class="kw">pacf</span>(Random_Walk)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="correlations-and-arima.html#cb203-1"></a><span class="kw">pacf</span>(Random_Walk)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-136-1.png" width="672" /></p>
 <p>We can clearly visualize the auto-correlation by using a simple scatterplot, by plotting two consecutive lines of points.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="correlations-and-arima.html#cb193-1"></a><span class="kw">plot</span>(Random_Walk[<span class="dv">1</span><span class="op">:</span><span class="dv">499</span>], Random_Walk[<span class="dv">2</span><span class="op">:</span><span class="dv">500</span>])</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-164-1.png" width="672" /></p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="correlations-and-arima.html#cb204-1"></a><span class="kw">plot</span>(Random_Walk[<span class="dv">1</span><span class="op">:</span><span class="dv">499</span>], Random_Walk[<span class="dv">2</span><span class="op">:</span><span class="dv">500</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
 <p>The ACF or PACF of a white noise process is very different. We know that white noise is a stationary process, without distinguishable points in time and no correlation between points. Indeed, the ACF of white noise shows no correlation (the only line above statistical significance is at zero, which is nothing to be worried about, since it just means that each point is correlated with itself).</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="correlations-and-arima.html#cb194-1"></a>White_Noise &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)))</span>
-<span id="cb194-2"><a href="correlations-and-arima.html#cb194-2"></a></span>
-<span id="cb194-3"><a href="correlations-and-arima.html#cb194-3"></a><span class="kw">acf</span>(White_Noise)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-165-1.png" width="672" /></p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="correlations-and-arima.html#cb205-1"></a>White_Noise &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)))</span>
+<span id="cb205-2"><a href="correlations-and-arima.html#cb205-2"></a></span>
+<span id="cb205-3"><a href="correlations-and-arima.html#cb205-3"></a><span class="kw">acf</span>(White_Noise)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-138-1.png" width="672" /></p>
 <p>In the PACF we can see that there is nothing above the dotted line (which means that there is nothing statistically significant).</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="correlations-and-arima.html#cb195-1"></a><span class="kw">pacf</span>(White_Noise)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-166-1.png" width="672" /></p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="correlations-and-arima.html#cb206-1"></a><span class="kw">pacf</span>(White_Noise)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-139-1.png" width="672" /></p>
 <p>If we plot two consecutive lists of points by using a scatterplot, we can see there is no serial correlation (no pattern is visible):</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="correlations-and-arima.html#cb196-1"></a><span class="kw">plot</span>(White_Noise[<span class="dv">1</span><span class="op">:</span><span class="dv">499</span>], White_Noise[<span class="dv">2</span><span class="op">:</span><span class="dv">500</span>])</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="correlations-and-arima.html#cb207-1"></a><span class="kw">plot</span>(White_Noise[<span class="dv">1</span><span class="op">:</span><span class="dv">499</span>], White_Noise[<span class="dv">2</span><span class="op">:</span><span class="dv">500</span>])</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-140-1.png" width="672" /></p>
 </div>
 </div>
 <div id="arima-models" class="section level2">
@@ -316,21 +319,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[
 {x_t} = \alpha x_{t-1} + \alpha x_{t-2} + \alpha x_{t-k} + {w_t}
 \]</span></p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="correlations-and-arima.html#cb197-1"></a>AR_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">ar =</span> <span class="fl">0.90</span>))</span>
-<span id="cb197-2"><a href="correlations-and-arima.html#cb197-2"></a><span class="kw">plot</span>(AR_<span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;AR(1)&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-168-1.png" width="672" /></p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="correlations-and-arima.html#cb208-1"></a>AR_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">ar =</span> <span class="fl">0.90</span>))</span>
+<span id="cb208-2"><a href="correlations-and-arima.html#cb208-2"></a><span class="kw">plot</span>(AR_<span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;AR(1)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-141-1.png" width="672" /></p>
 <p>The ACF of an autoregressive process typically shows a slow and gradual decay in autocorrelation over time.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="correlations-and-arima.html#cb198-1"></a><span class="kw">acf</span>(AR_<span class="dv">1</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-169-1.png" width="672" /></p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="correlations-and-arima.html#cb209-1"></a><span class="kw">acf</span>(AR_<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-142-1.png" width="672" /></p>
 <p>The PACF of an autoregressive process shows a peak in correspondence with the order of the model. In the case of an AR(1) the peak is at time 1.</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="correlations-and-arima.html#cb199-1"></a><span class="kw">pacf</span>(AR_<span class="dv">1</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-170-1.png" width="672" /></p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="correlations-and-arima.html#cb210-1"></a><span class="kw">pacf</span>(AR_<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
 <p>In the case of an AR(3) the peak is at time 1, 2, and 3.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="correlations-and-arima.html#cb200-1"></a>AR_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">ar =</span> <span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>)))</span>
-<span id="cb200-2"><a href="correlations-and-arima.html#cb200-2"></a><span class="kw">plot</span>(AR_<span class="dv">3</span>, <span class="dt">main =</span> <span class="st">&quot;AR(3)&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-171-1.png" width="672" /></p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="correlations-and-arima.html#cb201-1"></a><span class="kw">pacf</span>(AR_<span class="dv">3</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-171-2.png" width="672" /></p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="correlations-and-arima.html#cb211-1"></a>AR_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">ar =</span> <span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>)))</span>
+<span id="cb211-2"><a href="correlations-and-arima.html#cb211-2"></a><span class="kw">plot</span>(AR_<span class="dv">3</span>, <span class="dt">main =</span> <span class="st">&quot;AR(3)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="correlations-and-arima.html#cb212-1"></a><span class="kw">pacf</span>(AR_<span class="dv">3</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-144-2.png" width="672" /></p>
 <p>Now we can see that the <strong>random walk</strong> process we have seen above is a particular case of auto-regressive model. In a random walk process, each value is the previous one plus a random part:</p>
 <p><span class="math display">\[
 x_t = x_{t-1} + w_t
@@ -345,58 +348,58 @@ x_t = x_{t-1} + w_t
 {x_t} = w_t + \beta w_{t-1} + ... + \beta w_{t-q}
 \]</span></p>
 <p>The order of a MA process indicates the lags of white noise taken into account in the model (e.g: <em>MA(3)</em>).</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="correlations-and-arima.html#cb202-1"></a>MA_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>), <span class="dt">ma =</span> <span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>)))</span>
-<span id="cb202-2"><a href="correlations-and-arima.html#cb202-2"></a><span class="kw">plot</span>(MA_<span class="dv">3</span>, <span class="dt">main =</span> <span class="st">&quot;MA(3)&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-172-1.png" width="672" />
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="correlations-and-arima.html#cb213-1"></a>MA_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>), <span class="dt">ma =</span> <span class="kw">c</span>(<span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span>)))</span>
+<span id="cb213-2"><a href="correlations-and-arima.html#cb213-2"></a><span class="kw">plot</span>(MA_<span class="dv">3</span>, <span class="dt">main =</span> <span class="st">&quot;MA(3)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-145-1.png" width="672" />
 The ACF plot of a MA process shows a more clear cut-off after the term corresponding to the order ot the process. It is different from the ACF of an AR process, which shows a more gradual decay.</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="correlations-and-arima.html#cb203-1"></a><span class="kw">acf</span>(MA_<span class="dv">3</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-173-1.png" width="672" /></p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="correlations-and-arima.html#cb214-1"></a><span class="kw">acf</span>(MA_<span class="dv">3</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
 <p>The PACF of a MA process shows an up-and-down movement and does not shut off, but instead tapers toward 0 in some manner.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="correlations-and-arima.html#cb204-1"></a><span class="kw">pacf</span>(MA_<span class="dv">3</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-174-1.png" width="672" /></p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="correlations-and-arima.html#cb215-1"></a><span class="kw">pacf</span>(MA_<span class="dv">3</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
 </div>
 <div id="integrated-i-process" class="section level3">
 <h3><span class="header-section-number">8.2.3</span> Integrated (I) process</h3>
 <p>An integrated process is a non-stationary time series process that becomes stationary when transformed by <strong>differencing</strong>. In other words, an integrated process is a difference-stationary process, that is a process with a stochastic trends (see the previous chapter).</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="correlations-and-arima.html#cb205-1"></a>I_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
-<span id="cb205-2"><a href="correlations-and-arima.html#cb205-2"></a><span class="kw">plot</span>(I_<span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;I(1)&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-175-1.png" width="672" /></p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="correlations-and-arima.html#cb206-1"></a><span class="kw">plot</span>(<span class="kw">diff</span>(I_<span class="dv">1</span>), <span class="dt">main =</span> <span class="st">&quot;I(1) after &#39;differencing&#39;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-176-1.png" width="672" /></p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="correlations-and-arima.html#cb216-1"></a>I_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
+<span id="cb216-2"><a href="correlations-and-arima.html#cb216-2"></a><span class="kw">plot</span>(I_<span class="dv">1</span>, <span class="dt">main =</span> <span class="st">&quot;I(1)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="correlations-and-arima.html#cb217-1"></a><span class="kw">plot</span>(<span class="kw">diff</span>(I_<span class="dv">1</span>), <span class="dt">main =</span> <span class="st">&quot;I(1) after &#39;differencing&#39;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
 </div>
 <div id="seasonal-s-models" class="section level3">
 <h3><span class="header-section-number">8.2.4</span> Seasonal (S) models</h3>
 <p>We already introduced the seasonal model. For instance, a dataset showing a seasonal component is AirPassengers. The seasonality appears in the yearly fluctuations in the ACF and in the spikes occurring at 12 months from each other in the PACF.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="correlations-and-arima.html#cb207-1"></a><span class="kw">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
-<span id="cb207-2"><a href="correlations-and-arima.html#cb207-2"></a></span>
-<span id="cb207-3"><a href="correlations-and-arima.html#cb207-3"></a><span class="co"># this function par(mfrow=c(..., ...))</span></span>
-<span id="cb207-4"><a href="correlations-and-arima.html#cb207-4"></a><span class="co"># is used to combine more than one plot</span></span>
-<span id="cb207-5"><a href="correlations-and-arima.html#cb207-5"></a><span class="co"># in the same frame. The two numerical values</span></span>
-<span id="cb207-6"><a href="correlations-and-arima.html#cb207-6"></a><span class="co"># indicates number of rows and columns</span></span>
-<span id="cb207-7"><a href="correlations-and-arima.html#cb207-7"></a><span class="co"># the frame is made of</span></span>
-<span id="cb207-8"><a href="correlations-and-arima.html#cb207-8"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb207-9"><a href="correlations-and-arima.html#cb207-9"></a></span>
-<span id="cb207-10"><a href="correlations-and-arima.html#cb207-10"></a><span class="kw">acf</span>(AirPassengers, <span class="dt">lag.max =</span> <span class="dv">48</span>)</span>
-<span id="cb207-11"><a href="correlations-and-arima.html#cb207-11"></a><span class="kw">pacf</span>(AirPassengers, <span class="dt">lag.max =</span> <span class="dv">48</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-177-1.png" width="672" /></p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="correlations-and-arima.html#cb218-1"></a><span class="kw">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
+<span id="cb218-2"><a href="correlations-and-arima.html#cb218-2"></a></span>
+<span id="cb218-3"><a href="correlations-and-arima.html#cb218-3"></a><span class="co"># this function par(mfrow=c(..., ...))</span></span>
+<span id="cb218-4"><a href="correlations-and-arima.html#cb218-4"></a><span class="co"># is used to combine more than one plot</span></span>
+<span id="cb218-5"><a href="correlations-and-arima.html#cb218-5"></a><span class="co"># in the same frame. The two numerical values</span></span>
+<span id="cb218-6"><a href="correlations-and-arima.html#cb218-6"></a><span class="co"># indicates number of rows and columns</span></span>
+<span id="cb218-7"><a href="correlations-and-arima.html#cb218-7"></a><span class="co"># the frame is made of</span></span>
+<span id="cb218-8"><a href="correlations-and-arima.html#cb218-8"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb218-9"><a href="correlations-and-arima.html#cb218-9"></a></span>
+<span id="cb218-10"><a href="correlations-and-arima.html#cb218-10"></a><span class="kw">acf</span>(AirPassengers, <span class="dt">lag.max =</span> <span class="dv">48</span>)</span>
+<span id="cb218-11"><a href="correlations-and-arima.html#cb218-11"></a><span class="kw">pacf</span>(AirPassengers, <span class="dt">lag.max =</span> <span class="dv">48</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
 </div>
 <div id="fit-sarima-models" class="section level3">
 <h3><span class="header-section-number">8.2.5</span> Fit (S)ARIMA models</h3>
 <p>The above examples represent simple processes, but real time series are often the result of more complex <strong>mixtures of different types of process</strong>, and therefore it is more complex to identify an appropriate model for the data.</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="correlations-and-arima.html#cb208-1"></a><span class="kw">set.seed</span>(<span class="dv">7623</span>)</span>
-<span id="cb208-2"><a href="correlations-and-arima.html#cb208-2"></a>arima_<span class="dv">112</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">ar =</span> <span class="fl">0.8</span>, <span class="dt">ma =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.2</span>)))</span>
-<span id="cb208-3"><a href="correlations-and-arima.html#cb208-3"></a><span class="kw">plot</span>(arima_<span class="dv">112</span>, <span class="dt">main =</span> <span class="st">&quot;ARIMA(1,1,2)&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-178-1.png" width="672" /></p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="correlations-and-arima.html#cb219-1"></a><span class="kw">set.seed</span>(<span class="dv">7623</span>)</span>
+<span id="cb219-2"><a href="correlations-and-arima.html#cb219-2"></a>arima_<span class="dv">112</span> &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">500</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">ar =</span> <span class="fl">0.8</span>, <span class="dt">ma =</span> <span class="kw">c</span>(<span class="fl">0.7</span>, <span class="fl">0.2</span>)))</span>
+<span id="cb219-3"><a href="correlations-and-arima.html#cb219-3"></a><span class="kw">plot</span>(arima_<span class="dv">112</span>, <span class="dt">main =</span> <span class="st">&quot;ARIMA(1,1,2)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-151-1.png" width="672" /></p>
 <p>A popular methods to find the appropriate model is the <a href="https://en.wikipedia.org/wiki/Box–Jenkins_method">Box-Jenkins method</a>, a recursive process involving the analysis of a time series, the guess of possible (S)ARIMA models, the fit of the hypothesized models, and a meta-analysis to determine the best specification. Once a best-fitting model has been
 found, the correlogram of the <strong>residuals</strong> should be verified as <strong>white noise</strong>.</p>
 <p>The Box-Jenkins method could be time-consuming and requires some expertise. ACF/PACF can also become difficult to read in case of complex models, and their appropriate interpretation could require a lot of expertise as well. Fortunately, experts have developed <strong>automated methods</strong> that allow us to automatically found and fit an ARIMA model. This is the case of the <strong>auto.arima</strong> function implemented in the <strong>forecast</strong> package (a package for time series analysis and especially for forecasting, developed by <a href="https://scholar.google.com/citations?user=vamErfkAAAAJ&amp;hl=en&amp;oi=ao">Rob J. Hyndman</a>, professor of statistics and time series analysis expert).</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="correlations-and-arima.html#cb209-1"></a><span class="co"># Install the package if you haven&#39;t installed it yet</span></span>
-<span id="cb209-2"><a href="correlations-and-arima.html#cb209-2"></a><span class="co"># install.packages(&quot;forecast&quot;)</span></span>
-<span id="cb209-3"><a href="correlations-and-arima.html#cb209-3"></a><span class="kw">library</span>(forecast)</span>
-<span id="cb209-4"><a href="correlations-and-arima.html#cb209-4"></a></span>
-<span id="cb209-5"><a href="correlations-and-arima.html#cb209-5"></a>arima_fit &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(arima_<span class="dv">112</span>)</span>
-<span id="cb209-6"><a href="correlations-and-arima.html#cb209-6"></a></span>
-<span id="cb209-7"><a href="correlations-and-arima.html#cb209-7"></a>arima_fit</span></code></pre></div>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="correlations-and-arima.html#cb220-1"></a><span class="co"># Install the package if you haven&#39;t installed it yet</span></span>
+<span id="cb220-2"><a href="correlations-and-arima.html#cb220-2"></a><span class="co"># install.packages(&quot;forecast&quot;)</span></span>
+<span id="cb220-3"><a href="correlations-and-arima.html#cb220-3"></a><span class="kw">library</span>(forecast)</span>
+<span id="cb220-4"><a href="correlations-and-arima.html#cb220-4"></a></span>
+<span id="cb220-5"><a href="correlations-and-arima.html#cb220-5"></a>arima_fit &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(arima_<span class="dv">112</span>)</span>
+<span id="cb220-6"><a href="correlations-and-arima.html#cb220-6"></a></span>
+<span id="cb220-7"><a href="correlations-and-arima.html#cb220-7"></a>arima_fit</span></code></pre></div>
 <pre><code>## Series: arima_112 
 ## ARIMA(1,1,2) 
 ## 
@@ -408,16 +411,16 @@ found, the correlogram of the <strong>residuals</strong> should be verified as <
 ## sigma^2 estimated as 1.035:  log likelihood=-717.9
 ## AIC=1443.8   AICc=1443.88   BIC=1460.65</code></pre>
 <p>As said above, to evaluate the fit of a model we should analyze the <strong>residuals</strong>, and ascertain they behave as white noise. The object resulting from the function <em>auto.arima</em> has a slot including the residuals. To ascertain that residuals are white noise we can plot its <strong>ACF and PACF</strong> (no spike should be significant) and also its <strong>histogram</strong>.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="correlations-and-arima.html#cb211-1"></a><span class="kw">layout</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">nrow =</span> <span class="dv">2</span>))</span>
-<span id="cb211-2"><a href="correlations-and-arima.html#cb211-2"></a><span class="kw">acf</span>(arima_fit<span class="op">$</span>residuals)</span>
-<span id="cb211-3"><a href="correlations-and-arima.html#cb211-3"></a><span class="kw">pacf</span>(arima_fit<span class="op">$</span>residuals)</span>
-<span id="cb211-4"><a href="correlations-and-arima.html#cb211-4"></a><span class="kw">hist</span>(arima_fit<span class="op">$</span>residuals, <span class="dt">main =</span> <span class="st">&quot;Histogram of residuals&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-180-1.png" width="672" /></p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="correlations-and-arima.html#cb222-1"></a><span class="kw">layout</span>(<span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">nrow =</span> <span class="dv">2</span>))</span>
+<span id="cb222-2"><a href="correlations-and-arima.html#cb222-2"></a><span class="kw">acf</span>(arima_fit<span class="op">$</span>residuals)</span>
+<span id="cb222-3"><a href="correlations-and-arima.html#cb222-3"></a><span class="kw">pacf</span>(arima_fit<span class="op">$</span>residuals)</span>
+<span id="cb222-4"><a href="correlations-and-arima.html#cb222-4"></a><span class="kw">hist</span>(arima_fit<span class="op">$</span>residuals, <span class="dt">main =</span> <span class="st">&quot;Histogram of residuals&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
 <p>The <em>forecast</em> package also implements the function <strong>checkresiduals</strong> to create nice and complete plots of residual diagnostics by using a simple function.</p>
 <p>Besides creating the plots, the function calulate the <strong>Ljung-Box test</strong> (default), or the <strong>Breusch-Godfrey test</strong> (if you specify <em>test=“BG”</em> inside the function):</p>
 <p>The <em>Ljung-Box test</em> (and also the Breusch–Godfrey test) is a diagnostic tool, applied to the residuals of a time series after fitting an ARIMA model, to test the lack of fit. The test examines the autocorrelations of the residuals. If there are no significant autocorrelations, it can be concluded that the model does not exhibit significant lack of fit. To pass the test, the p-value has to be above the significance level (usually 0.05)</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="correlations-and-arima.html#cb212-1"></a><span class="kw">checkresiduals</span>(arima_fit)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-181-1.png" width="672" /></p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="correlations-and-arima.html#cb223-1"></a><span class="kw">checkresiduals</span>(arima_fit)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -428,11 +431,11 @@ found, the correlogram of the <strong>residuals</strong> should be verified as <
 <div id="sarima" class="section level4">
 <h4><span class="header-section-number">8.2.5.1</span> SARIMA</h4>
 <p>If we fit a model to the <em>AirPassengers</em> dataset, which has a seasonal component, we find a Seasonal Autoregressive Integrated Moving Average model (<strong>SARIMA</strong>). The seasonal component of the AirPassenger dataset is evident in the plot of the series and its ACF and PACF. The <em>forecast</em> package has a useful function <strong>ggtsdisplay</strong> to plot a time series along with its ACF and PACF.</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="correlations-and-arima.html#cb214-1"></a><span class="kw">ggtsdisplay</span>(AirPassengers)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-182-1.png" width="672" /></p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="correlations-and-arima.html#cb225-1"></a><span class="kw">ggtsdisplay</span>(AirPassengers)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-155-1.png" width="672" /></p>
 <p>The seasonal part of the ARIMA model consists of terms that are similar to the non-seasonal components of the model, but involves lagged values of the seasonal period.</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="correlations-and-arima.html#cb215-1"></a>AirPassengers_sarima &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(<span class="kw">window</span>(AirPassengers))</span>
-<span id="cb215-2"><a href="correlations-and-arima.html#cb215-2"></a>AirPassengers_sarima</span></code></pre></div>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="correlations-and-arima.html#cb226-1"></a>AirPassengers_sarima &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(<span class="kw">window</span>(AirPassengers))</span>
+<span id="cb226-2"><a href="correlations-and-arima.html#cb226-2"></a>AirPassengers_sarima</span></code></pre></div>
 <pre><code>## Series: window(AirPassengers) 
 ## ARIMA(2,1,1)(0,1,0)[12] 
 ## 
@@ -447,10 +450,10 @@ found, the correlogram of the <strong>residuals</strong> should be verified as <
 <div id="forecasting" class="section level4">
 <h4><span class="header-section-number">8.2.5.2</span> Forecasting</h4>
 <p>Based on the ARIMA models we found, we can also try to <strong>forecast</strong> future values. We can use the function <strong>forecast</strong> of the homonym library. For instance, we could try to forecast the values of the AirPassenger dataset in the next four years.</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="correlations-and-arima.html#cb217-1"></a>AirPassengers_forecast &lt;-<span class="st"> </span><span class="kw">forecast</span>(AirPassengers_sarima, <span class="dt">h=</span><span class="dv">48</span>, <span class="dt">level =</span> <span class="dv">90</span>)</span>
-<span id="cb217-2"><a href="correlations-and-arima.html#cb217-2"></a><span class="kw">plot</span>(AirPassengers_forecast, <span class="dt">main =</span> <span class="st">&quot;AirPassengers forecast&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-184-1.png" width="672" /></p>
-<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="correlations-and-arima.html#cb218-1"></a>AirPassengers_sarima &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(AirPassengers)</span></code></pre></div>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="correlations-and-arima.html#cb228-1"></a>AirPassengers_forecast &lt;-<span class="st"> </span><span class="kw">forecast</span>(AirPassengers_sarima, <span class="dt">h=</span><span class="dv">48</span>, <span class="dt">level =</span> <span class="dv">90</span>)</span>
+<span id="cb228-2"><a href="correlations-and-arima.html#cb228-2"></a><span class="kw">plot</span>(AirPassengers_forecast, <span class="dt">main =</span> <span class="st">&quot;AirPassengers forecast&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="correlations-and-arima.html#cb229-1"></a>AirPassengers_sarima &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(AirPassengers)</span></code></pre></div>
 </div>
 </div>
 </div>
@@ -467,31 +470,31 @@ found, the correlogram of the <strong>residuals</strong> should be verified as <
 </ol>
 <p>We can implement this procedure writing all the necessary code, or by using the library <em>forecast</em>, or also, alternatively, the library <em>TSA</em>.</p>
 <p>To make an example, we apply the method to two simulated two series. The Y-variable is created in such a way that it is correlated with the lagged values at time <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span>. Therefore, we should find a correlation at those lags.</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="correlations-and-arima.html#cb219-1"></a>x_series &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">200</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="dt">ar =</span> <span class="fl">0.7</span>, <span class="dt">sd=</span><span class="dv">1</span>))</span>
-<span id="cb219-2"><a href="correlations-and-arima.html#cb219-2"></a>z &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(x_series, stats<span class="op">::</span><span class="kw">lag</span>(x_series, <span class="dv">-3</span>), stats<span class="op">::</span><span class="kw">lag</span>(x_series, <span class="dv">-4</span>)) </span>
-<span id="cb219-3"><a href="correlations-and-arima.html#cb219-3"></a>y_series &lt;-<span class="st"> </span><span class="dv">15</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.8</span><span class="op">*</span>z[,<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span><span class="op">*</span>z[,<span class="dv">3</span>] <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">197</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="correlations-and-arima.html#cb230-1"></a>x_series &lt;-<span class="st"> </span><span class="kw">arima.sim</span>(<span class="dt">n =</span> <span class="dv">200</span>, <span class="kw">list</span>(<span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="dt">ar =</span> <span class="fl">0.7</span>, <span class="dt">sd=</span><span class="dv">1</span>))</span>
+<span id="cb230-2"><a href="correlations-and-arima.html#cb230-2"></a>z &lt;-<span class="st"> </span><span class="kw">ts.intersect</span>(x_series, stats<span class="op">::</span><span class="kw">lag</span>(x_series, <span class="dv">-3</span>), stats<span class="op">::</span><span class="kw">lag</span>(x_series, <span class="dv">-4</span>)) </span>
+<span id="cb230-3"><a href="correlations-and-arima.html#cb230-3"></a>y_series &lt;-<span class="st"> </span><span class="dv">15</span> <span class="op">+</span><span class="st"> </span><span class="fl">0.8</span><span class="op">*</span>z[,<span class="dv">2</span>] <span class="op">+</span><span class="st"> </span><span class="fl">1.5</span><span class="op">*</span>z[,<span class="dv">3</span>] <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">197</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span></code></pre></div>
 <p>The cross-correlation applied to the original series results in a plot where everything seems to be correlated. The “real” correlation at lags <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span> is not discernible at all.</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="correlations-and-arima.html#cb220-1"></a><span class="kw">ccf</span>(x_series, y_series, <span class="dt">na.action =</span> na.omit)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-186-1.png" width="672" /></p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="correlations-and-arima.html#cb231-1"></a><span class="kw">ccf</span>(x_series, y_series, <span class="dt">na.action =</span> na.omit)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-159-1.png" width="672" /></p>
 <p>By using the <em>forecast</em> library, we can calculate the pre-withened <em>ccf</em> as follows:</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="correlations-and-arima.html#cb221-1"></a><span class="co"># fit an ARIMA model</span></span>
-<span id="cb221-2"><a href="correlations-and-arima.html#cb221-2"></a>x_model &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(x_series)</span>
-<span id="cb221-3"><a href="correlations-and-arima.html#cb221-3"></a><span class="co"># keep the residuals (&quot;white noise&quot;)</span></span>
-<span id="cb221-4"><a href="correlations-and-arima.html#cb221-4"></a>x_residuals &lt;-<span class="st"> </span>x_model<span class="op">$</span>residuals</span>
-<span id="cb221-5"><a href="correlations-and-arima.html#cb221-5"></a></span>
-<span id="cb221-6"><a href="correlations-and-arima.html#cb221-6"></a><span class="co"># fit the same ARIMA model to the Y-series</span></span>
-<span id="cb221-7"><a href="correlations-and-arima.html#cb221-7"></a><span class="co"># by using the &quot;Arima&quot; function in forecast</span></span>
-<span id="cb221-8"><a href="correlations-and-arima.html#cb221-8"></a>y_model &lt;-<span class="st"> </span><span class="kw">Arima</span>(y_series, <span class="dt">model=</span>x_model)</span>
-<span id="cb221-9"><a href="correlations-and-arima.html#cb221-9"></a><span class="co"># keep the residuals</span></span>
-<span id="cb221-10"><a href="correlations-and-arima.html#cb221-10"></a>y_filtered &lt;-<span class="st"> </span><span class="kw">residuals</span>(y_model)</span>
-<span id="cb221-11"><a href="correlations-and-arima.html#cb221-11"></a></span>
-<span id="cb221-12"><a href="correlations-and-arima.html#cb221-12"></a><span class="co"># apply the ccf to the residuals</span></span>
-<span id="cb221-13"><a href="correlations-and-arima.html#cb221-13"></a><span class="kw">ccf</span>(x_residuals, y_filtered)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-187-1.png" width="672" /></p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="correlations-and-arima.html#cb232-1"></a><span class="co"># fit an ARIMA model</span></span>
+<span id="cb232-2"><a href="correlations-and-arima.html#cb232-2"></a>x_model &lt;-<span class="st"> </span><span class="kw">auto.arima</span>(x_series)</span>
+<span id="cb232-3"><a href="correlations-and-arima.html#cb232-3"></a><span class="co"># keep the residuals (&quot;white noise&quot;)</span></span>
+<span id="cb232-4"><a href="correlations-and-arima.html#cb232-4"></a>x_residuals &lt;-<span class="st"> </span>x_model<span class="op">$</span>residuals</span>
+<span id="cb232-5"><a href="correlations-and-arima.html#cb232-5"></a></span>
+<span id="cb232-6"><a href="correlations-and-arima.html#cb232-6"></a><span class="co"># fit the same ARIMA model to the Y-series</span></span>
+<span id="cb232-7"><a href="correlations-and-arima.html#cb232-7"></a><span class="co"># by using the &quot;Arima&quot; function in forecast</span></span>
+<span id="cb232-8"><a href="correlations-and-arima.html#cb232-8"></a>y_model &lt;-<span class="st"> </span><span class="kw">Arima</span>(y_series, <span class="dt">model=</span>x_model)</span>
+<span id="cb232-9"><a href="correlations-and-arima.html#cb232-9"></a><span class="co"># keep the residuals</span></span>
+<span id="cb232-10"><a href="correlations-and-arima.html#cb232-10"></a>y_filtered &lt;-<span class="st"> </span><span class="kw">residuals</span>(y_model)</span>
+<span id="cb232-11"><a href="correlations-and-arima.html#cb232-11"></a></span>
+<span id="cb232-12"><a href="correlations-and-arima.html#cb232-12"></a><span class="co"># apply the ccf to the residuals</span></span>
+<span id="cb232-13"><a href="correlations-and-arima.html#cb232-13"></a><span class="kw">ccf</span>(x_residuals, y_filtered)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-160-1.png" width="672" /></p>
 <p>Now, it’s clear that the X-variable is correlated with the Y-variable at lags <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span>.</p>
 <p>The previous steps show in some detail the steps involved in the pre-whitening strategy, but it is possible to use the original series with the <strong>prewhiten</strong> function of the <strong>TSA</strong> library. Although the function can take, as an argument, a pre-fitted ARIMA model, its greater advantage is that it can take care of all the necessary steps to prewithen the series. In particular, if no model is specified, the library automatically applies a simple AR model. Although this model can be just an approximation of the “true” model (which can be more complex), an approximation can be enough to pre-whiten the series and find a proper cross-correlation (that is, also a simpler and approximate model can do the job).</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="correlations-and-arima.html#cb222-1"></a><span class="co"># install.packages(&quot;TSA&quot;)</span></span>
-<span id="cb222-2"><a href="correlations-and-arima.html#cb222-2"></a><span class="kw">library</span>(TSA)</span></code></pre></div>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="correlations-and-arima.html#cb233-1"></a><span class="co"># install.packages(&quot;TSA&quot;)</span></span>
+<span id="cb233-2"><a href="correlations-and-arima.html#cb233-2"></a><span class="kw">library</span>(TSA)</span></code></pre></div>
 <pre><code>## Registered S3 methods overwritten by &#39;TSA&#39;:
 ##   method       from    
 ##   fitted.Arima forecast
@@ -507,8 +510,8 @@ found, the correlogram of the <strong>residuals</strong> should be verified as <
 <pre><code>## The following object is masked from &#39;package:utils&#39;:
 ## 
 ##     tar</code></pre>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="correlations-and-arima.html#cb228-1"></a><span class="kw">prewhiten</span>(x_series, y_series)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-188-1.png" width="672" /></p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="correlations-and-arima.html#cb239-1"></a><span class="kw">prewhiten</span>(x_series, y_series)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-161-1.png" width="672" /></p>
 </div>
 <div id="examples-in-literature" class="section level2">
 <h2><span class="header-section-number">8.4</span> Examples in literature</h2>
