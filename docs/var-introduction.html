@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 12 Readings and Bibliographical References | Time Series Analysis With R</title>
-  <meta name="description" content="Chapter 12 Readings and Bibliographical References | Time Series Analysis With R" />
+  <title>Chapter 11 VAR (Introduction) | Time Series Analysis With R</title>
+  <meta name="description" content="Chapter 11 VAR (Introduction) | Time Series Analysis With R" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 12 Readings and Bibliographical References | Time Series Analysis With R" />
+  <meta property="og:title" content="Chapter 11 VAR (Introduction) | Time Series Analysis With R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 12 Readings and Bibliographical References | Time Series Analysis With R" />
+  <meta name="twitter:title" content="Chapter 11 VAR (Introduction) | Time Series Analysis With R" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="var-introduction.html"/>
-
+<link rel="prev" href="intervention-analysis.html"/>
+<link rel="next" href="readings-and-bibliographical-references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -265,43 +265,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="readings-and-bibliographical-references" class="section level1">
-<h1><span class="header-section-number">Chapter 12</span> Readings and Bibliographical References</h1>
-<p><em>This page will be updated as the course goes on</em></p>
-<p>Wells, C., Shah, D. V., Pevehouse, J. C., Foley, J., Lukito, J., Pelled, A., &amp; Yang, J. (2019). <a href="https://ijoc.org/index.php/ijoc/article/view/10635">The Temporal Turn in Communication Research: Time Series Analyses Using Computational Approaches</a>. International Journal of Communication (19328036), 13.</p>
-<p>Brodersen KH, Gallusser F, Koehler J, Remy N, Scott SL. <a href="http://research.google.com/pubs/pub41854.html">Inferring causal impact using Bayesian structural time-series models</a>. Annals of Applied Statistics, 2015, Vol. 9, No. 1, 247-274.</p>
-<p>Gaubatz, K. T. (2014). <a href="https://methods.sagepub.com/Book/a-survivors-guide-to-r">A Survivor’s Guide to R: An Introduction for the Uninitiated and the Unnerved</a>. SAGE Publications.</p>
-<p>Liboschik, T., Fokianos, K., &amp; Fried, R. (2017). <a href="https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf">tscount: An R package for analysis of count time series following generalized linear models</a>. Journal of Statistical Software, 82(1), 1-51.</p>
-<p>Schaffer, A. L., Dobbins, T. A., &amp; Pearson, S. A. (2021). I<a href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-021-01235-8">nterrupted time series analysis using autoregressive integrated moving average (ARIMA) models: a guide for evaluating large-scale health interventions</a>. BMC medical research methodology, 21(1), 1-12.</p>
-<p>Zivot E., Wang J. (2003) <a href="https://faculty.washington.edu/ezivot/econ584/notes/unitroot.pdf">Unit Root Tests</a>. In: Modeling Financial Time Series with S-Plus®. Springer, New York, NY. <a href="https://doi.org/10.1007/978-0-387-21763-5_4" class="uri">https://doi.org/10.1007/978-0-387-21763-5_4</a></p>
-<div id="useful-resources" class="section level2">
-<h2><span class="header-section-number">12.1</span> Useful resources</h2>
-<p><a href="https://stats.stackexchange.com">Cross Validated</a> for statistics-related questions
-<a href="https://stackoverflow.com/questions">Stackoverflow</a> for coding-related questions</p>
+<div id="var-introduction" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> VAR (Introduction)</h1>
+<p><em>VAR</em> is an acronym that stands for <strong>Vector Autoregressive Model</strong>. It is a common method for the analysis of multivariate time series.</p>
+<p>It can be conceived as a way to model a <strong>system</strong> of time series. In a VAR model, there is no rigid distinction between independent and dependent variables, but each variable is both dependent and independent. Besides these <strong>endogenous</strong> variables that dynamically interact, a VAR model can include <strong>exogenous</strong> variables. Exogenous variables can have an impact on the endogenous variables, while the opposite is not true.</p>
+<p>To make a simple example, the time series of fans sold by month may be influenced by the quantity of fans produced and distributed by the industry, and by the monthly temperature. While the purchase and production of fans can interact (endogenous), the weather is not impacted by these processes, and just impact them as an external force.</p>
+<p>To make another example (from the paper <a href="http://www.italiansociologicalreview.com/ojs/index.php?journal=ISR&amp;page=article&amp;op=view&amp;path%5B%5D=448&amp;path%5B%5D=346">The Impact of the Politicization of Health on Online Misinformation and Quality Information on Vaccines</a>), the political debate on a certain topic - for instance the political debate that led to the promulgation of the law on mandatory vaccinations in Italy - can be considered an exogenous variable that impacts both the news coverage of the topic and the spread of problematic information on Twitter. While news media coverage and Twitter discussions can be considered part of the same communication system and dependent on each other (news media could set the discussion agenda on Twitter, but also social media can stimulate news media coverage) it can be assumed that the political debate that led to the promulgation of the law on mandatory vaccinations was independent from the Twitter discussions on the topic.</p>
+<p>Stationary tests are usually applied to ascertain that variables are not integrated (the “I” in the ARIMA model). If this is the case, variables are differenced before starting the VAR analysis. Other preliminary analysis (for instance testing for <em>cointegration</em>) and pre-processing activity can be performed before the analysis. Next, the number of lags to be used has to be selected. This number can be automatically identify through lag-length selection criteria methods. After having fitted the model, residuals are analyzed. Results from a VAR model are usually complicated. To interpret them there are specific statistical methods, such as <em>Granger causality test</em> and <em>Impulse Response Function (IRF)</em></p>
+<p><a href="https://en.wikipedia.org/wiki/Granger_causality"><em>Granger causality test</em></a> is a test developed by the nobel prize winner Clive Granger.</p>
+<blockquote>
+<p>The Granger causality test is a statistical hypothesis test for determining whether one time series is useful in forecasting another, first proposed in 1969. Ordinarily, regressions reflect “mere” correlations, but Clive Granger argued that causality (…) could be tested for by measuring the ability to predict the future values of a time series using prior values of another time series. Since the question of “true causality” is deeply philosophical, and because of the post hoc ergo propter hoc fallacy of assuming that one thing preceding another can be used as a proof of causation, (…) the Granger test finds only “predictive causality”</p>
+</blockquote>
+<blockquote>
+<p>A time series X is said to Granger-cause Y if it can be shown, usually through a series of t-tests and F-tests on lagged values of X (and with lagged values of Y also included), that those X values provide statistically significant information about future values of Y.</p>
+</blockquote>
+<p><em>Impulse Response Function (IRF)</em> traces the dynamic impact to a system of a “shock” or change to an input, and asnwer the question of the reaction of a time series to a shock from another series in the system.</p>
+<p>An R package to perform VAR modeling is <a href="https://cran.r-project.org/web/packages/vars/vars.pdf"><strong>vars</strong></a>.</p>
+<p>Practical applications of VAR modeling, including Granger causality and Impulse Response Function analysis, can be found, for instance, in the paper <a href="https://academic.oup.com/joc/article-abstract/71/2/305/6104044">Assembling the Networks and Audiences of Disinformation: How Successful Russian IRA Twitter Accounts Built Their Followings,2015–2017</a> or
+<a href="https://www-tandfonline-com.uaccess.univie.ac.at/doi/full/10.1080/10584609.2019.1661889">Coordinating a Multi-Platform Disinformation Campaign: Internet Research Agency Activity on Three U.S. Social Media Platforms, 2015 to 2017</a> <a href="https://github.com/jlukito/timeseries-bootcamp/blob/master/3_multivariate/varmodeling.md">at this link</a>.</p>
 
 </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="var-introduction.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="intervention-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="readings-and-bibliographical-references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -332,7 +322,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/edit/master/Readings-and-Bibliography.Rmd",
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/edit/master/10-VAR.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -340,7 +330,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/blob/master/Readings-and-Bibliography.Rmd",
+"link": "https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/blob/master/10-VAR.Rmd",
 "text": null
 },
 "download": null,

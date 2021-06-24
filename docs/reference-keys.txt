@@ -92,5 +92,6 @@ types-of-intervention
 intervention-analysis-with-arima
 causalimpact
 exercise-2
+var-introduction
 readings-and-bibliographical-references
 useful-resources

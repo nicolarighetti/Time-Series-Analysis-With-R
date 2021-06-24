@@ -443,8 +443,9 @@ mk.test(AirPassengers, alternative = "greater")
 
 There are many different methods to decompose (and adjust) time series. Besides the classic *decompose* function, the following can be mentioned:
 
-*     [**STL**](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/stl.html) (in the base-R *stats* library): Decompose a time series into seasonal, trend and irregular components using loess
-*     [**X11**], a method for decomposing quarterly and monthly data developed by the US Census Bureau and Statistics Canada, and the [**SEATS**] methods, implemented in the [*seasonal*](http://www.seasonal.website/seasonal.html) package.
+[**STL**](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/stl.html) (in the base-R *stats* library): Decompose a time series into seasonal, trend and irregular components using loess
+
+[**X11**], a method for decomposing quarterly and monthly data developed by the US Census Bureau and Statistics Canada, and the [**SEATS**] methods, implemented in the [*seasonal*](http://www.seasonal.website/seasonal.html) package.
 
 
 ## White Noise and Stationarity

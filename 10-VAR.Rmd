@@ -1,0 +1,25 @@
+# VAR (Introduction)
+
+*VAR* is an acronym that stands for **Vector Autoregressive Model**. It is a common method for the analysis of multivariate time series. 
+
+It can be conceived as a way to model a **system** of time series. In a VAR model, there is no rigid distinction between independent and dependent variables, but each variable is both dependent and independent. Besides these **endogenous** variables that dynamically interact, a VAR model can include **exogenous** variables. Exogenous variables can have an impact on the endogenous variables, while the opposite is not true. 
+
+To make a simple example, the time series of fans sold by month may be influenced by the quantity of fans produced and distributed by the industry, and by the monthly temperature. While the purchase and production of fans can interact (endogenous), the weather is not impacted by these processes, and just impact them as an external force.
+
+To make another example (from the paper [The Impact of the Politicization of Health on Online Misinformation and Quality Information on Vaccines](http://www.italiansociologicalreview.com/ojs/index.php?journal=ISR&page=article&op=view&path%5B%5D=448&path%5B%5D=346)), the political debate on a certain topic - for instance the political debate that led to the promulgation of the law on mandatory vaccinations in Italy - can be considered an exogenous variable that impacts both the news coverage of the topic and the spread of problematic information on Twitter. While news media coverage and Twitter discussions can be considered part of the same communication system and dependent on each other (news media could set the discussion agenda on Twitter, but also social media can stimulate news media coverage) it can be assumed that the political debate that led to the promulgation of the law on mandatory vaccinations was independent from the Twitter discussions on the topic. 
+
+Stationary tests are usually applied to ascertain that variables are not integrated (the "I" in the ARIMA model). If this is the case, variables are differenced before starting the VAR analysis. Other preliminary analysis (for instance testing for *cointegration*) and pre-processing activity can be performed before the analysis. Next, the number of lags to be used has to be selected. This number can be automatically identify through lag-length selection criteria methods. After having fitted the model, residuals are analyzed. Results from a VAR model are usually complicated. To interpret them there are specific statistical methods, such as *Granger causality test* and *Impulse Response Function (IRF)*
+
+[*Granger causality test*](https://en.wikipedia.org/wiki/Granger_causality) is a test developed by the nobel prize winner Clive Granger. 
+
+>The Granger causality test is a statistical hypothesis test for determining whether one time series is useful in forecasting another, first proposed in 1969. Ordinarily, regressions reflect "mere" correlations, but Clive Granger argued that causality (...) could be tested for by measuring the ability to predict the future values of a time series using prior values of another time series. Since the question of "true causality" is deeply philosophical, and because of the post hoc ergo propter hoc fallacy of assuming that one thing preceding another can be used as a proof of causation, (...) the Granger test finds only "predictive causality"
+
+>A time series X is said to Granger-cause Y if it can be shown, usually through a series of t-tests and F-tests on lagged values of X (and with lagged values of Y also included), that those X values provide statistically significant information about future values of Y.
+
+*Impulse Response Function (IRF)* traces the dynamic impact to a system of a “shock” or change to an input, and asnwer the question of the reaction of a time series to a shock from another series in the system.
+
+An R package to perform VAR modeling is [**vars**](https://cran.r-project.org/web/packages/vars/vars.pdf).
+
+Practical applications of VAR modeling, including Granger causality and Impulse Response Function analysis, can be found, for instance, in the paper [Assembling the Networks and Audiences of Disinformation: How Successful Russian IRA Twitter Accounts Built Their Followings,2015–2017](https://academic.oup.com/joc/article-abstract/71/2/305/6104044) or
+[Coordinating a Multi-Platform Disinformation Campaign: Internet Research Agency Activity on Three U.S. Social Media Platforms, 2015 to 2017](https://www-tandfonline-com.uaccess.univie.ac.at/doi/full/10.1080/10584609.2019.1661889) [at this link](https://github.com/jlukito/timeseries-bootcamp/blob/master/3_multivariate/varmodeling.md).
+
