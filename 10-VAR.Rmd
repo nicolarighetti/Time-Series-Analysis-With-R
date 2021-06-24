@@ -14,7 +14,7 @@ Stationary tests are usually applied to ascertain that variables are not integra
 
 >The Granger causality test is a statistical hypothesis test for determining whether one time series is useful in forecasting another, first proposed in 1969. Ordinarily, regressions reflect "mere" correlations, but Clive Granger argued that causality (...) could be tested for by measuring the ability to predict the future values of a time series using prior values of another time series. Since the question of "true causality" is deeply philosophical, and because of the post hoc ergo propter hoc fallacy of assuming that one thing preceding another can be used as a proof of causation, (...) the Granger test finds only "predictive causality"
 
->A time series X is said to Granger-cause Y if it can be shown, usually through a series of t-tests and F-tests on lagged values of X (and with lagged values of Y also included), that those X values provide statistically significant information about future values of Y.
+A variable $X_t$ is said to Granger cause another variable $Y_t$ if $Y_t$ can be better predicted from the past of  $X_t$ and $Y_t$ together than from the past of $Y_t$ alone.
 
 *Impulse Response Function (IRF)* traces the dynamic impact to a system of a “shock” or change to an input, and asnwer the question of the reaction of a time series to a shock from another series in the system.
 

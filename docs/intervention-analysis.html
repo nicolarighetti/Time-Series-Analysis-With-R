@@ -330,8 +330,8 @@ Also in this case the creation of the variable can be a little tricky. We create
 <div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="intervention-analysis.html#cb333-1"></a><span class="co"># Create variable representing ramp (change in slope) and view</span></span>
 <span id="cb333-2"><a href="intervention-analysis.html#cb333-2"></a>ramp &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>), <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dv">1</span>))</span>
 <span id="cb333-3"><a href="intervention-analysis.html#cb333-3"></a>ramp </span></code></pre></div>
-<pre><code>##  [1]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  1  2
-## [39]  3  4  5  6  7  8  9 10 11 12</code></pre>
+<pre><code>##  [1]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+## [34]  0  0  0  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
 <p>We search for an appropriate ARIMA model for the data by using the <em>auto.arima</em> function (<em>forecast</em> package). We include the variables we have created as external regressors.</p>
 <div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="intervention-analysis.html#cb335-1"></a><span class="kw">library</span>(forecast)</span>
 <span id="cb335-2"><a href="intervention-analysis.html#cb335-2"></a></span>

@@ -200,13 +200,22 @@ plot.ts(ts_y, plot.type = "single",
 
 $$
 \begin{aligned} 
-& Original \ & & First \ difference  \\
-
-& y_t = Td_t + z_t \ & & \Delta y_t = \Delta Td_t + \Delta z_t  \\
-& \ Td_t = \kappa + \delta_t \ & & \Delta Td_t = \Delta \kappa + \Delta \delta_t = \delta \\
-& z_t = \phi z_{t-1} + \epsilon_t, \ \epsilon_t \sim N(0, \sigma^2) & & \Delta z_t = \phi \Delta z_{t-1} + \Delta \epsilon_t = \phi \Delta z_{t-1} + \epsilon_t - \epsilon_{t-1}
+& Original \\
+& y_t = Td_t + z_t  \\
+& \ Td_t = \kappa + \delta_t \\
+& z_t = \phi z_{t-1} + \epsilon_t, \ \epsilon_t \sim N(0, \sigma^2) 
 \end{aligned} 
 $$
+$$
+\begin{aligned} 
+& First \ difference \\
+& \Delta y_t = \Delta Td_t + \Delta z_t \\
+& \Delta Td_t = \Delta \kappa + \Delta \delta_t = \delta \\
+& \Delta z_t = \phi \Delta z_{t-1} + \Delta \epsilon_t = \phi \Delta z_{t-1} + \epsilon_t - \epsilon_{t-1}
+
+\end{aligned} 
+$$
+
 $\Delta z_t$ can be also written as:
 
 $$

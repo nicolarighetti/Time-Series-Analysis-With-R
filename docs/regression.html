@@ -422,15 +422,23 @@ Let’s simulate and visualize the above equation (<span class="math inline">\(y
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
 <p><strong>Unit root tests</strong> are aimed at testing the null hypothesis that <span class="math inline">\(|\phi| = 1\)</span> (<em>difference stationary</em>), against the alternative hypothesis that <span class="math inline">\(|\phi| &lt; 1\)</span> (<em>trend stationary</em>).</p>
 <p><strong>Stationarity tests</strong> take the null hypothesis that <span class="math inline">\(y_t\)</span> is trend stationary, and are based on testing for a moving average element in <span class="math inline">\(\Delta z_t\)</span> (<span class="math inline">\(\Delta\)</span> represents the operation of differencing).</p>
-<p>$$
-\begin{aligned}
-&amp; Original  &amp; &amp; First  difference \</p>
-<p>&amp; y_t = Td_t + z_t  &amp; &amp; y_t = Td_t + z_t \
-&amp;  Td_t = + _t  &amp; &amp; Td_t = + <em>t = \
-&amp; z_t = z</em>{t-1} + _t,  <em>t N(0, ^2) &amp; &amp; z_t = z</em>{t-1} + <em>t = z</em>{t-1} + <em>t - </em>{t-1}
-\end{aligned}
+<p><span class="math display">\[
+\begin{aligned} 
+&amp; Original \\
+&amp; y_t = Td_t + z_t  \\
+&amp; \ Td_t = \kappa + \delta_t \\
+&amp; z_t = \phi z_{t-1} + \epsilon_t, \ \epsilon_t \sim N(0, \sigma^2) 
+\end{aligned} 
+\]</span>
 $$
-<span class="math inline">\(\Delta z_t\)</span> can be also written as:</p>
+\begin{aligned}
+&amp; First  difference \
+&amp; y_t = Td_t + z_t \
+&amp; Td_t = + <em>t = \
+&amp; z_t = z</em>{t-1} + <em>t = z</em>{t-1} + <em>t - </em>{t-1}</p>
+<p>\end{aligned}
+$$</p>
+<p><span class="math inline">\(\Delta z_t\)</span> can be also written as:</p>
 <p><span class="math display">\[
 \Delta \epsilon_t = \phi \Delta z_{t-1} + \epsilon_t + \theta \epsilon_{t-1}
 \]</span></p>
@@ -693,12 +701,12 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ## 
 ## Autocorrelations of series &#39;X&#39;, by lag
 ## 
-##    -19    -18    -17    -16    -15    -14    -13    -12    -11    -10     -9     -8     -7     -6     -5     -4 
-## -0.021 -0.029  0.012  0.065  0.024  0.008  0.076  0.107  0.001 -0.031 -0.024 -0.039  0.048  0.070 -0.021  0.620 
-##     -3     -2     -1      0      1      2      3      4      5      6      7      8      9     10     11     12 
-##  0.425  0.036 -0.001  0.052  0.080  0.068 -0.008 -0.011  0.096  0.124  0.062 -0.022  0.030  0.023 -0.035 -0.039 
-##     13     14     15     16     17     18     19 
-## -0.008  0.016 -0.059 -0.149 -0.120 -0.027 -0.020 
+##    -19    -18    -17    -16    -15    -14    -13    -12    -11    -10     -9     -8     -7     -6     -5 
+## -0.021 -0.029  0.012  0.065  0.024  0.008  0.076  0.107  0.001 -0.031 -0.024 -0.039  0.048  0.070 -0.021 
+##     -4     -3     -2     -1      0      1      2      3      4      5      6      7      8      9     10 
+##  0.620  0.425  0.036 -0.001  0.052  0.080  0.068 -0.008 -0.011  0.096  0.124  0.062 -0.022  0.030  0.023 
+##     11     12     13     14     15     16     17     18     19 
+## -0.035 -0.039 -0.008  0.016 -0.059 -0.149 -0.120 -0.027 -0.020 
 ## 
 ## $model
 ## 
@@ -706,10 +714,10 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ## ar.ols(x = x)
 ## 
 ## Coefficients:
-##       1        2        3        4        5        6        7        8        9       10       11       12       13  
-##  0.6362   0.1109   0.0496  -0.1533  -0.0240  -0.0499   0.2041   0.0221  -0.0990  -0.0981   0.1703  -0.0558  -0.0812  
-##      14  
-##  0.1179  
+##       1        2        3        4        5        6        7        8        9       10       11  
+##  0.6362   0.1109   0.0496  -0.1533  -0.0240  -0.0499   0.2041   0.0221  -0.0990  -0.0981   0.1703  
+##      12       13       14  
+## -0.0558  -0.0812   0.1179  
 ## 
 ## Intercept: 0.006091 (0.06307) 
 ## 
@@ -966,12 +974,12 @@ log(\lambda_t) = 1.83 + 0.09Y_{t-1} + 0.15Y_{t-12} + 0.83X_t - 0.003t
 <pre><code>## 
 ## Autocorrelations of series &#39;X&#39;, by lag
 ## 
-## -1.2500 -1.1667 -1.0833 -1.0000 -0.9167 -0.8333 -0.7500 -0.6667 -0.5833 -0.5000 -0.4167 -0.3333 -0.2500 -0.1667 
-##  -0.127   0.064  -0.013   0.008   0.033   0.022  -0.041  -0.278   0.120  -0.313   0.417   0.282  -0.061  -0.025 
-## -0.0833  0.0000  0.0833  0.1667  0.2500  0.3333  0.4167  0.5000  0.5833  0.6667  0.7500  0.8333  0.9167  1.0000 
-##  -0.075  -0.012  -0.180   0.063   0.039  -0.154  -0.070  -0.040   0.029   0.068  -0.008  -0.045  -0.221  -0.068 
-##  1.0833  1.1667  1.2500 
-##  -0.039   0.112   0.177</code></pre>
+## -1.2500 -1.1667 -1.0833 -1.0000 -0.9167 -0.8333 -0.7500 -0.6667 -0.5833 -0.5000 -0.4167 -0.3333 -0.2500 
+##  -0.127   0.064  -0.013   0.008   0.033   0.022  -0.041  -0.278   0.120  -0.313   0.417   0.282  -0.061 
+## -0.1667 -0.0833  0.0000  0.0833  0.1667  0.2500  0.3333  0.4167  0.5000  0.5833  0.6667  0.7500  0.8333 
+##  -0.025  -0.075  -0.012  -0.180   0.063   0.039  -0.154  -0.070  -0.040   0.029   0.068  -0.008  -0.045 
+##  0.9167  1.0000  1.0833  1.1667  1.2500 
+##  -0.221  -0.068  -0.039   0.112   0.177</code></pre>
 <div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="regression.html#cb309-1"></a>reg &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">fake_news_lag4 =</span> stats<span class="op">::</span><span class="kw">lag</span>(fake_news, <span class="dv">-4</span>),</span>
 <span id="cb309-2"><a href="regression.html#cb309-2"></a>             <span class="dt">fake_news_lag5 =</span> stats<span class="op">::</span><span class="kw">lag</span>(fake_news, <span class="dv">-5</span>),</span>
 <span id="cb309-3"><a href="regression.html#cb309-3"></a>             <span class="dt">fake_news_lag6 =</span> stats<span class="op">::</span><span class="kw">lag</span>(fake_news, <span class="dv">-6</span>))</span>

@@ -268,7 +268,7 @@ z <- ts.intersect(x_series, stats::lag(x_series, -3), stats::lag(x_series, -4))
 y_series <- 15 + 0.8*z[,2] + 1.5*z[,3] + rnorm(197,0,1)
 ```
 
-The cross-correlation applied to the original series results in a plot where everything seems to be correlated. The "real" correlation at lags $x_{t-3}$ and $x_{t-4}$ is not discernible at all.
+The cross-correlation applied to the original series results in a plot where everything seems to be correlated. The "real" correlation at $x_{t-3}$ and $x_{t-4}$ is not discernible at all.
 
 ```{r}
 ccf(x_series, y_series, na.action = na.omit)
@@ -293,7 +293,7 @@ ccf(x_residuals, y_filtered)
 
 ```
 
-Now, it's clear that the X-variable is correlated with the Y-variable at lags $x_{t-3}$ and $x_{t-4}$. 
+Now, it's clear that the X-variable is correlated with the Y-variable at $x_{t-3}$ and $x_{t-4}$. 
 
 The previous steps show in some detail the steps involved in the pre-whitening strategy, but it is possible to use the original series with the **prewhiten** function of the **TSA** library. Although the function can take, as an argument, a pre-fitted ARIMA model, its greater advantage is that it can take care of all the necessary steps to prewithen the series. In particular, if no model is specified, the library automatically applies a simple AR model. Although this model can be just an approximation of the "true" model (which can be more complex), an approximation can be enough to pre-whiten the series and find a proper cross-correlation (that is, also a simpler and approximate model can do the job).
 
