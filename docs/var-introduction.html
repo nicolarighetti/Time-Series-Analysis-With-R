@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 11 VAR (Introduction) | Time Series Analysis With R</title>
   <meta name="description" content="Chapter 11 VAR (Introduction) | Time Series Analysis With R" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 11 VAR (Introduction) | Time Series Analysis With R" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-06-24" />
+<meta name="date" content="2021-11-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +33,9 @@
   
 <link rel="prev" href="intervention-analysis.html"/>
 <link rel="next" href="readings-and-bibliographical-references.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,25 +51,23 @@
 
 
 
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
 <style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -87,7 +87,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -120,6 +120,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -136,7 +137,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Time Series with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Time Series Analysis With R</a><ul>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Time Series Analysis With R</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#objectives"><i class="fa fa-check"></i><b>1.1</b> Objectives</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#lectures"><i class="fa fa-check"></i><b>1.2</b> Lectures</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#home-work"><i class="fa fa-check"></i><b>1.3</b> Home Work</a></li>
@@ -144,8 +146,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#syllabus-and-readings"><i class="fa fa-check"></i><b>1.5</b> Syllabus and readings</a></li>
 <li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#further-information-and-support"><i class="fa fa-check"></i><b>1.6</b> Further information and support</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting started with R</a><ul>
-<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#rstudio-interface-and-data"><i class="fa fa-check"></i><b>2.1</b> RStudio Interface and Data</a><ul>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#rstudio-interface-and-data"><i class="fa fa-check"></i><b>2.1</b> RStudio Interface and Data</a>
+<ul>
 <li class="chapter" data-level="2.1.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#download-and-install-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Download and Install RStudio</a></li>
 <li class="chapter" data-level="2.1.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-rstudio-project-and-import-data"><i class="fa fa-check"></i><b>2.1.2</b> Create a RStudio Project and Import data</a></li>
 <li class="chapter" data-level="2.1.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-script"><i class="fa fa-check"></i><b>2.1.3</b> Create a Script</a></li>
@@ -153,18 +157,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.1.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#load-and-save-data"><i class="fa fa-check"></i><b>2.1.5</b> Load and Save Data</a></li>
 <li class="chapter" data-level="2.1.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-new-folders"><i class="fa fa-check"></i><b>2.1.6</b> Create new Folders</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r"><i class="fa fa-check"></i><b>2.2</b> Basic R</a><ul>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r"><i class="fa fa-check"></i><b>2.2</b> Basic R</a>
+<ul>
 <li class="chapter" data-level="2.2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#objects"><i class="fa fa-check"></i><b>2.2.1</b> Objects</a></li>
 <li class="chapter" data-level="2.2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#functions"><i class="fa fa-check"></i><b>2.2.2</b> Functions</a></li>
 <li class="chapter" data-level="2.2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.2.3</b> Data Types</a></li>
 <li class="chapter" data-level="2.2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#excercise"><i class="fa fa-check"></i><b>2.2.4</b> Excercise</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse</a><ul>
+<li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.1</b> The Pipe Operator %&gt;%</a></li>
 <li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.2</b> Mutate</a></li>
 <li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.3</b> Rename</a></li>
-<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by</a><ul>
+<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by</a>
+<ul>
 <li class="chapter" data-level="3.4.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.4.1</b> Count occurrences</a></li>
 </ul></li>
 <li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5</b> Arrange</a></li>
@@ -172,49 +179,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.7</b> Select</a></li>
 <li class="chapter" data-level="3.8" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#exercise"><i class="fa fa-check"></i><b>3.8</b> Exercise</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a><ul>
+<li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series"><i class="fa fa-check"></i><b>4.1</b> Time Series</a></li>
 <li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis</a></li>
 <li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects</a><ul>
-<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects</a><ul>
+<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects</a>
+<ul>
 <li class="chapter" data-level="5.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>5.1.1</b> Time Series as Data Frames</a></li>
 <li class="chapter" data-level="5.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>5.1.2</b> Time Series as TS objects</a></li>
 <li class="chapter" data-level="5.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>5.1.3</b> Time Series as XTS/ZOO objects</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="time-series-objects.html"><a href="time-series-objects.html#exercise-1"><i class="fa fa-check"></i><b>5.2</b> Exercise</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>6</b> Plot Time Series</a><ul>
+<li class="chapter" data-level="6" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>6</b> Plot Time Series</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>6.1</b> Plot Time Series Objects</a></li>
 <li class="chapter" data-level="6.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>6.2</b> plot.ts</a></li>
 <li class="chapter" data-level="6.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>6.3</b> plot.xts</a></li>
 <li class="chapter" data-level="6.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>6.4</b> ggplot</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition</a><ul>
-<li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#components-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Components of a time series</a><ul>
+<li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#components-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Components of a time series</a>
+<ul>
 <li class="chapter" data-level="7.1.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#trend-and-cycle"><i class="fa fa-check"></i><b>7.1.1</b> Trend and Cycle</a></li>
 <li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#stochastic-and-deterministic-trend"><i class="fa fa-check"></i><b>7.1.2</b> Stochastic and Deterministic Trend</a></li>
 <li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.3</b> Seasonality</a></li>
 <li class="chapter" data-level="7.1.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.4</b> Residuals</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition</a><ul>
+<li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition</a>
+<ul>
 <li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
 <li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
 <li class="chapter" data-level="7.2.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#compare-additive-and-multiplicative-models"><i class="fa fa-check"></i><b>7.2.3</b> Compare Additive and Multiplicative Models</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a><ul>
+<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a>
+<ul>
 <li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
 <li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
 <li class="chapter" data-level="7.3.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#other-decomposition-methods-in-r"><i class="fa fa-check"></i><b>7.3.3</b> Other Decomposition Methods in R</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html"><i class="fa fa-check"></i><b>8</b> Correlations and ARIMA</a><ul>
-<li class="chapter" data-level="8.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-correlation-acf-and-pacf"><i class="fa fa-check"></i><b>8.1</b> Auto-Correlation (ACF and PACF)</a><ul>
+<li class="chapter" data-level="8" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html"><i class="fa fa-check"></i><b>8</b> Correlations and ARIMA</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-correlation-acf-and-pacf"><i class="fa fa-check"></i><b>8.1</b> Auto-Correlation (ACF and PACF)</a>
+<ul>
 <li class="chapter" data-level="8.1.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>8.1.1</b> Correlogram: ACF and PACF</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a><ul>
+<li class="chapter" data-level="8.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a>
+<ul>
 <li class="chapter" data-level="8.2.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-regressive-ar-models"><i class="fa fa-check"></i><b>8.2.1</b> Auto Regressive (AR) models</a></li>
 <li class="chapter" data-level="8.2.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#moving-average-ma-models"><i class="fa fa-check"></i><b>8.2.2</b> Moving Average (MA) models</a></li>
 <li class="chapter" data-level="8.2.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#integrated-i-process"><i class="fa fa-check"></i><b>8.2.3</b> Integrated (I) process</a></li>
@@ -224,9 +242,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#cross-correlation"><i class="fa fa-check"></i><b>8.3</b> Cross-correlation</a></li>
 <li class="chapter" data-level="8.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#examples-in-literature"><i class="fa fa-check"></i><b>8.4</b> Examples in literature</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a><ul>
+<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#static-and-dynamic-models"><i class="fa fa-check"></i><b>9.1</b> Static and Dynamic Models</a></li>
-<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-models"><i class="fa fa-check"></i><b>9.2</b> Regression models</a><ul>
+<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-models"><i class="fa fa-check"></i><b>9.2</b> Regression models</a>
+<ul>
 <li class="chapter" data-level="9.2.1" data-path="regression.html"><a href="regression.html#stationarity"><i class="fa fa-check"></i><b>9.2.1</b> Stationarity</a></li>
 <li class="chapter" data-level="9.2.2" data-path="regression.html"><a href="regression.html#non-autocorrelated-residuals"><i class="fa fa-check"></i><b>9.2.2</b> Non-autocorrelated residuals</a></li>
 <li class="chapter" data-level="9.2.3" data-path="regression.html"><a href="regression.html#regression-with-arma-errors"><i class="fa fa-check"></i><b>9.2.3</b> Regression with ARMA errors</a></li>
@@ -235,15 +255,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#model-selection-aic-aicc-bic"><i class="fa fa-check"></i><b>9.3</b> Model Selection (AIC, AICc, BIC)</a></li>
 <li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#some-examples-in-the-literature"><i class="fa fa-check"></i><b>9.4</b> Some examples in the literature</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="intervention-analysis.html"><a href="intervention-analysis.html"><i class="fa fa-check"></i><b>10</b> Intervention Analysis</a><ul>
+<li class="chapter" data-level="10" data-path="intervention-analysis.html"><a href="intervention-analysis.html"><i class="fa fa-check"></i><b>10</b> Intervention Analysis</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#types-of-intervention"><i class="fa fa-check"></i><b>10.1</b> Types of intervention</a></li>
 <li class="chapter" data-level="10.2" data-path="intervention-analysis.html"><a href="intervention-analysis.html#intervention-analysis-with-arima"><i class="fa fa-check"></i><b>10.2</b> Intervention analysis with ARIMA</a></li>
-<li class="chapter" data-level="10.3" data-path="intervention-analysis.html"><a href="intervention-analysis.html#causalimpact"><i class="fa fa-check"></i><b>10.3</b> CausalImpact</a><ul>
+<li class="chapter" data-level="10.3" data-path="intervention-analysis.html"><a href="intervention-analysis.html#causalimpact"><i class="fa fa-check"></i><b>10.3</b> CausalImpact</a>
+<ul>
 <li class="chapter" data-level="10.3.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#exercise-2"><i class="fa fa-check"></i><b>10.3.1</b> Exercise</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="var-introduction.html"><a href="var-introduction.html"><i class="fa fa-check"></i><b>11</b> VAR (Introduction)</a></li>
-<li class="chapter" data-level="12" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html"><i class="fa fa-check"></i><b>12</b> Readings and Bibliographical References</a><ul>
+<li class="chapter" data-level="12" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html"><i class="fa fa-check"></i><b>12</b> Readings and Bibliographical References</a>
+<ul>
 <li class="chapter" data-level="12.1" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#useful-resources"><i class="fa fa-check"></i><b>12.1</b> Useful resources</a></li>
 </ul></li>
 <li class="divider"></li>
@@ -265,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="var-introduction" class="section level1">
+<div id="var-introduction" class="section level1" number="11">
 <h1><span class="header-section-number">Chapter 11</span> VAR (Introduction)</h1>
 <p><em>VAR</em> is an acronym that stands for <strong>Vector Autoregressive Model</strong>. It is a common method for the analysis of multivariate time series.</p>
 <p>It can be conceived as a way to model a <strong>system</strong> of time series. In a VAR model, there is no rigid distinction between independent and dependent variables, but each variable is both dependent and independent. Besides these <strong>endogenous</strong> variables that dynamically interact, a VAR model can include <strong>exogenous</strong> variables. Exogenous variables can have an impact on the endogenous variables, while the opposite is not true.</p>
@@ -293,7 +316,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -312,6 +334,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -332,6 +355,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

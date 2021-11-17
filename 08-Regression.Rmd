@@ -37,7 +37,7 @@ $$
 y_t = \beta_0  & + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m}x_{1,t-m} \\
 & + \beta_{20}x_{2,t} + \beta_{21}x_{2,t-1} + ... + \beta_{2m}x_{2,t-m} \\
 & + \dots \\
-& + \beta_{k0}x_{k,t} + \beta_{k1}x_{k,t-1} + ... + \beta_{km}x_{2,t-m} \\
+& + \beta_{k0}x_{k,t} + \beta_{k1}x_{k,t-1} + ... + \beta_{km}x_{k,t-m} \\
 & + \epsilon_t \\
 \end{aligned} 
 $$
