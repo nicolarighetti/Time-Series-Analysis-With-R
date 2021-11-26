@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-11-17" />
+<meta name="date" content="2021-11-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -310,12 +310,12 @@ Many functions have been developed with reference to specific libraries and obje
 <p>Data frames (<em>data.frame</em>) are the most common data set structure in R. A data.frame is simply a table <em>cases by variables</em> (each row is a case and each column is a variable).</p>
 <p>To see an example of data.frame containing time series data, we can upload a data set containing the number of news articles mentioning the keyword “elections” published by USA news media. I retrieved this data set from <a href="https://mediacloud.org">MediaCloud</a>, a free and open source platform for studying media ecosystem that tracks millions of stories published online. You can download the data set <a href="https://drive.google.com/file/d/1vzpdPFb_ihBlqqbHxJS7mEvzQ3tNhmEm/view?usp=sharing">at this link</a>.</p>
 <p>We can upload the <em>.csv</em> file by using the function <strong>read.csv</strong>. The main argument of the read.csv function is the path of the file.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="time-series-objects.html#cb94-1" aria-hidden="true" tabindex="-1"></a>elections_news <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;./data/elections-stories-over-time-20210111144254.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="time-series-objects.html#cb97-1" aria-hidden="true" tabindex="-1"></a>elections_news <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;./data/elections-stories-over-time-20210111144254.csv&quot;</span>)</span></code></pre></div>
 <p>By using the function <strong>class</strong> we can see that this is a data.frame.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="time-series-objects.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(elections_news)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="time-series-objects.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(elections_news)</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <p>We can check the first few rows of the data.frame by using the function <strong>head</strong>, which shows the first few rows of the data set, so as to get an idea of the structure of this simple data.frame.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="time-series-objects.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(elections_news)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="time-series-objects.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(elections_news)</span></code></pre></div>
 <pre><code>##         date count total_count      ratio
 ## 1 2015-01-01   373       25611 0.01456405
 ## 2 2015-01-02   387       31932 0.01211950
@@ -325,7 +325,7 @@ Many functions have been developed with reference to specific libraries and obje
 ## 6 2015-01-06   626       42366 0.01477600</code></pre>
 <p>This data.frame contains time series data: the first column contains dates, and the other columns contain the values of the observations. We can also see that the data.frame seems to contain daily data, where each row corresponds to a specific day. The data frame also includes, in the column “count”, the number of news articles mentioning the keyword “elections”, in the column “total_count”, the total number of news articles on <em>all the topics</em>, and in the column “ratio” the proportion of news articles mentioning the keyword (count/total_count).</p>
 <p>The function <em>head</em> (and <em>tail</em>) can be impractical with data.frame including a lot of columns, so it could be better to use the function <strong>str</strong> to check the structure of the data.frame.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="time-series-objects.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(elections_news)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="time-series-objects.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(elections_news)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    2192 obs. of  4 variables:
 ##  $ date       : chr  &quot;2015-01-01&quot; &quot;2015-01-02&quot; &quot;2015-01-03&quot; &quot;2015-01-04&quot; ...
 ##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
@@ -333,30 +333,30 @@ Many functions have been developed with reference to specific libraries and obje
 ##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
 <p>As you can see in the output of the function <em>str</em>, the format of the column date is <em>Factor</em>. The format is, in this case, automatically attributed by R, but (as we have already said) it can be specified before importing the data.</p>
 <p><em>Factor</em> is an appropriate format for categorical variables, but R includes a specific format for dates and times. In this case we have just a date, so we can convert it to a variable of type <em>date</em>. We can change the format of the variable by using the function <strong>as.Date</strong>.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="time-series-objects.html#cb101-1" aria-hidden="true" tabindex="-1"></a>elections_news<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(elections_news<span class="sc">$</span>date)</span></code></pre></div>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="time-series-objects.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(elections_news)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="time-series-objects.html#cb104-1" aria-hidden="true" tabindex="-1"></a>elections_news<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(elections_news<span class="sc">$</span>date)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="time-series-objects.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(elections_news)</span></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    2192 obs. of  4 variables:
-##  $ date       : Date, format: &quot;2015-01-01&quot; &quot;2015-01-02&quot; &quot;2015-01-03&quot; &quot;2015-01-04&quot; ...
+##  $ date       : Date, format: &quot;2015-01-01&quot; &quot;2015-01-02&quot; &quot;2015-01-03&quot; ...
 ##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
 ##  $ total_count: int  25611 31932 24646 25513 39982 42366 45163 44928 44041 29093 ...
 ##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
 <p>We can also perform the same operation with tidyverse, by using the function <strong>mutate</strong>.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="time-series-objects.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb104-2"><a href="time-series-objects.html#cb104-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb104-3"><a href="time-series-objects.html#cb104-3" aria-hidden="true" tabindex="-1"></a>elections_news <span class="ot">&lt;-</span> elections_news <span class="sc">%&gt;%</span></span>
-<span id="cb104-4"><a href="time-series-objects.html#cb104-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(date))</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="time-series-objects.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb107-2"><a href="time-series-objects.html#cb107-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-3"><a href="time-series-objects.html#cb107-3" aria-hidden="true" tabindex="-1"></a>elections_news <span class="ot">&lt;-</span> elections_news <span class="sc">%&gt;%</span></span>
+<span id="cb107-4"><a href="time-series-objects.html#cb107-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(date))</span></code></pre></div>
 <p>A data.frame is the common format for data sets, including time series data sets. We can do many things with data stored in this format, such as creating plots and performing various types of analysis. However, to handle time series in R there are more specific data formats.</p>
 </div>
 <div id="time-series-as-ts-objects" class="section level3" number="5.1.2">
 <h3><span class="header-section-number">5.1.2</span> Time Series as TS objects</h3>
 <p>The basic object created to handle time series in R is the object of class <em>ts</em>. The name stands for “Time Series”.</p>
 <p>An example of ts object is already present in R under the name of “AirPassengers”, a time series data set in ts format. We can load this data set with the function <strong>data</strong>.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="time-series-objects.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(AirPassengers)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="time-series-objects.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(AirPassengers)</span></code></pre></div>
 <p>By applying the function <em>class</em> we can see that this is an object of class ts.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="time-series-objects.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(AirPassengers)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="time-series-objects.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(AirPassengers)</span></code></pre></div>
 <pre><code>## [1] &quot;ts&quot;</code></pre>
 <p>AirPassengers is a small data set so we can print all the data set to see its structure, which is an example of the standard structure of a ts object.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="time-series-objects.html#cb108-1" aria-hidden="true" tabindex="-1"></a>AirPassengers</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="time-series-objects.html#cb111-1" aria-hidden="true" tabindex="-1"></a>AirPassengers</span></code></pre></div>
 <pre><code>##      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 ## 1949 112 118 132 129 121 135 148 148 136 119 104 118
 ## 1950 115 126 141 135 125 149 170 170 158 133 114 140
@@ -371,36 +371,36 @@ Many functions have been developed with reference to specific libraries and obje
 ## 1959 360 342 406 396 420 472 548 559 463 407 362 405
 ## 1960 417 391 419 461 472 535 622 606 508 461 390 432</code></pre>
 <p>By calling the <em>str</em> function we get synthetic information on the object.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="time-series-objects.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(AirPassengers)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="time-series-objects.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(AirPassengers)</span></code></pre></div>
 <pre><code>##  Time-Series [1:144] from 1949 to 1961: 112 118 132 129 121 135 148 148 136 119 ...</code></pre>
 <p>The AirPassengers data set is a univariate time series representing monthly totals of international airline passengers from 1949 to 1960. As every time series, it has a <strong>start date</strong> and an <strong>end date</strong>. It also has a <strong>frequency</strong>, which is the frequency at which the observations were taken.</p>
 <p>All this characteristics differentiate a ts object from a data.frame. The structure of a data.frame lacks the start and the end date, and the frequency value.</p>
 <p>The functions <strong>start</strong>, <strong>end</strong>, and <strong>frequency</strong>, can be applied to a <em>ts</em> object to check their values. We started by saying that some functions work with some objects but not with other types of objects. This is an example. These functions, indeed, work with <em>ts</em> objects just because they are part of their structures, and are arguments usually specified when this kind of object is created. They do not work if applied to a data.frame object, since a data.frame structure does not include the start and end date, nor the frequency of observations. It can be seen that the ts structure is much more specific for time series data.</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="time-series-objects.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">start</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="time-series-objects.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">start</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 1949</code></pre>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="time-series-objects.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">end</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="time-series-objects.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">end</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 1960</code></pre>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="time-series-objects.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frequency</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="time-series-objects.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frequency</span>(AirPassengers)[<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>## [1] 12</code></pre>
 <p>Importantly, the frequency of a time series is assumed to be <strong>regular</strong> over time. This applies to time series in general, and not just to ts objects. In this case, the time series starts on January 1949 and ends on December 1969, and has <em>monthly</em> frequency. Monthly frequency is indicated in <em>ts</em> as “12”, meaning 12 months. Indeed, the reference unit of a ts object is a year. So, quarterly data, for instance, have frequency equal to 4.</p>
 <p>To create a ts object is necessary to follow specific steps and use specific functions. To exemplify the process of creation of a ts object we take the example of the data contained in the AirPassengers data set, and store them in a data.frame (you don’t need to learn how to do that, just copy and paste the code). A data.frame is the data set format you will probably start with, so it can be useful to see how to create a ts object starting from a data.frame.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="time-series-objects.html#cb118-1" aria-hidden="true" tabindex="-1"></a>date <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">&quot;1949-01-01&quot;</span>), </span>
-<span id="cb118-2"><a href="time-series-objects.html#cb118-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">to =</span> <span class="fu">as.Date</span>(<span class="st">&quot;1960-12-01&quot;</span>), <span class="at">by=</span><span class="st">&quot;month&quot;</span>)</span>
-<span id="cb118-3"><a href="time-series-objects.html#cb118-3" aria-hidden="true" tabindex="-1"></a>passengers <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(AirPassengers)</span>
-<span id="cb118-4"><a href="time-series-objects.html#cb118-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-5"><a href="time-series-objects.html#cb118-5" aria-hidden="true" tabindex="-1"></a>data_frame_format <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;Date&quot;</span> <span class="ot">=</span> date, </span>
-<span id="cb118-6"><a href="time-series-objects.html#cb118-6" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Passengers&quot;</span> <span class="ot">=</span> passengers)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="time-series-objects.html#cb121-1" aria-hidden="true" tabindex="-1"></a>date <span class="ot">&lt;-</span> <span class="fu">seq.Date</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">&quot;1949-01-01&quot;</span>), </span>
+<span id="cb121-2"><a href="time-series-objects.html#cb121-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">to =</span> <span class="fu">as.Date</span>(<span class="st">&quot;1960-12-01&quot;</span>), <span class="at">by=</span><span class="st">&quot;month&quot;</span>)</span>
+<span id="cb121-3"><a href="time-series-objects.html#cb121-3" aria-hidden="true" tabindex="-1"></a>passengers <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(AirPassengers)</span>
+<span id="cb121-4"><a href="time-series-objects.html#cb121-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-5"><a href="time-series-objects.html#cb121-5" aria-hidden="true" tabindex="-1"></a>data_frame_format <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">&quot;Date&quot;</span> <span class="ot">=</span> date, </span>
+<span id="cb121-6"><a href="time-series-objects.html#cb121-6" aria-hidden="true" tabindex="-1"></a>                                <span class="st">&quot;Passengers&quot;</span> <span class="ot">=</span> passengers)</span></code></pre></div>
 <p>To create a “ts” time series object starting from a data.frame, we need:</p>
 <ul>
 <li>To specify which column contains the observations. In this case, the column name is “Passengers”.</li>
 <li>We then need to specify the start and end date, which in this case are in the format year/month, but can be just years in case of yearly data. The ts format for the start/end date is the following: <em>c=(YEAR, MONTH)</em>. The <em>c</em> represents the <em>concatenate</em> function, and it concatenates the year and the month in a single vector.</li>
 <li>Finally, we indicate the frequency of the time series observations. The frequency is specified based on the time period of a year, so in this case we have a frequency equal to 12, because we have monthly observation, meaning that we have 12 observation per year.</li>
 </ul>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="time-series-objects.html#cb119-1" aria-hidden="true" tabindex="-1"></a>ts_format <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="at">data =</span> data_frame_format<span class="sc">$</span>Passengers, </span>
-<span id="cb119-2"><a href="time-series-objects.html#cb119-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">start=</span><span class="fu">c</span>(<span class="dv">1949</span>, <span class="dv">01</span>), </span>
-<span id="cb119-3"><a href="time-series-objects.html#cb119-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">end=</span><span class="fu">c</span>(<span class="dv">1960</span>, <span class="dv">12</span>), </span>
-<span id="cb119-4"><a href="time-series-objects.html#cb119-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="time-series-objects.html#cb120-1" aria-hidden="true" tabindex="-1"></a>ts_format</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="time-series-objects.html#cb122-1" aria-hidden="true" tabindex="-1"></a>ts_format <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="at">data =</span> data_frame_format<span class="sc">$</span>Passengers, </span>
+<span id="cb122-2"><a href="time-series-objects.html#cb122-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">start=</span><span class="fu">c</span>(<span class="dv">1949</span>, <span class="dv">01</span>), </span>
+<span id="cb122-3"><a href="time-series-objects.html#cb122-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">end=</span><span class="fu">c</span>(<span class="dv">1960</span>, <span class="dv">12</span>), </span>
+<span id="cb122-4"><a href="time-series-objects.html#cb122-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="time-series-objects.html#cb123-1" aria-hidden="true" tabindex="-1"></a>ts_format</span></code></pre></div>
 <pre><code>##      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
 ## 1949 112 118 132 129 121 135 148 148 136 119 104 118
 ## 1950 115 126 141 135 125 149 170 170 158 133 114 140
@@ -414,7 +414,7 @@ Many functions have been developed with reference to specific libraries and obje
 ## 1958 340 318 362 348 363 435 491 505 404 359 310 337
 ## 1959 360 342 406 396 420 472 548 559 463 407 362 405
 ## 1960 417 391 419 461 472 535 622 606 508 461 390 432</code></pre>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="time-series-objects.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ts_format)</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="time-series-objects.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(ts_format)</span></code></pre></div>
 <pre><code>## [1] &quot;ts&quot;</code></pre>
 <p>It’s important to notice that yearly, quarterly, and monthly data work fine with the <em>ts</em> structure, but <em>more fine grained data create complications and are not totally suitable for a ts structure</em>.</p>
 <p>This is due to the fact that time series objects require the frequency of observations to be regular and in <em>ts</em> the observations have to be regular with reference to a year. Unfortunately, a time series that spans over many years cannot be composed of a constant number of days, since the number of days will be sometimes 365 and other time 366, in case of leap years. This is a limitation of <em>ts</em> objects. However, when dealing with monthly data or data with frequency lower than one month (such as quarterly data), <em>ts</em> works great.</p>
@@ -422,8 +422,8 @@ Many functions have been developed with reference to specific libraries and obje
 <div id="time-series-as-xtszoo-objects" class="section level3" number="5.1.3">
 <h3><span class="header-section-number">5.1.3</span> Time Series as XTS/ZOO objects</h3>
 <p>Time series can be stored in object of class xts/zoo. This class of objects is created with the library <em>xts</em>, which is related and an extension of the package <em>zoo</em> (another package to deal with time series data). As other libraries, it requires to be installed and loaded.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="time-series-objects.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;xts&quot;)</span></span>
-<span id="cb124-2"><a href="time-series-objects.html#cb124-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="time-series-objects.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;xts&quot;)</span></span>
+<span id="cb127-2"><a href="time-series-objects.html#cb127-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span></code></pre></div>
 <p>The <em>xts</em> object is more flexible that the <em>ts</em> one.</p>
 <p>We can create an <em>xts</em> time series by starting from the data.frame we have just created. Similarly to what required by <em>ts</em>, we need to specify:</p>
 <ul>
@@ -432,19 +432,19 @@ Many functions have been developed with reference to specific libraries and obje
 <li>the frequency of observations.</li>
 </ul>
 <p>We can use the data.frame already created with the AirPassengers data to create a new <em>xts</em> object.</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="time-series-objects.html#cb125-1" aria-hidden="true" tabindex="-1"></a>xts_format <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="at">x =</span> data_frame_format<span class="sc">$</span>Passengers, </span>
-<span id="cb125-2"><a href="time-series-objects.html#cb125-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">order.by =</span> data_frame_format<span class="sc">$</span>Date, </span>
-<span id="cb125-3"><a href="time-series-objects.html#cb125-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="time-series-objects.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(xts_format)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="time-series-objects.html#cb128-1" aria-hidden="true" tabindex="-1"></a>xts_format <span class="ot">&lt;-</span> <span class="fu">xts</span>(<span class="at">x =</span> data_frame_format<span class="sc">$</span>Passengers, </span>
+<span id="cb128-2"><a href="time-series-objects.html#cb128-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">order.by =</span> data_frame_format<span class="sc">$</span>Date, </span>
+<span id="cb128-3"><a href="time-series-objects.html#cb128-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="time-series-objects.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(xts_format)</span></code></pre></div>
 <pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
 <p>Also the structure of this object, like the <em>ts</em> one, includes the range of dates of the time series, with it starting and ending date.</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="time-series-objects.html#cb128-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(xts_format)</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="time-series-objects.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(xts_format)</span></code></pre></div>
 <pre><code>## An &#39;xts&#39; object on 1949-01-01/1960-12-01 containing:
 ##   Data: num [1:144, 1] 112 118 132 129 121 135 148 148 136 119 ...
 ##   Indexed by objects of class: [Date] TZ: UTC
 ##   xts Attributes:  
 ##  NULL</code></pre>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="time-series-objects.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(xts_format)</span></code></pre></div>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="time-series-objects.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(xts_format)</span></code></pre></div>
 <pre><code>##            [,1]
 ## 1949-01-01  112
 ## 1949-02-01  118

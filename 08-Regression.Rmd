@@ -471,7 +471,6 @@ ARIMA is a modeling technique that can be applied to a single time series, but i
 It is possible to use more than one option to fit an ARIMA model with external regressors. A convenient option is provided by the function **auto.arima**, in the package *forecast*. This library has an argument **xreg** which can be use with *a numerical vector or matrix of external regressors, which must have the same number of rows as y* (see ?auto.arima).
 
 ```{r}
-set.seed(999)
 arima1 <- auto.arima(xy2_series[,1], xreg = xy2_series[,3:4])
 arima1
 ```

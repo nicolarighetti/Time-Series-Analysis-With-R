@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2021-11-17" />
+<meta name="date" content="2021-11-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -334,81 +334,81 @@ y_t = \beta_0  &amp; + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m
 <h3><span class="header-section-number">9.2.1</span> Stationarity</h3>
 <p>We already discussed stationarity in the previous chapters. Here we can observe that time series can be nonstationary due to different reasons, thus different strategies can be employed to <em>stationarize</em> the data.</p>
 <p>For instance, a nonstationary series can be a series with <strong>unequal variance</strong> over time. A common way to try to fix the problem is by applying a log-transformation.</p>
-<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="regression.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
-<span id="cb222-2"><a href="regression.html#cb222-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb222-3"><a href="regression.html#cb222-3" aria-hidden="true" tabindex="-1"></a>elections_news <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/elections-stories-over-time-20210111144254.csv&quot;</span>)</span>
-<span id="cb222-4"><a href="regression.html#cb222-4" aria-hidden="true" tabindex="-1"></a>elections_news<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(elections_news<span class="sc">$</span>date)</span>
-<span id="cb222-5"><a href="regression.html#cb222-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb222-6"><a href="regression.html#cb222-6" aria-hidden="true" tabindex="-1"></a>elections_news <span class="ot">&lt;-</span> <span class="fu">xts</span>(elections_news<span class="sc">$</span>count, <span class="at">order.by =</span> elections_news<span class="sc">$</span>date)</span>
-<span id="cb222-7"><a href="regression.html#cb222-7" aria-hidden="true" tabindex="-1"></a>elections_news_log <span class="ot">&lt;-</span> <span class="fu">log</span>(elections_news<span class="sc">+</span><span class="dv">1</span>)</span>
-<span id="cb222-8"><a href="regression.html#cb222-8" aria-hidden="true" tabindex="-1"></a>elections_news_xts <span class="ot">&lt;-</span> <span class="fu">merge.xts</span>(elections_news, elections_news_log)</span>
-<span id="cb222-9"><a href="regression.html#cb222-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb222-10"><a href="regression.html#cb222-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(elections_news_xts, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
-<span id="cb222-11"><a href="regression.html#cb222-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">multi.panel =</span> <span class="cn">TRUE</span>, <span class="at">yaxis.same =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb222-12"><a href="regression.html#cb222-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">&quot;Original vs Log-transformed series&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="regression.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb228-2"><a href="regression.html#cb228-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-3"><a href="regression.html#cb228-3" aria-hidden="true" tabindex="-1"></a>elections_news <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/elections-stories-over-time-20210111144254.csv&quot;</span>)</span>
+<span id="cb228-4"><a href="regression.html#cb228-4" aria-hidden="true" tabindex="-1"></a>elections_news<span class="sc">$</span>date <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(elections_news<span class="sc">$</span>date)</span>
+<span id="cb228-5"><a href="regression.html#cb228-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-6"><a href="regression.html#cb228-6" aria-hidden="true" tabindex="-1"></a>elections_news <span class="ot">&lt;-</span> <span class="fu">xts</span>(elections_news<span class="sc">$</span>count, <span class="at">order.by =</span> elections_news<span class="sc">$</span>date)</span>
+<span id="cb228-7"><a href="regression.html#cb228-7" aria-hidden="true" tabindex="-1"></a>elections_news_log <span class="ot">&lt;-</span> <span class="fu">log</span>(elections_news<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb228-8"><a href="regression.html#cb228-8" aria-hidden="true" tabindex="-1"></a>elections_news_xts <span class="ot">&lt;-</span> <span class="fu">merge.xts</span>(elections_news, elections_news_log)</span>
+<span id="cb228-9"><a href="regression.html#cb228-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-10"><a href="regression.html#cb228-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(elections_news_xts, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>),</span>
+<span id="cb228-11"><a href="regression.html#cb228-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">multi.panel =</span> <span class="cn">TRUE</span>, <span class="at">yaxis.same =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb228-12"><a href="regression.html#cb228-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">&quot;Original vs Log-transformed series&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-195-1.png" width="672" /></p>
 <p>Another reason for nonstationarity is the periodic variation due to <strong>seasonality</strong> (regular fluctuations in a time series that follow a specific time pattern, e.g.: social media activity during week-ends, Christmas effect in consumption, etc.).</p>
 <p>To remove the seasonal pattern, you might want to use a <em>seasonally-adjusted</em> time series. Otherwise, you could create a dummy variable for the seasonal period (that is, a variable that follows the seasonal pattern in the data in order to account, in the model, for these fluctuations).</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="regression.html#cb223-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the ts dataset AirPassenger</span></span>
-<span id="cb223-2"><a href="regression.html#cb223-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
-<span id="cb223-3"><a href="regression.html#cb223-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb223-4"><a href="regression.html#cb223-4" aria-hidden="true" tabindex="-1"></a><span class="co"># remove seasonality from a multiplicative model</span></span>
-<span id="cb223-5"><a href="regression.html#cb223-5" aria-hidden="true" tabindex="-1"></a>AirPassengers_decomposed <span class="ot">&lt;-</span> <span class="fu">decompose</span>(AirPassengers, <span class="at">type=</span><span class="st">&quot;multiplicative&quot;</span>)</span>
-<span id="cb223-6"><a href="regression.html#cb223-6" aria-hidden="true" tabindex="-1"></a>AirPassengers_seasonal_component <span class="ot">&lt;-</span> AirPassengers_decomposed<span class="sc">$</span>seasonal</span>
-<span id="cb223-7"><a href="regression.html#cb223-7" aria-hidden="true" tabindex="-1"></a>AirPassengers_seasonally_adjusted <span class="ot">&lt;-</span> AirPassengers<span class="sc">/</span>AirPassengers_seasonal_component</span>
-<span id="cb223-8"><a href="regression.html#cb223-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb223-9"><a href="regression.html#cb223-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb223-10"><a href="regression.html#cb223-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(AirPassengers, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Original series&quot;</span>)</span>
-<span id="cb223-11"><a href="regression.html#cb223-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(AirPassengers_seasonally_adjusted, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,  </span>
-<span id="cb223-12"><a href="regression.html#cb223-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Seasonally-adjusted series&quot;</span>, </span>
-<span id="cb223-13"><a href="regression.html#cb223-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Seasonally-adjusted values&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="regression.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the ts dataset AirPassenger</span></span>
+<span id="cb229-2"><a href="regression.html#cb229-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
+<span id="cb229-3"><a href="regression.html#cb229-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb229-4"><a href="regression.html#cb229-4" aria-hidden="true" tabindex="-1"></a><span class="co"># remove seasonality from a multiplicative model</span></span>
+<span id="cb229-5"><a href="regression.html#cb229-5" aria-hidden="true" tabindex="-1"></a>AirPassengers_decomposed <span class="ot">&lt;-</span> <span class="fu">decompose</span>(AirPassengers, <span class="at">type=</span><span class="st">&quot;multiplicative&quot;</span>)</span>
+<span id="cb229-6"><a href="regression.html#cb229-6" aria-hidden="true" tabindex="-1"></a>AirPassengers_seasonal_component <span class="ot">&lt;-</span> AirPassengers_decomposed<span class="sc">$</span>seasonal</span>
+<span id="cb229-7"><a href="regression.html#cb229-7" aria-hidden="true" tabindex="-1"></a>AirPassengers_seasonally_adjusted <span class="ot">&lt;-</span> AirPassengers<span class="sc">/</span>AirPassengers_seasonal_component</span>
+<span id="cb229-8"><a href="regression.html#cb229-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb229-9"><a href="regression.html#cb229-9" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb229-10"><a href="regression.html#cb229-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(AirPassengers, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Original series&quot;</span>)</span>
+<span id="cb229-11"><a href="regression.html#cb229-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(AirPassengers_seasonally_adjusted, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,  </span>
+<span id="cb229-12"><a href="regression.html#cb229-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Seasonally-adjusted series&quot;</span>, </span>
+<span id="cb229-13"><a href="regression.html#cb229-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Seasonally-adjusted values&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-196-1.png" width="672" /></p>
 <p>An important reason for nonstationarity is also the presence of a trend in the data. There are <strong>stochastic trends</strong> and <strong>deterministic trends</strong>. Deterministic trends are a fixed function of time, while stochastic trends change in an unpredictable way.</p>
 <p>Series with a deterministic trend are also called <em>trend stationary</em> because they can be stationary around a deterministic trend, and it could be possible to achieve stationarity by removing the time trend. In trend stationary processes, the shocks to the process are transitory and the process is <em>mean reverting</em>.</p>
 <p>Processes with a <em>stochastic trend</em> are also called <em>difference stationary</em> because they can become stationary through <em>differencing</em>. In series with stochastic trends we could see that shocks have permanent effects.</p>
 <p>When dealing with <em>deterministic trend</em>, we might want to work with detrended series.</p>
-<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="regression.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the trend from a multiplicative model</span></span>
-<span id="cb224-2"><a href="regression.html#cb224-2" aria-hidden="true" tabindex="-1"></a>AirPassengers_decomposed <span class="ot">&lt;-</span> <span class="fu">decompose</span>(AirPassengers, <span class="at">type=</span><span class="st">&quot;multiplicative&quot;</span>)</span>
-<span id="cb224-3"><a href="regression.html#cb224-3" aria-hidden="true" tabindex="-1"></a>AirPassengers_trend_component <span class="ot">&lt;-</span> AirPassengers_decomposed<span class="sc">$</span>trend</span>
-<span id="cb224-4"><a href="regression.html#cb224-4" aria-hidden="true" tabindex="-1"></a>AirPassengers_detrended <span class="ot">&lt;-</span> AirPassengers<span class="sc">/</span>AirPassengers_trend_component</span>
-<span id="cb224-5"><a href="regression.html#cb224-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb224-6"><a href="regression.html#cb224-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb224-7"><a href="regression.html#cb224-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(AirPassengers, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Original series&quot;</span>)</span>
-<span id="cb224-8"><a href="regression.html#cb224-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(AirPassengers_detrended, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,  </span>
-<span id="cb224-9"><a href="regression.html#cb224-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Detrended series&quot;</span>, </span>
-<span id="cb224-10"><a href="regression.html#cb224-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Detrended values&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-164-1.png" width="672" /></p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="regression.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the trend from a multiplicative model</span></span>
+<span id="cb230-2"><a href="regression.html#cb230-2" aria-hidden="true" tabindex="-1"></a>AirPassengers_decomposed <span class="ot">&lt;-</span> <span class="fu">decompose</span>(AirPassengers, <span class="at">type=</span><span class="st">&quot;multiplicative&quot;</span>)</span>
+<span id="cb230-3"><a href="regression.html#cb230-3" aria-hidden="true" tabindex="-1"></a>AirPassengers_trend_component <span class="ot">&lt;-</span> AirPassengers_decomposed<span class="sc">$</span>trend</span>
+<span id="cb230-4"><a href="regression.html#cb230-4" aria-hidden="true" tabindex="-1"></a>AirPassengers_detrended <span class="ot">&lt;-</span> AirPassengers<span class="sc">/</span>AirPassengers_trend_component</span>
+<span id="cb230-5"><a href="regression.html#cb230-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb230-6"><a href="regression.html#cb230-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb230-7"><a href="regression.html#cb230-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(AirPassengers, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Original series&quot;</span>)</span>
+<span id="cb230-8"><a href="regression.html#cb230-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(AirPassengers_detrended, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>,  </span>
+<span id="cb230-9"><a href="regression.html#cb230-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Detrended series&quot;</span>, </span>
+<span id="cb230-10"><a href="regression.html#cb230-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Detrended values&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-197-1.png" width="672" /></p>
 <p>Otherwise, in regression analysis, it is more common to add a dummy variable consisting of a value that increases with time, to account for a linear deterministic time trend. This time-count variable will remove the deterministic trend from the dependent variable, allowing the other predictors to explain the remaining variance.</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="regression.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a simulate series</span></span>
-<span id="cb225-2"><a href="regression.html#cb225-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1312</span>)</span>
-<span id="cb225-3"><a href="regression.html#cb225-3" aria-hidden="true" tabindex="-1"></a>toy_data <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)))</span>
-<span id="cb225-4"><a href="regression.html#cb225-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb225-5"><a href="regression.html#cb225-5" aria-hidden="true" tabindex="-1"></a><span class="co"># add a deterministic trend to the series</span></span>
-<span id="cb225-6"><a href="regression.html#cb225-6" aria-hidden="true" tabindex="-1"></a>toy_data_trend <span class="ot">&lt;-</span> toy_data <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span><span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(toy_data)</span>
-<span id="cb225-7"><a href="regression.html#cb225-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb225-8"><a href="regression.html#cb225-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
-<span id="cb225-9"><a href="regression.html#cb225-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(toy_data, <span class="at">main =</span> <span class="st">&quot;Original series&quot;</span>)</span>
-<span id="cb225-10"><a href="regression.html#cb225-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(toy_data_trend, <span class="at">main =</span> <span class="st">&quot;Series with Trend&quot;</span>)</span>
-<span id="cb225-11"><a href="regression.html#cb225-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb225-12"><a href="regression.html#cb225-12" aria-hidden="true" tabindex="-1"></a>dummy_trend <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(toy_data_trend)</span>
-<span id="cb225-13"><a href="regression.html#cb225-13" aria-hidden="true" tabindex="-1"></a>lm_toydata <span class="ot">&lt;-</span> <span class="fu">lm</span>(toy_data_trend <span class="sc">~</span> dummy_trend)</span>
-<span id="cb225-14"><a href="regression.html#cb225-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(lm_toydata<span class="sc">$</span>residuals, <span class="at">main =</span> <span class="st">&quot;Residuals (detrended)&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-165-1.png" width="672" /></p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="regression.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a simulate series</span></span>
+<span id="cb231-2"><a href="regression.html#cb231-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1312</span>)</span>
+<span id="cb231-3"><a href="regression.html#cb231-3" aria-hidden="true" tabindex="-1"></a>toy_data <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)))</span>
+<span id="cb231-4"><a href="regression.html#cb231-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-5"><a href="regression.html#cb231-5" aria-hidden="true" tabindex="-1"></a><span class="co"># add a deterministic trend to the series</span></span>
+<span id="cb231-6"><a href="regression.html#cb231-6" aria-hidden="true" tabindex="-1"></a>toy_data_trend <span class="ot">&lt;-</span> toy_data <span class="sc">+</span> <span class="fl">0.2</span><span class="sc">*</span><span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(toy_data)</span>
+<span id="cb231-7"><a href="regression.html#cb231-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-8"><a href="regression.html#cb231-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span>
+<span id="cb231-9"><a href="regression.html#cb231-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(toy_data, <span class="at">main =</span> <span class="st">&quot;Original series&quot;</span>)</span>
+<span id="cb231-10"><a href="regression.html#cb231-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(toy_data_trend, <span class="at">main =</span> <span class="st">&quot;Series with Trend&quot;</span>)</span>
+<span id="cb231-11"><a href="regression.html#cb231-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb231-12"><a href="regression.html#cb231-12" aria-hidden="true" tabindex="-1"></a>dummy_trend <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(toy_data_trend)</span>
+<span id="cb231-13"><a href="regression.html#cb231-13" aria-hidden="true" tabindex="-1"></a>lm_toydata <span class="ot">&lt;-</span> <span class="fu">lm</span>(toy_data_trend <span class="sc">~</span> dummy_trend)</span>
+<span id="cb231-14"><a href="regression.html#cb231-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(lm_toydata<span class="sc">$</span>residuals, <span class="at">main =</span> <span class="st">&quot;Residuals (detrended)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-198-1.png" width="672" /></p>
 <p>When we have a series with a stochastic trend, we can achieve stationarity through differencing.</p>
-<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="regression.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
-<span id="cb226-2"><a href="regression.html#cb226-2" aria-hidden="true" tabindex="-1"></a>Random_Walk <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> <span class="dv">500</span>, <span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
-<span id="cb226-3"><a href="regression.html#cb226-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb226-4"><a href="regression.html#cb226-4" aria-hidden="true" tabindex="-1"></a>Random_Walk_diff <span class="ot">&lt;-</span> <span class="fu">diff</span>(Random_Walk)</span>
-<span id="cb226-5"><a href="regression.html#cb226-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb226-6"><a href="regression.html#cb226-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb226-7"><a href="regression.html#cb226-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(Random_Walk,</span>
-<span id="cb226-8"><a href="regression.html#cb226-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Random Walk&quot;</span>, </span>
-<span id="cb226-9"><a href="regression.html#cb226-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb226-10"><a href="regression.html#cb226-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb226-11"><a href="regression.html#cb226-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(Random_Walk_diff, </span>
-<span id="cb226-12"><a href="regression.html#cb226-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Differenced Random Walk&quot;</span>, </span>
-<span id="cb226-13"><a href="regression.html#cb226-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-166-1.png" width="672" /></p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="regression.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">111</span>)</span>
+<span id="cb232-2"><a href="regression.html#cb232-2" aria-hidden="true" tabindex="-1"></a>Random_Walk <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> <span class="dv">500</span>, <span class="at">model =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)))</span>
+<span id="cb232-3"><a href="regression.html#cb232-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb232-4"><a href="regression.html#cb232-4" aria-hidden="true" tabindex="-1"></a>Random_Walk_diff <span class="ot">&lt;-</span> <span class="fu">diff</span>(Random_Walk)</span>
+<span id="cb232-5"><a href="regression.html#cb232-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb232-6"><a href="regression.html#cb232-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb232-7"><a href="regression.html#cb232-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(Random_Walk,</span>
+<span id="cb232-8"><a href="regression.html#cb232-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Random Walk&quot;</span>, </span>
+<span id="cb232-9"><a href="regression.html#cb232-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb232-10"><a href="regression.html#cb232-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb232-11"><a href="regression.html#cb232-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(Random_Walk_diff, </span>
+<span id="cb232-12"><a href="regression.html#cb232-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Differenced Random Walk&quot;</span>, </span>
+<span id="cb232-13"><a href="regression.html#cb232-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-199-1.png" width="672" /></p>
 <div id="tests-for-stochastic-and-deterministic-trend" class="section level4" number="9.2.1.1">
 <h4><span class="header-section-number">9.2.1.1</span> Tests for Stochastic and Deterministic Trend</h4>
 <p>The correct detrending method depends on the type of trend. First differencing is appropriate for intergrated <em>I(1)</em> time series and time-trend regression is appropriate for trend stationary <em>I(0)</em> time series.</p>
@@ -423,26 +423,26 @@ y_t = \beta_0  &amp; + \beta_{10}x_{1,t} + \beta_{11}x_{1,t-1} + ... + \beta_{1m
 \end{aligned} 
 \]</span>
 Let’s simulate and visualize the above equation (<span class="math inline">\(y_t = \kappa + \delta_t + \phi z_{t-1} + \epsilon_t\)</span>):</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="regression.html#cb227-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb227-2"><a href="regression.html#cb227-2" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span> </span>
-<span id="cb227-3"><a href="regression.html#cb227-3" aria-hidden="true" tabindex="-1"></a>kappa <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># costant term (or &quot;drift&quot;)</span></span>
-<span id="cb227-4"><a href="regression.html#cb227-4" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="fl">0.1</span> </span>
-<span id="cb227-5"><a href="regression.html#cb227-5" aria-hidden="true" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="cf">function</span>(n){ <span class="co"># function for the error term</span></span>
-<span id="cb227-6"><a href="regression.html#cb227-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">500</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fl">0.8</span>)</span>
-<span id="cb227-7"><a href="regression.html#cb227-7" aria-hidden="true" tabindex="-1"></a>    } </span>
-<span id="cb227-8"><a href="regression.html#cb227-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb227-9"><a href="regression.html#cb227-9" aria-hidden="true" tabindex="-1"></a>y_I1 <span class="ot">&lt;-</span> kappa <span class="sc">+</span> (delta <span class="sc">*</span> t) <span class="sc">+</span> <span class="fu">arima.sim</span>(<span class="at">n=</span><span class="dv">499</span>, <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)), </span>
-<span id="cb227-10"><a href="regression.html#cb227-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rand.gen =</span> epsilon)</span>
-<span id="cb227-11"><a href="regression.html#cb227-11" aria-hidden="true" tabindex="-1"></a>y_I0 <span class="ot">&lt;-</span> kappa <span class="sc">+</span> (delta <span class="sc">*</span> t) <span class="sc">+</span> <span class="fu">arima.sim</span>(<span class="at">n=</span><span class="dv">500</span>, <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar =</span> <span class="fl">0.8</span>),</span>
-<span id="cb227-12"><a href="regression.html#cb227-12" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rand.gen =</span> epsilon)</span>
-<span id="cb227-13"><a href="regression.html#cb227-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb227-14"><a href="regression.html#cb227-14" aria-hidden="true" tabindex="-1"></a>ts_y <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(y_I1, y_I0)</span>
-<span id="cb227-15"><a href="regression.html#cb227-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb227-16"><a href="regression.html#cb227-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(ts_y, <span class="at">plot.type =</span> <span class="st">&quot;single&quot;</span>, </span>
-<span id="cb227-17"><a href="regression.html#cb227-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>),</span>
-<span id="cb227-18"><a href="regression.html#cb227-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Stochastic w/ drift (red) Deterministic Trend (blue)&quot;</span>,</span>
-<span id="cb227-19"><a href="regression.html#cb227-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-167-1.png" width="672" /></p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="regression.html#cb233-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb233-2"><a href="regression.html#cb233-2" aria-hidden="true" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">500</span> </span>
+<span id="cb233-3"><a href="regression.html#cb233-3" aria-hidden="true" tabindex="-1"></a>kappa <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># costant term (or &quot;drift&quot;)</span></span>
+<span id="cb233-4"><a href="regression.html#cb233-4" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="fl">0.1</span> </span>
+<span id="cb233-5"><a href="regression.html#cb233-5" aria-hidden="true" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="cf">function</span>(n){ <span class="co"># function for the error term</span></span>
+<span id="cb233-6"><a href="regression.html#cb233-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">500</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fl">0.8</span>)</span>
+<span id="cb233-7"><a href="regression.html#cb233-7" aria-hidden="true" tabindex="-1"></a>    } </span>
+<span id="cb233-8"><a href="regression.html#cb233-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb233-9"><a href="regression.html#cb233-9" aria-hidden="true" tabindex="-1"></a>y_I1 <span class="ot">&lt;-</span> kappa <span class="sc">+</span> (delta <span class="sc">*</span> t) <span class="sc">+</span> <span class="fu">arima.sim</span>(<span class="at">n=</span><span class="dv">499</span>, <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)), </span>
+<span id="cb233-10"><a href="regression.html#cb233-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rand.gen =</span> epsilon)</span>
+<span id="cb233-11"><a href="regression.html#cb233-11" aria-hidden="true" tabindex="-1"></a>y_I0 <span class="ot">&lt;-</span> kappa <span class="sc">+</span> (delta <span class="sc">*</span> t) <span class="sc">+</span> <span class="fu">arima.sim</span>(<span class="at">n=</span><span class="dv">500</span>, <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar =</span> <span class="fl">0.8</span>),</span>
+<span id="cb233-12"><a href="regression.html#cb233-12" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">rand.gen =</span> epsilon)</span>
+<span id="cb233-13"><a href="regression.html#cb233-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb233-14"><a href="regression.html#cb233-14" aria-hidden="true" tabindex="-1"></a>ts_y <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(y_I1, y_I0)</span>
+<span id="cb233-15"><a href="regression.html#cb233-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb233-16"><a href="regression.html#cb233-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(ts_y, <span class="at">plot.type =</span> <span class="st">&quot;single&quot;</span>, </span>
+<span id="cb233-17"><a href="regression.html#cb233-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb233-18"><a href="regression.html#cb233-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Stochastic w/ drift (red) Deterministic Trend (blue)&quot;</span>,</span>
+<span id="cb233-19"><a href="regression.html#cb233-19" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-200-1.png" width="672" /></p>
 <p><strong>Unit root tests</strong> are aimed at testing the null hypothesis that <span class="math inline">\(|\phi| = 1\)</span> (<em>difference stationary</em>), against the alternative hypothesis that <span class="math inline">\(|\phi| &lt; 1\)</span> (<em>trend stationary</em>).</p>
 <p><strong>Stationarity tests</strong> take the null hypothesis that <span class="math inline">\(y_t\)</span> is trend stationary, and are based on testing for a moving average element in <span class="math inline">\(\Delta z_t\)</span> (<span class="math inline">\(\Delta\)</span> represents the operation of differencing).</p>
 <span class="math display">\[
@@ -471,16 +471,16 @@ $$
 <h5><span class="header-section-number">9.2.1.1.1</span> KPSS Test</h5>
 <p>A test to verify if the series is <em>trend stationary</em> is the <strong>Kwiatkowski-Phillips-Schmidt-Shin (KPSS)</strong> test. It is one of the most commonly used stationarity test, and is implemented in the library <em>tseries</em> (function <em>kpss.test</em>). KPSS test the <em>null hypothesis</em> that the series is <em>trend stationary</em>.</p>
 <p>In this case, the <em>p-value</em> of the test is higher than 0.05, so the test cannot reject the null hypothesis of trend stationarity. That is to say, there are some evidence of trend-stationary process.</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="regression.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;tseries&quot;) # install the library if not yet installed</span></span>
-<span id="cb228-2"><a href="regression.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
-<span id="cb228-3"><a href="regression.html#cb228-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(y_I0, <span class="at">null =</span> <span class="st">&quot;Trend&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="regression.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;tseries&quot;) # install the library if not yet installed</span></span>
+<span id="cb234-2"><a href="regression.html#cb234-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tseries)</span>
+<span id="cb234-3"><a href="regression.html#cb234-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(y_I0, <span class="at">null =</span> <span class="st">&quot;Trend&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Trend Stationarity
 ## 
 ## data:  y_I0
 ## KPSS Trend = 0.10404, Truncation lag parameter = 5, p-value = 0.1</code></pre>
 <p>By changing the null from “Trend” to “Level”, the KPSS test can also test the <em>null hypothesis</em> of <strong>level stationarity</strong>. A level stationary time series is a <em>time series with a non-zero but constant mean</em>, that is to say, without trend.</p>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="regression.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(y_I0, <span class="at">null =</span> <span class="st">&quot;Level&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="regression.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(y_I0, <span class="at">null =</span> <span class="st">&quot;Level&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
@@ -488,20 +488,20 @@ $$
 ## KPSS Level = 8.4092, Truncation lag parameter = 5, p-value = 0.01</code></pre>
 <p>In this case, the KPSS test for level stationarity reject the null hypothesis, that is to say, the process seems not to be level stationary. Considered together, the KPSS tests suggest that the series has a deterministic trend.</p>
 <p>If we use the KPSS test to test if the <em>stochastic trend</em> series we created above is trend or level stationary, the test <em>rejects</em> the null hypothesis (i.e.: reject the hypothesis of both a trend and level stationary process).</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="regression.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(y_I1, <span class="at">null =</span> <span class="st">&quot;Trend&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="regression.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(y_I1, <span class="at">null =</span> <span class="st">&quot;Trend&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Trend Stationarity
 ## 
 ## data:  y_I1
 ## KPSS Trend = 1.5, Truncation lag parameter = 5, p-value = 0.01</code></pre>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="regression.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(y_I1, <span class="at">null =</span> <span class="st">&quot;Level&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="regression.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(y_I1, <span class="at">null =</span> <span class="st">&quot;Level&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  y_I1
 ## KPSS Level = 7.7377, Truncation lag parameter = 5, p-value = 0.01</code></pre>
 <p>When a series has a stochastic trend, we can achieve stationarity through differencing. Indeed, the KPSS test does not reject the null hypothesis of level stationarity when applied to the the stochastic-trend series, once differenced.</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="regression.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(<span class="fu">diff</span>(y_I1), <span class="at">null =</span> <span class="st">&quot;Level&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="regression.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kpss.test</span>(<span class="fu">diff</span>(y_I1), <span class="at">null =</span> <span class="st">&quot;Level&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
@@ -513,7 +513,7 @@ $$
 <h5><span class="header-section-number">9.2.1.1.2</span> Augmented Dickey-Fuller (ADF) Test</h5>
 <p>The Augmented Dickey-Fuller Test (ADF) is a popular <em>unit root test</em>. An R implementation of the test can be found in the library <em>tseries</em> (function <em>adf.test</em>). The null hypothesis is that the series has a unit root, and the alternative hypothesis is that the series is stationary or trend stationary.</p>
 <p>If we use the ADF test on the integrated series (which has a unit root), the test fails to reject the null hypothesis of unit root, which is correct.</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="regression.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(y_I1)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="regression.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(y_I1)</span></code></pre></div>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
 ## 
@@ -521,7 +521,7 @@ $$
 ## Dickey-Fuller = -1.7632, Lag order = 7, p-value = 0.6785
 ## alternative hypothesis: stationary</code></pre>
 <p>If we use the ADF test on the trend-stationary series (without unit root), the test reject the null hypothesis of unit root, which is correct.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="regression.html#cb240-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(y_I0)</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="regression.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(y_I0)</span></code></pre></div>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
 ## 
@@ -529,7 +529,7 @@ $$
 ## Dickey-Fuller = -5.8397, Lag order = 7, p-value = 0.01
 ## alternative hypothesis: stationary</code></pre>
 <p>If we use the ADF test on the integrated series, after having transformed through differencing, the test reject the null hypothesis of unit root, which is correct.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="regression.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(<span class="fu">diff</span>(y_I1))</span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="regression.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">adf.test</span>(<span class="fu">diff</span>(y_I1))</span></code></pre></div>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
 ## 
@@ -540,24 +540,24 @@ $$
 <div id="phillips-perron-test" class="section level5" number="9.2.1.1.3">
 <h5><span class="header-section-number">9.2.1.1.3</span> Phillips-Perron Test</h5>
 <p>Another <em>unit root test</em> is the <strong>Phillips-Perron</strong> test. It differs from the ADF test in some aspects (how it deals with serial correlation and heteroskedasticity in the errors). Also this test is implemented in the library <em>tseries</em> (funtion <em>pp.test</em>). Results of the test are similar to those of the ADF test:</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="regression.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="co"># series with deterministic trend</span></span>
-<span id="cb244-2"><a href="regression.html#cb244-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pp.test</span>(y_I0)</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="regression.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="co"># series with deterministic trend</span></span>
+<span id="cb250-2"><a href="regression.html#cb250-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pp.test</span>(y_I0)</span></code></pre></div>
 <pre><code>## 
 ##  Phillips-Perron Unit Root Test
 ## 
 ## data:  y_I0
 ## Dickey-Fuller Z(alpha) = -144.04, Truncation lag parameter = 5, p-value = 0.01
 ## alternative hypothesis: stationary</code></pre>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="regression.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="co"># series with unit roots</span></span>
-<span id="cb246-2"><a href="regression.html#cb246-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pp.test</span>(y_I1)</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="regression.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="co"># series with unit roots</span></span>
+<span id="cb252-2"><a href="regression.html#cb252-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pp.test</span>(y_I1)</span></code></pre></div>
 <pre><code>## 
 ##  Phillips-Perron Unit Root Test
 ## 
 ## data:  y_I1
 ## Dickey-Fuller Z(alpha) = -5.4817, Truncation lag parameter = 5, p-value = 0.8039
 ## alternative hypothesis: stationary</code></pre>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="regression.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="co"># series with unit roots, differenced</span></span>
-<span id="cb248-2"><a href="regression.html#cb248-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pp.test</span>(<span class="fu">diff</span>(y_I1))</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="regression.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="co"># series with unit roots, differenced</span></span>
+<span id="cb254-2"><a href="regression.html#cb254-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pp.test</span>(<span class="fu">diff</span>(y_I1))</span></code></pre></div>
 <pre><code>## 
 ##  Phillips-Perron Unit Root Test
 ## 
@@ -571,13 +571,13 @@ $$
 <div id="non-autocorrelated-residuals" class="section level3" number="9.2.2">
 <h3><span class="header-section-number">9.2.2</span> Non-autocorrelated residuals</h3>
 <p>We try to fit a linear regression model. First, we create two series <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, with <span class="math inline">\(x\)</span> correlated with <span class="math inline">\(y\)</span> at lags <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span>.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="regression.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simulated data of x series correlated to y at lag 3 and 4</span></span>
-<span id="cb250-2"><a href="regression.html#cb250-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span>
-<span id="cb250-3"><a href="regression.html#cb250-3" aria-hidden="true" tabindex="-1"></a>x_series <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar =</span> <span class="fl">0.7</span>, <span class="at">sd=</span><span class="dv">1</span>))</span>
-<span id="cb250-4"><a href="regression.html#cb250-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(stats<span class="sc">::</span><span class="fu">lag</span>(x_series, <span class="sc">-</span><span class="dv">3</span>), stats<span class="sc">::</span><span class="fu">lag</span>(x_series, <span class="sc">-</span><span class="dv">4</span>)) </span>
-<span id="cb250-5"><a href="regression.html#cb250-5" aria-hidden="true" tabindex="-1"></a>y_series <span class="ot">&lt;-</span> <span class="dv">15</span> <span class="sc">+</span> <span class="fl">0.8</span><span class="sc">*</span>z[,<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">1.5</span><span class="sc">*</span>z[,<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">196</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
-<span id="cb250-6"><a href="regression.html#cb250-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb250-7"><a href="regression.html#cb250-7" aria-hidden="true" tabindex="-1"></a>xy_series <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(y_series, z)</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="regression.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simulated data of x series correlated to y at lag 3 and 4</span></span>
+<span id="cb256-2"><a href="regression.html#cb256-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span>
+<span id="cb256-3"><a href="regression.html#cb256-3" aria-hidden="true" tabindex="-1"></a>x_series <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar =</span> <span class="fl">0.7</span>, <span class="at">sd=</span><span class="dv">1</span>))</span>
+<span id="cb256-4"><a href="regression.html#cb256-4" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(stats<span class="sc">::</span><span class="fu">lag</span>(x_series, <span class="sc">-</span><span class="dv">3</span>), stats<span class="sc">::</span><span class="fu">lag</span>(x_series, <span class="sc">-</span><span class="dv">4</span>)) </span>
+<span id="cb256-5"><a href="regression.html#cb256-5" aria-hidden="true" tabindex="-1"></a>y_series <span class="ot">&lt;-</span> <span class="dv">15</span> <span class="sc">+</span> <span class="fl">0.8</span><span class="sc">*</span>z[,<span class="dv">1</span>] <span class="sc">+</span> <span class="fl">1.5</span><span class="sc">*</span>z[,<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">196</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb256-6"><a href="regression.html#cb256-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb256-7"><a href="regression.html#cb256-7" aria-hidden="true" tabindex="-1"></a>xy_series <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(y_series, z)</span></code></pre></div>
 <p>The <em>real</em> model (in this case we know it because we created it through the above simulation), is as follows:</p>
 <p><span class="math display">\[
 y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
@@ -585,9 +585,9 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 \]</span>
 #### lm</p>
 <p>To fit a linear regression, we can use the function <strong>lm</strong> (the standard funtion to perform linear regression analysis in base R, no additional packages are necessary).</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="regression.html#cb251-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(xy_series[,<span class="dv">1</span>] <span class="sc">~</span> xy_series[,<span class="dv">2</span>] <span class="sc">+</span> xy_series[,<span class="dv">3</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="regression.html#cb257-1" aria-hidden="true" tabindex="-1"></a>lm1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(xy_series[,<span class="dv">1</span>] <span class="sc">~</span> xy_series[,<span class="dv">2</span>] <span class="sc">+</span> xy_series[,<span class="dv">3</span>])</span></code></pre></div>
 <p>The function <strong>summary</strong> prints the summary of the model, which includes the estimates (the “coefficients” of the variables), the standard errors, the statistical significance of the variables, and other information.</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="regression.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="regression.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm1)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = xy_series[, 1] ~ xy_series[, 2] + xy_series[, 3])
@@ -611,10 +611,10 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 <p>To check whether these assumptions are met, we can visualize the <em>plot of residuals, its ACF/PACF and histogram</em>, and also test the residuals for possible autocorrelation using a statistical test like the <a href="https://en.wikipedia.org/wiki/Breusch–Godfrey_test">Breusch-Godfrey test</a> (this test is the default in the forecast library when a linear regression object <em>lm</em> is tested).</p>
 <p>To create the plots we can use the base R functions, or we can use the convenient <em>checkresiduals</em> function in the <em>forecast</em> package.</p>
 <p>In this case everything seems fine.</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="regression.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.package(&quot;forecast&quot;) # install the package if necessary</span></span>
-<span id="cb254-2"><a href="regression.html#cb254-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
-<span id="cb254-3"><a href="regression.html#cb254-3" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(lm1)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-180-1.png" width="672" /></p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="regression.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.package(&quot;forecast&quot;) # install the package if necessary</span></span>
+<span id="cb260-2"><a href="regression.html#cb260-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb260-3"><a href="regression.html#cb260-3" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(lm1)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-213-1.png" width="672" /></p>
 <pre><code>## 
 ##  Breusch-Godfrey test for serial correlation of order up to 10
 ## 
@@ -634,11 +634,11 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 \]</span>
 #### dynml</p>
 <p>Instead of <em>lm</em>, the package <strong>dynml</strong> and the function with the same name (<em>dynml</em>) can be used to fit a dynamic regression models in R. One of the main advantages of this package is that it allows users to fit time series linear regression models without calculating the lagged values by hand. To add a lagged variable, it can simply be used the <em>L</em> (<em>Lag</em>) function. The <em>L</em> function takes as arguments the name of the variable and the lag length. For instance <em>L(x, 4)</em> corresponds to <span class="math inline">\(x_{t-4}\)</span>.</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="regression.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;dynml&quot;) # install the package if necessary</span></span>
-<span id="cb256-2"><a href="regression.html#cb256-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dynlm)</span>
-<span id="cb256-3"><a href="regression.html#cb256-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb256-4"><a href="regression.html#cb256-4" aria-hidden="true" tabindex="-1"></a>dynlm.fit <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(y_series <span class="sc">~</span> <span class="fu">L</span>(x_series, <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">L</span>(x_series, <span class="dv">4</span>))</span>
-<span id="cb256-5"><a href="regression.html#cb256-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dynlm.fit)</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="regression.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;dynml&quot;) # install the package if necessary</span></span>
+<span id="cb262-2"><a href="regression.html#cb262-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dynlm)</span>
+<span id="cb262-3"><a href="regression.html#cb262-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb262-4"><a href="regression.html#cb262-4" aria-hidden="true" tabindex="-1"></a>dynlm.fit <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(y_series <span class="sc">~</span> <span class="fu">L</span>(x_series, <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">L</span>(x_series, <span class="dv">4</span>))</span>
+<span id="cb262-5"><a href="regression.html#cb262-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dynlm.fit)</span></code></pre></div>
 <pre><code>## 
 ## Time series regression with &quot;ts&quot; data:
 ## Start = 5, End = 203
@@ -662,13 +662,13 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ## Multiple R-squared:  0.873,  Adjusted R-squared:  0.8717 
 ## F-statistic: 673.5 on 2 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The <em>dynlm</em> function also permits to include trend (function <em>trend</em>) and seasonal (function <em>season</em>) components in the model (it is also possible to change the reference value for the seasonal period, see <em>?dynlm</em>). Just to make an example of the code to perform a dynamic regression with <em>dynlm</em>:</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="regression.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb258-2"><a href="regression.html#cb258-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
-<span id="cb258-3"><a href="regression.html#cb258-3" aria-hidden="true" tabindex="-1"></a>ap <span class="ot">&lt;-</span> <span class="fu">log</span>(AirPassengers)</span>
-<span id="cb258-4"><a href="regression.html#cb258-4" aria-hidden="true" tabindex="-1"></a>ap_x <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> stats<span class="sc">::</span><span class="fu">lag</span>(ap, <span class="sc">-</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(ap), <span class="dv">0</span>, <span class="fl">0.2</span>)</span>
-<span id="cb258-5"><a href="regression.html#cb258-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb258-6"><a href="regression.html#cb258-6" aria-hidden="true" tabindex="-1"></a>ap_fm <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(ap <span class="sc">~</span> <span class="fu">trend</span>(ap) <span class="sc">+</span> <span class="fu">season</span>(ap) <span class="sc">+</span> <span class="fu">L</span>(ap_x, <span class="dv">3</span>))</span>
-<span id="cb258-7"><a href="regression.html#cb258-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ap_fm)</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="regression.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb264-2"><a href="regression.html#cb264-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;AirPassengers&quot;</span>)</span>
+<span id="cb264-3"><a href="regression.html#cb264-3" aria-hidden="true" tabindex="-1"></a>ap <span class="ot">&lt;-</span> <span class="fu">log</span>(AirPassengers)</span>
+<span id="cb264-4"><a href="regression.html#cb264-4" aria-hidden="true" tabindex="-1"></a>ap_x <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> stats<span class="sc">::</span><span class="fu">lag</span>(ap, <span class="sc">-</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(ap), <span class="dv">0</span>, <span class="fl">0.2</span>)</span>
+<span id="cb264-5"><a href="regression.html#cb264-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb264-6"><a href="regression.html#cb264-6" aria-hidden="true" tabindex="-1"></a>ap_fm <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(ap <span class="sc">~</span> <span class="fu">trend</span>(ap) <span class="sc">+</span> <span class="fu">season</span>(ap) <span class="sc">+</span> <span class="fu">L</span>(ap_x, <span class="dv">3</span>))</span>
+<span id="cb264-7"><a href="regression.html#cb264-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ap_fm)</span></code></pre></div>
 <pre><code>## 
 ## Time series regression with &quot;ts&quot; data:
 ## Start = 1949(7), End = 1960(12)
@@ -706,31 +706,31 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 <div id="regression-with-arma-errors" class="section level3" number="9.2.3">
 <h3><span class="header-section-number">9.2.3</span> Regression with ARMA errors</h3>
 <p>While in the previous case a standard linear model works well, it is often the case that <em>residuals of times series regressions are autocorrelated</em>, and a linear regression model can be suboptimal or even wrong. For instance, let’s create other two time series that are, as the previous ones, cross-correlated at lag 3 and 4, but with a bit more complicated structure.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="regression.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="co"># another set of simulated data </span></span>
-<span id="cb260-2"><a href="regression.html#cb260-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the x series is correlated at lag 3 and 4</span></span>
-<span id="cb260-3"><a href="regression.html#cb260-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span>
-<span id="cb260-4"><a href="regression.html#cb260-4" aria-hidden="true" tabindex="-1"></a>x2_series <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar =</span> <span class="fl">0.7</span>, <span class="at">sd=</span><span class="dv">1</span>))</span>
-<span id="cb260-5"><a href="regression.html#cb260-5" aria-hidden="true" tabindex="-1"></a>z2 <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(x2_series, stats<span class="sc">::</span><span class="fu">lag</span>(x2_series, <span class="sc">-</span><span class="dv">3</span>), stats<span class="sc">::</span><span class="fu">lag</span>(x2_series, <span class="sc">-</span><span class="dv">4</span>)) </span>
-<span id="cb260-6"><a href="regression.html#cb260-6" aria-hidden="true" tabindex="-1"></a>y2_series <span class="ot">&lt;-</span> <span class="dv">15</span> <span class="sc">+</span> <span class="fl">0.8</span><span class="sc">*</span>z2[,<span class="dv">2</span>] <span class="sc">+</span> <span class="fl">1.5</span><span class="sc">*</span>z2[,<span class="dv">3</span>] </span>
-<span id="cb260-7"><a href="regression.html#cb260-7" aria-hidden="true" tabindex="-1"></a>y2_errors <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> <span class="dv">196</span>, <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ar =</span> <span class="fl">0.6</span>, <span class="at">ma =</span> <span class="fl">0.6</span>), <span class="at">sd=</span><span class="dv">1</span>)</span>
-<span id="cb260-8"><a href="regression.html#cb260-8" aria-hidden="true" tabindex="-1"></a>y2_series <span class="ot">&lt;-</span> y2_series <span class="sc">+</span> y2_errors</span>
-<span id="cb260-9"><a href="regression.html#cb260-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb260-10"><a href="regression.html#cb260-10" aria-hidden="true" tabindex="-1"></a><span class="co"># check the cross-correlations at lag 3 and 4</span></span>
-<span id="cb260-11"><a href="regression.html#cb260-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TSA)</span>
-<span id="cb260-12"><a href="regression.html#cb260-12" aria-hidden="true" tabindex="-1"></a>prew <span class="ot">&lt;-</span> <span class="fu">prewhiten</span>(x2_series, y2_series) </span>
-<span id="cb260-13"><a href="regression.html#cb260-13" aria-hidden="true" tabindex="-1"></a><span class="fu">prewhiten</span>(x2_series, y2_series)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-183-1.png" width="672" /></p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="regression.html#cb261-1" aria-hidden="true" tabindex="-1"></a>prew</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="regression.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="co"># another set of simulated data </span></span>
+<span id="cb266-2"><a href="regression.html#cb266-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the x series is correlated at lag 3 and 4</span></span>
+<span id="cb266-3"><a href="regression.html#cb266-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span>
+<span id="cb266-4"><a href="regression.html#cb266-4" aria-hidden="true" tabindex="-1"></a>x2_series <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="at">ar =</span> <span class="fl">0.7</span>, <span class="at">sd=</span><span class="dv">1</span>))</span>
+<span id="cb266-5"><a href="regression.html#cb266-5" aria-hidden="true" tabindex="-1"></a>z2 <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(x2_series, stats<span class="sc">::</span><span class="fu">lag</span>(x2_series, <span class="sc">-</span><span class="dv">3</span>), stats<span class="sc">::</span><span class="fu">lag</span>(x2_series, <span class="sc">-</span><span class="dv">4</span>)) </span>
+<span id="cb266-6"><a href="regression.html#cb266-6" aria-hidden="true" tabindex="-1"></a>y2_series <span class="ot">&lt;-</span> <span class="dv">15</span> <span class="sc">+</span> <span class="fl">0.8</span><span class="sc">*</span>z2[,<span class="dv">2</span>] <span class="sc">+</span> <span class="fl">1.5</span><span class="sc">*</span>z2[,<span class="dv">3</span>] </span>
+<span id="cb266-7"><a href="regression.html#cb266-7" aria-hidden="true" tabindex="-1"></a>y2_errors <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> <span class="dv">196</span>, <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">ar =</span> <span class="fl">0.6</span>, <span class="at">ma =</span> <span class="fl">0.6</span>), <span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb266-8"><a href="regression.html#cb266-8" aria-hidden="true" tabindex="-1"></a>y2_series <span class="ot">&lt;-</span> y2_series <span class="sc">+</span> y2_errors</span>
+<span id="cb266-9"><a href="regression.html#cb266-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb266-10"><a href="regression.html#cb266-10" aria-hidden="true" tabindex="-1"></a><span class="co"># check the cross-correlations at lag 3 and 4</span></span>
+<span id="cb266-11"><a href="regression.html#cb266-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(TSA)</span>
+<span id="cb266-12"><a href="regression.html#cb266-12" aria-hidden="true" tabindex="-1"></a>prew <span class="ot">&lt;-</span> <span class="fu">prewhiten</span>(x2_series, y2_series) </span>
+<span id="cb266-13"><a href="regression.html#cb266-13" aria-hidden="true" tabindex="-1"></a><span class="fu">prewhiten</span>(x2_series, y2_series)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-216-1.png" width="672" /></p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="regression.html#cb267-1" aria-hidden="true" tabindex="-1"></a>prew</span></code></pre></div>
 <pre><code>## $ccf
 ## 
 ## Autocorrelations of series &#39;X&#39;, by lag
 ## 
-##    -19    -18    -17    -16    -15    -14    -13    -12    -11    -10     -9     -8     -7     -6     -5     -4     -3 
-## -0.021 -0.029  0.012  0.065  0.024  0.008  0.076  0.107  0.001 -0.031 -0.024 -0.039  0.048  0.070 -0.021  0.620  0.425 
-##     -2     -1      0      1      2      3      4      5      6      7      8      9     10     11     12     13     14 
-##  0.036 -0.001  0.052  0.080  0.068 -0.008 -0.011  0.096  0.124  0.062 -0.022  0.030  0.023 -0.035 -0.039 -0.008  0.016 
-##     15     16     17     18     19 
-## -0.059 -0.149 -0.120 -0.027 -0.020 
+##    -19    -18    -17    -16    -15    -14    -13    -12    -11    -10     -9     -8     -7 
+## -0.021 -0.029  0.012  0.065  0.024  0.008  0.076  0.107  0.001 -0.031 -0.024 -0.039  0.048 
+##     -6     -5     -4     -3     -2     -1      0      1      2      3      4      5      6 
+##  0.070 -0.021  0.620  0.425  0.036 -0.001  0.052  0.080  0.068 -0.008 -0.011  0.096  0.124 
+##      7      8      9     10     11     12     13     14     15     16     17     18     19 
+##  0.062 -0.022  0.030  0.023 -0.035 -0.039 -0.008  0.016 -0.059 -0.149 -0.120 -0.027 -0.020 
 ## 
 ## $model
 ## 
@@ -738,10 +738,10 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ## ar.ols(x = x)
 ## 
 ## Coefficients:
-##       1        2        3        4        5        6        7        8        9       10       11       12       13  
-##  0.6362   0.1109   0.0496  -0.1533  -0.0240  -0.0499   0.2041   0.0221  -0.0990  -0.0981   0.1703  -0.0558  -0.0812  
-##      14  
-##  0.1179  
+##       1        2        3        4        5        6        7        8        9       10  
+##  0.6362   0.1109   0.0496  -0.1533  -0.0240  -0.0499   0.2041   0.0221  -0.0990  -0.0981  
+##      11       12       13       14  
+##  0.1703  -0.0558  -0.0812   0.1179  
 ## 
 ## Intercept: 0.006091 (0.06307) 
 ## 
@@ -755,16 +755,16 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 \end{aligned} 
 \]</span>
 It is possible to calculate the regression using the <em>lm</em> function, calculating the lagged variables by hand, or to use the <em>dynml</em> library and function.</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="regression.html#cb263-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the lagged variables by hand and apply the lm function...</span></span>
-<span id="cb263-2"><a href="regression.html#cb263-2" aria-hidden="true" tabindex="-1"></a>x2Lagged <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
-<span id="cb263-3"><a href="regression.html#cb263-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xLag0 =</span> x2_series,</span>
-<span id="cb263-4"><a href="regression.html#cb263-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xLag3 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(x2_series,<span class="sc">-</span><span class="dv">3</span>),</span>
-<span id="cb263-5"><a href="regression.html#cb263-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xLag4 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(x2_series,<span class="sc">-</span><span class="dv">4</span>))</span>
-<span id="cb263-6"><a href="regression.html#cb263-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-7"><a href="regression.html#cb263-7" aria-hidden="true" tabindex="-1"></a>xy2_series <span class="ot">&lt;-</span> <span class="fu">ts.union</span>(y2_series, x2Lagged)</span>
-<span id="cb263-8"><a href="regression.html#cb263-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb263-9"><a href="regression.html#cb263-9" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(xy2_series[,<span class="dv">1</span>] <span class="sc">~</span> xy2_series[,<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb263-10"><a href="regression.html#cb263-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm2) <span class="co"># AIC: 821.45</span></span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="regression.html#cb269-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the lagged variables by hand and apply the lm function...</span></span>
+<span id="cb269-2"><a href="regression.html#cb269-2" aria-hidden="true" tabindex="-1"></a>x2Lagged <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb269-3"><a href="regression.html#cb269-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xLag0 =</span> x2_series,</span>
+<span id="cb269-4"><a href="regression.html#cb269-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xLag3 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(x2_series,<span class="sc">-</span><span class="dv">3</span>),</span>
+<span id="cb269-5"><a href="regression.html#cb269-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xLag4 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(x2_series,<span class="sc">-</span><span class="dv">4</span>))</span>
+<span id="cb269-6"><a href="regression.html#cb269-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb269-7"><a href="regression.html#cb269-7" aria-hidden="true" tabindex="-1"></a>xy2_series <span class="ot">&lt;-</span> <span class="fu">ts.union</span>(y2_series, x2Lagged)</span>
+<span id="cb269-8"><a href="regression.html#cb269-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb269-9"><a href="regression.html#cb269-9" aria-hidden="true" tabindex="-1"></a>lm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(xy2_series[,<span class="dv">1</span>] <span class="sc">~</span> xy2_series[,<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb269-10"><a href="regression.html#cb269-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm2) <span class="co"># AIC: 821.45</span></span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = xy2_series[, 1] ~ xy2_series[, 3:4])
@@ -785,9 +785,9 @@ It is possible to calculate the regression using the <em>lm</em> function, calcu
 ##   (12 observations deleted due to missingness)
 ## Multiple R-squared:  0.6735, Adjusted R-squared:   0.67 
 ## F-statistic: 194.9 on 2 and 189 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="regression.html#cb265-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ... or use the dynml function</span></span>
-<span id="cb265-2"><a href="regression.html#cb265-2" aria-hidden="true" tabindex="-1"></a>dynlm.fit2 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(y2_series <span class="sc">~</span> <span class="fu">L</span>(x2_series, <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">L</span>(x2_series, <span class="dv">4</span>))</span>
-<span id="cb265-3"><a href="regression.html#cb265-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dynlm.fit2)</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="regression.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ... or use the dynml function</span></span>
+<span id="cb271-2"><a href="regression.html#cb271-2" aria-hidden="true" tabindex="-1"></a>dynlm.fit2 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(y2_series <span class="sc">~</span> <span class="fu">L</span>(x2_series, <span class="dv">3</span>) <span class="sc">+</span> <span class="fu">L</span>(x2_series, <span class="dv">4</span>))</span>
+<span id="cb271-3"><a href="regression.html#cb271-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dynlm.fit2)</span></code></pre></div>
 <pre><code>## 
 ## Time series regression with &quot;ts&quot; data:
 ## Start = 5, End = 196
@@ -818,29 +818,28 @@ It is possible to calculate the regression using the <em>lm</em> function, calcu
 \end{aligned}
 \]</span>
 The original series can also be visualized with the fitted values (the values resulting from the model), to visually inspect how well the model represents the original series. The differences between the original and the fitted series are the <em>residuals</em>.</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="regression.html#cb267-1" aria-hidden="true" tabindex="-1"></a>lm2d <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(<span class="fu">na.omit</span>(xy2_series[,<span class="dv">1</span>]), lm2<span class="sc">$</span>fitted.values)</span>
-<span id="cb267-2"><a href="regression.html#cb267-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb267-3"><a href="regression.html#cb267-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(lm2d, <span class="at">plot.type =</span> <span class="st">&quot;single&quot;</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;blue&quot;</span>), </span>
-<span id="cb267-4"><a href="regression.html#cb267-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),</span>
-<span id="cb267-5"><a href="regression.html#cb267-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;&#39;Classic&#39; Linear Model - Original (orange) and Fitted series (blue)&quot;</span>) </span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-185-1.png" width="672" /></p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="regression.html#cb273-1" aria-hidden="true" tabindex="-1"></a>lm2d <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(<span class="fu">na.omit</span>(xy2_series[,<span class="dv">1</span>]), lm2<span class="sc">$</span>fitted.values)</span>
+<span id="cb273-2"><a href="regression.html#cb273-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb273-3"><a href="regression.html#cb273-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(lm2d, <span class="at">plot.type =</span> <span class="st">&quot;single&quot;</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;blue&quot;</span>), </span>
+<span id="cb273-4"><a href="regression.html#cb273-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb273-5"><a href="regression.html#cb273-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;&#39;Classic&#39; Linear Model - Original (orange) and Fitted series (blue)&quot;</span>) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-218-1.png" width="672" /></p>
 <p>The diagnostic plots of the residuals show the presence of autocorrelation, and the Breusch-Godfrey test is highly significant (its value is far lower than the critical value <span class="math inline">\(\alpha = 0.05\)</span>)</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="regression.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(lm2)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-186-1.png" width="672" /></p>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="regression.html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(lm2)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-219-1.png" width="672" /></p>
 <pre><code>## 
 ##  Breusch-Godfrey test for serial correlation of order up to 10
 ## 
 ## data:  Residuals
 ## LM test = 149.45, df = 10, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="regression.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(lm2<span class="sc">$</span>residuals)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-186-2.png" width="672" /></p>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="regression.html#cb276-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(lm2<span class="sc">$</span>residuals)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-219-2.png" width="672" /></p>
 <p>In this case, it’s better to take into account the residuals’ autocorrelation by using a regression model capable to handle autocorrelated time series structures.</p>
 <p>In the previous chapter we said that ARIMA models are a special type of regression model, in which the dependent variable is the time series itself, and the independent variables are all lags of the time series. This model is capable to take into account the <em>autocorrelated</em> structure of time series.</p>
 <p>ARIMA is a modeling technique that can be applied to a single time series, but it can be extended to include additional, <strong>exogenous variables</strong>. The ARIMA model including exogenous regressors (i.e.: other time series besides the lagged dependent variable) is like a multiple regression models for time series. In particular, it can be considered a regression model capable to control for autocorrelation in residuals.</p>
 <p>It is possible to use more than one option to fit an ARIMA model with external regressors. A convenient option is provided by the function <strong>auto.arima</strong>, in the package <em>forecast</em>. This library has an argument <strong>xreg</strong> which can be use with <em>a numerical vector or matrix of external regressors, which must have the same number of rows as y</em> (see ?auto.arima).</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="regression.html#cb271-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">999</span>)</span>
-<span id="cb271-2"><a href="regression.html#cb271-2" aria-hidden="true" tabindex="-1"></a>arima1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(xy2_series[,<span class="dv">1</span>], <span class="at">xreg =</span> xy2_series[,<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>])</span>
-<span id="cb271-3"><a href="regression.html#cb271-3" aria-hidden="true" tabindex="-1"></a>arima1</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="regression.html#cb277-1" aria-hidden="true" tabindex="-1"></a>arima1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(xy2_series[,<span class="dv">1</span>], <span class="at">xreg =</span> xy2_series[,<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb277-2"><a href="regression.html#cb277-2" aria-hidden="true" tabindex="-1"></a>arima1</span></code></pre></div>
 <pre><code>## Series: xy2_series[, 1] 
 ## Regression with ARIMA(1,0,1) errors 
 ## 
@@ -853,7 +852,7 @@ The original series can also be visualized with the fitted values (the values re
 ## AIC=543.52   AICc=543.97   BIC=563.06</code></pre>
 <p>The resulting model seems to be more appropriate than the previous one, fitted by using just a “classic” linear regression. This is clear also by comparing the two models through the <a href="https://en.wikipedia.org/wiki/Akaike_information_criterion"><strong>AIC criterion (Akaike information criterion)</strong></a>. The AIC value is used to compare the <em>goodness-of-fit</em> of different models fitted to the same dataset. The lower the AIC value, the better the fit (see also the next paragraph).</p>
 <p>The auto.arima function prints the AIC value by default, while this value is not given with the <em>lm</em> function. To get it, we need to use the <strong>AIC</strong> function.</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="regression.html#cb273-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(lm2)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="regression.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(lm2)</span></code></pre></div>
 <pre><code>## [1] 821.4495</code></pre>
 <p>In this case, the ARIMA regression model results a far better model (<em>AIC=543.52</em>) compared with the classic linear model (<em>AIC=821.45</em>).</p>
 <p><span class="math display">\[
@@ -864,8 +863,8 @@ The original series can also be visualized with the fitted values (the values re
 \end{aligned} 
 \]</span>
 Diagnostic analysis of the residuals, shows that there is no concerning sign of autocorrelation in the residuals, which looks like white noise. Also the test for autocorrelated errors is not significant (the default test for autocorrelation when testing an ARIMA models with external regressors in the <em>forecast</em> package is the <strong>Ljung-Box test</strong>)<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>).</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="regression.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(arima1)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-189-1.png" width="672" /></p>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="regression.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(arima1)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-222-1.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -874,20 +873,20 @@ Diagnostic analysis of the residuals, shows that there is no concerning sign of 
 ## 
 ## Model df: 5.   Total lags used: 10</code></pre>
 <p>Also by visually inspect the original series along with the fitted series (the values resulting from the model), it can be seen that the model is better than the previous one.</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="regression.html#cb277-1" aria-hidden="true" tabindex="-1"></a>arima1d <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(<span class="fu">na.omit</span>(xy2_series[,<span class="dv">1</span>]), arima1<span class="sc">$</span>fitted)</span>
-<span id="cb277-2"><a href="regression.html#cb277-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(arima1d, <span class="at">plot.type =</span> <span class="st">&quot;single&quot;</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;blue&quot;</span>), </span>
-<span id="cb277-3"><a href="regression.html#cb277-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),</span>
-<span id="cb277-4"><a href="regression.html#cb277-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;ARIMA errors model - Original (orange) and Fitted series (blue)&quot;</span>) </span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-190-1.png" width="672" /></p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="regression.html#cb283-1" aria-hidden="true" tabindex="-1"></a>arima1d <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(<span class="fu">na.omit</span>(xy2_series[,<span class="dv">1</span>]), arima1<span class="sc">$</span>fitted)</span>
+<span id="cb283-2"><a href="regression.html#cb283-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(arima1d, <span class="at">plot.type =</span> <span class="st">&quot;single&quot;</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;orange&quot;</span>,<span class="st">&quot;blue&quot;</span>), </span>
+<span id="cb283-3"><a href="regression.html#cb283-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb283-4"><a href="regression.html#cb283-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;ARIMA errors model - Original (orange) and Fitted series (blue)&quot;</span>) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-223-1.png" width="672" /></p>
 <p>We can also compare the fitted versus original values by using a scatterplot. A better model produces a thinner diagonal line.</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="regression.html#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb278-2"><a href="regression.html#cb278-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">na.omit</span>(xy2_series[,<span class="dv">1</span>]), lm2<span class="sc">$</span>fitted.values, <span class="at">main =</span> <span class="st">&quot;LM&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Original&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Fitted&quot;</span>)</span>
-<span id="cb278-3"><a href="regression.html#cb278-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">na.omit</span>(xy2_series[,<span class="dv">1</span>]), arima1<span class="sc">$</span>fitted, <span class="at">main =</span> <span class="st">&quot;ARIMA regression model&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Original&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Fitted&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-191-1.png" width="672" />
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="regression.html#cb284-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb284-2"><a href="regression.html#cb284-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">na.omit</span>(xy2_series[,<span class="dv">1</span>]), lm2<span class="sc">$</span>fitted.values, <span class="at">main =</span> <span class="st">&quot;LM&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Original&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Fitted&quot;</span>)</span>
+<span id="cb284-3"><a href="regression.html#cb284-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">na.omit</span>(xy2_series[,<span class="dv">1</span>]), arima1<span class="sc">$</span>fitted, <span class="at">main =</span> <span class="st">&quot;ARIMA regression model&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Original&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Fitted&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-224-1.png" width="672" />
 The <em>auto.arima</em> function does not give the statistical significance of the coefficients (the approach adopted by the <em>forecast</em> library is different, based on the choice of the best model to do forecasting), but it is possible to get that by using the function <em>coeftest</em> in the library <em>lmtest</em>.</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="regression.html#cb279-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(lmtest) # installa the package</span></span>
-<span id="cb279-2"><a href="regression.html#cb279-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb279-3"><a href="regression.html#cb279-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(arima1)</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="regression.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(lmtest) # installa the package</span></span>
+<span id="cb285-2"><a href="regression.html#cb285-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb285-3"><a href="regression.html#cb285-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(arima1)</span></code></pre></div>
 <pre><code>## 
 ## z test of coefficients:
 ## 
@@ -906,44 +905,44 @@ The <em>auto.arima</em> function does not give the statistical significance of t
 <p>Sometimes, the above mentioned methods work well also with this type of data (for instance, when the counts are large). Other times, time series model developed for count data can be a better choice (for instance, when the series include mostly small integer values).</p>
 <p>Two of the most common statistical models to deal with count data are based on the <a href="https://en.wikipedia.org/wiki/Poisson_distribution"><strong>Poisson</strong></a> and the <a href="https://en.wikipedia.org/wiki/Negative_binomial_distribution"><strong>Negative Binomial</strong></a> distributions. These probability distributions are the ones that are usually employed to model count data.</p>
 <p>There are a few libraries to fit count time series regression models in R. We take into consideration <strong>tscount</strong>, and its function <em>tsglm</em>.</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="regression.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;tscount&quot;)</span></span>
-<span id="cb281-2"><a href="regression.html#cb281-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tscount)</span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="regression.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;tscount&quot;)</span></span>
+<span id="cb287-2"><a href="regression.html#cb287-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tscount)</span></code></pre></div>
 <p>We consider, as an example of the <em>tscount</em> function to fit count time series regression models, the dataset “Seatbelts” (monthly number of killed drivers of light goods vehicles in Great Britain between January 1969 and December 1984), following the <a href="https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf">paper</a> that describes the <em>tscount</em> library.</p>
 <p>The authors of the package write in the <a href="https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf">paper (par. 7.2)</a> describing the library:</p>
 <blockquote>
 <p>This time series is part of a dataset which was first considered by Harvey and Durbin (1986) for studying the effect of compulsory wearing of seatbelts introduced on 31 January 1983. The dataset, including additional covariates, is available in R in the object Seatbelts. In their paper Harvey and Durbin (1986) analyze the numbers of casualties for drivers and passengers of cars, which are <strong>so large</strong> that they can be treated with <strong>methods for continuous-valued data</strong>. The monthly number of killed drivers of vans analyzed here is <strong>much smaller</strong> (its <em>minimum is 2 and its maximum 17</em>) and <strong>therefore methods for count data are to be preferred</strong>.</p>
 </blockquote>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="regression.html#cb282-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Seatbelts&quot;</span>)</span>
-<span id="cb282-2"><a href="regression.html#cb282-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb282-3"><a href="regression.html#cb282-3" aria-hidden="true" tabindex="-1"></a>timeseries <span class="ot">&lt;-</span> Seatbelts[, <span class="st">&quot;VanKilled&quot;</span>]</span>
-<span id="cb282-4"><a href="regression.html#cb282-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb282-5"><a href="regression.html#cb282-5" aria-hidden="true" tabindex="-1"></a>regressors <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">PetrolPrice =</span> Seatbelts[, <span class="fu">c</span>(<span class="st">&quot;PetrolPrice&quot;</span>)], </span>
-<span id="cb282-6"><a href="regression.html#cb282-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">linearTrend =</span> <span class="fu">seq</span>(<span class="at">along =</span> timeseries))</span>
-<span id="cb282-7"><a href="regression.html#cb282-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb282-8"><a href="regression.html#cb282-8" aria-hidden="true" tabindex="-1"></a>timeseries_until1981 <span class="ot">&lt;-</span> <span class="fu">window</span>(timeseries, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">1981</span>, <span class="dv">12</span>))</span>
-<span id="cb282-9"><a href="regression.html#cb282-9" aria-hidden="true" tabindex="-1"></a>regressors_until1981 <span class="ot">&lt;-</span> <span class="fu">window</span>(regressors, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">1981</span>, <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="regression.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Seatbelts&quot;</span>)</span>
+<span id="cb288-2"><a href="regression.html#cb288-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb288-3"><a href="regression.html#cb288-3" aria-hidden="true" tabindex="-1"></a>timeseries <span class="ot">&lt;-</span> Seatbelts[, <span class="st">&quot;VanKilled&quot;</span>]</span>
+<span id="cb288-4"><a href="regression.html#cb288-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb288-5"><a href="regression.html#cb288-5" aria-hidden="true" tabindex="-1"></a>regressors <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">PetrolPrice =</span> Seatbelts[, <span class="fu">c</span>(<span class="st">&quot;PetrolPrice&quot;</span>)], </span>
+<span id="cb288-6"><a href="regression.html#cb288-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">linearTrend =</span> <span class="fu">seq</span>(<span class="at">along =</span> timeseries))</span>
+<span id="cb288-7"><a href="regression.html#cb288-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb288-8"><a href="regression.html#cb288-8" aria-hidden="true" tabindex="-1"></a>timeseries_until1981 <span class="ot">&lt;-</span> <span class="fu">window</span>(timeseries, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">1981</span>, <span class="dv">12</span>))</span>
+<span id="cb288-9"><a href="regression.html#cb288-9" aria-hidden="true" tabindex="-1"></a>regressors_until1981 <span class="ot">&lt;-</span> <span class="fu">window</span>(regressors, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">1981</span>, <span class="dv">12</span>))</span></code></pre></div>
 <p>We are going to fit a model aimed at capturing a first order autoregressive <em>AR(1)</em> term and a yearly <em>seasonality</em> by a 12th order autoregressive term.</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="regression.html#cb283-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb283-2"><a href="regression.html#cb283-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(timeseries, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb283-3"><a href="regression.html#cb283-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(timeseries, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb283-4"><a href="regression.html#cb283-4" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(timeseries, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb283-5"><a href="regression.html#cb283-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(timeseries, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-195-1.png" width="672" />
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="regression.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb289-2"><a href="regression.html#cb289-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(timeseries, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb289-3"><a href="regression.html#cb289-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(timeseries, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb289-4"><a href="regression.html#cb289-4" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(timeseries, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb289-5"><a href="regression.html#cb289-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(timeseries, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-228-1.png" width="672" />
 The function <em>tsglm</em> allows users to declare the autoregressive and seasonal autoregressive terms in a convenient way (in the following part of the function: <em>model = list(past_obs = c(1, 12))</em>).</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="regression.html#cb284-1" aria-hidden="true" tabindex="-1"></a>poisson_fit <span class="ot">&lt;-</span> <span class="fu">tsglm</span>(timeseries_until1981,</span>
-<span id="cb284-2"><a href="regression.html#cb284-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">model =</span> <span class="fu">list</span>(<span class="at">past_obs =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">12</span>)), </span>
-<span id="cb284-3"><a href="regression.html#cb284-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">xreg =</span> regressors_until1981,</span>
-<span id="cb284-4"><a href="regression.html#cb284-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distr =</span> <span class="st">&quot;poisson&quot;</span>, <span class="at">link =</span> <span class="st">&quot;log&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="regression.html#cb290-1" aria-hidden="true" tabindex="-1"></a>poisson_fit <span class="ot">&lt;-</span> <span class="fu">tsglm</span>(timeseries_until1981,</span>
+<span id="cb290-2"><a href="regression.html#cb290-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">model =</span> <span class="fu">list</span>(<span class="at">past_obs =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">12</span>)), </span>
+<span id="cb290-3"><a href="regression.html#cb290-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">xreg =</span> regressors_until1981,</span>
+<span id="cb290-4"><a href="regression.html#cb290-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">distr =</span> <span class="st">&quot;poisson&quot;</span>, <span class="at">link =</span> <span class="st">&quot;log&quot;</span>)</span></code></pre></div>
 <p>It is possible to check the residuals with the usual plots.</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="regression.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb285-2"><a href="regression.html#cb285-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb285-3"><a href="regression.html#cb285-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(poisson_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb285-4"><a href="regression.html#cb285-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(poisson_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb285-5"><a href="regression.html#cb285-5" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(poisson_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb285-6"><a href="regression.html#cb285-6" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(poisson_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-197-1.png" width="672" />
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="regression.html#cb291-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb291-2"><a href="regression.html#cb291-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb291-3"><a href="regression.html#cb291-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(poisson_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb291-4"><a href="regression.html#cb291-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(poisson_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb291-5"><a href="regression.html#cb291-5" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(poisson_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb291-6"><a href="regression.html#cb291-6" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(poisson_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-230-1.png" width="672" />
 To function <em>summary</em> can be used to get the parameter estimates for the model (in this case the function can also emply a parametric bootstrap procedure (<em>B</em>) to obtain standard errors and confidence intervals of the regression parameters. The authors use <em>B=500</em> in the original paper, since in their experience this value yields stable results. Higher B values can be more precise but require time to be calculated).</p>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="regression.html#cb286-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(poisson_fit)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="regression.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(poisson_fit)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## tsglm(ts = timeseries_until1981, model = list(past_obs = c(1, 
@@ -966,80 +965,80 @@ To function <em>summary</em> can be used to get the parameter estimates for the 
 ## AIC: 802.3529 
 ## BIC: 817.6022 
 ## QIC: 802.3529</code></pre>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="regression.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(poisson_fit, B=500) # to use the bootstrap procedure</span></span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="regression.html#cb294-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(poisson_fit, B=500) # to use the bootstrap procedure</span></span></code></pre></div>
 <p>The model is as follows:</p>
 <p><span class="math display">\[
 log(\lambda_t) = 1.83 + 0.09Y_{t-1} + 0.15Y_{t-12} + 0.83X_t - 0.003t
 \]</span></p>
 <p>In the above equation notice that, the Poisson regression, models the logarithm of the <em>Y</em> values at times <em>t</em> (expressed as <span class="math inline">\(log(\lambda_t)\)</span>).</p>
 <p>Another example (using the dataset you can download <a href="https://drive.google.com/file/d/1eIOERBLCUCaap3WCoM5QT6I0iTW-Hqwa/view?usp=sharing">here</a>):</p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="regression.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb289-2"><a href="regression.html#cb289-2" aria-hidden="true" tabindex="-1"></a>gtrend_fakenews_qanon <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/gtrend_fakenews_qanon.csv&quot;</span>,</span>
-<span id="cb289-3"><a href="regression.html#cb289-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">date =</span> <span class="fu">col_date</span>(<span class="at">format =</span> <span class="st">&quot;%Y-%m&quot;</span>),</span>
-<span id="cb289-4"><a href="regression.html#cb289-4" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">fake_news =</span> <span class="fu">col_integer</span>(), </span>
-<span id="cb289-5"><a href="regression.html#cb289-5" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">qanon =</span> <span class="fu">col_integer</span>()))</span>
-<span id="cb289-6"><a href="regression.html#cb289-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb289-7"><a href="regression.html#cb289-7" aria-hidden="true" tabindex="-1"></a><span class="co"># head(gtrend_fakenews_qanon$date,1) # 2015-01-01</span></span>
-<span id="cb289-8"><a href="regression.html#cb289-8" aria-hidden="true" tabindex="-1"></a><span class="co"># tail(gtrend_fakenews_qanon$date,1) # 2020-12-01</span></span>
-<span id="cb289-9"><a href="regression.html#cb289-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb289-10"><a href="regression.html#cb289-10" aria-hidden="true" tabindex="-1"></a>fake_news <span class="ot">&lt;-</span> <span class="fu">ts</span>(gtrend_fakenews_qanon<span class="sc">$</span>fake_news, </span>
-<span id="cb289-11"><a href="regression.html#cb289-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2020</span>,<span class="dv">12</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
-<span id="cb289-12"><a href="regression.html#cb289-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb289-13"><a href="regression.html#cb289-13" aria-hidden="true" tabindex="-1"></a>qanon <span class="ot">&lt;-</span> <span class="fu">ts</span>(gtrend_fakenews_qanon<span class="sc">$</span>qanon, </span>
-<span id="cb289-14"><a href="regression.html#cb289-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2020</span>,<span class="dv">12</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="regression.html#cb290-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">2</span>,<span class="dv">3</span>, <span class="at">byrow=</span>T))</span>
-<span id="cb290-2"><a href="regression.html#cb290-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(qanon, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb290-3"><a href="regression.html#cb290-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(qanon, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb290-4"><a href="regression.html#cb290-4" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(qanon, <span class="dv">48</span>, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb290-5"><a href="regression.html#cb290-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(qanon, <span class="dv">48</span>, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb290-6"><a href="regression.html#cb290-6" aria-hidden="true" tabindex="-1"></a>qanon_fake_ccf <span class="ot">&lt;-</span> <span class="fu">prewhiten</span>(fake_news, qanon, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-200-1.png" width="672" /></p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="regression.html#cb291-1" aria-hidden="true" tabindex="-1"></a>qanon_fake_ccf<span class="sc">$</span>ccf</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="regression.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb295-2"><a href="regression.html#cb295-2" aria-hidden="true" tabindex="-1"></a>gtrend_fakenews_qanon <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/gtrend_fakenews_qanon.csv&quot;</span>,</span>
+<span id="cb295-3"><a href="regression.html#cb295-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="at">date =</span> <span class="fu">col_date</span>(<span class="at">format =</span> <span class="st">&quot;%Y-%m&quot;</span>),</span>
+<span id="cb295-4"><a href="regression.html#cb295-4" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">fake_news =</span> <span class="fu">col_integer</span>(), </span>
+<span id="cb295-5"><a href="regression.html#cb295-5" aria-hidden="true" tabindex="-1"></a>                                                   <span class="at">qanon =</span> <span class="fu">col_integer</span>()))</span>
+<span id="cb295-6"><a href="regression.html#cb295-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb295-7"><a href="regression.html#cb295-7" aria-hidden="true" tabindex="-1"></a><span class="co"># head(gtrend_fakenews_qanon$date,1) # 2015-01-01</span></span>
+<span id="cb295-8"><a href="regression.html#cb295-8" aria-hidden="true" tabindex="-1"></a><span class="co"># tail(gtrend_fakenews_qanon$date,1) # 2020-12-01</span></span>
+<span id="cb295-9"><a href="regression.html#cb295-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb295-10"><a href="regression.html#cb295-10" aria-hidden="true" tabindex="-1"></a>fake_news <span class="ot">&lt;-</span> <span class="fu">ts</span>(gtrend_fakenews_qanon<span class="sc">$</span>fake_news, </span>
+<span id="cb295-11"><a href="regression.html#cb295-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2020</span>,<span class="dv">12</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb295-12"><a href="regression.html#cb295-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb295-13"><a href="regression.html#cb295-13" aria-hidden="true" tabindex="-1"></a>qanon <span class="ot">&lt;-</span> <span class="fu">ts</span>(gtrend_fakenews_qanon<span class="sc">$</span>qanon, </span>
+<span id="cb295-14"><a href="regression.html#cb295-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>,<span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2020</span>,<span class="dv">12</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="regression.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">2</span>,<span class="dv">3</span>, <span class="at">byrow=</span>T))</span>
+<span id="cb296-2"><a href="regression.html#cb296-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(qanon, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb296-3"><a href="regression.html#cb296-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(qanon, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb296-4"><a href="regression.html#cb296-4" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(qanon, <span class="dv">48</span>, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb296-5"><a href="regression.html#cb296-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(qanon, <span class="dv">48</span>, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb296-6"><a href="regression.html#cb296-6" aria-hidden="true" tabindex="-1"></a>qanon_fake_ccf <span class="ot">&lt;-</span> <span class="fu">prewhiten</span>(fake_news, qanon, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-233-1.png" width="672" /></p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="regression.html#cb297-1" aria-hidden="true" tabindex="-1"></a>qanon_fake_ccf<span class="sc">$</span>ccf</span></code></pre></div>
 <pre><code>## 
 ## Autocorrelations of series &#39;X&#39;, by lag
 ## 
-## -1.2500 -1.1667 -1.0833 -1.0000 -0.9167 -0.8333 -0.7500 -0.6667 -0.5833 -0.5000 -0.4167 -0.3333 -0.2500 -0.1667 -0.0833 
-##  -0.127   0.064  -0.013   0.008   0.033   0.022  -0.041  -0.278   0.120  -0.313   0.417   0.282  -0.061  -0.025  -0.075 
-##  0.0000  0.0833  0.1667  0.2500  0.3333  0.4167  0.5000  0.5833  0.6667  0.7500  0.8333  0.9167  1.0000  1.0833  1.1667 
-##  -0.012  -0.180   0.063   0.039  -0.154  -0.070  -0.040   0.029   0.068  -0.008  -0.045  -0.221  -0.068  -0.039   0.112 
-##  1.2500 
-##   0.177</code></pre>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="regression.html#cb293-1" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">fake_news_lag4 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(fake_news, <span class="sc">-</span><span class="dv">4</span>),</span>
-<span id="cb293-2"><a href="regression.html#cb293-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">fake_news_lag5 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(fake_news, <span class="sc">-</span><span class="dv">5</span>),</span>
-<span id="cb293-3"><a href="regression.html#cb293-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">fake_news_lag6 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(fake_news, <span class="sc">-</span><span class="dv">6</span>))</span>
-<span id="cb293-4"><a href="regression.html#cb293-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb293-5"><a href="regression.html#cb293-5" aria-hidden="true" tabindex="-1"></a><span class="co"># NA values derives from the application of the &quot;lag&quot; function</span></span>
-<span id="cb293-6"><a href="regression.html#cb293-6" aria-hidden="true" tabindex="-1"></a><span class="co"># and have to be removed, since the regression function cannot</span></span>
-<span id="cb293-7"><a href="regression.html#cb293-7" aria-hidden="true" tabindex="-1"></a><span class="co"># work properly with them</span></span>
-<span id="cb293-8"><a href="regression.html#cb293-8" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(reg)</span>
-<span id="cb293-9"><a href="regression.html#cb293-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb293-10"><a href="regression.html#cb293-10" aria-hidden="true" tabindex="-1"></a><span class="co"># start(reg) # 2015, 6</span></span>
-<span id="cb293-11"><a href="regression.html#cb293-11" aria-hidden="true" tabindex="-1"></a><span class="co"># end(reg) # 2021, 4</span></span>
-<span id="cb293-12"><a href="regression.html#cb293-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb293-13"><a href="regression.html#cb293-13" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span>  <span class="fu">window</span>(reg, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>, <span class="dv">7</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">12</span>))</span>
-<span id="cb293-14"><a href="regression.html#cb293-14" aria-hidden="true" tabindex="-1"></a>qanon <span class="ot">&lt;-</span> <span class="fu">window</span>(qanon, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>, <span class="dv">7</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">12</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="regression.html#cb294-1" aria-hidden="true" tabindex="-1"></a>poisson_gtrend_fit <span class="ot">&lt;-</span> <span class="fu">tsglm</span>(qanon,</span>
-<span id="cb294-2"><a href="regression.html#cb294-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">model =</span> <span class="fu">list</span>(<span class="at">past_obs =</span> <span class="dv">1</span>), </span>
-<span id="cb294-3"><a href="regression.html#cb294-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">xreg =</span> reg,</span>
-<span id="cb294-4"><a href="regression.html#cb294-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">distr =</span> <span class="st">&quot;poisson&quot;</span>, <span class="at">link =</span> <span class="st">&quot;log&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="regression.html#cb295-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">3</span>,<span class="dv">2</span>, <span class="at">byrow=</span>T))</span>
-<span id="cb295-2"><a href="regression.html#cb295-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-3"><a href="regression.html#cb295-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(poisson_gtrend_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb295-4"><a href="regression.html#cb295-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(poisson_gtrend_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb295-5"><a href="regression.html#cb295-5" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(poisson_gtrend_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb295-6"><a href="regression.html#cb295-6" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(poisson_gtrend_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb295-7"><a href="regression.html#cb295-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb295-8"><a href="regression.html#cb295-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.vector</span>(poisson_gtrend_fit<span class="sc">$</span>response), </span>
-<span id="cb295-9"><a href="regression.html#cb295-9" aria-hidden="true" tabindex="-1"></a>     <span class="fu">as.vector</span>(poisson_gtrend_fit<span class="sc">$</span>fitted.values),</span>
-<span id="cb295-10"><a href="regression.html#cb295-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;response&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;fitted&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-203-1.png" width="672" />
+## -1.2500 -1.1667 -1.0833 -1.0000 -0.9167 -0.8333 -0.7500 -0.6667 -0.5833 -0.5000 -0.4167 
+##  -0.127   0.064  -0.013   0.008   0.033   0.022  -0.041  -0.278   0.120  -0.313   0.417 
+## -0.3333 -0.2500 -0.1667 -0.0833  0.0000  0.0833  0.1667  0.2500  0.3333  0.4167  0.5000 
+##   0.282  -0.061  -0.025  -0.075  -0.012  -0.180   0.063   0.039  -0.154  -0.070  -0.040 
+##  0.5833  0.6667  0.7500  0.8333  0.9167  1.0000  1.0833  1.1667  1.2500 
+##   0.029   0.068  -0.008  -0.045  -0.221  -0.068  -0.039   0.112   0.177</code></pre>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="regression.html#cb299-1" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">fake_news_lag4 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(fake_news, <span class="sc">-</span><span class="dv">4</span>),</span>
+<span id="cb299-2"><a href="regression.html#cb299-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">fake_news_lag5 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(fake_news, <span class="sc">-</span><span class="dv">5</span>),</span>
+<span id="cb299-3"><a href="regression.html#cb299-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">fake_news_lag6 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(fake_news, <span class="sc">-</span><span class="dv">6</span>))</span>
+<span id="cb299-4"><a href="regression.html#cb299-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb299-5"><a href="regression.html#cb299-5" aria-hidden="true" tabindex="-1"></a><span class="co"># NA values derives from the application of the &quot;lag&quot; function</span></span>
+<span id="cb299-6"><a href="regression.html#cb299-6" aria-hidden="true" tabindex="-1"></a><span class="co"># and have to be removed, since the regression function cannot</span></span>
+<span id="cb299-7"><a href="regression.html#cb299-7" aria-hidden="true" tabindex="-1"></a><span class="co"># work properly with them</span></span>
+<span id="cb299-8"><a href="regression.html#cb299-8" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(reg)</span>
+<span id="cb299-9"><a href="regression.html#cb299-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb299-10"><a href="regression.html#cb299-10" aria-hidden="true" tabindex="-1"></a><span class="co"># start(reg) # 2015, 6</span></span>
+<span id="cb299-11"><a href="regression.html#cb299-11" aria-hidden="true" tabindex="-1"></a><span class="co"># end(reg) # 2021, 4</span></span>
+<span id="cb299-12"><a href="regression.html#cb299-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb299-13"><a href="regression.html#cb299-13" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span>  <span class="fu">window</span>(reg, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>, <span class="dv">7</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">12</span>))</span>
+<span id="cb299-14"><a href="regression.html#cb299-14" aria-hidden="true" tabindex="-1"></a>qanon <span class="ot">&lt;-</span> <span class="fu">window</span>(qanon, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2015</span>, <span class="dv">7</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="regression.html#cb300-1" aria-hidden="true" tabindex="-1"></a>poisson_gtrend_fit <span class="ot">&lt;-</span> <span class="fu">tsglm</span>(qanon,</span>
+<span id="cb300-2"><a href="regression.html#cb300-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">model =</span> <span class="fu">list</span>(<span class="at">past_obs =</span> <span class="dv">1</span>), </span>
+<span id="cb300-3"><a href="regression.html#cb300-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">xreg =</span> reg,</span>
+<span id="cb300-4"><a href="regression.html#cb300-4" aria-hidden="true" tabindex="-1"></a>                            <span class="at">distr =</span> <span class="st">&quot;poisson&quot;</span>, <span class="at">link =</span> <span class="st">&quot;log&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="regression.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dv">3</span>,<span class="dv">2</span>, <span class="at">byrow=</span>T))</span>
+<span id="cb301-2"><a href="regression.html#cb301-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-3"><a href="regression.html#cb301-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(poisson_gtrend_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb301-4"><a href="regression.html#cb301-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(poisson_gtrend_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb301-5"><a href="regression.html#cb301-5" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(poisson_gtrend_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb301-6"><a href="regression.html#cb301-6" aria-hidden="true" tabindex="-1"></a><span class="fu">pacf</span>(poisson_gtrend_fit<span class="sc">$</span>residuals, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb301-7"><a href="regression.html#cb301-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb301-8"><a href="regression.html#cb301-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.vector</span>(poisson_gtrend_fit<span class="sc">$</span>response), </span>
+<span id="cb301-9"><a href="regression.html#cb301-9" aria-hidden="true" tabindex="-1"></a>     <span class="fu">as.vector</span>(poisson_gtrend_fit<span class="sc">$</span>fitted.values),</span>
+<span id="cb301-10"><a href="regression.html#cb301-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;response&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;fitted&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-236-1.png" width="672" />
 Besides checking the residuals, it is possible to plot the <strong>PIT histogram</strong>, provided by the function <strong>pit</strong> in <em>tscount</em>:
 &gt;A PIT histogram is a tool for evaluating the statistical consistency between the probabilistic forecast and the observation. The predictive distributions of the observations are compared with the actual observations. If the predictive distribution is ideal the result should be a flat PIT histogram with no bin having an extraordinary high or low level. For more information about PIT histograms see the references listed below.</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="regression.html#cb296-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pit</span>(poisson_gtrend_fit, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.5</span>), <span class="at">main =</span> <span class="st">&quot;PIT Poisson&quot;</span>) </span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-204-1.png" width="672" />
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="regression.html#cb302-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pit</span>(poisson_gtrend_fit, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">1.5</span>), <span class="at">main =</span> <span class="st">&quot;PIT Poisson&quot;</span>) </span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-237-1.png" width="672" />
 In the library are included other diagnostic tools and metrics that can help choosing between poisson and negative binomial models (see the <a href="https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf">paper</a> for further information).</p>
 <p>The function <em>summary</em> prints the coefficients of the model and their confidence interval.</p>
-<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="regression.html#cb297-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(poisson_gtrend_fit)</span></code></pre></div>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="regression.html#cb303-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(poisson_gtrend_fit)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## tsglm(ts = qanon, model = list(past_obs = 1), xreg = reg, link = &quot;log&quot;, 
@@ -1073,87 +1072,87 @@ In the library are included other diagnostic tools and metrics that can help cho
 <p>The <strong>BIC</strong> criterion is the <em>Bayesian Information Criterion (or Schwartz’s Bayesian Criterion)</em> and has a stronger penalty than the AIC for overparametrized models (more complex models, with several predictors).</p>
 <p>These criteria can also be used when searching for an appropriate regression model, to compare several different models including different lags of the variables.</p>
 <p>When comparing models by using these criteria, it is important that the models are fitted to <strong>the same dataset</strong>, otherwise the results are not comparable. This is an important aspect to take into account when using lagged predictors. For instance, you may want to try a model including one lagged predictor <span class="math inline">\(x_{t-1}\)</span> and a model including two lagged predictors <span class="math inline">\(x_{t-1}\)</span> and <span class="math inline">\(x_{t-2}\)</span>, and to compare them in order to select the best one according to AIC, AICc or the BIC criterion. However, when you add lagged predictor you loose data points.</p>
-<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="regression.html#cb299-1" aria-hidden="true" tabindex="-1"></a>x_example <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">rnorm</span>(<span class="dv">40</span>))</span>
-<span id="cb299-2"><a href="regression.html#cb299-2" aria-hidden="true" tabindex="-1"></a>y_example <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">rnorm</span>(<span class="dv">40</span>))</span>
-<span id="cb299-3"><a href="regression.html#cb299-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb299-4"><a href="regression.html#cb299-4" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">y =</span> y_example,</span>
-<span id="cb299-5"><a href="regression.html#cb299-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">xLag0 =</span> x_example,</span>
-<span id="cb299-6"><a href="regression.html#cb299-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">xLag1 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(x_example, <span class="sc">-</span><span class="dv">1</span>),</span>
-<span id="cb299-7"><a href="regression.html#cb299-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">xLag2 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(x_example, <span class="sc">-</span><span class="dv">2</span>))</span>
-<span id="cb299-8"><a href="regression.html#cb299-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb299-9"><a href="regression.html#cb299-9" aria-hidden="true" tabindex="-1"></a>example_data</span></code></pre></div>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="regression.html#cb305-1" aria-hidden="true" tabindex="-1"></a>x_example <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">rnorm</span>(<span class="dv">40</span>))</span>
+<span id="cb305-2"><a href="regression.html#cb305-2" aria-hidden="true" tabindex="-1"></a>y_example <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">rnorm</span>(<span class="dv">40</span>))</span>
+<span id="cb305-3"><a href="regression.html#cb305-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb305-4"><a href="regression.html#cb305-4" aria-hidden="true" tabindex="-1"></a>example_data <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">y =</span> y_example,</span>
+<span id="cb305-5"><a href="regression.html#cb305-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">xLag0 =</span> x_example,</span>
+<span id="cb305-6"><a href="regression.html#cb305-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">xLag1 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(x_example, <span class="sc">-</span><span class="dv">1</span>),</span>
+<span id="cb305-7"><a href="regression.html#cb305-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">xLag2 =</span> stats<span class="sc">::</span><span class="fu">lag</span>(x_example, <span class="sc">-</span><span class="dv">2</span>))</span>
+<span id="cb305-8"><a href="regression.html#cb305-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb305-9"><a href="regression.html#cb305-9" aria-hidden="true" tabindex="-1"></a>example_data</span></code></pre></div>
 <pre><code>## Time Series:
 ## Start = 1 
 ## End = 42 
 ## Frequency = 1 
 ##               y       xLag0       xLag1       xLag2
-##  1 -0.485636726 -0.28174016          NA          NA
-##  2  0.008498139 -1.31255963 -0.28174016          NA
-##  3 -1.282113287  0.79518398 -1.31255963 -0.28174016
-##  4 -1.111578841  0.27007049  0.79518398 -1.31255963
-##  5  0.300665411 -0.27730642  0.27007049  0.79518398
-##  6  0.276478845 -0.56602374 -0.27730642  0.27007049
-##  7 -2.050877659 -1.87865826 -0.56602374 -0.27730642
-##  8  0.014190211 -1.26679114 -1.87865826 -0.56602374
-##  9  0.582266478 -0.96774968 -1.26679114 -1.87865826
-## 10 -0.034726387 -1.12100936 -0.96774968 -1.26679114
-## 11 -0.116664147  1.32546371 -1.12100936 -0.96774968
-## 12 -0.644982088  0.13397739  1.32546371 -1.12100936
-## 13  1.744411600  0.93874945  0.13397739  1.32546371
-## 14  0.366094474  0.17253810  0.93874945  0.13397739
-## 15 -0.066809926  0.95765045  0.17253810  0.93874945
-## 16  0.282612466 -1.36268625  0.95765045  0.17253810
-## 17  0.567695175  0.06833513 -1.36268625  0.95765045
-## 18 -1.279215897  0.10065765  0.06833513 -1.36268625
-## 19  0.435368808  0.90134475  0.10065765  0.06833513
-## 20 -0.565500982 -2.07435711  0.90134475  0.10065765
-## 21 -0.923311356 -1.22856330 -2.07435711  0.90134475
-## 22  1.164954003  0.64304432 -1.22856330 -2.07435711
-## 23  1.042068682 -0.35976291  0.64304432 -1.22856330
-## 24  1.103828363  0.29403559 -0.35976291  0.64304432
-## 25 -0.018574963 -1.12526849  0.29403559 -0.35976291
-## 26 -1.146957669  0.64226565 -1.12526849  0.29403559
-## 27 -1.408179520 -1.10673758  0.64226565 -1.12526849
-## 28 -0.282328729 -0.88484039 -1.10673758  0.64226565
-## 29 -0.417770016 -1.55409514 -0.88484039 -1.10673758
-## 30  0.996663515 -0.12667899 -1.55409514 -0.88484039
-## 31 -0.106285779  2.38266416 -0.12667899 -1.55409514
-## 32 -0.069402153  0.60127610  2.38266416 -0.12667899
-## 33  0.949701101  0.17936127  0.60127610  2.38266416
-## 34 -0.416532807  1.08053148  0.17936127  0.60127610
-## 35  0.974000406 -0.24681211  1.08053148  0.17936127
-## 36  0.062291430 -2.11373699 -0.24681211  1.08053148
-## 37  0.538422053 -0.37052747 -2.11373699 -0.24681211
-## 38 -2.064823254  0.52286779 -0.37052747 -2.11373699
-## 39  0.436431652  0.51780554  0.52286779 -0.37052747
-## 40 -0.160226689 -1.40251087  0.51780554  0.52286779
-## 41           NA          NA -1.40251087  0.51780554
-## 42           NA          NA          NA -1.40251087</code></pre>
+##  1  1.075501365  0.48505236          NA          NA
+##  2 -0.276740732 -1.20993027  0.48505236          NA
+##  3 -0.646751445  0.01724609 -1.20993027  0.48505236
+##  4  0.102585633  0.70085715  0.01724609 -1.20993027
+##  5 -0.072519610 -0.40170226  0.70085715  0.01724609
+##  6  1.619712305 -0.48727576 -0.40170226  0.70085715
+##  7  0.687751998 -0.76436248 -0.48727576 -0.40170226
+##  8  0.234929596  2.97223380 -0.76436248 -0.48727576
+##  9 -0.430528202 -0.43578545  2.97223380 -0.76436248
+## 10  0.638039146 -1.35197954 -0.43578545  2.97223380
+## 11 -0.217226469 -0.52868886 -1.35197954 -0.43578545
+## 12  0.020494309 -0.06027948 -0.52868886 -1.35197954
+## 13 -1.913357840 -0.03222441 -0.06027948 -0.52868886
+## 14 -0.526191144  0.55290101 -0.03222441 -0.06027948
+## 15  0.416282618 -0.25966064  0.55290101 -0.03222441
+## 16  0.457627862 -1.01400343 -0.25966064  0.55290101
+## 17 -0.275639625 -0.86452761 -1.01400343 -0.25966064
+## 18 -0.353882346  0.11040086 -0.86452761 -1.01400343
+## 19 -0.901762561 -0.02452574  0.11040086 -0.86452761
+## 20 -1.052145243 -2.51548495 -0.02452574  0.11040086
+## 21  0.832626641  0.44375488 -2.51548495 -0.02452574
+## 22  0.056411159  1.56218440  0.44375488 -2.51548495
+## 23  0.838708652  0.97180894  1.56218440  0.44375488
+## 24  0.344611778  1.58747428  0.97180894  1.56218440
+## 25 -1.088605832 -1.84530863  1.58747428  0.97180894
+## 26 -0.527820628 -1.27107477 -1.84530863  1.58747428
+## 27  3.061137014  2.03899229 -1.27107477 -1.84530863
+## 28 -0.520213835 -0.72914933  2.03899229 -1.27107477
+## 29  0.248244201  0.93447357 -0.72914933  2.03899229
+## 30  0.046969519 -0.75324932  0.93447357 -0.72914933
+## 31  0.249449596 -0.68448064 -0.75324932  0.93447357
+## 32  1.041843001 -0.59473197 -0.68448064 -0.75324932
+## 33 -0.338376495 -0.12412231 -0.59473197 -0.68448064
+## 34  0.201287727 -1.39014027 -0.12412231 -0.59473197
+## 35  0.602711731 -1.23556534 -1.39014027 -0.12412231
+## 36 -0.225018148 -1.28500792 -1.23556534 -1.39014027
+## 37 -0.010113590 -1.05225339 -1.28500792 -1.23556534
+## 38 -0.193597244  1.36496602 -1.05225339 -1.28500792
+## 39  0.009188137 -1.07721180  1.36496602 -1.05225339
+## 40  1.441899269  0.67538151 -1.07721180  1.36496602
+## 41           NA          NA  0.67538151 -1.07721180
+## 42           NA          NA          NA  0.67538151</code></pre>
 <p>Thus, when you fit models with different lags, you have to fit them on the same dataset. In this case, for instance, you have to skip the NA rows, and use just the rows from 3 to 40.</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="regression.html#cb301-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restrict data so models use same fitting period</span></span>
-<span id="cb301-2"><a href="regression.html#cb301-2" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">1</span>], <span class="at">xreg=</span>example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">2</span>])</span>
-<span id="cb301-3"><a href="regression.html#cb301-3" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">1</span>], <span class="at">xreg=</span>example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>])</span>
-<span id="cb301-4"><a href="regression.html#cb301-4" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">1</span>], <span class="at">xreg=</span>example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="regression.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restrict data so models use same fitting period</span></span>
+<span id="cb307-2"><a href="regression.html#cb307-2" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">1</span>], <span class="at">xreg=</span>example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">2</span>])</span>
+<span id="cb307-3"><a href="regression.html#cb307-3" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">1</span>], <span class="at">xreg=</span>example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb307-4"><a href="regression.html#cb307-4" aria-hidden="true" tabindex="-1"></a>fit3 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">1</span>], <span class="at">xreg=</span>example_data[<span class="dv">3</span><span class="sc">:</span><span class="dv">40</span>,<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div>
 <p>Then you can compare the model, for instance, using the AIC criterion, and choose the model with the smallest value.</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="regression.html#cb302-1" aria-hidden="true" tabindex="-1"></a>fit1<span class="sc">$</span>aic</span></code></pre></div>
-<pre><code>## [1] 101.2893</code></pre>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="regression.html#cb304-1" aria-hidden="true" tabindex="-1"></a>fit2<span class="sc">$</span>aic</span></code></pre></div>
-<pre><code>## [1] 103.2719</code></pre>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="regression.html#cb306-1" aria-hidden="true" tabindex="-1"></a>fit3<span class="sc">$</span>aic</span></code></pre></div>
-<pre><code>## [1] 101.474</code></pre>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="regression.html#cb308-1" aria-hidden="true" tabindex="-1"></a>fit1<span class="sc">$</span>aic</span></code></pre></div>
+<pre><code>## [1] 95.11836</code></pre>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="regression.html#cb310-1" aria-hidden="true" tabindex="-1"></a>fit2<span class="sc">$</span>aic</span></code></pre></div>
+<pre><code>## [1] 94.31932</code></pre>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="regression.html#cb312-1" aria-hidden="true" tabindex="-1"></a>fit3<span class="sc">$</span>aic</span></code></pre></div>
+<pre><code>## [1] 96.07911</code></pre>
 <p>Finally, you fit the model using all the available data.</p>
-<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="regression.html#cb308-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(example_data[,<span class="dv">1</span>], <span class="at">xreg=</span>example_data[,<span class="dv">2</span>])</span>
-<span id="cb308-2"><a href="regression.html#cb308-2" aria-hidden="true" tabindex="-1"></a>fit1</span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="regression.html#cb314-1" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(example_data[,<span class="dv">1</span>], <span class="at">xreg=</span>example_data[,<span class="dv">2</span>])</span>
+<span id="cb314-2"><a href="regression.html#cb314-2" aria-hidden="true" tabindex="-1"></a>fit1</span></code></pre></div>
 <pre><code>## Series: example_data[, 1] 
 ## Regression with ARIMA(0,0,0) errors 
 ## 
 ## Coefficients:
 ##         xreg
-##       0.1388
-## s.e.  0.1292
+##       0.2447
+## s.e.  0.1120
 ## 
-## sigma^2 estimated as 0.7442:  log likelihood=-50.34
-## AIC=104.68   AICc=105.01   BIC=108.06</code></pre>
+## sigma^2 estimated as 0.6511:  log likelihood=-47.67
+## AIC=99.34   AICc=99.66   BIC=102.72</code></pre>
 <p>Besides these criteria, there are also other strategies for <a href="https://en.wikipedia.org/wiki/Model_selection">model selection</a>.</p>
 </div>
 <div id="some-examples-in-the-literature" class="section level2" number="9.4">
