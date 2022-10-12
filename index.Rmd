@@ -23,8 +23,6 @@ At the end of the course, the students are expected to know the specificity of t
 
 ## Lectures
 
-[12 lectures (Thursday 11:30-13:00)](https://ufind.univie.ac.at/de/course.html?lv=220050&semester=2021S).
-
 Structure of the course:
 
 *   **Theoretical concepts**: this part of the course will introduce students to the main theoretical concepts of time series analysis;
@@ -33,16 +31,17 @@ Structure of the course:
 
 ## Home Work
 
-Theoretical concepts can be studied, but you have to practice in order to learn R.
+Theoretical concepts can be studied, but you have to practice in order to learn R and the data analysis tecniques.
 
 ## Assessment 
 
-*   Assignments distributed during the course, dealing with demonstrating the understanding of key concepts (30%).
-*   A final data analysis project where participants will apply the knowledge and techniques learned during the course (70%).
+*   In-class participation (20%)
+*   Final quiz on the main concepts (30%)
+*   A final data analysis project where participants will apply the knowledge and techniques learned during the course (50%).
 
 ## Syllabus and readings
 
-This open book is specifically created for the *220050-1 SE SE Advanced Data Analysis 2 (2021S)* course. It includes both theoretical concepts and the R tutorial with the necessary code to perform all the operations we are going to learn. 
+I created this open book for the *Advanced Data Analysis* students of the Master in Communication Science of the University of Vienna. The book includes both theoretical concepts and an R tutorial with the necessary code to perform all the operations we are going to learn. 
 
 The book also includes hyperlinks to additional free resources and readings. 
 The mandatory readings will be listed in the *Readings* section of the book.
@@ -52,5 +51,5 @@ A new part of the book will be uploaded online every weeks, following the progra
 The link to this book is the following: [Time-Series-Analysis-With-R](https://nicolarighetti.github.io/Time-Series-Analysis-With-R/).
 
 ## Further information and support
-For any information, communication, or request for clarification, you can reach out to me at [my University of Vienna address](https://ufind.univie.ac.at/de/person.html?id=113451).
+For any information, communication, or request for clarification, reach out to me at [my University of Vienna address](https://ufind.univie.ac.at/de/person.html?id=113451).
 

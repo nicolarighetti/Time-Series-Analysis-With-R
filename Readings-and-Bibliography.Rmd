@@ -1,6 +1,11 @@
 # Readings and Bibliographical References
 
-*This page will be updated as the course goes on*
+
+## Mandatory
+
+Shin, Y. (2017). **Time series analysis in the social sciences: the fundamentals.** Univ of California Press.
+
+## Other readings 
 
 Wells, C., Shah, D. V., Pevehouse, J. C., Foley, J., Lukito, J., Pelled, A., & Yang, J. (2019). [The Temporal Turn in Communication Research: Time Series Analyses Using Computational Approaches](https://ijoc.org/index.php/ijoc/article/view/10635). International Journal of Communication (19328036), 13.
 
@@ -17,4 +22,5 @@ Zivot E., Wang J. (2003) [Unit Root Tests](https://faculty.washington.edu/ezivot
 ## Useful resources
 
 [Cross Validated](https://stats.stackexchange.com) for statistics-related questions
+
 [Stackoverflow](https://stackoverflow.com/questions) for coding-related questions
