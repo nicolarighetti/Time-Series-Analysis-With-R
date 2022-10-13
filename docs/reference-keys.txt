@@ -94,6 +94,6 @@ causalimpact
 exercise-2
 var-introduction
 readings-and-bibliographical-references
+mandatory
+other-readings
 useful-resources
-lm
-dynml
