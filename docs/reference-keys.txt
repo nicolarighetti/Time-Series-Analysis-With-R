@@ -1,6 +1,6 @@
-fig:unnamed-chunk-255
-fig:unnamed-chunk-324
-fig:unnamed-chunk-328
+fig:unnamed-chunk-39
+fig:unnamed-chunk-108
+fig:unnamed-chunk-112
 time-series-analysis-with-r
 objectives
 lectures
@@ -91,7 +91,6 @@ intervention-analysis
 types-of-intervention
 intervention-analysis-with-arima
 interrupted-time-series-analysis-using-segmented-regression
-an-example
 causalimpact
 exercise-2
 var

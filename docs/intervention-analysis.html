@@ -263,10 +263,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html"><i class="fa fa-check"></i><b>11</b> Interrupted time series analysis using segmented regression<span></span></a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html#an-example"><i class="fa fa-check"></i><b>11.1</b> an example<span></span></a></li>
-<li class="chapter" data-level="11.2" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html#causalimpact"><i class="fa fa-check"></i><b>11.2</b> CausalImpact<span></span></a>
+<li class="chapter" data-level="11.1" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html#causalimpact"><i class="fa fa-check"></i><b>11.1</b> CausalImpact<span></span></a>
 <ul>
-<li class="chapter" data-level="11.2.1" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html#exercise-2"><i class="fa fa-check"></i><b>11.2.1</b> Exercise<span></span></a></li>
+<li class="chapter" data-level="11.1.1" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html#exercise-2"><i class="fa fa-check"></i><b>11.1.1</b> Exercise<span></span></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="var.html"><a href="var.html"><i class="fa fa-check"></i><b>12</b> VAR<span></span></a>
@@ -338,48 +337,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In the sentence above, <em>h</em> describes when the effect happens while <em>r</em> represents the decay pattern (see the picture below).</p>
 <p><img src="images/intervention-functions.png" width="1121" /></p>
 <p>First we load the data, converting it to a time series format, and we visualize the time series along with a vertical lines representing the date of the intervention.</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="intervention-analysis.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
-<span id="cb324-2"><a href="intervention-analysis.html#cb324-2" aria-hidden="true" tabindex="-1"></a>quet <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;./data/12874_2021_1235_MOESM1_ESM.csv&quot;</span>)</span>
-<span id="cb324-3"><a href="intervention-analysis.html#cb324-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb324-4"><a href="intervention-analysis.html#cb324-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert data to time series object</span></span>
-<span id="cb324-5"><a href="intervention-analysis.html#cb324-5" aria-hidden="true" tabindex="-1"></a>quet.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(quet[,<span class="dv">2</span>], <span class="at">frequency=</span><span class="dv">12</span>, <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2011</span>, <span class="dv">1</span>))</span>
-<span id="cb324-6"><a href="intervention-analysis.html#cb324-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb324-7"><a href="intervention-analysis.html#cb324-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot data to visualize time series</span></span>
-<span id="cb324-8"><a href="intervention-analysis.html#cb324-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(quet.ts, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40000</span>), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Dispensings&quot;</span>)</span>
-<span id="cb324-9"><a href="intervention-analysis.html#cb324-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add vertical line indicating date of intervention (January 1, 2014)</span></span>
-<span id="cb324-10"><a href="intervention-analysis.html#cb324-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">2014</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-432-1.png" width="672" />
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="intervention-analysis.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb310-2"><a href="intervention-analysis.html#cb310-2" aria-hidden="true" tabindex="-1"></a>quet <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;./data/12874_2021_1235_MOESM1_ESM.csv&quot;</span>)</span>
+<span id="cb310-3"><a href="intervention-analysis.html#cb310-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb310-4"><a href="intervention-analysis.html#cb310-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert data to time series object</span></span>
+<span id="cb310-5"><a href="intervention-analysis.html#cb310-5" aria-hidden="true" tabindex="-1"></a>quet.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(quet[,<span class="dv">2</span>], <span class="at">frequency=</span><span class="dv">12</span>, <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2011</span>, <span class="dv">1</span>))</span>
+<span id="cb310-6"><a href="intervention-analysis.html#cb310-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb310-7"><a href="intervention-analysis.html#cb310-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot data to visualize time series</span></span>
+<span id="cb310-8"><a href="intervention-analysis.html#cb310-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(quet.ts, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40000</span>), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Dispensings&quot;</span>)</span>
+<span id="cb310-9"><a href="intervention-analysis.html#cb310-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add vertical line indicating date of intervention (January 1, 2014)</span></span>
+<span id="cb310-10"><a href="intervention-analysis.html#cb310-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">2014</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-216-1.png" width="672" />
 Next, we have to create the dummy variables representing our intervention.
 This can be tricky in R. In this case, the authors convert the time of the <em>ts</em> object in a more human-readable format through the <em>as.yearmon</em> function (this is a <em>zoo</em> function and you can use it by loading the <em>xts</em> library).</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="intervention-analysis.html#cb325-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
-<span id="cb325-2"><a href="intervention-analysis.html#cb325-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable representing step change and view</span></span>
-<span id="cb325-3"><a href="intervention-analysis.html#cb325-3" aria-hidden="true" tabindex="-1"></a>step <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.yearmon</span>(<span class="fu">time</span>(quet.ts)) <span class="sc">&gt;=</span> <span class="st">&quot;Jan 2014&quot;</span>)</span>
-<span id="cb325-4"><a href="intervention-analysis.html#cb325-4" aria-hidden="true" tabindex="-1"></a>step</span></code></pre></div>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="intervention-analysis.html#cb311-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb311-2"><a href="intervention-analysis.html#cb311-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable representing step change and view</span></span>
+<span id="cb311-3"><a href="intervention-analysis.html#cb311-3" aria-hidden="true" tabindex="-1"></a>step <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.yearmon</span>(<span class="fu">time</span>(quet.ts)) <span class="sc">&gt;=</span> <span class="st">&quot;Jan 2014&quot;</span>)</span>
+<span id="cb311-4"><a href="intervention-analysis.html#cb311-4" aria-hidden="true" tabindex="-1"></a>step</span></code></pre></div>
 <pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1</code></pre>
 <p>The above vectors is a dummy variable for the intervention. It has value equal zero before the date of the intervention, and 1 after that.</p>
 <p>Next, in this specific case, we also want to create a variable representing a constant increasing change, capturing an increasing effect of the intervention over time.
 Also in this case the creation of the variable can be a little tricky. We create two vectors by using the <em>rep</em> and the <em>seq</em> function, and concatenate them by using the <em>c</em> function.</p>
 <p>The argument of the <em>rep</em> function are two integers <em>x</em> and <em>times</em> (<em>rep(x, times)</em>), and the function creates a vectors that repeat (“rep”) the <em>x</em> values the number of times specified by <em>times</em>. We have 36 months before the intervention, and we assign them the value zero.</p>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="intervention-analysis.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="intervention-analysis.html#cb313-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>)</span></code></pre></div>
 <pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
 <p>Instead, we use the <em>seq</em> function to create a vectors with increasing values. This part of the variable represent a gradual increase after the intervention (we have 12 months of data after the intervention). The function <em>seq</em> takes the three arguments <em>from</em>, <em>to</em>, and <em>by</em>: <em>from</em> and <em>to</em> are the starting and end values of the sequence, <em>by</em> is the increment of the sequence. In our case we create a sequence of values that increases from 1 to 12 by 1.</p>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="intervention-analysis.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">12</span>, <span class="at">by =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="intervention-analysis.html#cb315-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">12</span>, <span class="at">by =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
 <p>To create the variable we need, we concatenate both the function with the <em>c</em> function, as follows:</p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="intervention-analysis.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable representing ramp (change in slope) and view</span></span>
-<span id="cb331-2"><a href="intervention-analysis.html#cb331-2" aria-hidden="true" tabindex="-1"></a>ramp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>), <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dv">1</span>))</span>
-<span id="cb331-3"><a href="intervention-analysis.html#cb331-3" aria-hidden="true" tabindex="-1"></a>ramp </span></code></pre></div>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="intervention-analysis.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable representing ramp (change in slope) and view</span></span>
+<span id="cb317-2"><a href="intervention-analysis.html#cb317-2" aria-hidden="true" tabindex="-1"></a>ramp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>), <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dv">1</span>))</span>
+<span id="cb317-3"><a href="intervention-analysis.html#cb317-3" aria-hidden="true" tabindex="-1"></a>ramp </span></code></pre></div>
 <pre><code>##  [1]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
 ## [36]  0  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
 <p>We search for an appropriate ARIMA model for the data by using the <em>auto.arima</em> function (<em>forecast</em> package). We include the variables we have created as external regressors.</p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="intervention-analysis.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
-<span id="cb333-2"><a href="intervention-analysis.html#cb333-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb333-3"><a href="intervention-analysis.html#cb333-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use automated algorithm to identify parameters</span></span>
-<span id="cb333-4"><a href="intervention-analysis.html#cb333-4" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(quet.ts, <span class="at">xreg =</span> <span class="fu">cbind</span>(step, ramp), <span class="at">stepwise=</span><span class="cn">FALSE</span>)</span>
-<span id="cb333-5"><a href="intervention-analysis.html#cb333-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb333-6"><a href="intervention-analysis.html#cb333-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check residuals</span></span>
-<span id="cb333-7"><a href="intervention-analysis.html#cb333-7" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(model1)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-437-1.png" width="672" /></p>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="intervention-analysis.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb319-2"><a href="intervention-analysis.html#cb319-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb319-3"><a href="intervention-analysis.html#cb319-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use automated algorithm to identify parameters</span></span>
+<span id="cb319-4"><a href="intervention-analysis.html#cb319-4" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(quet.ts, <span class="at">xreg =</span> <span class="fu">cbind</span>(step, ramp), <span class="at">stepwise=</span><span class="cn">FALSE</span>)</span>
+<span id="cb319-5"><a href="intervention-analysis.html#cb319-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb319-6"><a href="intervention-analysis.html#cb319-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check residuals</span></span>
+<span id="cb319-7"><a href="intervention-analysis.html#cb319-7" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(model1)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-221-1.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -388,7 +387,7 @@ Also in this case the creation of the variable can be a little tricky. We create
 ## 
 ## Model df: 3.   Total lags used: 10</code></pre>
 <p>The resulting model is an <em>ARIMA(2,1,0)(0,1,1)[12]</em>.</p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="intervention-analysis.html#cb335-1" aria-hidden="true" tabindex="-1"></a>model1</span></code></pre></div>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="intervention-analysis.html#cb321-1" aria-hidden="true" tabindex="-1"></a>model1</span></code></pre></div>
 <pre><code>## Series: quet.ts 
 ## Regression with ARIMA(2,1,0)(0,1,1)[12] errors 
 ## 
@@ -400,19 +399,19 @@ Also in this case the creation of the variable can be a little tricky. We create
 ## sigma^2 = 648828:  log likelihood = -284.45
 ## AIC=580.89   AICc=583.89   BIC=590.23</code></pre>
 <p>We use the information retrieved from the auto.arima function to fit the same ARIMA model to the data, without including the intervention (the variables we created), using just the data up to the date of the intervention (up to January 2014). To do that, we use the <em>window</em> function in order to restrict the set of data we consider, indicating December 2013 as the end of our series.</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="intervention-analysis.html#cb337-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To forecast the counterfactual, model data excluding post-intervention time period</span></span>
-<span id="cb337-2"><a href="intervention-analysis.html#cb337-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">Arima</span>(<span class="fu">window</span>(quet.ts, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">12</span>)), <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
-<span id="cb337-3"><a href="intervention-analysis.html#cb337-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">period =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="intervention-analysis.html#cb323-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To forecast the counterfactual, model data excluding post-intervention time period</span></span>
+<span id="cb323-2"><a href="intervention-analysis.html#cb323-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">Arima</span>(<span class="fu">window</span>(quet.ts, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">12</span>)), <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb323-3"><a href="intervention-analysis.html#cb323-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">period =</span> <span class="dv">12</span>))</span></code></pre></div>
 <p>Next, we forecast the 12 months we didn’t include (starting from January 2014 until the end of the period of observation, December 2014) by using the <em>forecast</em> function (library <em>forecast</em>). The logic behind this operation is to see what would have happened to the series in the absence of the intervention. In other words, we use the prediction as a <em>couterfactual</em> in order to describe a possible effect of the intervention on the series, by determining how the observed values diverges from this forecast.</p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="intervention-analysis.html#cb338-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forecast 12 months post-intervention and convert to time series object</span></span>
-<span id="cb338-2"><a href="intervention-analysis.html#cb338-2" aria-hidden="true" tabindex="-1"></a>fc <span class="ot">&lt;-</span> <span class="fu">forecast</span>(model2, <span class="at">h =</span> <span class="dv">12</span>)</span>
-<span id="cb338-3"><a href="intervention-analysis.html#cb338-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb338-4"><a href="intervention-analysis.html#cb338-4" aria-hidden="true" tabindex="-1"></a><span class="co"># covert the average forecast (fc$mean) in a time series object</span></span>
-<span id="cb338-5"><a href="intervention-analysis.html#cb338-5" aria-hidden="true" tabindex="-1"></a>fc.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">as.numeric</span>(fc<span class="sc">$</span>mean), <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2014</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
-<span id="cb338-6"><a href="intervention-analysis.html#cb338-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb338-7"><a href="intervention-analysis.html#cb338-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the observed and the forecast data</span></span>
-<span id="cb338-8"><a href="intervention-analysis.html#cb338-8" aria-hidden="true" tabindex="-1"></a>quet.ts<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">ts.union</span>(quet.ts, fc.ts)</span>
-<span id="cb338-9"><a href="intervention-analysis.html#cb338-9" aria-hidden="true" tabindex="-1"></a>quet.ts<span class="fl">.2</span></span></code></pre></div>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="intervention-analysis.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forecast 12 months post-intervention and convert to time series object</span></span>
+<span id="cb324-2"><a href="intervention-analysis.html#cb324-2" aria-hidden="true" tabindex="-1"></a>fc <span class="ot">&lt;-</span> <span class="fu">forecast</span>(model2, <span class="at">h =</span> <span class="dv">12</span>)</span>
+<span id="cb324-3"><a href="intervention-analysis.html#cb324-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb324-4"><a href="intervention-analysis.html#cb324-4" aria-hidden="true" tabindex="-1"></a><span class="co"># covert the average forecast (fc$mean) in a time series object</span></span>
+<span id="cb324-5"><a href="intervention-analysis.html#cb324-5" aria-hidden="true" tabindex="-1"></a>fc.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">as.numeric</span>(fc<span class="sc">$</span>mean), <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2014</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb324-6"><a href="intervention-analysis.html#cb324-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb324-7"><a href="intervention-analysis.html#cb324-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the observed and the forecast data</span></span>
+<span id="cb324-8"><a href="intervention-analysis.html#cb324-8" aria-hidden="true" tabindex="-1"></a>quet.ts<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">ts.union</span>(quet.ts, fc.ts)</span>
+<span id="cb324-9"><a href="intervention-analysis.html#cb324-9" aria-hidden="true" tabindex="-1"></a>quet.ts<span class="fl">.2</span></span></code></pre></div>
 <pre><code>##          quet.ts    fc.ts
 ## Jan 2011   16831       NA
 ## Feb 2011   17234       NA
@@ -463,17 +462,17 @@ Also in this case the creation of the variable can be a little tricky. We create
 ## Nov 2014   16624 36184.57
 ## Dec 2014   18450 37792.03</code></pre>
 <p>By plotting the data, we can visualize the predicted values in the absence of the intervention (red dashed line) as well as the observed values (blue line). It seems that the health policy considerably impacted the analyzed prescriptions.</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="intervention-analysis.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb340-2"><a href="intervention-analysis.html#cb340-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(quet.ts<span class="fl">.2</span>, <span class="at">plot.type =</span> <span class="st">&quot;single&quot;</span>, </span>
-<span id="cb340-3"><a href="intervention-analysis.html#cb340-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;red&#39;</span>), <span class="at">xlab=</span><span class="st">&quot;Month&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Dispensings&quot;</span>, </span>
-<span id="cb340-4"><a href="intervention-analysis.html#cb340-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty=</span><span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40000</span>))</span>
-<span id="cb340-5"><a href="intervention-analysis.html#cb340-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-6"><a href="intervention-analysis.html#cb340-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">2014</span>, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-441-1.png" width="672" />
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="intervention-analysis.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb326-2"><a href="intervention-analysis.html#cb326-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(quet.ts<span class="fl">.2</span>, <span class="at">plot.type =</span> <span class="st">&quot;single&quot;</span>, </span>
+<span id="cb326-3"><a href="intervention-analysis.html#cb326-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;red&#39;</span>), <span class="at">xlab=</span><span class="st">&quot;Month&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Dispensings&quot;</span>, </span>
+<span id="cb326-4"><a href="intervention-analysis.html#cb326-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty=</span><span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40000</span>))</span>
+<span id="cb326-5"><a href="intervention-analysis.html#cb326-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb326-6"><a href="intervention-analysis.html#cb326-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">2014</span>, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-225-1.png" width="672" />
 Coming back to our initial ARIMA model including the intervention variables, calculating also the confidence intervals and the significance of the coefficients by using the <em>coeftest</em> and the <em>confint</em> function in the <em>lmtest</em> library, we can quantify the impact of the policy.</p>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="intervention-analysis.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb341-2"><a href="intervention-analysis.html#cb341-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb341-3"><a href="intervention-analysis.html#cb341-3" aria-hidden="true" tabindex="-1"></a>model1</span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="intervention-analysis.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb327-2"><a href="intervention-analysis.html#cb327-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb327-3"><a href="intervention-analysis.html#cb327-3" aria-hidden="true" tabindex="-1"></a>model1</span></code></pre></div>
 <pre><code>## Series: quet.ts 
 ## Regression with ARIMA(2,1,0)(0,1,1)[12] errors 
 ## 
@@ -484,7 +483,7 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 ## 
 ## sigma^2 = 648828:  log likelihood = -284.45
 ## AIC=580.89   AICc=583.89   BIC=590.23</code></pre>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="intervention-analysis.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(model1)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="intervention-analysis.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(model1)</span></code></pre></div>
 <pre><code>## 
 ## z test of coefficients:
 ## 
@@ -496,7 +495,7 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 ## ramp -1396.65226   106.63266 -13.0978 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="intervention-analysis.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model1)</span></code></pre></div>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="intervention-analysis.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model1)</span></code></pre></div>
 <pre><code>##              2.5 %        97.5 %
 ## ar1     -1.1159662    -0.6300574
 ## ar2     -0.9198342    -0.4264429
