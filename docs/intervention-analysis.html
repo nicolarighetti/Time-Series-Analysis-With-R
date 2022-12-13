@@ -24,7 +24,7 @@
 <meta name="author" content="Nicola Righetti" />
 
 
-<meta name="date" content="2022-10-13" />
+<meta name="date" content="2022-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +32,8 @@
   
   
 <link rel="prev" href="regression.html"/>
-<link rel="next" href="var-introduction.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<link rel="next" href="interrupted-time-series-analysis-using-segmented-regression.html"/>
+<script src="libs/header-attrs-2.18/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,8 +51,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
@@ -137,139 +138,152 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Time Series with R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Time Series Analysis With R</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Time Series Analysis With R<span></span></a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#objectives"><i class="fa fa-check"></i><b>1.1</b> Objectives</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#lectures"><i class="fa fa-check"></i><b>1.2</b> Lectures</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#home-work"><i class="fa fa-check"></i><b>1.3</b> Home Work</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#assessment"><i class="fa fa-check"></i><b>1.4</b> Assessment</a></li>
-<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#syllabus-and-readings"><i class="fa fa-check"></i><b>1.5</b> Syllabus and readings</a></li>
-<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#further-information-and-support"><i class="fa fa-check"></i><b>1.6</b> Further information and support</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#objectives"><i class="fa fa-check"></i><b>1.1</b> Objectives<span></span></a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#lectures"><i class="fa fa-check"></i><b>1.2</b> Lectures<span></span></a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#home-work"><i class="fa fa-check"></i><b>1.3</b> Home Work<span></span></a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#assessment"><i class="fa fa-check"></i><b>1.4</b> Assessment<span></span></a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#syllabus-and-readings"><i class="fa fa-check"></i><b>1.5</b> Syllabus and readings<span></span></a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#further-information-and-support"><i class="fa fa-check"></i><b>1.6</b> Further information and support<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting started with R</a>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting started with R<span></span></a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#rstudio-interface-and-data"><i class="fa fa-check"></i><b>2.1</b> RStudio Interface and Data</a>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#rstudio-interface-and-data"><i class="fa fa-check"></i><b>2.1</b> RStudio Interface and Data<span></span></a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#download-and-install-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Download and Install RStudio</a></li>
-<li class="chapter" data-level="2.1.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-rstudio-project-and-import-data"><i class="fa fa-check"></i><b>2.1.2</b> Create a RStudio Project and Import data</a></li>
-<li class="chapter" data-level="2.1.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-script"><i class="fa fa-check"></i><b>2.1.3</b> Create a Script</a></li>
-<li class="chapter" data-level="2.1.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-rstudio-user-interface"><i class="fa fa-check"></i><b>2.1.4</b> The RStudio User Interface</a></li>
-<li class="chapter" data-level="2.1.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#load-and-save-data"><i class="fa fa-check"></i><b>2.1.5</b> Load and Save Data</a></li>
-<li class="chapter" data-level="2.1.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-new-folders"><i class="fa fa-check"></i><b>2.1.6</b> Create new Folders</a></li>
+<li class="chapter" data-level="2.1.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#download-and-install-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Download and Install RStudio<span></span></a></li>
+<li class="chapter" data-level="2.1.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-rstudio-project-and-import-data"><i class="fa fa-check"></i><b>2.1.2</b> Create a RStudio Project and Import data<span></span></a></li>
+<li class="chapter" data-level="2.1.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-script"><i class="fa fa-check"></i><b>2.1.3</b> Create a Script<span></span></a></li>
+<li class="chapter" data-level="2.1.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-rstudio-user-interface"><i class="fa fa-check"></i><b>2.1.4</b> The RStudio User Interface<span></span></a></li>
+<li class="chapter" data-level="2.1.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#load-and-save-data"><i class="fa fa-check"></i><b>2.1.5</b> Load and Save Data<span></span></a></li>
+<li class="chapter" data-level="2.1.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-new-folders"><i class="fa fa-check"></i><b>2.1.6</b> Create new Folders<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r"><i class="fa fa-check"></i><b>2.2</b> Basic R</a>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r"><i class="fa fa-check"></i><b>2.2</b> Basic R<span></span></a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#objects"><i class="fa fa-check"></i><b>2.2.1</b> Objects</a></li>
-<li class="chapter" data-level="2.2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#functions"><i class="fa fa-check"></i><b>2.2.2</b> Functions</a></li>
-<li class="chapter" data-level="2.2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.2.3</b> Data Types</a></li>
-<li class="chapter" data-level="2.2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#excercise"><i class="fa fa-check"></i><b>2.2.4</b> Excercise</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.1</b> The Pipe Operator %&gt;%</a></li>
-<li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.2</b> Mutate</a></li>
-<li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.3</b> Rename</a></li>
-<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by</a>
-<ul>
-<li class="chapter" data-level="3.4.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.4.1</b> Count occurrences</a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5</b> Arrange</a></li>
-<li class="chapter" data-level="3.6" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.6</b> Filter</a></li>
-<li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.7</b> Select</a></li>
-<li class="chapter" data-level="3.8" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#exercise"><i class="fa fa-check"></i><b>3.8</b> Exercise</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series"><i class="fa fa-check"></i><b>4.1</b> Time Series</a></li>
-<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis</a></li>
-<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects</a>
-<ul>
-<li class="chapter" data-level="5.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>5.1.1</b> Time Series as Data Frames</a></li>
-<li class="chapter" data-level="5.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>5.1.2</b> Time Series as TS objects</a></li>
-<li class="chapter" data-level="5.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>5.1.3</b> Time Series as XTS/ZOO objects</a></li>
-</ul></li>
-<li class="chapter" data-level="5.2" data-path="time-series-objects.html"><a href="time-series-objects.html#exercise-1"><i class="fa fa-check"></i><b>5.2</b> Exercise</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>6</b> Plot Time Series</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>6.1</b> Plot Time Series Objects</a></li>
-<li class="chapter" data-level="6.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>6.2</b> plot.ts</a></li>
-<li class="chapter" data-level="6.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>6.3</b> plot.xts</a></li>
-<li class="chapter" data-level="6.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>6.4</b> ggplot</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#components-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Components of a time series</a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#trend-and-cycle"><i class="fa fa-check"></i><b>7.1.1</b> Trend and Cycle</a></li>
-<li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#stochastic-and-deterministic-trend"><i class="fa fa-check"></i><b>7.1.2</b> Stochastic and Deterministic Trend</a></li>
-<li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.3</b> Seasonality</a></li>
-<li class="chapter" data-level="7.1.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.4</b> Residuals</a></li>
-</ul></li>
-<li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition</a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
-<li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
-<li class="chapter" data-level="7.2.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#compare-additive-and-multiplicative-models"><i class="fa fa-check"></i><b>7.2.3</b> Compare Additive and Multiplicative Models</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
-<li class="chapter" data-level="7.3.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#other-decomposition-methods-in-r"><i class="fa fa-check"></i><b>7.3.3</b> Other Decomposition Methods in R</a></li>
-</ul></li>
-<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html"><i class="fa fa-check"></i><b>8</b> Correlations and ARIMA</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-correlation-acf-and-pacf"><i class="fa fa-check"></i><b>8.1</b> Auto-Correlation (ACF and PACF)</a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>8.1.1</b> Correlogram: ACF and PACF</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-regressive-ar-models"><i class="fa fa-check"></i><b>8.2.1</b> Auto Regressive (AR) models</a></li>
-<li class="chapter" data-level="8.2.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#moving-average-ma-models"><i class="fa fa-check"></i><b>8.2.2</b> Moving Average (MA) models</a></li>
-<li class="chapter" data-level="8.2.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#integrated-i-process"><i class="fa fa-check"></i><b>8.2.3</b> Integrated (I) process</a></li>
-<li class="chapter" data-level="8.2.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#seasonal-s-models"><i class="fa fa-check"></i><b>8.2.4</b> Seasonal (S) models</a></li>
-<li class="chapter" data-level="8.2.5" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#fit-sarima-models"><i class="fa fa-check"></i><b>8.2.5</b> Fit (S)ARIMA models</a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#cross-correlation"><i class="fa fa-check"></i><b>8.3</b> Cross-correlation</a></li>
-<li class="chapter" data-level="8.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#examples-in-literature"><i class="fa fa-check"></i><b>8.4</b> Examples in literature</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#static-and-dynamic-models"><i class="fa fa-check"></i><b>9.1</b> Static and Dynamic Models</a></li>
-<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-models"><i class="fa fa-check"></i><b>9.2</b> Regression models</a>
-<ul>
-<li class="chapter" data-level="9.2.1" data-path="regression.html"><a href="regression.html#stationarity"><i class="fa fa-check"></i><b>9.2.1</b> Stationarity</a></li>
-<li class="chapter" data-level="9.2.2" data-path="regression.html"><a href="regression.html#non-autocorrelated-residuals"><i class="fa fa-check"></i><b>9.2.2</b> Non-autocorrelated residuals</a></li>
-<li class="chapter" data-level="9.2.3" data-path="regression.html"><a href="regression.html#regression-with-arma-errors"><i class="fa fa-check"></i><b>9.2.3</b> Regression with ARMA errors</a></li>
-<li class="chapter" data-level="9.2.4" data-path="regression.html"><a href="regression.html#count-regression-models"><i class="fa fa-check"></i><b>9.2.4</b> Count regression models</a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#model-selection-aic-aicc-bic"><i class="fa fa-check"></i><b>9.3</b> Model Selection (AIC, AICc, BIC)</a></li>
-<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#some-examples-in-the-literature"><i class="fa fa-check"></i><b>9.4</b> Some examples in the literature</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="intervention-analysis.html"><a href="intervention-analysis.html"><i class="fa fa-check"></i><b>10</b> Intervention Analysis</a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#types-of-intervention"><i class="fa fa-check"></i><b>10.1</b> Types of intervention</a></li>
-<li class="chapter" data-level="10.2" data-path="intervention-analysis.html"><a href="intervention-analysis.html#intervention-analysis-with-arima"><i class="fa fa-check"></i><b>10.2</b> Intervention analysis with ARIMA</a></li>
-<li class="chapter" data-level="10.3" data-path="intervention-analysis.html"><a href="intervention-analysis.html#causalimpact"><i class="fa fa-check"></i><b>10.3</b> CausalImpact</a>
-<ul>
-<li class="chapter" data-level="10.3.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#exercise-2"><i class="fa fa-check"></i><b>10.3.1</b> Exercise</a></li>
+<li class="chapter" data-level="2.2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#objects"><i class="fa fa-check"></i><b>2.2.1</b> Objects<span></span></a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#functions"><i class="fa fa-check"></i><b>2.2.2</b> Functions<span></span></a></li>
+<li class="chapter" data-level="2.2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.2.3</b> Data Types<span></span></a></li>
+<li class="chapter" data-level="2.2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#excercise"><i class="fa fa-check"></i><b>2.2.4</b> Excercise<span></span></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="var-introduction.html"><a href="var-introduction.html"><i class="fa fa-check"></i><b>11</b> VAR (Introduction)</a></li>
-<li class="chapter" data-level="12" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html"><i class="fa fa-check"></i><b>12</b> Readings and Bibliographical References</a>
+<li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse<span></span></a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#mandatory"><i class="fa fa-check"></i><b>12.1</b> Mandatory</a></li>
-<li class="chapter" data-level="12.2" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#other-readings"><i class="fa fa-check"></i><b>12.2</b> Other readings</a></li>
-<li class="chapter" data-level="12.3" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#useful-resources"><i class="fa fa-check"></i><b>12.3</b> Useful resources</a></li>
+<li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.1</b> The Pipe Operator %&gt;%<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.2</b> Mutate<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.3</b> Rename<span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by<span></span></a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.4.1</b> Count occurrences<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5</b> Arrange<span></span></a></li>
+<li class="chapter" data-level="3.6" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.6</b> Filter<span></span></a></li>
+<li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.7</b> Select<span></span></a></li>
+<li class="chapter" data-level="3.8" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#exercise"><i class="fa fa-check"></i><b>3.8</b> Exercise<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series"><i class="fa fa-check"></i><b>4.1</b> Time Series<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>5.1.1</b> Time Series as Data Frames<span></span></a></li>
+<li class="chapter" data-level="5.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>5.1.2</b> Time Series as TS objects<span></span></a></li>
+<li class="chapter" data-level="5.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>5.1.3</b> Time Series as XTS/ZOO objects<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="time-series-objects.html"><a href="time-series-objects.html#exercise-1"><i class="fa fa-check"></i><b>5.2</b> Exercise<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>6</b> Plot Time Series<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>6.1</b> Plot Time Series Objects<span></span></a></li>
+<li class="chapter" data-level="6.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>6.2</b> plot.ts<span></span></a></li>
+<li class="chapter" data-level="6.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>6.3</b> plot.xts<span></span></a></li>
+<li class="chapter" data-level="6.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>6.4</b> ggplot<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#components-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Components of a time series<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#trend-and-cycle"><i class="fa fa-check"></i><b>7.1.1</b> Trend and Cycle<span></span></a></li>
+<li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#stochastic-and-deterministic-trend"><i class="fa fa-check"></i><b>7.1.2</b> Stochastic and Deterministic Trend<span></span></a></li>
+<li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.3</b> Seasonality<span></span></a></li>
+<li class="chapter" data-level="7.1.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.4</b> Residuals<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose<span></span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#compare-additive-and-multiplicative-models"><i class="fa fa-check"></i><b>7.2.3</b> Compare Additive and Multiplicative Models<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series<span></span></a></li>
+<li class="chapter" data-level="7.3.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#other-decomposition-methods-in-r"><i class="fa fa-check"></i><b>7.3.3</b> Other Decomposition Methods in R<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html"><i class="fa fa-check"></i><b>8</b> Correlations and ARIMA<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-correlation-acf-and-pacf"><i class="fa fa-check"></i><b>8.1</b> Auto-Correlation (ACF and PACF)<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>8.1.1</b> Correlogram: ACF and PACF<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models<span></span></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-regressive-ar-models"><i class="fa fa-check"></i><b>8.2.1</b> Auto Regressive (AR) models<span></span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#moving-average-ma-models"><i class="fa fa-check"></i><b>8.2.2</b> Moving Average (MA) models<span></span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#integrated-i-process"><i class="fa fa-check"></i><b>8.2.3</b> Integrated (I) process<span></span></a></li>
+<li class="chapter" data-level="8.2.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#seasonal-s-models"><i class="fa fa-check"></i><b>8.2.4</b> Seasonal (S) models<span></span></a></li>
+<li class="chapter" data-level="8.2.5" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#fit-sarima-models"><i class="fa fa-check"></i><b>8.2.5</b> Fit (S)ARIMA models<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#cross-correlation"><i class="fa fa-check"></i><b>8.3</b> Cross-correlation<span></span></a></li>
+<li class="chapter" data-level="8.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#examples-in-literature"><i class="fa fa-check"></i><b>8.4</b> Examples in literature<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#static-and-dynamic-models"><i class="fa fa-check"></i><b>9.1</b> Static and Dynamic Models<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-models"><i class="fa fa-check"></i><b>9.2</b> Regression models<span></span></a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="regression.html"><a href="regression.html#stationarity"><i class="fa fa-check"></i><b>9.2.1</b> Stationarity<span></span></a></li>
+<li class="chapter" data-level="9.2.2" data-path="regression.html"><a href="regression.html#non-autocorrelated-residuals"><i class="fa fa-check"></i><b>9.2.2</b> Non-autocorrelated residuals<span></span></a></li>
+<li class="chapter" data-level="9.2.3" data-path="regression.html"><a href="regression.html#regression-with-arma-errors"><i class="fa fa-check"></i><b>9.2.3</b> Regression with ARMA errors<span></span></a></li>
+<li class="chapter" data-level="9.2.4" data-path="regression.html"><a href="regression.html#count-regression-models"><i class="fa fa-check"></i><b>9.2.4</b> Count regression models<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#model-selection-aic-aicc-bic"><i class="fa fa-check"></i><b>9.3</b> Model Selection (AIC, AICc, BIC)<span></span></a></li>
+<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#some-examples-in-the-literature"><i class="fa fa-check"></i><b>9.4</b> Some examples in the literature<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="intervention-analysis.html"><a href="intervention-analysis.html"><i class="fa fa-check"></i><b>10</b> Intervention Analysis<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#types-of-intervention"><i class="fa fa-check"></i><b>10.1</b> Types of intervention<span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="intervention-analysis.html"><a href="intervention-analysis.html#intervention-analysis-with-arima"><i class="fa fa-check"></i><b>10.2</b> Intervention analysis with ARIMA<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html"><i class="fa fa-check"></i><b>11</b> Interrupted time series analysis using segmented regression<span></span></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html#an-example"><i class="fa fa-check"></i><b>11.1</b> an example<span></span></a></li>
+<li class="chapter" data-level="11.2" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html#causalimpact"><i class="fa fa-check"></i><b>11.2</b> CausalImpact<span></span></a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html#exercise-2"><i class="fa fa-check"></i><b>11.2.1</b> Exercise<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="var.html"><a href="var.html"><i class="fa fa-check"></i><b>12</b> VAR<span></span></a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="var.html"><a href="var.html#var-modeling-hands-on-tutorial"><i class="fa fa-check"></i><b>12.1</b> VAR modeling hands-on tutorial<span></span></a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="var.html"><a href="var.html#assumption-of-stationarity"><i class="fa fa-check"></i><b>12.1.1</b> Assumption of stationarity<span></span></a></li>
+<li class="chapter" data-level="12.1.2" data-path="var.html"><a href="var.html#other-assumptions-of-var-models-distribution-of-residuals"><i class="fa fa-check"></i><b>12.1.2</b> Other assumptions of VAR models: distribution of residuals<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="var.html"><a href="var.html#var-fitting"><i class="fa fa-check"></i><b>12.2</b> VAR fitting<span></span></a></li>
+<li class="chapter" data-level="12.3" data-path="var.html"><a href="var.html#granger-causality-test"><i class="fa fa-check"></i><b>12.3</b> Granger causality test<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html"><i class="fa fa-check"></i><b>13</b> Readings and Bibliographical References<span></span></a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#mandatory"><i class="fa fa-check"></i><b>13.1</b> Mandatory<span></span></a></li>
+<li class="chapter" data-level="13.2" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#other-readings"><i class="fa fa-check"></i><b>13.2</b> Other readings<span></span></a></li>
+<li class="chapter" data-level="13.3" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#useful-resources"><i class="fa fa-check"></i><b>13.3</b> Useful resources<span></span></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -290,21 +304,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intervention-analysis" class="section level1" number="10">
-<h1><span class="header-section-number">Chapter 10</span> Intervention Analysis</h1>
+<div id="intervention-analysis" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Intervention Analysis<a href="intervention-analysis.html#intervention-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>In this chapter we are going to learn about <em>intervention analysis</em> (sometimes also called <em>interrupted time-series analysis</em>) and to see how to conduct a intervention analysis.</p>
 <p><strong>Intervention analysis</strong> is typically conducted with the Box &amp; Jenkins ARIMA framework and traditionally uses a method introduced by <a href="https://www.jstor.org/stable/pdf/2285379.pdf">Box and Tiao (1975)</a><a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>, who provided a framework for assessing <em>the effect of an intervention on a time series</em> under study.</p>
 <p>As summarized by Box and Tiao: <em>Given a known intervention, is there evidence that change in the series of the kind expected actually occurred, and, if so, what can be said of the nature and magnitude of the change?</em>. In other words <em>Intervention analysis estimates the effect of an external or exogenous intervention on a time-series</em>. To conduct such an analysis, it is necessary to know the date of the intervention.</p>
 <p>Intervention analysis is a “quasi-experimental” design and an interesting approach to test whether <em>exogenous shocks</em>, such as, for instance, the introduction of a new policy, <em>impact on a time series process in a significant way</em>, that is, <strong>by changing the mean function or trend</strong> of a time series.</p>
 <p>Behind intervention analysis there is the <em>causal hypothesis</em> that observations <em>after</em> a <strong>treatment</strong> (the <strong>“intervention”</strong>) have a different level or slope from those before the intervention/interruption.</p>
 <p>Besides <em>intervention</em> or <em>interrupted time-series analysis</em>, the analysis can be conducted through the <em>segmented regression</em> method. However, as in the case of traditional regression models applied to time series data, this approach does not take into account the autocorrelated structure of time series. Other methods include more complex computational approaches.</p>
-<div id="types-of-intervention" class="section level2" number="10.1">
-<h2><span class="header-section-number">10.1</span> Types of intervention</h2>
+<div id="types-of-intervention" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Types of intervention<a href="intervention-analysis.html#types-of-intervention" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are different types of interventions. For instance, an intervention can have an abrupt impact determining a permanent or temporary change, a sudden and short-lived change due to an event, or a more gradual yet permanent change.</p>
 <p><img src="images/intervention.png" width="694" /></p>
 </div>
-<div id="intervention-analysis-with-arima" class="section level2" number="10.2">
-<h2><span class="header-section-number">10.2</span> Intervention analysis with ARIMA</h2>
+<div id="intervention-analysis-with-arima" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Intervention analysis with ARIMA<a href="intervention-analysis.html#intervention-analysis-with-arima" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To exemplify an intervention analysis we are going to reproduce the example in the paper <a href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-021-01235-8#Sec13">Interrupted time series analysis using autoregressive integrated moving average (ARIMA) models: a guide for evaluating large-scale health interventions</a>.</p>
 <p>The data to run the analysis can be downloaded <a href="https://static-content.springer.com/esm/art%3A10.1186%2Fs12874-021-01235-8/MediaObjects/12874_2021_1235_MOESM1_ESM.csv">here</a>.</p>
 <p>The example evaulates the impact of a health policy intervention (an Australian health policy intervention that restricted the conditions under which a particular medicine (quetiapine) could be subsidised). The same methodological process can be applied to evaluate any intervention in any context.</p>
@@ -324,58 +338,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In the sentence above, <em>h</em> describes when the effect happens while <em>r</em> represents the decay pattern (see the picture below).</p>
 <p><img src="images/intervention-functions.png" width="1121" /></p>
 <p>First we load the data, converting it to a time series format, and we visualize the time series along with a vertical lines representing the date of the intervention.</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="intervention-analysis.html#cb323-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
-<span id="cb323-2"><a href="intervention-analysis.html#cb323-2" aria-hidden="true" tabindex="-1"></a>quet <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;./data/12874_2021_1235_MOESM1_ESM.csv&quot;</span>)</span>
-<span id="cb323-3"><a href="intervention-analysis.html#cb323-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb323-4"><a href="intervention-analysis.html#cb323-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert data to time series object</span></span>
-<span id="cb323-5"><a href="intervention-analysis.html#cb323-5" aria-hidden="true" tabindex="-1"></a>quet.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(quet[,<span class="dv">2</span>], <span class="at">frequency=</span><span class="dv">12</span>, <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2011</span>, <span class="dv">1</span>))</span>
-<span id="cb323-6"><a href="intervention-analysis.html#cb323-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb323-7"><a href="intervention-analysis.html#cb323-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot data to visualize time series</span></span>
-<span id="cb323-8"><a href="intervention-analysis.html#cb323-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(quet.ts, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40000</span>), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Dispensings&quot;</span>)</span>
-<span id="cb323-9"><a href="intervention-analysis.html#cb323-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add vertical line indicating date of intervention (January 1, 2014)</span></span>
-<span id="cb323-10"><a href="intervention-analysis.html#cb323-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">2014</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-216-1.png" width="672" />
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="intervention-analysis.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb324-2"><a href="intervention-analysis.html#cb324-2" aria-hidden="true" tabindex="-1"></a>quet <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;./data/12874_2021_1235_MOESM1_ESM.csv&quot;</span>)</span>
+<span id="cb324-3"><a href="intervention-analysis.html#cb324-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb324-4"><a href="intervention-analysis.html#cb324-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert data to time series object</span></span>
+<span id="cb324-5"><a href="intervention-analysis.html#cb324-5" aria-hidden="true" tabindex="-1"></a>quet.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(quet[,<span class="dv">2</span>], <span class="at">frequency=</span><span class="dv">12</span>, <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2011</span>, <span class="dv">1</span>))</span>
+<span id="cb324-6"><a href="intervention-analysis.html#cb324-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb324-7"><a href="intervention-analysis.html#cb324-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot data to visualize time series</span></span>
+<span id="cb324-8"><a href="intervention-analysis.html#cb324-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(quet.ts, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40000</span>), <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Month&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Dispensings&quot;</span>)</span>
+<span id="cb324-9"><a href="intervention-analysis.html#cb324-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add vertical line indicating date of intervention (January 1, 2014)</span></span>
+<span id="cb324-10"><a href="intervention-analysis.html#cb324-10" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">2014</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dashed&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-432-1.png" width="672" />
 Next, we have to create the dummy variables representing our intervention.
 This can be tricky in R. In this case, the authors convert the time of the <em>ts</em> object in a more human-readable format through the <em>as.yearmon</em> function (this is a <em>zoo</em> function and you can use it by loading the <em>xts</em> library).</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="intervention-analysis.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
-<span id="cb324-2"><a href="intervention-analysis.html#cb324-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable representing step change and view</span></span>
-<span id="cb324-3"><a href="intervention-analysis.html#cb324-3" aria-hidden="true" tabindex="-1"></a>step <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.yearmon</span>(<span class="fu">time</span>(quet.ts)) <span class="sc">&gt;=</span> <span class="st">&quot;Jan 2014&quot;</span>)</span>
-<span id="cb324-4"><a href="intervention-analysis.html#cb324-4" aria-hidden="true" tabindex="-1"></a>step</span></code></pre></div>
-<pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-## [37] 1 1 1 1 1 1 1 1 1 1 1 1</code></pre>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="intervention-analysis.html#cb325-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
+<span id="cb325-2"><a href="intervention-analysis.html#cb325-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable representing step change and view</span></span>
+<span id="cb325-3"><a href="intervention-analysis.html#cb325-3" aria-hidden="true" tabindex="-1"></a>step <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.yearmon</span>(<span class="fu">time</span>(quet.ts)) <span class="sc">&gt;=</span> <span class="st">&quot;Jan 2014&quot;</span>)</span>
+<span id="cb325-4"><a href="intervention-analysis.html#cb325-4" aria-hidden="true" tabindex="-1"></a>step</span></code></pre></div>
+<pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1</code></pre>
 <p>The above vectors is a dummy variable for the intervention. It has value equal zero before the date of the intervention, and 1 after that.</p>
 <p>Next, in this specific case, we also want to create a variable representing a constant increasing change, capturing an increasing effect of the intervention over time.
 Also in this case the creation of the variable can be a little tricky. We create two vectors by using the <em>rep</em> and the <em>seq</em> function, and concatenate them by using the <em>c</em> function.</p>
 <p>The argument of the <em>rep</em> function are two integers <em>x</em> and <em>times</em> (<em>rep(x, times)</em>), and the function creates a vectors that repeat (“rep”) the <em>x</em> values the number of times specified by <em>times</em>. We have 36 months before the intervention, and we assign them the value zero.</p>
-<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="intervention-analysis.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="intervention-analysis.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>)</span></code></pre></div>
 <pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
 <p>Instead, we use the <em>seq</em> function to create a vectors with increasing values. This part of the variable represent a gradual increase after the intervention (we have 12 months of data after the intervention). The function <em>seq</em> takes the three arguments <em>from</em>, <em>to</em>, and <em>by</em>: <em>from</em> and <em>to</em> are the starting and end values of the sequence, <em>by</em> is the increment of the sequence. In our case we create a sequence of values that increases from 1 to 12 by 1.</p>
-<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="intervention-analysis.html#cb328-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">12</span>, <span class="at">by =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="intervention-analysis.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">12</span>, <span class="at">by =</span> <span class="dv">1</span>)</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
 <p>To create the variable we need, we concatenate both the function with the <em>c</em> function, as follows:</p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="intervention-analysis.html#cb330-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable representing ramp (change in slope) and view</span></span>
-<span id="cb330-2"><a href="intervention-analysis.html#cb330-2" aria-hidden="true" tabindex="-1"></a>ramp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>), <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dv">1</span>))</span>
-<span id="cb330-3"><a href="intervention-analysis.html#cb330-3" aria-hidden="true" tabindex="-1"></a>ramp </span></code></pre></div>
-<pre><code>##  [1]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
-## [25]  0  0  0  0  0  0  0  0  0  0  0  0  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="intervention-analysis.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create variable representing ramp (change in slope) and view</span></span>
+<span id="cb331-2"><a href="intervention-analysis.html#cb331-2" aria-hidden="true" tabindex="-1"></a>ramp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">36</span>), <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">12</span>, <span class="dv">1</span>))</span>
+<span id="cb331-3"><a href="intervention-analysis.html#cb331-3" aria-hidden="true" tabindex="-1"></a>ramp </span></code></pre></div>
+<pre><code>##  [1]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+## [36]  0  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
 <p>We search for an appropriate ARIMA model for the data by using the <em>auto.arima</em> function (<em>forecast</em> package). We include the variables we have created as external regressors.</p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="intervention-analysis.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
-<span id="cb332-2"><a href="intervention-analysis.html#cb332-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb332-3"><a href="intervention-analysis.html#cb332-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use automated algorithm to identify parameters</span></span>
-<span id="cb332-4"><a href="intervention-analysis.html#cb332-4" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(quet.ts, <span class="at">xreg =</span> <span class="fu">cbind</span>(step, ramp), <span class="at">stepwise=</span><span class="cn">FALSE</span>)</span>
-<span id="cb332-5"><a href="intervention-analysis.html#cb332-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb332-6"><a href="intervention-analysis.html#cb332-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check residuals</span></span>
-<span id="cb332-7"><a href="intervention-analysis.html#cb332-7" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(model1)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-221-1.png" width="672" /></p>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="intervention-analysis.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forecast)</span>
+<span id="cb333-2"><a href="intervention-analysis.html#cb333-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb333-3"><a href="intervention-analysis.html#cb333-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Use automated algorithm to identify parameters</span></span>
+<span id="cb333-4"><a href="intervention-analysis.html#cb333-4" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">auto.arima</span>(quet.ts, <span class="at">xreg =</span> <span class="fu">cbind</span>(step, ramp), <span class="at">stepwise=</span><span class="cn">FALSE</span>)</span>
+<span id="cb333-5"><a href="intervention-analysis.html#cb333-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb333-6"><a href="intervention-analysis.html#cb333-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check residuals</span></span>
+<span id="cb333-7"><a href="intervention-analysis.html#cb333-7" aria-hidden="true" tabindex="-1"></a><span class="fu">checkresiduals</span>(model1)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-437-1.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
 ## data:  Residuals from Regression with ARIMA(2,1,0)(0,1,1)[12] errors
-## Q* = 9.5692, df = 5, p-value = 0.0884
+## Q* = 9.5692, df = 7, p-value = 0.2143
 ## 
-## Model df: 5.   Total lags used: 10</code></pre>
+## Model df: 3.   Total lags used: 10</code></pre>
 <p>The resulting model is an <em>ARIMA(2,1,0)(0,1,1)[12]</em>.</p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="intervention-analysis.html#cb334-1" aria-hidden="true" tabindex="-1"></a>model1</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="intervention-analysis.html#cb335-1" aria-hidden="true" tabindex="-1"></a>model1</span></code></pre></div>
 <pre><code>## Series: quet.ts 
 ## Regression with ARIMA(2,1,0)(0,1,1)[12] errors 
 ## 
@@ -384,22 +397,22 @@ Also in this case the creation of the variable can be a little tricky. We create
 ##       -0.873  -0.6731  -0.6069  -3284.7792  -1396.6523
 ## s.e.   0.124   0.1259   0.3872    602.3347    106.6327
 ## 
-## sigma^2 estimated as 648828:  log likelihood=-284.45
+## sigma^2 = 648828:  log likelihood = -284.45
 ## AIC=580.89   AICc=583.89   BIC=590.23</code></pre>
 <p>We use the information retrieved from the auto.arima function to fit the same ARIMA model to the data, without including the intervention (the variables we created), using just the data up to the date of the intervention (up to January 2014). To do that, we use the <em>window</em> function in order to restrict the set of data we consider, indicating December 2013 as the end of our series.</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="intervention-analysis.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To forecast the counterfactual, model data excluding post-intervention time period</span></span>
-<span id="cb336-2"><a href="intervention-analysis.html#cb336-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">Arima</span>(<span class="fu">window</span>(quet.ts, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">12</span>)), <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
-<span id="cb336-3"><a href="intervention-analysis.html#cb336-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">period =</span> <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="intervention-analysis.html#cb337-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To forecast the counterfactual, model data excluding post-intervention time period</span></span>
+<span id="cb337-2"><a href="intervention-analysis.html#cb337-2" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">Arima</span>(<span class="fu">window</span>(quet.ts, <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2013</span>, <span class="dv">12</span>)), <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>), </span>
+<span id="cb337-3"><a href="intervention-analysis.html#cb337-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">seasonal =</span> <span class="fu">list</span>(<span class="at">order =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">period =</span> <span class="dv">12</span>))</span></code></pre></div>
 <p>Next, we forecast the 12 months we didn’t include (starting from January 2014 until the end of the period of observation, December 2014) by using the <em>forecast</em> function (library <em>forecast</em>). The logic behind this operation is to see what would have happened to the series in the absence of the intervention. In other words, we use the prediction as a <em>couterfactual</em> in order to describe a possible effect of the intervention on the series, by determining how the observed values diverges from this forecast.</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="intervention-analysis.html#cb337-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forecast 12 months post-intervention and convert to time series object</span></span>
-<span id="cb337-2"><a href="intervention-analysis.html#cb337-2" aria-hidden="true" tabindex="-1"></a>fc <span class="ot">&lt;-</span> <span class="fu">forecast</span>(model2, <span class="at">h =</span> <span class="dv">12</span>)</span>
-<span id="cb337-3"><a href="intervention-analysis.html#cb337-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb337-4"><a href="intervention-analysis.html#cb337-4" aria-hidden="true" tabindex="-1"></a><span class="co"># covert the average forecast (fc$mean) in a time series object</span></span>
-<span id="cb337-5"><a href="intervention-analysis.html#cb337-5" aria-hidden="true" tabindex="-1"></a>fc.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">as.numeric</span>(fc<span class="sc">$</span>mean), <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2014</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
-<span id="cb337-6"><a href="intervention-analysis.html#cb337-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb337-7"><a href="intervention-analysis.html#cb337-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the observed and the forecast data</span></span>
-<span id="cb337-8"><a href="intervention-analysis.html#cb337-8" aria-hidden="true" tabindex="-1"></a>quet.ts<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">ts.union</span>(quet.ts, fc.ts)</span>
-<span id="cb337-9"><a href="intervention-analysis.html#cb337-9" aria-hidden="true" tabindex="-1"></a>quet.ts<span class="fl">.2</span></span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="intervention-analysis.html#cb338-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Forecast 12 months post-intervention and convert to time series object</span></span>
+<span id="cb338-2"><a href="intervention-analysis.html#cb338-2" aria-hidden="true" tabindex="-1"></a>fc <span class="ot">&lt;-</span> <span class="fu">forecast</span>(model2, <span class="at">h =</span> <span class="dv">12</span>)</span>
+<span id="cb338-3"><a href="intervention-analysis.html#cb338-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb338-4"><a href="intervention-analysis.html#cb338-4" aria-hidden="true" tabindex="-1"></a><span class="co"># covert the average forecast (fc$mean) in a time series object</span></span>
+<span id="cb338-5"><a href="intervention-analysis.html#cb338-5" aria-hidden="true" tabindex="-1"></a>fc.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="fu">as.numeric</span>(fc<span class="sc">$</span>mean), <span class="at">start=</span><span class="fu">c</span>(<span class="dv">2014</span>, <span class="dv">1</span>), <span class="at">frequency =</span> <span class="dv">12</span>)</span>
+<span id="cb338-6"><a href="intervention-analysis.html#cb338-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb338-7"><a href="intervention-analysis.html#cb338-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the observed and the forecast data</span></span>
+<span id="cb338-8"><a href="intervention-analysis.html#cb338-8" aria-hidden="true" tabindex="-1"></a>quet.ts<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">ts.union</span>(quet.ts, fc.ts)</span>
+<span id="cb338-9"><a href="intervention-analysis.html#cb338-9" aria-hidden="true" tabindex="-1"></a>quet.ts<span class="fl">.2</span></span></code></pre></div>
 <pre><code>##          quet.ts    fc.ts
 ## Jan 2011   16831       NA
 ## Feb 2011   17234       NA
@@ -450,17 +463,17 @@ Also in this case the creation of the variable can be a little tricky. We create
 ## Nov 2014   16624 36184.57
 ## Dec 2014   18450 37792.03</code></pre>
 <p>By plotting the data, we can visualize the predicted values in the absence of the intervention (red dashed line) as well as the observed values (blue line). It seems that the health policy considerably impacted the analyzed prescriptions.</p>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="intervention-analysis.html#cb339-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
-<span id="cb339-2"><a href="intervention-analysis.html#cb339-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(quet.ts<span class="fl">.2</span>, <span class="at">plot.type =</span> <span class="st">&quot;single&quot;</span>, </span>
-<span id="cb339-3"><a href="intervention-analysis.html#cb339-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;red&#39;</span>), <span class="at">xlab=</span><span class="st">&quot;Month&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Dispensings&quot;</span>, </span>
-<span id="cb339-4"><a href="intervention-analysis.html#cb339-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty=</span><span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40000</span>))</span>
-<span id="cb339-5"><a href="intervention-analysis.html#cb339-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb339-6"><a href="intervention-analysis.html#cb339-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">2014</span>, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-225-1.png" width="672" />
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="intervention-analysis.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb340-2"><a href="intervention-analysis.html#cb340-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.ts</span>(quet.ts<span class="fl">.2</span>, <span class="at">plot.type =</span> <span class="st">&quot;single&quot;</span>, </span>
+<span id="cb340-3"><a href="intervention-analysis.html#cb340-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="fu">c</span>(<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;red&#39;</span>), <span class="at">xlab=</span><span class="st">&quot;Month&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Dispensings&quot;</span>, </span>
+<span id="cb340-4"><a href="intervention-analysis.html#cb340-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty=</span><span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40000</span>))</span>
+<span id="cb340-5"><a href="intervention-analysis.html#cb340-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb340-6"><a href="intervention-analysis.html#cb340-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">2014</span>, <span class="at">lty=</span><span class="st">&quot;dashed&quot;</span>, <span class="at">col=</span><span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-441-1.png" width="672" />
 Coming back to our initial ARIMA model including the intervention variables, calculating also the confidence intervals and the significance of the coefficients by using the <em>coeftest</em> and the <em>confint</em> function in the <em>lmtest</em> library, we can quantify the impact of the policy.</p>
-<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="intervention-analysis.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb340-2"><a href="intervention-analysis.html#cb340-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb340-3"><a href="intervention-analysis.html#cb340-3" aria-hidden="true" tabindex="-1"></a>model1</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="intervention-analysis.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb341-2"><a href="intervention-analysis.html#cb341-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb341-3"><a href="intervention-analysis.html#cb341-3" aria-hidden="true" tabindex="-1"></a>model1</span></code></pre></div>
 <pre><code>## Series: quet.ts 
 ## Regression with ARIMA(2,1,0)(0,1,1)[12] errors 
 ## 
@@ -469,9 +482,9 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 ##       -0.873  -0.6731  -0.6069  -3284.7792  -1396.6523
 ## s.e.   0.124   0.1259   0.3872    602.3347    106.6327
 ## 
-## sigma^2 estimated as 648828:  log likelihood=-284.45
+## sigma^2 = 648828:  log likelihood = -284.45
 ## AIC=580.89   AICc=583.89   BIC=590.23</code></pre>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="intervention-analysis.html#cb342-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(model1)</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="intervention-analysis.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(model1)</span></code></pre></div>
 <pre><code>## 
 ## z test of coefficients:
 ## 
@@ -483,7 +496,7 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 ## ramp -1396.65226   106.63266 -13.0978 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="intervention-analysis.html#cb344-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model1)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="intervention-analysis.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model1)</span></code></pre></div>
 <pre><code>##              2.5 %        97.5 %
 ## ar1     -1.1159662    -0.6300574
 ## ar2     -0.9198342    -0.4264429
@@ -494,184 +507,11 @@ Coming back to our initial ARIMA model including the intervention variables, cal
 <p>The estimated step change was − 3285 dispensings (95% CI − 4465 to − 2104) while the estimated change in slope was − 1397 dispensings per month (95% CI − 1606 to − 1188). (The figure, ndr) shows the values predicted by our ARIMA model in absence of the intervention (counterfactual) compared with the observed values. This means that the change in subsidy for 25 mg quetiapine in January 2014 was associated with an immediate, sustained decrease of 3285 dispensings, with a further decrease of 1397 dispensings every month. In other words, there were 4682 (3285 + 1397) fewer dispensings in January 2014 than predicted had the subsidy changes not been implemented. In February 2014, there were 6079 fewer dispensings (3285 + 2*1397). Importantly, our findings should only be considered valid for the duration of the study period (i.e. until December 2014).</p>
 </blockquote>
 </div>
-<div id="causalimpact" class="section level2" number="10.3">
-<h2><span class="header-section-number">10.3</span> CausalImpact</h2>
-<p>While ARIMA modeling is the classic choice for intervention models, more complex computational apporaches have been developed. We can consider the Bayesian approach implemented in the package <em>CausalImpact</em> developed at <em>Google</em> to estimate causal impacts in a quasi-experimental framework (you can find here a <a href="https://www.youtube.com/watch?v=GTgZfCltMm8">video presentation</a>)<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.</p>
-<p><img src="images/causal-impact.png" width="738" /></p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="intervention-analysis.html#cb346-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install and load the package</span></span>
-<span id="cb346-2"><a href="intervention-analysis.html#cb346-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;CausalImpact&quot;)</span></span>
-<span id="cb346-3"><a href="intervention-analysis.html#cb346-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CausalImpact)</span></code></pre></div>
-<p>We use the simulated dataset used in the Google tutorial on the package, creating two time series <span class="math inline">\(y\)</span> and <span class="math inline">\(x\)</span> of length 100, simulating an abrupt intervention at time 71 determining a permanent increment of 10 points in the <span class="math inline">\(y\)</span> series.</p>
-<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="intervention-analysis.html#cb347-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb347-2"><a href="intervention-analysis.html#cb347-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">+</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">ar =</span> <span class="fl">0.999</span>), <span class="at">n =</span> <span class="dv">100</span>)</span>
-<span id="cb347-3"><a href="intervention-analysis.html#cb347-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fl">1.2</span> <span class="sc">*</span> x1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
-<span id="cb347-4"><a href="intervention-analysis.html#cb347-4" aria-hidden="true" tabindex="-1"></a>y[<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>] <span class="ot">&lt;-</span> y[<span class="dv">71</span><span class="sc">:</span><span class="dv">100</span>] <span class="sc">+</span> <span class="dv">10</span></span>
-<span id="cb347-5"><a href="intervention-analysis.html#cb347-5" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(y, x1)</span></code></pre></div>
-<p>Then, it is necessary to specify the pre-intervention and post-intervention period. In the pre-intervention period no impact is expected.</p>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="intervention-analysis.html#cb348-1" aria-hidden="true" tabindex="-1"></a>pre.period <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">70</span>)</span>
-<span id="cb348-2"><a href="intervention-analysis.html#cb348-2" aria-hidden="true" tabindex="-1"></a>post.period <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">71</span>, <span class="dv">100</span>)</span></code></pre></div>
-<p>The function <em>CausalImpact</em> uses the values of the original time series <span class="math inline">\(y\)</span> in the pre-intervention period, and the predictors correlated to the <span class="math inline">\(y\)</span> (in this case <span class="math inline">\(x\)</span>), to forecast the values that <span class="math inline">\(y\)</span> would have had without the intervention (<em>counterfactual</em>).</p>
-<p>To accurately forecast the <span class="math inline">\(y\)</span> values, which is necessary to obtain valid results from the analysis, it is necessary to have a proper model of the <span class="math inline">\(y\)</span> series (based on the series itself and its predictors). Then, the differences in the expected (forecasted) <span class="math inline">\(y\)</span> values without intervention, and the actual <span class="math inline">\(y\)</span> values following the intervention, are compared in order to estimate the impact of the intervention.</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="intervention-analysis.html#cb349-1" aria-hidden="true" tabindex="-1"></a>impact <span class="ot">&lt;-</span> <span class="fu">CausalImpact</span>(dat, pre.period, post.period)</span></code></pre></div>
-<p>By using the function <em>plot</em> on the resulting model, three plots are visualized:</p>
-<blockquote>
-<p>The first panel shows the data and a counterfactual prediction for the post-treatment period. The second panel shows the difference between observed data and counterfactual predictions. This is the pointwise causal effect, as estimated by the model. The third panel adds up the pointwise contributions from the second panel, resulting in a plot of the cumulative effect of the intervention. (…) the above inferences depend critically on the assumption that the covariates were not themselves affected by the intervention. The model also assumes that the relationship between covariates and treated time series, as established during the pre-period, remains stable throughout the post-period.</p>
-</blockquote>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="intervention-analysis.html#cb350-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(impact)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-232-1.png" width="672" /></p>
-<p>Besides plotting the results, it is possible to create a summary of the model, and by adding the argument “report” inside the function <em>summary</em>, a convenient explanations of the results is printed.</p>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="intervention-analysis.html#cb351-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(impact)</span></code></pre></div>
-<pre><code>## Posterior inference {CausalImpact}
-## 
-##                          Average        Cumulative  
-## Actual                   117            3511        
-## Prediction (s.d.)        107 (0.37)     3196 (10.96)
-## 95% CI                   [106, 107]     [3175, 3217]
-##                                                     
-## Absolute effect (s.d.)   11 (0.37)      315 (10.96) 
-## 95% CI                   [9.8, 11]      [294.0, 336]
-##                                                     
-## Relative effect (s.d.)   9.9% (0.34%)   9.9% (0.34%)
-## 95% CI                   [9.2%, 11%]    [9.2%, 11%] 
-## 
-## Posterior tail-area probability p:   0.00101
-## Posterior prob. of a causal effect:  99.8993%
-## 
-## For more details, type: summary(impact, &quot;report&quot;)</code></pre>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="intervention-analysis.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(impact, <span class="st">&quot;report&quot;</span>)</span></code></pre></div>
-<pre><code>## Analysis report {CausalImpact}
-## 
-## 
-## During the post-intervention period, the response variable had an average value of approx. 117.05. By contrast, in the absence of an intervention, we would have expected an average response of 106.54. The 95% interval of this counterfactual prediction is [105.83, 107.25]. Subtracting this prediction from the observed response yields an estimate of the causal effect the intervention had on the response variable. This effect is 10.51 with a 95% interval of [9.80, 11.21]. For a discussion of the significance of this effect, see below.
-## 
-## Summing up the individual data points during the post-intervention period (which can only sometimes be meaningfully interpreted), the response variable had an overall value of 3.51K. By contrast, had the intervention not taken place, we would have expected a sum of 3.20K. The 95% interval of this prediction is [3.18K, 3.22K].
-## 
-## The above results are given in terms of absolute numbers. In relative terms, the response variable showed an increase of +10%. The 95% interval of this percentage is [+9%, +11%].
-## 
-## This means that the positive effect observed during the intervention period is statistically significant and unlikely to be due to random fluctuations. It should be noted, however, that the question of whether this increase also bears substantive significance can only be answered by comparing the absolute effect (10.51) to the original goal of the underlying intervention.
-## 
-## The probability of obtaining this effect by chance is very small (Bayesian one-sided tail-area probability p = 0.001). This means the causal effect can be considered statistically significant.</code></pre>
-<p>The authors of the package underline the importance of the statistical assumptions to get valid results, and about possible strategies to ascertain that the assumptions are met, they write the following advice:</p>
-<blockquote>
-<p>Here are a few ways of getting started. First of all, it is critical to reason why the covariates that are included in the model (this was x1 in the example) were not themselves affected by the intervention. Sometimes it helps to plot all covariates and do a visual sanity check. Next, it is a good idea to examine how well the outcome data y can be predicted before the beginning of the intervention. This can be done by running CausalImpact() on an imaginary intervention. Then check how well the model predicted the data following this imaginary intervention. We would expect not to find a significant effect, i.e., counterfactual estimates and actual data should agree reasonably closely. Finally, when presenting or writing up results, be sure to list the above assumptions explicitly, including the priors in model.args, and discuss them with your audience.</p>
-</blockquote>
-<p>We can now try to use the library with the data from the previous example (the library requires data in the same format, thus some pre-processing is needed).</p>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="intervention-analysis.html#cb355-1" aria-hidden="true" tabindex="-1"></a>quet<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(quet<span class="sc">$</span>month, <span class="at">format=</span><span class="st">&quot;%d-%b-%y&quot;</span>)</span>
-<span id="cb355-2"><a href="intervention-analysis.html#cb355-2" aria-hidden="true" tabindex="-1"></a>quet_xts <span class="ot">&lt;-</span> <span class="fu">xts</span>(quet<span class="sc">$</span>dispensings, <span class="at">order.by =</span> quet<span class="sc">$</span>month)</span>
-<span id="cb355-3"><a href="intervention-analysis.html#cb355-3" aria-hidden="true" tabindex="-1"></a>pre.period <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2011-01-01&quot;</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2013-12-01&quot;</span>))</span>
-<span id="cb355-4"><a href="intervention-analysis.html#cb355-4" aria-hidden="true" tabindex="-1"></a>post.period <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2014-01-01&quot;</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2014-12-01&quot;</span>))</span></code></pre></div>
-<p>We fit an automated model (without specifying a particular form for the intervention).</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="intervention-analysis.html#cb356-1" aria-hidden="true" tabindex="-1"></a>impact2 <span class="ot">&lt;-</span> <span class="fu">CausalImpact</span>(quet_xts, pre.period, post.period)</span></code></pre></div>
-<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="intervention-analysis.html#cb357-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(impact2)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-237-1.png" width="672" /></p>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="intervention-analysis.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(impact)</span></code></pre></div>
-<pre><code>## Posterior inference {CausalImpact}
-## 
-##                          Average        Cumulative  
-## Actual                   117            3511        
-## Prediction (s.d.)        107 (0.37)     3196 (10.96)
-## 95% CI                   [106, 107]     [3175, 3217]
-##                                                     
-## Absolute effect (s.d.)   11 (0.37)      315 (10.96) 
-## 95% CI                   [9.8, 11]      [294.0, 336]
-##                                                     
-## Relative effect (s.d.)   9.9% (0.34%)   9.9% (0.34%)
-## 95% CI                   [9.2%, 11%]    [9.2%, 11%] 
-## 
-## Posterior tail-area probability p:   0.00101
-## Posterior prob. of a causal effect:  99.8993%
-## 
-## For more details, type: summary(impact, &quot;report&quot;)</code></pre>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="intervention-analysis.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(impact, <span class="st">&quot;report&quot;</span>)</span></code></pre></div>
-<pre><code>## Analysis report {CausalImpact}
-## 
-## 
-## During the post-intervention period, the response variable had an average value of approx. 117.05. By contrast, in the absence of an intervention, we would have expected an average response of 106.54. The 95% interval of this counterfactual prediction is [105.83, 107.25]. Subtracting this prediction from the observed response yields an estimate of the causal effect the intervention had on the response variable. This effect is 10.51 with a 95% interval of [9.80, 11.21]. For a discussion of the significance of this effect, see below.
-## 
-## Summing up the individual data points during the post-intervention period (which can only sometimes be meaningfully interpreted), the response variable had an overall value of 3.51K. By contrast, had the intervention not taken place, we would have expected a sum of 3.20K. The 95% interval of this prediction is [3.18K, 3.22K].
-## 
-## The above results are given in terms of absolute numbers. In relative terms, the response variable showed an increase of +10%. The 95% interval of this percentage is [+9%, +11%].
-## 
-## This means that the positive effect observed during the intervention period is statistically significant and unlikely to be due to random fluctuations. It should be noted, however, that the question of whether this increase also bears substantive significance can only be answered by comparing the absolute effect (10.51) to the original goal of the underlying intervention.
-## 
-## The probability of obtaining this effect by chance is very small (Bayesian one-sided tail-area probability p = 0.001). This means the causal effect can be considered statistically significant.</code></pre>
-<div id="exercise-2" class="section level3" number="10.3.1">
-<h3><span class="header-section-number">10.3.1</span> Exercise</h3>
-<p>Let’s try to analyze a real-world case study in the field of online communication.</p>
-<p>We hypothesize that the uncertainty and anxiety caused by the pandemic has increased people’s need of information. Social media are an important information source today, and the pages of the Health Ministries can be considered trustable information sources. At the same time, Facebook has favored the circulation of posts from verified health and government organization. It is therefore possible that the pages of the Ministries of Health have increased their follower base during the pandemic.</p>
-<p>Thus, let’s try to assess the impact of the pandemic on the growth in “page likes” of some Facebook pages of Health Ministry. We’ll use the <em>CausalImpact</em> library. It is the easiest solution, since we just need to indicate the intervention period, but it does not (necessarily) require other variables.</p>
-<p>Download here the dataset of the <a href="https://drive.google.com/file/d/1t4ncdNlanQwZwBvWx9AQe6R2dp-7Faew/view?usp=sharing">Facebook page of the Italian Ministry of Health</a> and save it in your <em>data</em> folder.</p>
-<p>Some background information: On 9 March 2020, the government of Italy under Prime Minister Giuseppe Conte imposed a national lockdown. The World Health Organization (WHO) on March 11 declared COVID-19 a pandemic. For the sake of simplicity, we can use the declaration of WHO as the date of our “intervention” (more fine-grained analysis are possible as well).</p>
-<p>Upload the data:</p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="intervention-analysis.html#cb362-1" aria-hidden="true" tabindex="-1"></a>MinisteroSalute <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;./data/MinisteroSalute.csv&quot;</span>)</span></code></pre></div>
-<p>Let’s use the <em>xts</em> format, since in this case it is easier to use (in particular, it’s easier to work with the date format).</p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="intervention-analysis.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dates in format &quot;date&quot;</span></span>
-<span id="cb363-2"><a href="intervention-analysis.html#cb363-2" aria-hidden="true" tabindex="-1"></a>MinisteroSalute<span class="sc">$</span>beginning_of_interval <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(MinisteroSalute<span class="sc">$</span>beginning_of_interval)</span>
-<span id="cb363-3"><a href="intervention-analysis.html#cb363-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb363-4"><a href="intervention-analysis.html#cb363-4" aria-hidden="true" tabindex="-1"></a><span class="co"># xts time seires</span></span>
-<span id="cb363-5"><a href="intervention-analysis.html#cb363-5" aria-hidden="true" tabindex="-1"></a>MinisteroSalute <span class="ot">&lt;-</span> <span class="fu">xts</span>(MinisteroSalute<span class="sc">$</span>page_likes, </span>
-<span id="cb363-6"><a href="intervention-analysis.html#cb363-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">order.by =</span> MinisteroSalute<span class="sc">$</span>beginning_of_interval)</span></code></pre></div>
-<p>Let’s take a look at the data.</p>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="intervention-analysis.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.xts</span>(MinisteroSalute, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>,</span>
-<span id="cb364-2"><a href="intervention-analysis.html#cb364-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">main=</span><span class="st">&quot;Page Likes - Italian Ministry of Health Facebook Page&quot;</span>)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-242-1.png" width="672" /></p>
-<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="intervention-analysis.html#cb365-1" aria-hidden="true" tabindex="-1"></a><span class="fu">start</span>(MinisteroSalute)</span></code></pre></div>
-<pre><code>## [1] &quot;2018-12-30&quot;</code></pre>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="intervention-analysis.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="fu">end</span>(MinisteroSalute)</span></code></pre></div>
-<pre><code>## [1] &quot;2020-12-31&quot;</code></pre>
-<p>The dates of the intervention:</p>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="intervention-analysis.html#cb369-1" aria-hidden="true" tabindex="-1"></a>date_pre <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2018-12-30&quot;</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2020-03-10&quot;</span>))</span>
-<span id="cb369-2"><a href="intervention-analysis.html#cb369-2" aria-hidden="true" tabindex="-1"></a>date_post <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2020-03-11&quot;</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2020-12-31&quot;</span>))</span></code></pre></div>
-<p>Fit the model:</p>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="intervention-analysis.html#cb370-1" aria-hidden="true" tabindex="-1"></a>impact2 <span class="ot">&lt;-</span> <span class="fu">CausalImpact</span>(MinisteroSalute, </span>
-<span id="cb370-2"><a href="intervention-analysis.html#cb370-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">pre.period =</span>  date_pre, </span>
-<span id="cb370-3"><a href="intervention-analysis.html#cb370-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">post.period =</span> date_post)</span></code></pre></div>
-<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="intervention-analysis.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(impact2)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-246-1.png" width="672" /></p>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="intervention-analysis.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(impact2)</span></code></pre></div>
-<pre><code>## Posterior inference {CausalImpact}
-## 
-##                          Average              Cumulative        
-## Actual                   5.5e+05              1.6e+08           
-## Prediction (s.d.)        1.8e+05 (13743)      5.2e+07 (4068069) 
-## 95% CI                   [1.5e+05, 2e+05]     [4.5e+07, 6e+07]  
-##                                                                 
-## Absolute effect (s.d.)   3.8e+05 (13743)      1.1e+08 (4068069) 
-## 95% CI                   [3.5e+05, 4.0e+05]   [1.0e+08, 1.2e+08]
-##                                                                 
-## Relative effect (s.d.)   214% (7.8%)          214% (7.8%)       
-## 95% CI                   [199%, 228%]         [199%, 228%]      
-## 
-## Posterior tail-area probability p:   0.00107
-## Posterior prob. of a causal effect:  99.89293%
-## 
-## For more details, type: summary(impact, &quot;report&quot;)</code></pre>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="intervention-analysis.html#cb374-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(impact2, <span class="st">&quot;report&quot;</span>)</span></code></pre></div>
-<pre><code>## Analysis report {CausalImpact}
-## 
-## 
-## During the post-intervention period, the response variable had an average value of approx. 554.03K. By contrast, in the absence of an intervention, we would have expected an average response of 176.52K. The 95% interval of this counterfactual prediction is [151.27K, 202.82K]. Subtracting this prediction from the observed response yields an estimate of the causal effect the intervention had on the response variable. This effect is 377.51K with a 95% interval of [351.21K, 402.75K]. For a discussion of the significance of this effect, see below.
-## 
-## Summing up the individual data points during the post-intervention period (which can only sometimes be meaningfully interpreted), the response variable had an overall value of 163.99M. By contrast, had the intervention not taken place, we would have expected a sum of 52.25M. The 95% interval of this prediction is [44.78M, 60.03M].
-## 
-## The above results are given in terms of absolute numbers. In relative terms, the response variable showed an increase of +214%. The 95% interval of this percentage is [+199%, +228%].
-## 
-## This means that the positive effect observed during the intervention period is statistically significant and unlikely to be due to random fluctuations. It should be noted, however, that the question of whether this increase also bears substantive significance can only be answered by comparing the absolute effect (377.51K) to the original goal of the underlying intervention.
-## 
-## The probability of obtaining this effect by chance is very small (Bayesian one-sided tail-area probability p = 0.001). This means the causal effect can be considered statistically significant.</code></pre>
-<p>We can also repeat the same analysis with the data from the Facebook page of the Austrian Ministry of Health (“Bundesministerium für Soziales, Gesundheit, Pflege und Konsumentenschutz - Eingang Sozialministerium”): <a href="https://drive.google.com/file/d/1ogZxpKd6jLyhFRn8I1Z-Kt5gQQX7h5cH/view?usp=sharing">Download here the data</a>, save it in your <em>data</em> folder, and perform the intervention analysis.</p>
-<p>The chart below is from Markus Pollak, Nikolaus Kowarz und Julia Partheymüller (2020): <a href="https://viecer.univie.ac.at/en/projects-and-cooperations/austrian-corona-panel-project/corona-blog/corona-blog-beitraege/blog51/">Chronology of the Corona Crisis in Austria - Part 1: Background, the way to the lockdown, the acute phase and economic consequences</a></p>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="intervention-analysis.html#cb376-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;images/covid-austria.png&quot;</span>)</span></code></pre></div>
-<p><img src="images/covid-austria.png" width="214" /></p>
-
-</div>
-</div>
 </div>
 <div class="footnotes">
 <hr />
 <ol start="8">
 <li id="fn8"><p>Box, G. E., &amp; Tiao, G. C. (1975). Intervention analysis with applications to economic and environmental problems. Journal of the American Statistical association, 70(349), 70-79<a href="intervention-analysis.html#fnref8" class="footnote-back">↩︎</a></p></li>
-<li id="fn9"><p>CausalImpact 1.2.1, Brodersen et al., Annals of Applied Statistics (2015). <a href="http://google.github.io/CausalImpact/" class="uri">http://google.github.io/CausalImpact/</a><a href="intervention-analysis.html#fnref9" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -680,7 +520,7 @@ Coming back to our initial ARIMA model including the intervention variables, cal
         </div>
       </div>
 <a href="regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="var-introduction.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="interrupted-time-series-analysis-using-segmented-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

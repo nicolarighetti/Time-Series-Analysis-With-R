@@ -1,6 +1,6 @@
-fig:unnamed-chunk-39
-fig:unnamed-chunk-108
-fig:unnamed-chunk-112
+fig:unnamed-chunk-255
+fig:unnamed-chunk-324
+fig:unnamed-chunk-328
 time-series-analysis-with-r
 objectives
 lectures
@@ -90,9 +90,16 @@ some-examples-in-the-literature
 intervention-analysis
 types-of-intervention
 intervention-analysis-with-arima
+interrupted-time-series-analysis-using-segmented-regression
+an-example
 causalimpact
 exercise-2
-var-introduction
+var
+var-modeling-hands-on-tutorial
+assumption-of-stationarity
+other-assumptions-of-var-models-distribution-of-residuals
+var-fitting
+granger-causality-test
 readings-and-bibliographical-references
 mandatory
 other-readings

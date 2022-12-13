@@ -159,6 +159,143 @@ confint(model1)
 
 >The estimated step change was − 3285 dispensings (95% CI − 4465 to − 2104) while the estimated change in slope was − 1397 dispensings per month (95% CI − 1606 to − 1188). (The figure, ndr) shows the values predicted by our ARIMA model in absence of the intervention (counterfactual) compared with the observed values. This means that the change in subsidy for 25 mg quetiapine in January 2014 was associated with an immediate, sustained decrease of 3285 dispensings, with a further decrease of 1397 dispensings every month. In other words, there were 4682 (3285 + 1397) fewer dispensings in January 2014 than predicted had the subsidy changes not been implemented. In February 2014, there were 6079 fewer dispensings (3285 + 2*1397). Importantly, our findings should only be considered valid for the duration of the study period (i.e. until December 2014).
 
+
+# Interrupted time series analysis using segmented regression
+
+**Segmented regression** is another common way for analyzing the impact of an intervention. Two good papers explaining the methods of segmented regression are, for example: 
+
+  - [Bernal, J. L., Cummins, S., & Gasparrini, A. (2017). Interrupted time series regression for the evaluation of public health interventions: a tutorial. International journal of epidemiology, 46(1), 348-355.](https://academic.oup.com/ije/article/46/1/348/2622842)
+  - [Wagner, A. K., Soumerai, S. B., Zhang, F., & Ross‐Degnan, D. (2002). Segmented regression analysis of interrupted time series studies in medication use research. Journal of clinical pharmacy and therapeutics, 27(4), 299-309.](https://www.alnap.org/system/files/content/resource/files/main/segmented-regression-wagner-2002.pdf)
+
+As explained by the latter, *"Segmented regression analysis uses statistical models to estimate level and trend in the pre-intervention segment and changes in level and trend after the intervention (or interventions)."*. 
+
+More exactly, a segmented regression model is structured as follow:
+
+$$Y = b_0 + b_1Time + b_2Intervention + b_3TimeSinceIntervention + e$$
+
+It includes at least:
+
+  - an outcome variable (Y); 
+  - a variable that indicates the time *1,2,...,t* passed from the start of the series; 
+  - a dummy variable (0/1) for observation collected before (0) or after (1) the  intervention; 
+  - a variable measuring the time *1,2,...,t* passed since the intervention has occured, and which is equal to zero before the intervention.
+
+The interpretation of coefficients is as follows:
+
+  - $b_0$ is the baseline level at Time 0;
+  - The *Time* ($b_1$) coefficient indicates the trend (the *slope*) before the intervention ( change in outcome associated with a time unit increase).
+  - The *Intervention* ($b_2$) coefficient indicates the immediate effect (level change) induced by the intervention (from the last observation before the intervention to the first one after).
+  - The *Time Since Intervention* ($b_3$) coefficient indicates the "sustained effect", i.e., the change in trend after the intervention (the effect for each time point that passes after the intervention). It measures *the difference* between the slope of the line before and after the intervention. It is also possible to calculate the *slope of the line after* the intervention by summing up the coefficients of Time and Time Since Treatment	($b_1 + b_3$)
+
+## an example
+
+The dataset *Seatbelts* in R is a time series giving the monthly totals of car drivers in Great Britain killed or seriously injured Jan 1969 to Dec 1984. Compulsory wearing of seat belts was introduced on 31 Jan 1983. Was there an impact of this legislative intervention on the number of drivers killed?
+
+```{r}
+head(Seatbelts)
+```
+
+Let's fit a segmented regression model:
+
+$$DriversKilled = b_0 + b_1Time + b_2Intervention + b_3TimeSinceIntervention + e$$
+
+The dataset already has an "Intervention" dummy variable ("law"). We rename it for clarity:
+
+```{r}
+Seatbelts_df <- as.data.frame(Seatbelts) # to data frame
+colnames(Seatbelts_df)
+colnames(Seatbelts_df)[8] <- "Intervention"
+```
+
+
+We can also easily add a "Time" variable.
+
+```{r}
+Seatbelts_df$Time <- 1:nrow(Seatbelts_df)
+```
+
+Then we need to add a "Time Since Intervention" variable:
+
+```{r}
+table(Seatbelts_df$Intervention) # intervention is at time point 170
+TimeSinceIntervention <- c(rep(0, 169), 1:23)
+Seatbelts_df$TimeSinceIntervention <- TimeSinceIntervention
+```
+
+
+```{r}
+regTS <- lm(DriversKilled ~ Time + Intervention + TimeSinceIntervention, data=Seatbelts_df)
+summary(regTS)
+```
+
+```{r}
+plot.ts(Seatbelts_df$DriversKilled,
+        pch=19, col="gray",
+        # bty="n", 
+        ylim = c(0, 250),
+        xlim = c(0, nrow(Seatbelts_df)),
+        xlab = "Time (months)", 
+        ylab = "Drivers Killed")
+
+# Line marking the interruption
+abline(v = 170, col = "red", lty = 2)
+text(110, 220, "Compulsory wearing of\nseat belts (31 Jan 1983)", 
+     col="red", cex=0.8, pos=4)
+
+# Add the regression line
+lines(regTS$fitted.values, col="steelblue", lwd=2 )
+
+```
+
+
+```{r}
+forecast::checkresiduals(regTS)
+```
+
+
+Now, let's consider the "counterfactual": what the series would be if the intervention had not occurred.
+
+```{r}
+pred1 <- predict(regTS, Seatbelts_df) # this are the fitted values of the model
+
+# Create a dataset where Treatment and Time Since Treatment are equal to 0 (as the intervention did not occur).
+dataCF <- as.data.frame(cbind(Time = Seatbelts_df$Time, 
+                              Intervention = rep(0),
+                              TimeSinceIntervention = rep(0))) 
+
+
+pred2 <- predict(regTS, dataCF) 
+
+
+```
+
+
+Using the same mechanism illustrated in section 1.3 and 2.1, we can calculate the counterfactual for any point in time. The counterfactual at Time
+ = 230 is the level of wellbeing at that point in time if the intervention had not occured.
+ 
+ 
+```{r}
+plot.ts(Seatbelts_df$DriversKilled,
+     col = gray(0.5,0.5), 
+     xlab = "Time (days)", 
+     ylab = "Wellbeing index")
+
+lines(rep(1:169),   pred1[1:169], col="dodgerblue4", lwd = 2 )
+lines(rep(170:192), pred1[170:192], col="dodgerblue4", lwd = 2 )
+lines(rep(170:192), pred2[170:192], col="darkorange2", lwd = 2, lty = 5 ) 
+
+text(0, 45, labels = "Predicted values", pos = 4, cex = 1, col = "dodgerblue3")
+text(300, 95, labels = "Counterfactual", pos = 4, cex = 1, col = "darkorange2")
+
+# Line marking the interruption
+abline(v=170, col="darkorange2", lty=2)
+```
+ 
+
+https://ds4ps.org/pe4ps-textbook/docs/p-020-time-series.html
+
+
+
 ## CausalImpact
 
 While ARIMA modeling is the classic choice for intervention models, more complex computational apporaches have been developed. We can consider the Bayesian approach implemented in the package *CausalImpact* developed at *Google* to estimate causal impacts in a quasi-experimental framework (you can find here a [video presentation](https://www.youtube.com/watch?v=GTgZfCltMm8))^[CausalImpact 1.2.1, Brodersen et al., Annals of Applied Statistics (2015). http://google.github.io/CausalImpact/]. 
