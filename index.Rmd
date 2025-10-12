@@ -1,55 +1,35 @@
---- 
+---
 title: "Time Series Analysis With R"
 author: "Nicola Righetti"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
 
+**Author:** Nicola Righetti\
+**Date:** `r Sys.Date()`
+
+------------------------------------------------------------------------
+
 # Time Series Analysis With R
 
-*This book will be updated as the course goes on.*
+Welcome to this book on **Time Series Analysis with R**.
 
-## Objectives
+This book provides a practical introduction to analyzing time series data using **R**. It guides the reader through:
 
-This course is a practical introduction to time series analysis with R. 
+-   The characteristics and specificity of time series data
 
-It will introduce students to:
+-   Using the free statistical software **R** to conduct time series analysis
 
-*   The specificity of time series data;
-*   The free statistical software R to conduct time series analysis;
-*   Some of the main univariate and multivariate techniques to analyze time series data.
+-   Key univariate and multivariate techniques for analyzing time series
 
-At the end of the course, the students are expected to know the specificity of time series data and to be able to use R to perform simple time series analysis by applying the techniques described during the course.
+By the end of the book, readers will understand the unique aspects of time series data and be able to perform simple analyses in **R** using the methods presented here.
 
-## Lectures
+> **Note:** This book was first created for the students of the International Master in Communication Science at the University of Vienna.
 
-Structure of the course:
+------------------------------------------------------------------------
 
-*   **Theoretical concepts**: this part of the course will introduce students to the main theoretical concepts of time series analysis;
-*   **R Tutorial**: this part of the course consists in a hands-on tutorial on the R functions necessary to perform time series analysis. Every part of a time series analysis project will be taken into account, including data wrangling, visual representation, and statistical analysis;
-*   **Individual/Group work**: this part of the course consists in individual and group work based on the application of the theoretical and practical knowledge described in the previous part of the course
+## Citation
 
-## Home Work
+If you use this book in your work, please cite it as:
 
-Theoretical concepts can be studied, but you have to practice in order to learn R and the data analysis tecniques.
-
-## Assessment 
-
-*   In-class participation (20%)
-*   Final quiz on the main concepts (30%)
-*   A final data analysis project where participants will apply the knowledge and techniques learned during the course (50%).
-
-## Syllabus and readings
-
-I created this open book for the *Advanced Data Analysis* students of the Master in Communication Science of the University of Vienna. The book includes both theoretical concepts and an R tutorial with the necessary code to perform all the operations we are going to learn. 
-
-The book also includes hyperlinks to additional free resources and readings. 
-The mandatory readings will be listed in the *Readings* section of the book.
-
-A new part of the book will be uploaded online every weeks, following the program of the lessons. 
-
-The link to this book is the following: [Time-Series-Analysis-With-R](https://nicolarighetti.github.io/Time-Series-Analysis-With-R/).
-
-## Further information and support
-For any information, communication, or request for clarification, reach out to me at [my University of Vienna address](https://ufind.univie.ac.at/de/person.html?id=113451).
-
+Nicola Righetti (2025). *Time Series Analysis With R*. [Online Bookdown Book]. Available at: <https://nicolarighetti.github.io/Time-Series-Analysis-With-R/>
