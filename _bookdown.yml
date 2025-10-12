@@ -1,8 +1,13 @@
-book_filename: "bookdownproj"
-output_dir: docs
-delete_merged_file: true
-edit: https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/edit/master/%s
-view: https://github.com/nicolarighetti/Introduction-to-Time-Series-Analysis-With-R/blob/master/%s
-language:
-  ui:
-    chapter_name: "Chapter "
+book_filename: "Time-Series-Analysis-With-R"
+rmd_files:
+  - index.Rmd
+  - 02-Getting-Started-with-R.Rmd
+  - 03-Definitions.Rmd
+  - 04-Time-Series-Objects.Rmd
+  - 05-Plot-Time-Series.Rmd
+  - 06-Structural-Decomposition.Rmd
+  - 07-ARIMA.Rmd
+  - 08-Regression.Rmd
+  - 09-Intervention-Analysis.Rmd
+  - 10-VAR.Rmd
+  - Readings-and-Bibliography.Rmd
