@@ -1,8 +1,40 @@
-bookdown::gitbook:
-  css: style.css
+bookdown::bs4_book:
+  css: style.css       # optional, for custom tweaks
   config:
-    toc:
-      before: |
-        <li><a href="./">Time Series with R</a></li>
-      after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+    theme: "cosmo"  # <-- choose your theme here
+    favicon: images/favicon.ico
+    metadata:
+      description: "A practical introduction to time series analysis using R."
+      author: "Nicola Righetti"
+      keywords: "Time series, R, statistical analysis, forecasting"
+    navbar:
+      left:
+        - text: "Home"
+          href: index.html
+        - text: "Chapters"
+          menu:
+            - text: "Getting Started"
+              href: 02-Getting-Started-with-R.html
+            - text: "Definitions"
+              href: 03-Definitions.html
+            - text: "Time Series Objects"
+              href: 04-Time-Series-Objects.html
+            - text: "Plot Time Series"
+              href: 05-Plot-Time-Series.html
+            - text: "Structural Decomposition"
+              href: 06-Structural-Decomposition.html
+            - text: "ARIMA"
+              href: 07-ARIMA.html
+            - text: "Regression"
+              href: 08-Regression.html
+            - text: "Intervention Analysis"
+              href: 09-Intervention-Analysis.html
+            - text: "VAR"
+              href: 10-VAR.html
+      right:
+        - icon: github
+          href: https://github.com/nicolarighetti
+
+bookdown::pdf_book:
+  latex_engine: xelatex
+  citation_package: natbib
