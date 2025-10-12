@@ -193,15 +193,4 @@ str(xts_format)
 head(xts_format)
 ```
 
-## Exercise
-
-*   Download the data set [Austrian_Local_Media](https://drive.google.com/file/d/1RKPFOLsIAPLuACcrcB0iiq289CvDDgiT/view?usp=sharing), a data set including  metrics from Facebook pages of Austrian Local Media (monthly observations from January 2015 to December 2020 on quantity of posts and interactions)
-*   Set the "beginning_of_interval" to the appropriate "Date" format
-*   Create a ts object, called "ts_object_1", using as data values the post_count values
-*   Create a xts object, called "xts_object_1", using as data values the post_count values
-*   Use the Tidyverse function "mutate" to create a new column with the number of interaction by post (total_interactions/post_count) and call it  "interaction_ratio"
-*   Create a ts object, called "ts_object_2", using as data values the interaction_ratio values
-*   Create a xts object, called "xts_object_2", using as data values the interaction_ratio values
-*   Try to plot these objects, by using the command *plot.ts(ts_object_1)*, *plot.ts(ts_object_2)*, *plot.xts(xts_object_1)*, *plot.xts(xts_object_2)*
-
 

@@ -385,7 +385,7 @@ a_dataframe %>%
 To manipulate data sets we can rely on the functions included in [**dplyr**](https://dplyr.tidyverse.org): *a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges*, such as *mutate*, *rename*, *summarize*.
 
 
-```{r "Load an example data set", paged.print=TRUE}
+```{r "Load example data set", paged.print=TRUE}
 library(readr)
 tweets <- read_csv("data/tweets_covid_small.csv", 
     col_types = cols(created_at = col_datetime(format = "%Y-%m-%d %H:%M:%S"), 
@@ -550,36 +550,6 @@ tweets %>%
 
 ```{r paged.print=TRUE}
 tweets %>%
-  select(device, retweet_count) %>%
+  dplyr::select(device, retweet_count) %>%
   head()
 ```
-
-## Exercise
-
-Here are some exercises to consolidate the fundamental R skills learned during these first lessons:
-
-*   Download the csv file *tweets_vienna_small.csv* in [this folder](https://drive.google.com/file/d/1RKPFOLsIAPLuACcrcB0iiq289CvDDgiT/view?usp=sharing) and put it into the project folder "data"
-*   Upload the data set in R, setting the appropriate formats for the variables
-*   Create a new script named "data-manipulation" with  your surname and name as follows: *"YOUR SURNAME-YOUR NAME-data-manipulation"*, and save it
-*   In the script, write the code to perform the following operations:
-
-    + load the library "Tidyverse"
-    + show the first rows of the data frame by using the function *head*
-    + create a new data frame "tweets_vienna_small_updated" by updating the dataframe "tweets_vienna_small" by using the function *mutate* to create a new column "log_friends_count" whose values are the log of the values in the column "friends_count" (you don't need to add 1 to the values in the column "friends_count")
-    + save the updated dataframe "tweets_vienna_small_updated", by using the following code to save a csv file (please change *YOUR SURNAME-YOUR NAME* with your actual surname and name): *write.csv(tweets_vienna_small_updated, file = "./data/YOUR SURNAME-YOUR NAME-tweets_vienna_small_updated.csv", row.names=F)* (we add row.names=F to avoid saving the number that indexes each row)
-    
-    + create a new data frame named "summary_tweets_vienna_small" aggregating the data by "screen_name" (using the function *group_by*) and then summarizing the data (by using the function *summarize*) as follows:
-    
-      * in a column named "average_favorite_count", calculate the average of "favorite_count" by "screen_name" (that is, by user)
-      * in a column named "average_retweet_count", calculate the average of "retweet_count" (by user, obviously, since the data are already aggregated by user' name)
-      * in a column named "number_of_tweets", calculate the number of tweets published by each users (by using the function *n()*)
-      * save the "summary_tweets_vienna_small" in the data folder of the project, in csv format, and with the name *"YOUR SURNAME-YOUR NAME-summary_tweets_vienna_small.csv"* (remember to specify *row.names=F* and  to change *YOUR SURNAME-YOUR NAME* with your actual surname and name)
-      
-      * create a new data frame object called "summary_tweets_vienna_small_filtered", where you will save the data.frame summary_tweets_vienna_small, after having filtered the rows with average_retweet_count higher than 10 (by using the function *filter*), and after having selected the column "screen_name" and "average_retweet_count" (so, you should end up with a data frame with just two columns, "screen_name" and "average_retweet_count", and the rows with "average_retweet_count" higher than 10)
-      * save the data frame "summary_tweets_vienna_small_filtered" with the name *"YOUR SURNAME-YOUR NAME-summary_tweets_vienna_small_filtered.csv"* in the folder data (remember to specify *row.names=F* and  to change *YOUR SURNAME-YOUR NAME* with your actual surname and name).
-      
-Save the script "YOUR SURNAME-YOUR NAME-data-manipulation" with all the code you have used to perform these analysis. Write a comment in the script (using the hash mark *#*) if you are not able to do something. 
-
-Upload the script "YOUR SURNAME-YOUR NAME-data-manipulation.r" and the files "YOUR SURNAME-YOUR NAME-tweets_vienna_small_updated.csv", "YOUR SURNAME-YOUR NAME-summary_tweets_vienna_small.csv", and the file "YOUR SURNAME-YOUR NAME-summary_tweets_vienna_small_filtered.csv" on Moodle, in the folder "HomeWork-1". *The deadline is Sunday 11 April*.
-      
-

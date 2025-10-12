@@ -116,7 +116,7 @@ Let's make a simple example.
 Upload some data:
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-ts_tweets <- readRDS("~/Library/CloudStorage/OneDrive-Personale/Teaching/Time Series Analysis/Time-Series-Analysis-With-R/data/ts_tweets.rds")
+ts_tweets <- readRDS("/Users/righetti/Library/Mobile Documents/com~apple~CloudDocs/Research/GitHub/Time-Series-Analysis-With-R/data/ts_tweets.rds")
 head(ts_tweets)
 ```
 
