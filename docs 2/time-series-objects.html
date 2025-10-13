@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>6 Time Series Objects | Time Series Analysis With R</title>
+<meta name="author" content="Nicola Righetti">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="6 Time Series Objects | Time Series Analysis With R">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="6 Time Series Objects | Time Series Analysis With R">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="6.1 Time Series Objects Every object we manipulate in R is characterized by a specific structure. Objects’ structures vary depending on the type of object: a list, a matrix, or a data.frame, are...">
+<meta property="og:description" content="6.1 Time Series Objects Every object we manipulate in R is characterized by a specific structure. Objects’ structures vary depending on the type of object: a list, a matrix, or a data.frame, are...">
+<meta name="twitter:description" content="6.1 Time Series Objects Every object we manipulate in R is characterized by a specific structure. Objects’ structures vary depending on the type of object: a list, a matrix, or a data.frame, are...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Time Series Analysis With R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Time Series Analysis With R</a></li>
+<li><a class="" href="getting-started-with-r.html"><span class="header-section-number">2</span> Getting started with R</a></li>
+<li><a class="" href="getting-started-with-r-1.html"><span class="header-section-number">3</span> Getting started with R</a></li>
+<li><a class="" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">4</span> Basic Data Wrangling with Tidyverse</a></li>
+<li><a class="" href="basic-concepts.html"><span class="header-section-number">5</span> Basic Concepts</a></li>
+<li><a class="active" href="time-series-objects.html"><span class="header-section-number">6</span> Time Series Objects</a></li>
+<li><a class="" href="plot-time-series.html"><span class="header-section-number">7</span> Plot Time Series</a></li>
+<li><a class="" href="structural-decomposition.html"><span class="header-section-number">8</span> Structural Decomposition</a></li>
+<li><a class="" href="correlations-and-arima.html"><span class="header-section-number">9</span> Correlations and ARIMA</a></li>
+<li><a class="" href="regression.html"><span class="header-section-number">10</span> Regression</a></li>
+<li><a class="" href="intervention-analysis.html"><span class="header-section-number">11</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">12</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="" href="var.html"><span class="header-section-number">13</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">14</span> Readings and Bibliographical References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="time-series-objects" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> Time Series Objects<a class="anchor" aria-label="anchor" href="#time-series-objects"><i class="fas fa-link"></i></a>
+</h1>
+<div id="time-series-objects-1" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> Time Series Objects<a class="anchor" aria-label="anchor" href="#time-series-objects-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Every <em>object</em> we manipulate in R is characterized by a specific structure. Objects’ structures vary depending on the type of object: a <em>list</em>, a <em>matrix</em>, or a <em>data.frame</em>, are different objects with different structures. Every structure has its own manipulation methods. For instance, it can be accessed and analyzed by using different functions and strings of code.</p>
+<p>In R there are many different types of object. To get an overview you can refer to this handbook, to the <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.html">R manual</a>, or the chapter 5 of <a href="https://rc2e.com/datastructures">this free online book</a>. In this course we are going to learn more about the data structures we have to deal with when conducting time series analysis in R, that is, the structure of time series objects and data sets.</p>
+<p>Time series data sets in R can be represented by different objects. Specific <em>libraries</em> (coherent collections of functions) can give different structures to time series data sets.</p>
+<p>There are many R libraries for handling and working with time series objects. Some of them are more general and other are useful to perform very specific analysis. <a href="https://cran.r-project.org/web/views/TimeSeries.html">On this page</a> you can find a comprehensive list of the R libraries for time series analysis.</p>
+<p>For now, we just need to know that different libraries can create time series objects with different structures which can be manipulated through different functions. This means that <strong>not all the objects can be analyzed with all the functions</strong>, as well that there is <strong>not always compatibility</strong> between R libraries.
+Many functions have been developed with reference to specific libraries and objects, or require a particular object structure. As a consequence, creating a time series object with a certain structure or a certain library can imply that we can use some functions and perform only a certain type of analysis. In other words, specific type of objects could introduce specific <strong>constrains to data analysis</strong> (and visualization), so it could be wise to plan in advance the necessary analyses, so as to select the necessary libraries and data structure.</p>
+<p>We now introduce three types of objects that are commonly used to store and analyze time series data:</p>
+<ul>
+<li>The <strong>data.frame</strong> (in base R)</li>
+<li>The <strong>ts</strong> object (in base R)</li>
+<li>The <strong>xts</strong> object (created through the library <em>xts</em>).</li>
+</ul>
+<p>We analyze the structures of these objects and their strengths and limitations. In the next chapter, we’ll also learn the methods available to visualize them.</p>
+<div id="time-series-as-data-frames" class="section level3" number="6.1.1">
+<h3>
+<span class="header-section-number">6.1.1</span> Time Series as Data Frames<a class="anchor" aria-label="anchor" href="#time-series-as-data-frames"><i class="fas fa-link"></i></a>
+</h3>
+<p>Data frames (<em>data.frame</em>) are the most common data set structure in R. A data.frame is simply a table <em>cases by variables</em> (each row is a case and each column is a variable).</p>
+<p>To see an example of data.frame containing time series data, we can upload a data set containing the number of news articles mentioning the keyword “elections” published by USA news media. I retrieved this data set from <a href="https://mediacloud.org">MediaCloud</a>, a free and open source platform for studying media ecosystem that tracks millions of stories published online. You can download the data set <a href="https://drive.google.com/file/d/1vzpdPFb_ihBlqqbHxJS7mEvzQ3tNhmEm/view?usp=sharing">at this link</a>.</p>
+<p>We can upload the <em>.csv</em> file by using the function <strong>read.csv</strong>. The main argument of the read.csv function is the path of the file.</p>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">elections_news</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"./data/elections-stories-over-time-20210111144254.csv"</span><span class="op">)</span></span></code></pre></div>
+<p>By using the function <strong>class</strong> we can see that this is a data.frame.</p>
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">elections_news</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "data.frame"</code></pre>
+<p>We can check the first few rows of the data.frame by using the function <strong>head</strong>, which shows the first few rows of the data set, so as to get an idea of the structure of this simple data.frame.</p>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">elections_news</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##         date count total_count      ratio
+## 1 2015-01-01   373       25611 0.01456405
+## 2 2015-01-02   387       31932 0.01211950
+## 3 2015-01-03   289       24646 0.01172604
+## 4 2015-01-04   322       25513 0.01262102
+## 5 2015-01-05   567       39982 0.01418138
+## 6 2015-01-06   626       42366 0.01477600</code></pre>
+<p>This data.frame contains time series data: the first column contains dates, and the other columns contain the values of the observations. We can also see that the data.frame seems to contain daily data, where each row corresponds to a specific day. The data frame also includes, in the column “count”, the number of news articles mentioning the keyword “elections”, in the column “total_count”, the total number of news articles on <em>all the topics</em>, and in the column “ratio” the proportion of news articles mentioning the keyword (count/total_count).</p>
+<p>The function <em>head</em> (and <em>tail</em>) can be impractical with data.frame including a lot of columns, so it could be better to use the function <strong>str</strong> to check the structure of the data.frame.</p>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">elections_news</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 'data.frame':    2192 obs. of  4 variables:
+##  $ date       : chr  "2015-01-01" "2015-01-02" "2015-01-03" "2015-01-04" ...
+##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
+##  $ total_count: int  25611 31932 24646 25513 39982 42366 45163 44928 44041 29093 ...
+##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
+<p>As you can see in the output of the function <em>str</em>, the format of the column date is <em>Factor</em>. The format is, in this case, automatically attributed by R, but (as we have already said) it can be specified before importing the data.</p>
+<p><em>Factor</em> is an appropriate format for categorical variables, but R includes a specific format for dates and times. In this case we have just a date, so we can convert it to a variable of type <em>date</em>. We can change the format of the variable by using the function <strong>as.Date</strong>.</p>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">elections_news</span><span class="op">$</span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">elections_news</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">elections_news</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 'data.frame':    2192 obs. of  4 variables:
+##  $ date       : Date, format: "2015-01-01" "2015-01-02" "2015-01-03" ...
+##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
+##  $ total_count: int  25611 31932 24646 25513 39982 42366 45163 44928 44041 29093 ...
+##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
+<p>We can also perform the same operation with tidyverse, by using the function <strong>mutate</strong>.</p>
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">elections_news</span> <span class="op">&lt;-</span> <span class="va">elections_news</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>A data.frame is the common format for data sets, including time series data sets. We can do many things with data stored in this format, such as creating plots and performing various types of analysis. However, to handle time series in R there are more specific data formats.</p>
+</div>
+<div id="time-series-as-ts-objects" class="section level3" number="6.1.2">
+<h3>
+<span class="header-section-number">6.1.2</span> Time Series as TS objects<a class="anchor" aria-label="anchor" href="#time-series-as-ts-objects"><i class="fas fa-link"></i></a>
+</h3>
+<p>The basic object created to handle time series in R is the object of class <em>ts</em>. The name stands for “Time Series”.</p>
+<p>An example of ts object is already present in R under the name of “AirPassengers”, a time series data set in ts format. We can load this data set with the function <strong>data</strong>.</p>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span></code></pre></div>
+<p>By applying the function <em>class</em> we can see that this is an object of class ts.</p>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "ts"</code></pre>
+<p>AirPassengers is a small data set so we can print all the data set to see its structure, which is an example of the standard structure of a ts object.</p>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">AirPassengers</span></span></code></pre></div>
+<pre><code>##      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+## 1949 112 118 132 129 121 135 148 148 136 119 104 118
+## 1950 115 126 141 135 125 149 170 170 158 133 114 140
+## 1951 145 150 178 163 172 178 199 199 184 162 146 166
+## 1952 171 180 193 181 183 218 230 242 209 191 172 194
+## 1953 196 196 236 235 229 243 264 272 237 211 180 201
+## 1954 204 188 235 227 234 264 302 293 259 229 203 229
+## 1955 242 233 267 269 270 315 364 347 312 274 237 278
+## 1956 284 277 317 313 318 374 413 405 355 306 271 306
+## 1957 315 301 356 348 355 422 465 467 404 347 305 336
+## 1958 340 318 362 348 363 435 491 505 404 359 310 337
+## 1959 360 342 406 396 420 472 548 559 463 407 362 405
+## 1960 417 391 419 461 472 535 622 606 508 461 390 432</code></pre>
+<p>By calling the <em>str</em> function we get synthetic information on the object.</p>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  Time-Series [1:144] from 1949 to 1961: 112 118 132 129 121 135 148 148 136 119 ...</code></pre>
+<p>The AirPassengers data set is a univariate time series representing monthly totals of international airline passengers from 1949 to 1960. As every time series, it has a <strong>start date</strong> and an <strong>end date</strong>. It also has a <strong>frequency</strong>, which is the frequency at which the observations were taken.</p>
+<p>All this characteristics differentiate a ts object from a data.frame. The structure of a data.frame lacks the start and the end date, and the frequency value.</p>
+<p>The functions <strong>start</strong>, <strong>end</strong>, and <strong>frequency</strong>, can be applied to a <em>ts</em> object to check their values. We started by saying that some functions work with some objects but not with other types of objects. This is an example. These functions, indeed, work with <em>ts</em> objects just because they are part of their structures, and are arguments usually specified when this kind of object is created. They do not work if applied to a data.frame object, since a data.frame structure does not include the start and end date, nor the frequency of observations. It can be seen that the ts structure is much more specific for time series data.</p>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/start.html">start</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## [1] 1949</code></pre>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/start.html">end</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## [1] 1960</code></pre>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">frequency</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<p>Importantly, the frequency of a time series is assumed to be <strong>regular</strong> over time. This applies to time series in general, and not just to ts objects. In this case, the time series starts on January 1949 and ends on December 1969, and has <em>monthly</em> frequency. Monthly frequency is indicated in <em>ts</em> as “12”, meaning 12 months. Indeed, the reference unit of a ts object is a year. So, quarterly data, for instance, have frequency equal to 4.</p>
+<p>To create a ts object is necessary to follow specific steps and use specific functions. To exemplify the process of creation of a ts object we take the example of the data contained in the AirPassengers data set, and store them in a data.frame (you don’t need to learn how to do that, just copy and paste the code). A data.frame is the data set format you will probably start with, so it can be useful to see how to create a ts object starting from a data.frame.</p>
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1949-01-01"</span><span class="op">)</span>, </span>
+<span>                 to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1960-12-01"</span><span class="op">)</span>, by<span class="op">=</span><span class="st">"month"</span><span class="op">)</span></span>
+<span><span class="va">passengers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data_frame_format</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="st">"Date"</span> <span class="op">=</span> <span class="va">date</span>, </span>
+<span>                                <span class="st">"Passengers"</span> <span class="op">=</span> <span class="va">passengers</span><span class="op">)</span></span></code></pre></div>
+<p>To create a “ts” time series object starting from a data.frame, we need:</p>
+<ul>
+<li>To specify which column contains the observations. In this case, the column name is “Passengers”.</li>
+<li>We then need to specify the start and end date, which in this case are in the format year/month, but can be just years in case of yearly data. The ts format for the start/end date is the following: <em>c=(YEAR, MONTH)</em>. The <em>c</em> represents the <em>concatenate</em> function, and it concatenates the year and the month in a single vector.</li>
+<li>Finally, we indicate the frequency of the time series observations. The frequency is specified based on the time period of a year, so in this case we have a frequency equal to 12, because we have monthly observation, meaning that we have 12 observation per year.</li>
+</ul>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ts_format</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data_frame_format</span><span class="op">$</span><span class="va">Passengers</span>, </span>
+<span>                start<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1949</span>, <span class="fl">01</span><span class="op">)</span>, </span>
+<span>                end<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1960</span>, <span class="fl">12</span><span class="op">)</span>, </span>
+<span>                frequency <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ts_format</span></span></code></pre></div>
+<pre><code>##      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec
+## 1949 112 118 132 129 121 135 148 148 136 119 104 118
+## 1950 115 126 141 135 125 149 170 170 158 133 114 140
+## 1951 145 150 178 163 172 178 199 199 184 162 146 166
+## 1952 171 180 193 181 183 218 230 242 209 191 172 194
+## 1953 196 196 236 235 229 243 264 272 237 211 180 201
+## 1954 204 188 235 227 234 264 302 293 259 229 203 229
+## 1955 242 233 267 269 270 315 364 347 312 274 237 278
+## 1956 284 277 317 313 318 374 413 405 355 306 271 306
+## 1957 315 301 356 348 355 422 465 467 404 347 305 336
+## 1958 340 318 362 348 363 435 491 505 404 359 310 337
+## 1959 360 342 406 396 420 472 548 559 463 407 362 405
+## 1960 417 391 419 461 472 535 622 606 508 461 390 432</code></pre>
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">ts_format</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "ts"</code></pre>
+<p>It’s important to notice that yearly, quarterly, and monthly data work fine with the <em>ts</em> structure, but <em>more fine grained data create complications and are not totally suitable for a ts structure</em>.</p>
+<p>This is due to the fact that time series objects require the frequency of observations to be regular and in <em>ts</em> the observations have to be regular with reference to a year. Unfortunately, a time series that spans over many years cannot be composed of a constant number of days, since the number of days will be sometimes 365 and other time 366, in case of leap years. This is a limitation of <em>ts</em> objects. However, when dealing with monthly data or data with frequency lower than one month (such as quarterly data), <em>ts</em> works great.</p>
+</div>
+<div id="time-series-as-xtszoo-objects" class="section level3" number="6.1.3">
+<h3>
+<span class="header-section-number">6.1.3</span> Time Series as XTS/ZOO objects<a class="anchor" aria-label="anchor" href="#time-series-as-xtszoo-objects"><i class="fas fa-link"></i></a>
+</h3>
+<p>Time series can be stored in object of class xts/zoo. This class of objects is created with the library <em>xts</em>, which is related and an extension of the package <em>zoo</em> (another package to deal with time series data). As other libraries, it requires to be installed and loaded.</p>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("xts")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://joshuaulrich.github.io/xts/">xts</a></span><span class="op">)</span></span></code></pre></div>
+<p>The <em>xts</em> object is more flexible than the <em>ts</em> one.
+We can create an <em>xts</em> time series by starting from the data.frame we have just created. Similarly to what is required by <em>ts</em>, we need to specify:</p>
+<ul>
+<li>the column of the data.frame (or the vector) containing the data;</li>
+<li>the column of the data.frame (or the vector) containing the dates/times (which has to be in a date/time format);</li>
+<li>the frequency of observations.</li>
+</ul>
+<p>We can use the data.frame already created with the AirPassengers data to create a new <em>xts</em> object.</p>
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">xts_format</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xts/man/xts.html">xts</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">data_frame_format</span><span class="op">$</span><span class="va">Passengers</span>, </span>
+<span>                  order.by <span class="op">=</span> <span class="va">data_frame_format</span><span class="op">$</span><span class="va">Date</span>, </span>
+<span>                  frequency <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">xts_format</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "xts" "zoo"</code></pre>
+<p>Also the structure of this object, like the <em>ts</em> one, includes the range of dates of the time series, with its starting and ending date.</p>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">xts_format</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## An xts object on 1949-01-01 / 1960-12-01 containing: 
+##   Data:    double [144, 1]
+##   Index:   Date [144] (TZ: "UTC")</code></pre>
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">xts_format</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##            [,1]
+## 1949-01-01  112
+## 1949-02-01  118
+## 1949-03-01  132
+## 1949-04-01  129
+## 1949-05-01  121
+## 1949-06-01  135</code></pre>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="basic-concepts.html"><span class="header-section-number">5</span> Basic Concepts</a></div>
+<div class="next"><a href="plot-time-series.html"><span class="header-section-number">7</span> Plot Time Series</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#time-series-objects"><span class="header-section-number">6</span> Time Series Objects</a></li>
+<li>
+<a class="nav-link" href="#time-series-objects-1"><span class="header-section-number">6.1</span> Time Series Objects</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#time-series-as-data-frames"><span class="header-section-number">6.1.1</span> Time Series as Data Frames</a></li>
+<li><a class="nav-link" href="#time-series-as-ts-objects"><span class="header-section-number">6.1.2</span> Time Series as TS objects</a></li>
+<li><a class="nav-link" href="#time-series-as-xtszoo-objects"><span class="header-section-number">6.1.3</span> Time Series as XTS/ZOO objects</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-13.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

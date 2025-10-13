@@ -1,4 +1,8 @@
+_bookdown_files/
 .Rhistory
-.RData
 .Rproj.user
 *.Rproj
+.RData
+*.log
+*.aux
+*.toc

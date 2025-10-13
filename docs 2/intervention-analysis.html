@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>11 Intervention Analysis | Time Series Analysis With R</title>
+<meta name="author" content="Nicola Righetti">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="11 Intervention Analysis | Time Series Analysis With R">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11 Intervention Analysis | Time Series Analysis With R">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="In this chapter we are going to learn about intervention analysis (sometimes also called interrupted time-series analysis) and to see how to conduct a intervention analysis. Intervention analysis...">
+<meta property="og:description" content="In this chapter we are going to learn about intervention analysis (sometimes also called interrupted time-series analysis) and to see how to conduct a intervention analysis. Intervention analysis...">
+<meta name="twitter:description" content="In this chapter we are going to learn about intervention analysis (sometimes also called interrupted time-series analysis) and to see how to conduct a intervention analysis. Intervention analysis...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Time Series Analysis With R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Time Series Analysis With R</a></li>
+<li><a class="" href="getting-started-with-r.html"><span class="header-section-number">2</span> Getting started with R</a></li>
+<li><a class="" href="getting-started-with-r-1.html"><span class="header-section-number">3</span> Getting started with R</a></li>
+<li><a class="" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">4</span> Basic Data Wrangling with Tidyverse</a></li>
+<li><a class="" href="basic-concepts.html"><span class="header-section-number">5</span> Basic Concepts</a></li>
+<li><a class="" href="time-series-objects.html"><span class="header-section-number">6</span> Time Series Objects</a></li>
+<li><a class="" href="plot-time-series.html"><span class="header-section-number">7</span> Plot Time Series</a></li>
+<li><a class="" href="structural-decomposition.html"><span class="header-section-number">8</span> Structural Decomposition</a></li>
+<li><a class="" href="correlations-and-arima.html"><span class="header-section-number">9</span> Correlations and ARIMA</a></li>
+<li><a class="" href="regression.html"><span class="header-section-number">10</span> Regression</a></li>
+<li><a class="active" href="intervention-analysis.html"><span class="header-section-number">11</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">12</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="" href="var.html"><span class="header-section-number">13</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">14</span> Readings and Bibliographical References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="intervention-analysis" class="section level1" number="11">
+<h1>
+<span class="header-section-number">11</span> Intervention Analysis<a class="anchor" aria-label="anchor" href="#intervention-analysis"><i class="fas fa-link"></i></a>
+</h1>
+<p>In this chapter we are going to learn about <em>intervention analysis</em> (sometimes also called <em>interrupted time-series analysis</em>) and to see how to conduct a intervention analysis.</p>
+<p><strong>Intervention analysis</strong> is typically conducted with the Box &amp; Jenkins ARIMA framework and traditionally uses a method introduced by <a href="https://www.jstor.org/stable/pdf/2285379.pdf">Box and Tiao (1975)</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Box, G. E., &amp;amp; Tiao, G. C. (1975). Intervention analysis with applications to economic and environmental problems. Journal of the American Statistical association, 70(349), 70-79&lt;/p&gt;"><sup>8</sup></a>, who provided a framework for assessing <em>the effect of an intervention on a time series</em> under study.</p>
+<p>As summarized by Box and Tiao: <em>Given a known intervention, is there evidence that change in the series of the kind expected actually occurred, and, if so, what can be said of the nature and magnitude of the change?</em>. In other words <em>Intervention analysis estimates the effect of an external or exogenous intervention on a time-series</em>. To conduct such an analysis, it is necessary to know the date of the intervention.</p>
+<p>Intervention analysis is a “quasi-experimental” design and an interesting approach to test whether <em>exogenous shocks</em>, such as, for instance, the introduction of a new policy, <em>impact on a time series process in a significant way</em>, that is, <strong>by changing the mean function or trend</strong> of a time series.</p>
+<p>Behind intervention analysis there is the <em>causal hypothesis</em> that observations <em>after</em> a <strong>treatment</strong> (the <strong>“intervention”</strong>) have a different level or slope from those before the intervention/interruption.</p>
+<p>Besides <em>intervention</em> or <em>interrupted time-series analysis</em>, the analysis can be conducted through the <em>segmented regression</em> method. However, as in the case of traditional regression models applied to time series data, this approach does not take into account the autocorrelated structure of time series. Other methods include more complex computational approaches.</p>
+<div id="types-of-intervention" class="section level2" number="11.1">
+<h2>
+<span class="header-section-number">11.1</span> Types of intervention<a class="anchor" aria-label="anchor" href="#types-of-intervention"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are different types of interventions. For instance, an intervention can have an abrupt impact determining a permanent or temporary change, a sudden and short-lived change due to an event, or a more gradual yet permanent change.</p>
+<div class="inline-figure"><img src="images/intervention.png" width="694"></div>
+</div>
+<div id="intervention-analysis-with-arima" class="section level2" number="11.2">
+<h2>
+<span class="header-section-number">11.2</span> Intervention analysis with ARIMA<a class="anchor" aria-label="anchor" href="#intervention-analysis-with-arima"><i class="fas fa-link"></i></a>
+</h2>
+<p>To exemplify an intervention analysis we are going to reproduce the example in the paper <a href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-021-01235-8#Sec13">Interrupted time series analysis using autoregressive integrated moving average (ARIMA) models: a guide for evaluating large-scale health interventions</a>.</p>
+<p>The data to run the analysis can be downloaded <a href="https://static-content.springer.com/esm/art%3A10.1186%2Fs12874-021-01235-8/MediaObjects/12874_2021_1235_MOESM1_ESM.csv">here</a>.</p>
+<p>The example evaulates the impact of a health policy intervention (an Australian health policy intervention that restricted the conditions under which a particular medicine (quetiapine) could be subsidised). The same methodological process can be applied to evaluate any intervention in any context.</p>
+<p>The case study is described as follows:</p>
+<blockquote>
+<p>(…) due to growing concerns about inappropriate prescribing, after January 1, 2014 new prescriptions for this tablet strength could not include refills. Our primary outcome was the <strong>number of monthly dispensings</strong> of 25 mg quetiapine, of which we had <strong>48 months of observations</strong> (January 2011 to December 2014).</p>
+</blockquote>
+<p>Thus, data comprises 48 months of observations, and the date of the intervention is January 1, 2014.</p>
+<p>There is also seasonality in the process:</p>
+<blockquote>
+<p>In Australia, medicine dispensing claims have significant <strong>yearly seasonality</strong>. Medicines are subsidised for citizens and eligible residents through the Pharmaceutical Benefits Scheme (PBS), with people paying an out-of-pocket co-payment towards the cost of their medicines, while the remainder is subsidised. If a person’s (or family’s) total out-of-pocket costs reach the “Safety Net threshold” for the calendar year, they are eligible for a reduced co-payment for the remainder of that year. Thus, there is an incentive for people reaching their Safety Net to refill their medicines more frequently towards the end of the year. Hence, we see an <em>increase in prescriptions at the end of the year, followed by a decrease in January</em>.</p>
+</blockquote>
+<p>The researchers hypothesize the nature of the intervention as follows (see the picture below):</p>
+<blockquote>
+<p>(…) due to the nature of the intervention we postulated there would be an immediate drop in dispensings post-intervention (step change), as well as a change in slope (ramp). Thus, we included variables representing both types of impacts in our model. For both impacts, h = 0 and r = 0.</p>
+</blockquote>
+<p>In the sentence above, <em>h</em> describes when the effect happens while <em>r</em> represents the decay pattern (see the picture below).</p>
+<div class="inline-figure"><img src="images/intervention-functions.png" width="1121"></div>
+<p>First we load the data, converting it to a time series format, and we visualize the time series along with a vertical lines representing the date of the intervention.</p>
+<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load data</span></span>
+<span><span class="va">quet</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"./data/12874_2021_1235_MOESM1_ESM.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Convert data to time series object</span></span>
+<span><span class="va">quet.ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">quet</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span>, frequency<span class="op">=</span><span class="fl">12</span>, start<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2011</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot data to visualize time series</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">quet.ts</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">40000</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"blue"</span>, xlab <span class="op">=</span> <span class="st">"Month"</span>, ylab <span class="op">=</span> <span class="st">"Dispensings"</span><span class="op">)</span></span>
+<span><span class="co"># Add vertical line indicating date of intervention (January 1, 2014)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="fl">2014</span>, col <span class="op">=</span> <span class="st">"gray"</span>, lty <span class="op">=</span> <span class="st">"dashed"</span>, lwd<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-216-1.png" width="672"></div>
+<p>Next, we have to create the dummy variables representing our intervention.
+This can be tricky in R. In this case, the authors convert the time of the <em>ts</em> object in a more human-readable format through the <em>as.yearmon</em> function (this is a <em>zoo</em> function and you can use it by loading the <em>xts</em> library).</p>
+<div class="sourceCode" id="cb331"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://joshuaulrich.github.io/xts/">xts</a></span><span class="op">)</span></span>
+<span><span class="co"># Create variable representing step change and view</span></span>
+<span><span class="va">step</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html">as.yearmon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">quet.ts</span><span class="op">)</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="st">"Jan 2014"</span><span class="op">)</span></span>
+<span><span class="va">step</span></span></code></pre></div>
+<pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1</code></pre>
+<p>The above vectors is a dummy variable for the intervention. It has value equal zero before the date of the intervention, and 1 after that.</p>
+<p>Next, in this specific case, we also want to create a variable representing a constant increasing change, capturing an increasing effect of the intervention over time.
+Also in this case the creation of the variable can be a little tricky. We create two vectors by using the <em>rep</em> and the <em>seq</em> function, and concatenate them by using the <em>c</em> function.</p>
+<p>The argument of the <em>rep</em> function are two integers <em>x</em> and <em>times</em> (<em>rep(x, times)</em>), and the function creates a vectors that repeat (“rep”) the <em>x</em> values the number of times specified by <em>times</em>. We have 36 months before the intervention, and we assign them the value zero.</p>
+<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">36</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
+<p>Instead, we use the <em>seq</em> function to create a vectors with increasing values. This part of the variable represent a gradual increase after the intervention (we have 12 months of data after the intervention). The function <em>seq</em> takes the three arguments <em>from</em>, <em>to</em>, and <em>by</em>: <em>from</em> and <em>to</em> are the starting and end values of the sequence, <em>by</em> is the increment of the sequence. In our case we create a sequence of values that increases from 1 to 12 by 1.</p>
+<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">12</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
+<p>To create the variable we need, we concatenate both the function with the <em>c</em> function, as follows:</p>
+<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create variable representing ramp (change in slope) and view</span></span>
+<span><span class="va">ramp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">36</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">12</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ramp</span> </span></code></pre></div>
+<pre><code>##  [1]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+## [33]  0  0  0  0  1  2  3  4  5  6  7  8  9 10 11 12</code></pre>
+<p>We search for an appropriate ARIMA model for the data by using the <em>auto.arima</em> function (<em>forecast</em> package). We include the variables we have created as external regressors.</p>
+<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pkg.robjhyndman.com/forecast/">forecast</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Use automated algorithm to identify parameters</span></span>
+<span><span class="va">model1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/auto.arima.html">auto.arima</a></span><span class="op">(</span><span class="va">quet.ts</span>, xreg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">step</span>, <span class="va">ramp</span><span class="op">)</span>, stepwise<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Check residuals</span></span>
+<span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/checkresiduals.html">checkresiduals</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-221-1.png" width="672"></div>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from Regression with ARIMA(2,1,0)(0,1,1)[12] errors
+## Q* = 9.5692, df = 7, p-value = 0.2143
+## 
+## Model df: 3.   Total lags used: 10</code></pre>
+<p>The resulting model is an <em>ARIMA(2,1,0)(0,1,1)[12]</em>.</p>
+<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">model1</span></span></code></pre></div>
+<pre><code>## Series: quet.ts 
+## Regression with ARIMA(2,1,0)(0,1,1)[12] errors 
+## 
+## Coefficients:
+##          ar1      ar2     sma1        step        ramp
+##       -0.873  -0.6731  -0.6069  -3284.7792  -1396.6523
+## s.e.   0.124   0.1259   0.3872    602.3362    106.6329
+## 
+## sigma^2 = 648828:  log likelihood = -284.45
+## AIC=580.89   AICc=583.89   BIC=590.23</code></pre>
+<p>We use the information retrieved from the auto.arima function to fit the same ARIMA model to the data, without including the intervention (the variables we created), using just the data up to the date of the intervention (up to January 2014). To do that, we use the <em>window</em> function in order to restrict the set of data we consider, indicating December 2013 as the end of our series.</p>
+<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># To forecast the counterfactual, model data excluding post-intervention time period</span></span>
+<span><span class="va">model2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/Arima.html">Arima</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/window.html">window</a></span><span class="op">(</span><span class="va">quet.ts</span>, end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2013</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span>, order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, </span>
+<span>                seasonal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span>, period <span class="op">=</span> <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Next, we forecast the 12 months we didn’t include (starting from January 2014 until the end of the period of observation, December 2014) by using the <em>forecast</em> function (library <em>forecast</em>). The logic behind this operation is to see what would have happened to the series in the absence of the intervention. In other words, we use the prediction as a <em>counterfactual</em> in order to describe a possible effect of the intervention on the series, by determining how the observed values diverge from this forecast.</p>
+<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Forecast 12 months post-intervention and convert to time series object</span></span>
+<span><span class="va">fc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/forecast.html">forecast</a></span><span class="op">(</span><span class="va">model2</span>, h <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># covert the average forecast (fc$mean) in a time series object</span></span>
+<span><span class="va">fc.ts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">fc</span><span class="op">$</span><span class="va">mean</span><span class="op">)</span>, start<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2014</span>, <span class="fl">1</span><span class="op">)</span>, frequency <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine the observed and the forecast data</span></span>
+<span><span class="va">quet.ts.2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.union.html">ts.union</a></span><span class="op">(</span><span class="va">quet.ts</span>, <span class="va">fc.ts</span><span class="op">)</span></span>
+<span><span class="va">quet.ts.2</span></span></code></pre></div>
+<pre><code>##          quet.ts    fc.ts
+## Jan 2011   16831       NA
+## Feb 2011   17234       NA
+## Mar 2011   20546       NA
+## Apr 2011   19226       NA
+## May 2011   21136       NA
+## Jun 2011   20939       NA
+## Jul 2011   21103       NA
+## Aug 2011   22897       NA
+## Sep 2011   22162       NA
+## Oct 2011   22184       NA
+## Nov 2011   23108       NA
+## Dec 2011   25967       NA
+## Jan 2012   20123       NA
+## Feb 2012   21715       NA
+## Mar 2012   24497       NA
+## Apr 2012   21720       NA
+## May 2012   25053       NA
+## Jun 2012   23915       NA
+## Jul 2012   24972       NA
+## Aug 2012   26183       NA
+## Sep 2012   24163       NA
+## Oct 2012   26172       NA
+## Nov 2012   26642       NA
+## Dec 2012   29086       NA
+## Jan 2013   24002       NA
+## Feb 2013   24190       NA
+## Mar 2013   26052       NA
+## Apr 2013   26707       NA
+## May 2013   29077       NA
+## Jun 2013   26927       NA
+## Jul 2013   30300       NA
+## Aug 2013   29854       NA
+## Sep 2013   28824       NA
+## Oct 2013   31519       NA
+## Nov 2013   32084       NA
+## Dec 2013   33160       NA
+## Jan 2014   24827 29127.50
+## Feb 2014   23285 29671.28
+## Mar 2014   23884 31156.37
+## Apr 2014   21921 31339.65
+## May 2014   22715 33843.48
+## Jun 2014   19919 31809.61
+## Jul 2014   20560 34498.50
+## Aug 2014   18961 34774.18
+## Sep 2014   18780 33302.09
+## Oct 2014   17998 35641.85
+## Nov 2014   16624 36184.57
+## Dec 2014   18450 37792.03</code></pre>
+<p>By plotting the data, we can visualize the predicted values in the absence of the intervention (red dashed line) as well as the observed values (blue line). It seems that the health policy considerably impacted the analyzed prescriptions.</p>
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">quet.ts.2</span>, plot.type <span class="op">=</span> <span class="st">"single"</span>, </span>
+<span>     col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'blue'</span>,<span class="st">'red'</span><span class="op">)</span>, xlab<span class="op">=</span><span class="st">"Month"</span>, ylab<span class="op">=</span><span class="st">"Dispensings"</span>, </span>
+<span>     lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"solid"</span>, <span class="st">"dashed"</span><span class="op">)</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">40000</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v<span class="op">=</span><span class="fl">2014</span>, lty<span class="op">=</span><span class="st">"dashed"</span>, col<span class="op">=</span><span class="st">"gray"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-225-1.png" width="672"></div>
+<p>Coming back to our initial ARIMA model including the intervention variables, calculating also the confidence intervals and the significance of the coefficients by using the <em>coeftest</em> and the <em>confint</em> function in the <em>lmtest</em> library, we can quantify the impact of the policy.</p>
+<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lmtest</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">model1</span></span></code></pre></div>
+<pre><code>## Series: quet.ts 
+## Regression with ARIMA(2,1,0)(0,1,1)[12] errors 
+## 
+## Coefficients:
+##          ar1      ar2     sma1        step        ramp
+##       -0.873  -0.6731  -0.6069  -3284.7792  -1396.6523
+## s.e.   0.124   0.1259   0.3872    602.3362    106.6329
+## 
+## sigma^2 = 648828:  log likelihood = -284.45
+## AIC=580.89   AICc=583.89   BIC=590.23</code></pre>
+<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/coeftest.html">coeftest</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## z test of coefficients:
+## 
+##         Estimate  Std. Error  z value  Pr(&gt;|z|)    
+## ar1     -0.87301     0.12396  -7.0427 1.885e-12 ***
+## ar2     -0.67314     0.12587  -5.3480 8.893e-08 ***
+## sma1    -0.60694     0.38722  -1.5674     0.117    
+## step -3284.77920   602.33616  -5.4534 4.942e-08 ***
+## ramp -1396.65226   106.63287 -13.0978 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">model1</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##              2.5 %        97.5 %
+## ar1     -1.1159671    -0.6300565
+## ar2     -0.9198339    -0.4264433
+## sma1    -1.3658815     0.1520046
+## step -4465.3363731 -2104.2220250
+## ramp -1605.6488440 -1187.6556789</code></pre>
+<blockquote>
+<p>The estimated step change was − 3285 dispensings (95% CI − 4465 to − 2104) while the estimated change in slope was − 1397 dispensings per month (95% CI − 1606 to − 1188). (The figure, ndr) shows the values predicted by our ARIMA model in absence of the intervention (counterfactual) compared with the observed values. This means that the change in subsidy for 25 mg quetiapine in January 2014 was associated with an immediate, sustained decrease of 3285 dispensings, with a further decrease of 1397 dispensings every month. In other words, there were 4682 (3285 + 1397) fewer dispensings in January 2014 than predicted had the subsidy changes not been implemented. In February 2014, there were 6079 fewer dispensings (3285 + 2*1397). Importantly, our findings should only be considered valid for the duration of the study period (i.e. until December 2014).</p>
+</blockquote>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="regression.html"><span class="header-section-number">10</span> Regression</a></div>
+<div class="next"><a href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">12</span> Interrupted time series analysis using segmented regression</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#intervention-analysis"><span class="header-section-number">11</span> Intervention Analysis</a></li>
+<li><a class="nav-link" href="#types-of-intervention"><span class="header-section-number">11.1</span> Types of intervention</a></li>
+<li><a class="nav-link" href="#intervention-analysis-with-arima"><span class="header-section-number">11.2</span> Intervention analysis with ARIMA</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-13.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

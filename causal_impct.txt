@@ -1,0 +1,171 @@
+## CausalImpact
+
+While ARIMA modeling is the classic choice for intervention models, more complex computational apporaches have been developed. We can consider the Bayesian approach implemented in the package *CausalImpact* developed at *Google* to estimate causal impacts in a quasi-experimental framework (you can find here a [video presentation](https://www.youtube.com/watch?v=GTgZfCltMm8))^[CausalImpact 1.2.1, Brodersen et al., Annals of Applied Statistics (2015). http://google.github.io/CausalImpact/]. 
+
+```{r  echo=FALSE, caption="The model used in the CasualImpact package. Image from Brodersen, K. H., Gallusser, F., Koehler, J., Remy, N., & Scott, S. L. (2015). Inferring causal impact using Bayesian structural time-series models. Annals of Applied Statistics, 9(1), 247-274."}
+knitr::include_graphics("images/causal-impact.png")
+```
+
+```{r message=FALSE, warning=FALSE}
+# Install and load the package
+# install.packages("CausalImpact")
+library(CausalImpact)
+```
+
+We use the simulated dataset used in the Google tutorial on the package, creating two time series $y$ and $x$ of length 100, simulating an abrupt intervention at time 71 determining a permanent increment of 10 points in the $y$ series.
+
+```{r}
+set.seed(1)
+x1 <- 100 + arima.sim(model = list(ar = 0.999), n = 100)
+y <- 1.2 * x1 + rnorm(100)
+y[71:100] <- y[71:100] + 10
+dat <- ts.intersect(y, x1)
+```
+
+Then, it is necessary to specify the pre-intervention and post-intervention period. In the pre-intervention period no impact is expected.
+
+```{r}
+pre.period <- c(1, 70)
+post.period <- c(71, 100)
+```
+
+The function *CausalImpact* uses the values of the original time series $y$ in the pre-intervention period, and the predictors correlated to the $y$ (in this case $x$), to forecast the values that $y$ would have had without the intervention (*counterfactual*). 
+
+To accurately forecast the $y$ values, which is necessary to obtain valid results from the analysis, it is necessary to have a proper model of the $y$ series (based on the series itself and its predictors). Then, the differences in the expected (forecasted) $y$ values without intervention, and the actual $y$ values following the intervention, are compared in order to estimate the impact of the intervention.
+
+```{r}
+impact <- CausalImpact(dat, pre.period, post.period)
+```
+
+By using the function *plot* on the resulting model, three plots are visualized: 
+
+>The first panel shows the data and a counterfactual prediction for the post-treatment period. The second panel shows the difference between observed data and counterfactual predictions. This is the pointwise causal effect, as estimated by the model. The third panel adds up the pointwise contributions from the second panel, resulting in a plot of the cumulative effect of the intervention. (...) the above inferences depend critically on the assumption that the covariates were not themselves affected by the intervention. The model also assumes that the relationship between covariates and treated time series, as established during the pre-period, remains stable throughout the post-period.
+
+```{r}
+plot(impact)
+```
+
+Besides plotting the results, it is possible to create a summary of the model, and by adding the argument "report" inside the function *summary*, a convenient explanations of the results is printed.
+
+```{r}
+summary(impact)
+```
+
+```{r}
+summary(impact, "report")
+```
+
+The authors of the package underline the importance of the statistical assumptions to get valid results, and about possible strategies to ascertain that the assumptions are met, they write the following advice:
+
+>Here are a few ways of getting started. First of all, it is critical to reason why the covariates that are included in the model (this was x1 in the example) were not themselves affected by the intervention. Sometimes it helps to plot all covariates and do a visual sanity check. Next, it is a good idea to examine how well the outcome data y can be predicted before the beginning of the intervention. This can be done by running CausalImpact() on an imaginary intervention. Then check how well the model predicted the data following this imaginary intervention. We would expect not to find a significant effect, i.e., counterfactual estimates and actual data should agree reasonably closely. Finally, when presenting or writing up results, be sure to list the above assumptions explicitly, including the priors in model.args, and discuss them with your audience.
+
+
+We can now try to use the library with the data from the previous example (the library requires data in the same format, thus some pre-processing is needed). 
+
+```{r}
+quet$month <- as.Date(quet$month, format="%d-%b-%y")
+quet_xts <- xts(quet$dispensings, order.by = quet$month)
+pre.period <- c(as.Date("2011-01-01"), as.Date("2013-12-01"))
+post.period <- c(as.Date("2014-01-01"), as.Date("2014-12-01"))
+```
+
+We fit an automated model (without specifying a particular form for the intervention).
+
+```{r}
+impact2 <- CausalImpact(quet_xts, pre.period, post.period)
+```
+
+```{r}
+plot(impact2)
+```
+
+```{r}
+summary(impact)
+```
+
+```{r}
+summary(impact, "report")
+```
+
+
+
+
+
+### Exercise
+
+Let's try to analyze a real-world case study in the field of online communication.
+
+We hypothesize that the uncertainty and anxiety caused by the pandemic has increased people's need of information. Social media are an important information source today, and the pages of the Health Ministries can be considered trustable information sources. At the same time, Facebook has favored the circulation of posts from verified health and government organization. It is therefore possible that the pages of the Ministries of Health have increased their follower base during the pandemic. 
+
+Thus, let's try to assess the impact of the pandemic on the growth in "page likes" of some Facebook pages of Health Ministry. We'll use the *CausalImpact* library. It is the easiest solution, since we just need to indicate the intervention period, but it does not (necessarily) require other variables.
+
+Download here the dataset of the [Facebook page of the Italian Ministry of Health](https://drive.google.com/file/d/1t4ncdNlanQwZwBvWx9AQe6R2dp-7Faew/view?usp=sharing) and save it in your *data* folder.
+
+Some background information: On 9 March 2020, the government of Italy under Prime Minister Giuseppe Conte imposed a national lockdown. The World Health Organization (WHO) on March 11 declared COVID-19 a pandemic. For the sake of simplicity, we can use the declaration of WHO as the date of our "intervention" (more fine-grained analysis are possible as well).
+
+Upload the data:
+  
+```{r}
+MinisteroSalute <- read.csv("./data/MinisteroSalute.csv")
+```
+
+Let's use the *xts* format, since in this case it is easier to use (in particular, it's easier to work with the date format).
+
+```{r}
+# dates in format "date"
+MinisteroSalute$beginning_of_interval <- as.Date(MinisteroSalute$beginning_of_interval)
+
+# xts time seires
+MinisteroSalute <- xts(MinisteroSalute$page_likes, 
+                       order.by = MinisteroSalute$beginning_of_interval)
+```
+
+Let's take a look at the data.
+
+```{r}
+plot.xts(MinisteroSalute, col="blue",
+         main="Page Likes - Italian Ministry of Health Facebook Page")
+```
+
+```{r}
+start(MinisteroSalute)
+end(MinisteroSalute)
+```
+
+The dates of the intervention:
+
+```{r}
+date_pre <-  c(as.Date("2018-12-30"), as.Date("2020-03-10"))
+date_post <-  c(as.Date("2020-03-11"), as.Date("2020-12-31"))
+```
+
+Fit the model:
+
+```{r}
+impact2 <- CausalImpact(MinisteroSalute, 
+                       pre.period =  date_pre, 
+                       post.period = date_post)
+
+```
+
+
+```{r}
+plot(impact2)
+```
+
+```{r}
+summary(impact2)
+```
+
+```{r}
+summary(impact2, "report")
+```
+
+
+We can also repeat the same analysis with the data from the Facebook page of the Austrian Ministry of Health ("Bundesministerium für Soziales, Gesundheit, Pflege und Konsumentenschutz - Eingang Sozialministerium"): [Download here the data](https://drive.google.com/file/d/1ogZxpKd6jLyhFRn8I1Z-Kt5gQQX7h5cH/view?usp=sharing), save it in your *data* folder, and perform the intervention analysis.
+
+The chart below is from Markus Pollak, Nikolaus Kowarz und Julia Partheymüller (2020): [Chronology of the Corona Crisis in Austria - Part 1: Background, the way to the lockdown, the acute phase and economic consequences](https://viecer.univie.ac.at/en/projects-and-cooperations/austrian-corona-panel-project/corona-blog/corona-blog-beitraege/blog51/)
+
+```{r}
+knitr::include_graphics("images/covid-austria.png")
+```
