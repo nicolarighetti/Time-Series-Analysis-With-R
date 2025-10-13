@@ -1,12 +1,22 @@
-This is the R book created for the course Advanced Data Analysis on time series analysis.
+Welcome to this book on Time Series Analysis with R.
 
-The chapters includes **theoretical concepts** on time series analysis and an **hands-on R tutorial** on the functions necessary to perform time series analysis (including data wrangling, visual representation, and statistical analysis). 
+This book provides a practical introduction to analyzing time series data using R. It guides the reader through:
 
-By the end of this course, the participants are expected:
+The characteristics and specificity of time series data
 
-* to know the specificities of time series data and the fundamental concepts of time series analysis;
-* to be able to interpret common types of analysis of time series data;
-* to be able to visualize and conduct time series analysis with R.
+Using the free statistical software R to conduct time series analysis
 
+Key univariate and multivariate techniques for analyzing time series
+
+By the end of the book, readers will understand the unique aspects of time series data and be able to perform simple analyses in R using the methods presented here.
+
+Note: This book was first created for the students of the International Master in Communication Science at the University of Vienna.
+
+
+## Citation
+
+If you use this book in your work, please cite it as:
+
+Nicola Righetti (2025). *Time Series Analysis With R*. Available at: https://nicolarighetti.github.io/Time-Series-Analysis-With-R/
 
 
