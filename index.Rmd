@@ -32,4 +32,4 @@ By the end of the book, readers will understand the unique aspects of time serie
 
 If you use this book in your work, please cite it as:
 
-Nicola Righetti (2025). *Time Series Analysis With R*. Available at: <https://nicolarighetti.github.io/Time-Series-Analysis-With-R/>
+Righetti, N. (2025). *Time Series Analysis With R*. Available at: <https://nicolarighetti.github.io/Time-Series-Analysis-With-R/>
