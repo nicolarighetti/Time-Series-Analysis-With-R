@@ -272,13 +272,13 @@ If we use the ADF test on the integrated series (which has a unit root), the tes
 adf.test(y_I1)
 ```
 
-If we use the ADF test on the trend-stationary series (without unit root), the test reject the null hypothesis of unit root, which is correct.
+If we use the ADF test on the trend-stationary series (without unit root), the test rejects the null hypothesis of unit root, which is correct.
 
 ```{r message=FALSE, warning=FALSE}
 adf.test(y_I0)
 ```
 
-If we use the ADF test on the integrated series, after having transformed through differencing, the test reject the null hypothesis of unit root, which is correct.
+If we use the ADF test on the integrated series, after having transformed it through differencing, the test rejects the null hypothesis of unit root, which is correct.
 
 ```{r message=FALSE, warning=FALSE}
 adf.test(diff(y_I1))
@@ -300,7 +300,6 @@ pp.test(diff(y_I1))
 ```
 
 In case of uncertainty, more than one test can be used.
-
 
 ### Non-autocorrelated residuals
 
@@ -565,6 +564,7 @@ hist(timeseries, main="")
 acf(timeseries, main="")
 pacf(timeseries, main="")
 ```
+
 The function *tsglm* allows users to declare the autoregressive and seasonal autoregressive terms in a convenient way (in the following part of the function: *model = list(past_obs = c(1, 12))*).
 
 ```{r}
@@ -584,7 +584,8 @@ hist(poisson_fit$residuals, main="")
 acf(poisson_fit$residuals, main="")
 pacf(poisson_fit$residuals, main="")
 ```
-To function *summary* can be used to get the parameter estimates for the model (in this case the function can also emply a parametric bootstrap procedure (*B*) to obtain standard errors and confidence intervals of the regression parameters. The authors use *B=500* in the original paper, since in their experience this value yields stable results. Higher B values can be more precise but require time to be calculated).
+
+The function *summary* can be used to get the parameter estimates for the model (in this case the function can also employ a parametric bootstrap procedure (*B*) to obtain standard errors and confidence intervals of the regression parameters. The authors use *B=500* in the original paper, since in their experience this value yields stable results. Higher B values can be more precise but require time to be calculated).
 
 ```{r}
 summary(poisson_fit)
@@ -596,7 +597,6 @@ The model is as follows:
 $$
 log(\lambda_t) = 1.83 + 0.09Y_{t-1} + 0.15Y_{t-12} + 0.83X_t - 0.003t
 $$
-
 In the above equation notice that, the Poisson regression, models the logarithm of the *Y* values at times *t* (expressed as $log(\lambda_t)$). 
 
 Another example (using the dataset you can download [here](https://drive.google.com/file/d/1eIOERBLCUCaap3WCoM5QT6I0iTW-Hqwa/view?usp=sharing)):
@@ -664,12 +664,15 @@ plot(as.vector(poisson_gtrend_fit$response),
      as.vector(poisson_gtrend_fit$fitted.values),
      xlab="response", ylab="fitted")
 ```
+
 Besides checking the residuals, it is possible to plot the **PIT histogram**, provided by the function **pit** in *tscount*:
+
 >A PIT histogram is a tool for evaluating the statistical consistency between the probabilistic forecast and the observation. The predictive distributions of the observations are compared with the actual observations. If the predictive distribution is ideal the result should be a flat PIT histogram with no bin having an extraordinary high or low level. For more information about PIT histograms see the references listed below.
 
 ```{r}
 pit(poisson_gtrend_fit, ylim = c(0, 1.5), main = "PIT Poisson") 
 ```
+
 In the library are included other diagnostic tools and metrics that can help choosing between poisson and negative binomial models (see the [paper](https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf) for further information).
 
 The function *summary* prints the coefficients of the model and their confidence interval.
@@ -732,9 +735,6 @@ fit1
 ```
 
 Besides these criteria, there are also other strategies for [model selection](https://en.wikipedia.org/wiki/Model_selection).
-
-
-
 
 ## Some examples in the literature
 

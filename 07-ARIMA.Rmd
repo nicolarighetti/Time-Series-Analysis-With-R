@@ -128,6 +128,7 @@ The order of a MA process indicates the lags of white noise taken into account i
 MA_3 <- arima.sim(n = 500, list(order = c(0,0,3), ma = c(0.3, 0.3, 0.3)))
 plot(MA_3, main = "MA(3)")
 ```
+
 The ACF plot of a MA process shows a more clear cut-off after the term corresponding to the order ot the process. It is different from the ACF of an AR process, which shows a more gradual decay. 
 
 ```{r}
@@ -246,7 +247,7 @@ AirPassengers_sarima <- auto.arima(AirPassengers)
 
 ## Cross-correlation
 
-*Cross-correlation *is the correlation between the (lagged) values of a time series and the values of another series. Similarly to ACF and PACF, there is a specific plot that shows the cross-correlation between two time series, and a specific R function: **ccf**.
+*Cross-correlation* is the correlation between the (lagged) values of a time series and the values of another series. Similarly to ACF and PACF, there is a specific plot that shows the cross-correlation between two time series, and a specific R function: **ccf**.
 
 The cross-correlation can be useful to understand wich lagged values of a *X* series can be used to predict the values of a *Y* series, and thus used, for instance, in a time series regression model.
 

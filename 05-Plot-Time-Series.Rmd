@@ -4,9 +4,9 @@
 
 In this lecture we are going to learn how to plot time series data. 
 
-We will take into account three main functions: **ggplot** from the tidyverse library, **plot.ts** from base R, and **plot.xts** from the xts library. Ggplot is probably the most versatile function from the perspective of the graphical results that can be obtained, but also the more complex, while for ordinary visualization, plot.ts is probably the easiest tool.
+We will take into account three main functions: **ggplot** from the tidyverse library, **plot.ts** from base R, and **plot.xts** from the xts library. Ggplot is probably the most versatile function from the perspective of the graphical results that can be obtained, but also the most complex, while for ordinary visualization, plot.ts is probably the easiest tool.
 
-Plotting time series is an important part of the analysis because it permits to visualize and **explore the data**, both from a **univariate** perspective (focusing on the characteristics of a single time series) and from a **multivariate** perspective (focusing on the characteristics of many time series, and on the relations between them). To visualize and explore the relations between time series, we'll learn to plot a single time series as well as many different time series at once.
+Plotting time series is an important part of the analysis because it permits visualizing and **exploring the data**, both from a **univariate** perspective (focusing on the characteristics of a single time series) and from a **multivariate** perspective (focusing on the characteristics of many time series, and on the relations between them). To visualize and explore the relations between time series, we'll learn to plot a single time series as well as many different time series at once.
 
 ## plot.ts
 
@@ -32,16 +32,13 @@ plot.ts(AirPassengers,
 
 You can use plot.ts to plot two (or more) time series together, a useful operation to take a look at their relations. The different time series must have the same structure (the same starting date, the same ending date, and the same frequency), and should be stored in the same ts object. 
 
-To merge in one "ts" object two or more time series already in the ts format, you can employ the function **ts.union()**. You can plot both the time series in the same plot, or create two different plots, by using the option **"plot.type"** and specifying **single** or **multiple**.
+To merge in one "ts" object two or more time series already in the ts format, you can employ the function **ts.union()**. You can plot both time series in the same plot, or create two different plots, by using the option **"plot.type"** and specifying **single** or **multiple**.
 
 With **lwd** you control the line width (or the line size):
 
-*   Line types can either be specified as an integer (0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash) or as one of the character strings "blank", "solid", "dashed", "dotted", "dotdash", "longdash", or "twodash", where "blank" uses ‘invisible lines’ (i.e., does not draw them).
-
-With **lty** you control the line type:
-
 *   The line width, a positive number, defaulting to 1. The interpretation is device-specific, and some devices do not implement line widths less than one.
-
+With **lty** you control the line type:
+*   Line types can either be specified as an integer (0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash) or as one of the character strings "blank", "solid", "dashed", "dotted", "dotdash", "longdash", or "twodash", where "blank" uses 'invisible lines' (i.e., does not draw them).
 
 ```{r}
 # create a "toy" time series with the same lenght of the AirPassenger one
@@ -217,6 +214,7 @@ plot.xts(AirPassengers_xts_year_avg,
          multi.panel = F)
 
 ```
+
 You can find additional details on *xts* and *plot.xts* by reading the help functions. [At this link](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/xts_Cheat_Sheet_R.pdf) you can find a synthetic presentation of the functions of the xts library.
 
 ## ggplot 
@@ -232,11 +230,11 @@ elections_news <- read_csv("data/elections-stories-over-time-20210111144254.csv"
 elections_news$date <- as.Date(elections_news$date)
 ```
 
-We upload a data set, first, and we set the appropriate time format for the date.
+We upload a dataset first, and we set the appropriate time format for the date.
 
-We place our data set ("elections_news") inside the ggplot function. Notice that the ggplot syntax is similar to the tidyverse one, but uses the plus sign instead of the pipe one (%>%).
+We place our dataset ("elections_news") inside the ggplot function. Notice that the ggplot syntax is similar to the tidyverse one, but uses the plus sign instead of the pipe one (%>%).
 
-To create a line plot with ggplot it is necessary to use the **geom_line** function. This function requires two parameters: the data for the x-axis and the data for the y-axis. These parameters have to be written inside the **aes** function. You can also specify the colors and the size of the line. By using additional function, after the plus sign, you can also set the labels for the x- and y-axes, and the title, the subtitle, and the caption of the plot. You can also change the overall aspect of the plot by using one of the **themes** included in the library.
+To create a line plot with ggplot it is necessary to use the **geom_line** function. This function requires two parameters: the data for the x-axis and the data for the y-axis. These parameters have to be written inside the **aes** function. You can also specify the colors and the size of the line. By using additional functions, after the plus sign, you can also set the labels for the x- and y-axes, and the title, the subtitle, and the caption of the plot. You can also change the overall aspect of the plot by using one of the **themes** included in the library.
 
 ```{r}
 ggplot(elections_news) +
@@ -351,5 +349,4 @@ ggplot(elections_news) +
   theme_gray()
 
 ```
-
 

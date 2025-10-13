@@ -63,6 +63,7 @@ plot.ts(quet.ts, ylim=c(0, 40000), col = "blue", xlab = "Month", ylab = "Dispens
 abline(v=2014, col = "gray", lty = "dashed", lwd=2)
 
 ```
+
 Next, we have to create the dummy variables representing our intervention.
 This can be tricky in R. In this case, the authors convert the time of the *ts* object in a more human-readable format through the *as.yearmon* function (this is a *zoo* function and you can use it by loading the *xts* library).
 
@@ -97,6 +98,7 @@ To create the variable we need, we concatenate both the function with the *c* fu
 ramp <- c(rep(0, 36), seq(1, 12, 1))
 ramp 
 ```
+
 We search for an appropriate ARIMA model for the data by using the *auto.arima* function (*forecast* package). We include the variables we have created as external regressors.
 
 ```{r}
@@ -123,7 +125,7 @@ model2 <- Arima(window(quet.ts, end = c(2013, 12)), order = c(2, 1, 0),
                 seasonal = list(order = c(0, 1, 1), period = 12))
 ```
 
-Next, we forecast the 12 months we didn't include (starting from January 2014 until the end of the period of observation, December 2014) by using the *forecast* function (library *forecast*). The logic behind this operation is to see what would have happened to the series in the absence of the intervention. In other words, we use the prediction as a *couterfactual* in order to describe a possible effect of the intervention on the series, by determining how the observed values diverges from this forecast.
+Next, we forecast the 12 months we didn't include (starting from January 2014 until the end of the period of observation, December 2014) by using the *forecast* function (library *forecast*). The logic behind this operation is to see what would have happened to the series in the absence of the intervention. In other words, we use the prediction as a *counterfactual* in order to describe a possible effect of the intervention on the series, by determining how the observed values diverge from this forecast.
 
 ```{r}
 # Forecast 12 months post-intervention and convert to time series object
@@ -147,6 +149,7 @@ plot.ts(quet.ts.2, plot.type = "single",
 
 abline(v=2014, lty="dashed", col="gray")
 ```
+
 Coming back to our initial ARIMA model including the intervention variables, calculating also the confidence intervals and the significance of the coefficients by using the *coeftest* and the *confint* function in the *lmtest* library, we can quantify the impact of the policy. 
 
 ```{r}

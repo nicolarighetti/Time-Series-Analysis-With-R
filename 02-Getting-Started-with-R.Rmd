@@ -2,43 +2,54 @@
 
 ## RStudio Interface and Data
 
-### Download and Install RStudio 
+### Download and Install RStudio
 
 This course is based on the statistical software R. R is easier to use in the development environment RStudio (it works on both Windows, Apple, and other OS).
 
 It is possible to [download a free version of RStudio Desktop](https://rstudio.com/products/rstudio/download/) from the official websites.
 
-You might also use a free *online* version of RStudio by registering to the [RStudio Cloud free plan](https://rstudio.cloud). However, the free plan gives you just 15 hours per months. Our lessons take 4.5 hours per month, and since you also need to practice, the best choice is to install RStudio and R on your computer. 
+You might also use a free *online* version of RStudio by registering to the [RStudio Cloud free plan](https://rstudio.cloud). However, the free plan gives you just 15 hours per months. Our lessons take 4.5 hours per month, and since you also need to practice, the best choice is to install RStudio and R on your computer.
 
 Now we are going to see how to get started with RStudio Desktop.
 
-First,  [download and install a free version of RStudio Desktop](https://rstudio.com/products/rstudio/download/) and open the software.
+First, [download and install a free version of RStudio Desktop](https://rstudio.com/products/rstudio/download/) and open the software.
+
+# Getting started with R 
+
+## RStudio Interface and Data 
+
+### Download and Install RStudio 
+
+This course is based on the statistical software R. R is easier to use within RStudio, which works on Windows, macOS, and other operating systems.
+
+It is possible to [download a free version of RStudio Desktop](https://rstudio.com/products/rstudio/download/) from the official websites. You might also use a free *online* version of RStudio by registering to the [RStudio Cloud free plan](https://rstudio.cloud). However, the free plan gives you just 15 hours per months.
+
+Now let’s see how to get started with RStudio Desktop. First, [download and install a free version of RStudio Desktop](https://rstudio.com/products/rstudio/download/) and open the software.
 
 ### Create a RStudio Project and Import data
 
-When starting a data analysis project with RStudio, we create a new dedicated environment where we will keep all the scripts (files containing the code to perform the analysis), data sets, and outputs of the analysis (such as plots and tables). This dedicated work-space is simply called a *project*. 
+When starting a data analysis project with RStudio, we create a new dedicated environment where we will keep all the scripts (files containing the code to perform the analysis), data sets, and outputs of the analysis (such as plots and tables). This dedicated workspace is simply called a *project*.
 
-To create a new project with RStudio, follows these steps:
+To create a new project with RStudio, follow these steps:
 
-*   click on *File* (on the top left); 
-*   then, click on *New Project*;
-*   select *New Directory*, and *New Project*;
-*   choose a folder for the project, and give a name to your project. You can use the name *Time-Series-Analysis-With-R*;
+-   click on *File* (on the top left);
+-   then, click on *New Project*;
+-   select *New Directory*, and *New Project*;
+-   Choose a folder for the project and give a name to your project. You can use the name *Time-Series-Analysis-With-R*.
 
-In this way, it will be created a new folder for the project, in the main folder specified in the previous step. In this folder, you will find a file **.Rproj**, the name of which is the name you assigned to your project. To work on this project, you just need to open the *.Rproj* file.
+This will create a new folder for the project in the main folder specified in the previous step. In this folder, you will find a file **.Rproj**, which has the same name as the project you assigned. To work on this project, you just need to open the *.Rproj* file.
 
 ```{r echo=FALSE}
 knitr::include_graphics("images/r-studio-project-creation.png")
 ```
 
-### Create a Script 
+### Create a Script
 
-Once the project has been created, we can open a new **script** and save it.
+Once the project is created, you can open a new **script** and save it.
 
-A script is a file containing code. We can create a first script named *basic-r-syntax*, where you will test the basic code we are going to see. The script will be saved with extension *.r*. 
+A script is a file containing code. We can create a first script named *basic-r-syntax*, where you will test the basic code we are going to see. The script will be saved with extension *.r*.
 
-You can open, change, and save the file every time you work on it.
-To save your code is important, otherwise you would have to write the same code every time you work on the project!
+You can open, change, and save the file every time you work on it. Saving your code is important; otherwise, you would have to write the same code every time you work on the project!
 
 ```{r echo=FALSE}
 knitr::include_graphics("images/create-script.png")
@@ -52,11 +63,11 @@ knitr::include_graphics("images/create-script.png")
 
 The interface of RStudio is organized in four main quadrants:
 
-*   The top-left quadrant is the editor. Here you can create or open a script and compose the R commands. 
-* The top-right quadrant shows the R workspace, which holds the data and other objects you have created in the current R session. The bottom-right quadrant is a window for graphics output, but it also has tabs to manage your file directories, R packages, and the R Help facility.
-*   On the bottom left is the R Console window, where the code gets executed and the output is produced. You can run the commands, sending the code from the editor to the console, by highlighting it and hitting the *Run* button, or the Ctrl-Enter key combination. It is also possible to type and run commands directly into the console window (in this case, nothing will be saved).
-*   The top-right quadrant shows the R workspace, which holds the data and other objects you have created in the current R session. There is the *file* tab, where you can navigate files and folders and find, for instance, the data sets you want to upload.
-*   The bottom-right quadrant is a window for graphics output. Here you can visualize your plots. There is also a tab for the R packages, and the R Help facility.
+    - The top-left quadrant is the editor. Here you can create or open a script and compose the R commands.
+    - The top-right quadrant shows the R workspace, which holds the data and other objects you have created in the current R session. There is also the *Files* tab, where you can navigate files and folders and find, for instance, the data sets you want to upload.
+    - On the bottom left is the R Console window, where the code gets executed and the output is produced. You can run the commands, sending the code from the editor to the console, by highlighting it and hitting the *Run* button, or the Ctrl-Enter key combination. It is also possible to type and run commands directly into the console window (in this case, nothing will be saved).
+    - The bottom-right quadrant is a window for graphics output. Here you can visualize your plots. There are also tabs for R packages and the R Help facility.
+
 
 ```{r echo=FALSE}
 knitr::include_graphics("images/r-environment.png")
@@ -64,7 +75,7 @@ knitr::include_graphics("images/r-environment.png")
 
 ### Load and Save Data
 
-To load data into R you can click on the **file** window in the top-right quadrant, navigate your files/folders, and once you have found your data set file, you can just click it and follow the semi-automated import procedure.
+To load data into R, you can click on the Files window in the top-right quadrant, navigate your files and folders, and once you have found your data set file, you can just click it and follow the semi-automated import procedure.
 
 ```{r echo=FALSE}
 knitr::include_graphics("images/load-data.png")
@@ -76,22 +87,21 @@ knitr::include_graphics("images/import-data-1.png")
 
 ![Import Data](videos/import-data.mov){width="80%"}
 
-Otherwise, you can upload a data set by using a function. For instance, to import a *csv* file, one of the most common format for data sets, it can be employed the function **read.csv**. The main argument of this function is the *path* of the file you want to upload. 
-To specify the file path, consider that you are working within a specific environment, that is, your *working directory* is the folder of the project (you can double check the working directory you are working in, by running the command **getwd()**). Thus, to indicate the path of the data set you want to upload, you can write a dot followed by a slash **./**, followed by the path of the data set *inside the working directory*. For instance, in the case below, the data set is saved in a folder named *data* inside the working directory. The name of the data set is *tweets_vienna* and its extension is *.csv*. Therefore, the code to upload the file is as follows:
+Otherwise, you can upload a data set by using a function. For instance, to import a *csv* file, one of the most common formats for data sets, you can use the function **read.csv**. The main argument of this function is the *path* of the file you want to upload. To specify the file path, consider that you are working within a specific environment; that is, your working directory is the folder of the project (you can double-check the *working directory* you are in by running the command **getwd()**). Thus, to indicate the path of the data set you want to upload, you can write a dot followed by a slash **./**, followed by the path of the data set *inside the working directory*. For instance, in the case below, the data set is saved in a folder named *data* inside the working directory. The name of the data set is *tweets_vienna* and its extension is .csv. Therefore, the code to upload the file is as follows:
 
 ```{r}
 fake_news <- read.csv("./data/fake-news-stories-over-time-20210111144200.csv")
 ```
 
-To save data there are a few options. Generally, if you want to save a data set, you can opt for the *.csv* or the *.rds* format. The *.rds* format is only readable by R, while the *.csv* is a "universal" format (you can read it with Excel, for instance).
+To save data, there are a few options. Generally, if you want to save a data set, you can opt for the .csv or the .rds format. The .rds format is only readable by R, while the .csv format is "universal" (you can read it with Excel, for instance).
 
-To save a file as *.csv* it can be used the function **write.csv**. The main arguments of this function are the name of the object that has to be saved, the path to the folder where the object will be saved, and the name we want to assign to the file.
+To save a file as .csv, you can use the function **write.csv**. The main arguments of this function are the name of the object that has to be saved, the path to the folder where the object will be saved, and the name you want to assign to the file.
 
 ```{r}
 write.csv(fake_news, file = "./data/fake_news.csv")
 ```
 
-To save *.rds* file the procedure is similar, but the **saveRDS** function has to be employed. Instead, to read an *rds* file, the appropriate function is **readRDS**.
+To save a .rds file, the procedure is similar, but the saveRDS function has to be employed. To read an .rds file, the appropriate function is **readRDS**.
 
 ```{r}
 saveRDS(fake_news, file = "./data/fake_news.rds")
@@ -99,35 +109,35 @@ saveRDS(fake_news, file = "./data/fake_news.rds")
 fake_news <- readRDS("./data/fake_news.rds")   # read a .rds file
 ```
 
-In the code above you can notice an hash mark sign followed by some text. It is a **comment**. Comments are textual content used to describe the code in order to make it easier to understand and reuse it. Comments are written after the **hash mark sign (#)**, because the text written after the hash mark sign is ignored by R: you can read the comments, but R does not consider them as code. 
+In the code above, you can notice a hash mark sign followed by some text. It is a **comment**. Comments are textual content used to describe the code in order to make it easier to understand and reuse. Comments are written after the **hash mark sign (#)** because the text written after the hash mark sign is ignored by R: you can read the comments, but R does not consider them as code.
 
 ### Create new Folders
 
-It is a good practice to create, in the main folder of the project, sub-folders dedicated to different type of files used in the project, such as a folder "data" for the data sets. 
+It is good practice to create, in the main folder of the project, sub-folders dedicated to different *types* of files used in the project, such as a folder *data* for the data sets.
 
-To create a new folder you can go to the *Files* windows in the RStudio interface, click **New Folder**, and give it a name.
+To create a new folder, you can go to the *Files* window in the RStudio interface, click **New Folder**, and give it a name.
+
 
 ```{r echo=FALSE}
 knitr::include_graphics("images/new-folder.png")
 ```
 
+## Basic R
 
-## Basic R  
-
-### Objects 
+### Objects
 
 An *object* is an R entity composed of a name and a value.
 
 The **arrow (<-)** sign is used to *create objects* and *assign a value* to an object (or to change or "update" its previous value).
 
-Example: create an object with name "object_consisting_of_a_number" and value equal 2:
+Example: create an object with the name *object_consisting_of_a_number* and value equal to 2:
 
 ```{r}
 
 object_consisting_of_a_number <- 2
 ```
 
-Enter the name of the object in the console and run the command: the value assigned to the object will be printed.
+Enter the name of the object in the console and run the command: the value assigned to the object will be displayed.
 
 ```{r}
 object_consisting_of_a_number
@@ -147,7 +157,7 @@ object_consisting_of_a_number <- object_consisting_of_a_number * 10
 object_consisting_of_a_number
 ```
 
-An object can also represent a **function**. 
+An object can also represent a **function**.
 
 Example: create an object for the *sum* (addition) function:
 
@@ -158,7 +168,7 @@ function_sum <- function(x, y){
 }
 ```
 
-The function can now be applied to two numerical values: 
+The function can now be applied to two numerical values:
 
 ```{r}
 function_sum(5, 2)
@@ -186,8 +196,7 @@ sum(5, 2)
 sqrt(9)
 ```
 
-The value of an object can be a number, a function, but also a **vector**.
-Vectors are sequences of values.
+The value of an object can be a number, a function, or a **vector**. Vectors are sequences of values.
 
 ```{r}
 vector_of_numbers <- c(1,2,3,4,5,6,7,8,9,10) 
@@ -207,7 +216,7 @@ vector_of_numbers * 2
 vector_of_numbers + 3
 ```
 
-Other R objects are *matrix*, *list*, and *data.frame.* 
+Other R objects are *matrix*, *list*, and *data.frame.*
 
 A **matrix** is a table composed of rows and columns containing only numerical values.
 
@@ -217,8 +226,7 @@ a_matrix <- matrix(data = 1:50, nrow = 10, ncol = 5)
 a_matrix
 ```
 
-A **list** is just a list of other objects.
-For instance, this list includes a numerical value, a vectors of numbers, and a matrix.
+A **list** is just a list of other objects. For instance, this list includes a numerical value, a *vector* of numbers, and a matrix.
 
 ```{r}
 a_list <- list(object_consisting_of_a_number, vector_of_numbers, a_matrix)
@@ -226,9 +234,9 @@ a_list <- list(object_consisting_of_a_number, vector_of_numbers, a_matrix)
 a_list
 ```
 
-A **data.frame** is like a matrix that can contain *numbers* but also other types of data, such as *characters* (a textual type of data), or *factors* (unordered categorical variables, such as gender, or ordered categories, such as low, medium, high).
+A **data.frame** is like a matrix that can contain *numbers* but also other types of data, such as *characters* (a textual type of data) or *factors* (unordered categorical variables, such as gender, or ordered categories, such as low, medium, high).
 
-Data sets are usually stored in data.frame. For instance, if you import a *csv* or an *Excel* file in R, the corresponding R object is a *data.frame*.
+Data sets are usually stored in *data.frames*. For instance, if you import a *csv* or an *Excel* file in R, the corresponding R object is a *data.frame*.
 
 ```{r}
 # this is an object (vector) consisting of a series of numerical values
@@ -249,7 +257,7 @@ a_dataframe <- data.frame("first_variable" = numerical_vector,
 a_dataframe
 ```
 
-To access a specific column of a data.frame, you can use the name of the data.frame, the dollar symbol **$**, and the name of the column.
+To access a specific column of a data.frame, you can use the name of the data.frame, the dollar symbol **\$**, and the name of the column.
 
 ```{r}
 a_dataframe$first_variable
@@ -261,11 +269,11 @@ a_dataframe$second_variable
 
 It is possible to add columns to a data.frame by writing:
 
-*   the name of the data.frame
-*   the dollar sign
-*   a name for the new column
-*   the *arrow sign <-*
-*   a vector of values to be stored in the new column (it has to have length equal to the other vectors composing the data.frame)
+-   the name of the data.frame
+-   the dollar sign
+-   a name for the new column
+-   the *arrow sign \<-*
+-   a vector of values to be stored in the new column (it has to have length equal to the other vectors composing the data.frame)
 
 ```{r}
 a_dataframe$a_new_variable <- c(12, 261, 45, 29, 54, 234, 45, 42, 6, 267, 87, 3, 12, 9)
@@ -318,19 +326,19 @@ To sum up, functions manipulate and transform objects. Data wrangling, data visu
 
 Variables can have different R *formats*, such as:
 
-*   **double**: numbers that include decimals (0.1, 5.676, 121.67). This format is appropriate for *continuous variables*;
-*   **integer**: such as 1, 2, 3, 10, 400. It is a format suitable to *count data*;
-*   **factors**: for categorical variables. Factors can be ordered (e.g.: level of agreement: "high", "medium", "low"), or not (e.g.: hair colors "blond", "dark brown", "brown");
-*   **characters**: textual labels;
-*   **logicals**: the format of logical values (i.e.: TRUE and FALSE)
-*   **dates**: used to represent days;
-*   **POSIX**: a class of R format to represent dates and times.
+-   **double**: numbers that include decimals (0.1, 5.676, 121.67). This format is appropriate for *continuous variables*;
+-   **integer**: such as 1, 2, 3, 10, 400. It is a format suitable to *count data*;
+-   **factors**: for categorical variables. Factors can be ordered (e.g.: level of agreement: "high", "medium", "low"), or not (e.g.: hair colors "blond", "dark brown", "brown");
+-   **characters**: textual labels;
+-   **logicals**: the format of logical values (i.e.: TRUE and FALSE)
+-   **dates**: used to represent days;
+-   **POSIX**: a class of R format to represent dates and times.
 
 ```{r fig.cap="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications.", echo=FALSE}
 knitr::include_graphics("images/r-data-format.png")
 ```
 
-It is better to specify the appropriate type of data when importing a data set. In the example below, the data format are specified by using the import process of RStudio. 
+It is better to specify the appropriate type of data when importing a data set. In the example below, the data format are specified by using the import process of RStudio.
 
 Notice that the data of type "date" requires users to specify the additional information regarding the format of the dates. Indeed, dates can be written in many different ways, and to read dates in R it is necessary to specify the structure of the date. In the example, dates are in the format Year-Month-Day, which is represented in R as "%Y-%m-%d" (further details will be provided in another section of the book).
 
@@ -338,13 +346,13 @@ Notice that the data of type "date" requires users to specify the additional inf
 
 ### Excercise
 
-*   Upload the data set "election news small", using the appropriate data format; 
-*   Open the script "basic-r-script" and perform the following operations:
-    + Check the first few rows of the data set;
-    + Access the single columns;
-    + Save the data frame with the name "election_news_small_test" in the folder "data" by using the function "write.csv" (to review the procedure go to the section "Load and Save Data" on this book);
-    + Comment the code (the comments have to be written after the hash sign *#*);
-    + Save the script.
+-   Upload the data set "election news small", using the appropriate data format;
+-   Open the script "basic-r-script" and perform the following operations:
+    -   Check the first few rows of the data set;
+    -   Access the single columns;
+    -   Save the data frame with the name "election_news_small_test" in the folder "data" by using the function "write.csv" (to review the procedure go to the section "Load and Save Data" on this book);
+    -   Comment the code (the comments have to be written after the hash sign *\#*);
+    -   Save the script.
 
 # Basic Data Wrangling with Tidyverse
 
@@ -352,10 +360,10 @@ Notice that the data of type "date" requires users to specify the additional inf
 
 [Another definition](https://link.springer.com/referenceworkentry/10.1007%2F978-3-319-63962-8_9-1) is as follows: *Data wrangling is the process of profiling and transforming datasets to ensure they are actionable for a set of analysis tasks. One central goal is to make data usable: to put data in a form that can be parsed and manipulated by analysis tools. Another goal is to ensure that data is responsive to the intended analyses: that the data contain the necessary information, at an acceptable level of description and correctness, to support successful modeling and decision-making.*
 
-How to "manipulate" data sets in R: 
+How to "manipulate" data sets in R:
 
-*   use basic R functions; 
-*   employ specific libraries such as **tidyverse**. Tidyverse is an R library composed of functions that allow users to perform basic and advanced data science operations.  [https://www.tidyverse.org](https://www.tidyverse.org). 
+-   use basic R functions;
+-   employ specific libraries such as **tidyverse**. Tidyverse is an R library composed of functions that allow users to perform basic and advanced data science operations. <https://www.tidyverse.org>.
 
 In R, a **library (or "package")** is a coherent collection of functions, usually created for specific purposes.
 
@@ -372,9 +380,9 @@ Besides using the function *install.packages(NAME-OF-THE-LIBRARY)* by using a li
 
 ![Install and Load a Library](videos/install-load-library.mov){width="80%"}
 
-## The Pipe Operator %>%
+## The Pipe Operator %\>%
 
-Tidyverse has a peculiar syntax that makes use of the so-called [**pipe**](https://style.tidyverse.org/pipes.html) operator **%>%**, like in the following example:
+Tidyverse has a peculiar syntax that makes use of the so-called [**pipe**](https://style.tidyverse.org/pipes.html) operator **%\>%**, like in the following example:
 
 ```{r paged.print=TRUE}
 a_dataframe %>%
@@ -383,7 +391,6 @@ a_dataframe %>%
 ```
 
 To manipulate data sets we can rely on the functions included in [**dplyr**](https://dplyr.tidyverse.org): *a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges*, such as *mutate*, *rename*, *summarize*.
-
 
 ```{r "Load example data set", paged.print=TRUE}
 library(readr)
@@ -395,9 +402,10 @@ tweets <- read_csv("data/tweets_covid_small.csv",
 ```{r}
 head(tweets)
 ```
+
 ![Import data and specify data types (dates and times)](videos/upload-covid-tweets-small.mov){width="80%"}
 
-## Mutate 
+## Mutate
 
 The function **mutate** adds new variables to a data.frame or overwrites existing variables.
 
@@ -410,7 +418,7 @@ head(tweets)
 
 ## Rename
 
-Rename is a function to change the name of columns (sometimes it could be useful).
+**rename** is a function to change the name of columns (sometimes it can be useful).
 
 ```{r paged.print=TRUE}
 tweets <- tweets %>%
@@ -420,7 +428,7 @@ tweets <- tweets %>%
 head(tweets)
 ```
 
-The previous two steps can be performed at the same time, by concatenating the operations through the *pipe %>%* operator.
+The previous two steps can be performed at the same time, by concatenating the operations through the *pipe %\>%* operator.
 
 ```{r paged.print=TRUE}
 # load again the data set
@@ -436,13 +444,13 @@ tweets <- tweets %>%
 head(tweets)
 ```
 
-To check the data format of the variables stored in the data.frame, it can be used the command *str()*:
+To check the data format of the variables stored in the data.frame, you can use the command *str()*.
 
 ```{r paged.print=TRUE}
 str(tweets)
 ```
 
-Sometimes variables are stored in the data.frame in the wrong format (see the paragraph "data type"), so we want to convert them into a new format. For this purpose we can use, again, the function **mutate**, along with other functions such *as.integer*, *as.numeric*, *as.character*, *as.factors*, or *as.logical*, *as.Date*, or *as.POSIXct()* based on the desired data format (it is possible and advisable to upload the data by paying attention to the type of data. If you upload the data in the right format, you can skip this step).
+Sometimes variables are stored in the data.frame in the wrong format (see the paragraph "data type"), so we may want to convert them to a new format. For this purpose, we can use the function **mutate** along with other functions such as *as.integer*, *as.numeric*, *as.character*, *as.factor*, *as.logical*, *as.Date*, or *as.POSIXct()* depending on the desired data format (it is possible and advisable to upload the data by paying attention to the type of data. If you upload the data in the correct format, you can skip this step).
 
 ```{r paged.print=TRUE}
 tweets %>%
@@ -453,7 +461,7 @@ tweets %>%
 
 ## Summarize and group_by
 
-To aggregate data and calculate synthetic values (for instance, the average number of tweets *by day*), it can be used the function *group_by* (to aggregate data, for instance by day), and *summarize*, to calculate the summary values.
+To aggregate data and calculate summary values (for instance, the average number of tweets *by day*), you can use the function *group_by* (to aggregate data, for instance by day) and *summarize* to calculate the summary values.
 
 ```{r message=FALSE, warning=FALSE, paged.print=TRUE}
 tweets_summary <- tweets %>%
@@ -476,7 +484,7 @@ head(tweets_summary)
 
 ### Count occurrences
 
-A useful operation to perform when summarizing data, is to count the occurrences of a certain variable. For instance, to count the number of tweets sent by each user, it can be used the function **n()** inside the *summarize* function.
+A useful operation to perform when summarizing data is to count the occurrences of a certain variable. For instance, to count the number of tweets sent by each user, you can use the function **n()** inside the *summarize* function.
 
 ```{r message=FALSE, warning=FALSE, paged.print=TRUE}
 tweets_summary <- tweets %>%
@@ -490,22 +498,23 @@ head(tweets_summary)
 
 ## Arrange
 
-To explore a data set it can be useful to sort the data (e.g.: from the lowest to the highest value of a variable). With tidyverse, we can order a data.frame by using the function *arrange*.
+To explore a data set, it can be useful to sort the data (e.g., from the lowest to the highest value of a variable). With *tidyverse*, we can order a data.frame by using the function *arrange*.
 
-To sort the data from the highest to the lowest value (descending order) the *minus* sign (or the "desc" function) has to be added.
+To sort the data from the highest to the lowest value (descending order), the *minus* sign (or the *desc* function) has to be added.
 
 ```{r paged.print=TRUE}
 tweets_summary  %>%
   arrange(-number_of_tweets) %>%
   head()
 ```
+
 ```{r paged.print=TRUE}
 tweets_summary  %>%
   arrange(desc(average_retweets)) %>%
   head()
 ```
 
-Without the minus sign (or the "desc" command), data are sorted from the lowest to the highest value. 
+Without the minus sign (or the "desc" command), data are sorted from the lowest to the highest value.
 
 ```{r paged.print=TRUE}
 tweets_summary  %>%
@@ -515,7 +524,7 @@ tweets_summary  %>%
 
 ## Filter
 
-The function *filter* keeps only the cases (the "rows") we want to focus on. The arguments of this function are the conditions that have to be fulfilled to filter the data: a) the name of the column that we want to filter, b) the values to be kept.
+The function *filter* keeps only the cases (the "rows") we want to focus on. The arguments of this function are the conditions that must be fulfilled to filter the data: a) the name of the column that we want to filter, and b) the values to be kept.
 
 ```{r paged.print=TRUE}
 tweets %>%
@@ -546,7 +555,7 @@ tweets %>%
 
 ## Select
 
-**Select** is used to keep just some of the columns of the original data.frame. For instance, we can apply the function in order to keep just the column "device" and "retweet_count".
+**select** is used to keep only some of the columns of the original data.frame. For instance, we can apply the function to keep just the columns *device* and *retweet_count*.
 
 ```{r paged.print=TRUE}
 tweets %>%

@@ -33,7 +33,7 @@ We can upload the *.csv* file by using the function **read.csv**. The main argum
 elections_news <- read.csv("./data/elections-stories-over-time-20210111144254.csv")
 ```
 
-By using the function **class** we can see that this is a data.frame. 
+By using the function **class** we can see that this is a data.frame.
 
 ```{r}
 class(elections_news)
@@ -163,9 +163,8 @@ Time series can be stored in object of class xts/zoo. This class of objects is c
 library(xts)
 ```
 
-The *xts* object is more flexible that the *ts* one. 
-
-We can create an *xts* time series by starting from the data.frame we have just created. Similarly to what required by *ts*, we need to specify: 
+The *xts* object is more flexible than the *ts* one. 
+We can create an *xts* time series by starting from the data.frame we have just created. Similarly to what is required by *ts*, we need to specify: 
 
 *   the column of the data.frame (or the vector) containing the data;
 *   the column of the data.frame (or the vector) containing the dates/times (which has to be in a date/time format);
@@ -183,7 +182,7 @@ xts_format <- xts(x = data_frame_format$Passengers,
 class(xts_format)
 ```
 
-Also the structure of this object, like the *ts* one, includes the range of dates of the time series, with it starting and ending date.
+Also the structure of this object, like the *ts* one, includes the range of dates of the time series, with its starting and ending date.
 
 ```{r}
 str(xts_format)

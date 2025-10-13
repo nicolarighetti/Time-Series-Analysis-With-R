@@ -17,7 +17,6 @@ Practical applications of VAR modeling, including Granger causality, can be foun
 
 ## VAR modeling hands-on tutorial
 
-
 ### Assumption of stationarity
 
 Like most time series techniques, VAR assumes the series to be **stationary**. To recap:
@@ -129,7 +128,6 @@ plot.ts(ts_tweets[, c("pro", "anti")],
 ```
 
 As the variance does not look constant, so we can tentatively **log-transform the series** and work with log-transformed data.
-
         
 ```{r}
 ts_tweets$pro <- log(ts_tweets$pro)
@@ -161,8 +159,7 @@ length(anti)
 length(ts_tweets$pro)
 ```
 
-Indeed, the first point in the differentiated series is obtained by subtracting the first point from the second one. The second point in the differentiated series is obtained by subtracting the second point from the third one, and so on. Hence, the differentiated dataset will start from the second point in time, not the first one as the original series. Thus, we need to drop the first data point from the dataset 
-
+Indeed, the first point in the differentiated series is obtained by subtracting the first point from the second one. The second point in the differentiated series is obtained by subtracting the second point from the third one, and so on. Hence, the differentiated dataset will start from the second point in time, not the first one as in the original series. Therefore, we need to drop the first data point from the dataset.
 
 ```{r}
 # drop the first data point
