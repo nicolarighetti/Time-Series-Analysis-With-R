@@ -1,293 +1,72 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter9 Regression | Time Series Analysis With R</title>
-  <meta name="description" content="Chapter9 Regression | Time Series Analysis With R" />
-  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Chapter9 Regression | Time Series Analysis With R" />
-  <meta property="og:type" content="book" />
-  
-  
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter9 Regression | Time Series Analysis With R" />
-  
-  
-  
-
-<meta name="author" content="Nicola Righetti" />
-
-
-<meta name="date" content="2025-10-14" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="correlations-and-arima.html"/>
-<link rel="next" href="intervention-analysis.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter9 Regression | Time Series Analysis With R</title>
+<meta name="author" content="Nicola Righetti">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="Chapter9 Regression | Time Series Analysis With R">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter9 Regression | Time Series Analysis With R">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="In this chapter we are going to see how to conduct a regression analysis with time series data. Regression analysis is a used for estimating the relationships between a dependent variable (DV)...">
+<meta property="og:description" content="In this chapter we are going to see how to conduct a regression analysis with time series data. Regression analysis is a used for estimating the relationships between a dependent variable (DV)...">
+<meta name="twitter:description" content="In this chapter we are going to see how to conduct a regression analysis with time series data. Regression analysis is a used for estimating the relationships between a dependent variable (DV)...">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Time Series Analysis With R</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#citation"><i class="fa fa-check"></i><b>1.1</b> Citation</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting started with R</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#rstudio-interface-and-data"><i class="fa fa-check"></i><b>2.1</b> RStudio Interface and Data</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#download-and-install-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Download and Install RStudio</a></li>
-<li class="chapter" data-level="2.1.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-rstudio-project-and-import-data"><i class="fa fa-check"></i><b>2.1.2</b> Create a RStudio Project and Import data</a></li>
-<li class="chapter" data-level="2.1.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-script"><i class="fa fa-check"></i><b>2.1.3</b> Create a Script</a></li>
-<li class="chapter" data-level="2.1.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-rstudio-user-interface"><i class="fa fa-check"></i><b>2.1.4</b> The RStudio User Interface</a></li>
-<li class="chapter" data-level="2.1.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#load-and-save-data"><i class="fa fa-check"></i><b>2.1.5</b> Load and Save Data</a></li>
-<li class="chapter" data-level="2.1.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-new-folders"><i class="fa fa-check"></i><b>2.1.6</b> Create new Folders</a></li>
-</ul></li>
-<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r"><i class="fa fa-check"></i><b>2.2</b> Basic R</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#objects"><i class="fa fa-check"></i><b>2.2.1</b> Objects</a></li>
-<li class="chapter" data-level="2.2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#functions"><i class="fa fa-check"></i><b>2.2.2</b> Functions</a></li>
-<li class="chapter" data-level="2.2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.2.3</b> Data Types</a></li>
-<li class="chapter" data-level="2.2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#excercise"><i class="fa fa-check"></i><b>2.2.4</b> Excercise</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.1</b> The Pipe Operator %&gt;%</a></li>
-<li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.2</b> Mutate</a></li>
-<li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.3</b> Rename</a></li>
-<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by</a>
-<ul>
-<li class="chapter" data-level="3.4.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.4.1</b> Count occurrences</a></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5</b> Arrange</a></li>
-<li class="chapter" data-level="3.6" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.6</b> Filter</a></li>
-<li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.7</b> Select</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series"><i class="fa fa-check"></i><b>4.1</b> Time Series</a></li>
-<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis</a></li>
-<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects</a>
-<ul>
-<li class="chapter" data-level="5.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>5.1.1</b> Time Series as Data Frames</a></li>
-<li class="chapter" data-level="5.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>5.1.2</b> Time Series as TS objects</a></li>
-<li class="chapter" data-level="5.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>5.1.3</b> Time Series as XTS/ZOO objects</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>6</b> Plot Time Series</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>6.1</b> Plot Time Series Objects</a></li>
-<li class="chapter" data-level="6.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>6.2</b> plot.ts</a></li>
-<li class="chapter" data-level="6.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>6.3</b> plot.xts</a></li>
-<li class="chapter" data-level="6.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>6.4</b> ggplot</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#components-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Components of a time series</a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#trend-and-cycle"><i class="fa fa-check"></i><b>7.1.1</b> Trend and Cycle</a></li>
-<li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#stochastic-and-deterministic-trend"><i class="fa fa-check"></i><b>7.1.2</b> Stochastic and Deterministic Trend</a></li>
-<li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.3</b> Seasonality</a></li>
-<li class="chapter" data-level="7.1.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.4</b> Residuals</a></li>
-</ul></li>
-<li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition</a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
-<li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
-<li class="chapter" data-level="7.2.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#compare-additive-and-multiplicative-models"><i class="fa fa-check"></i><b>7.2.3</b> Compare Additive and Multiplicative Models</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
-<li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
-<li class="chapter" data-level="7.3.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#other-decomposition-methods-in-r"><i class="fa fa-check"></i><b>7.3.3</b> Other Decomposition Methods in R</a></li>
-</ul></li>
-<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html"><i class="fa fa-check"></i><b>8</b> Correlations and ARIMA</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-correlation-acf-and-pacf"><i class="fa fa-check"></i><b>8.1</b> Auto-Correlation (ACF and PACF)</a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>8.1.1</b> Correlogram: ACF and PACF</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-regressive-ar-models"><i class="fa fa-check"></i><b>8.2.1</b> Auto Regressive (AR) models</a></li>
-<li class="chapter" data-level="8.2.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#moving-average-ma-models"><i class="fa fa-check"></i><b>8.2.2</b> Moving Average (MA) models</a></li>
-<li class="chapter" data-level="8.2.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#integrated-i-process"><i class="fa fa-check"></i><b>8.2.3</b> Integrated (I) process</a></li>
-<li class="chapter" data-level="8.2.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#seasonal-s-models"><i class="fa fa-check"></i><b>8.2.4</b> Seasonal (S) models</a></li>
-<li class="chapter" data-level="8.2.5" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#fit-sarima-models"><i class="fa fa-check"></i><b>8.2.5</b> Fit (S)ARIMA models</a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#cross-correlation"><i class="fa fa-check"></i><b>8.3</b> Cross-correlation</a></li>
-<li class="chapter" data-level="8.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#examples-in-literature"><i class="fa fa-check"></i><b>8.4</b> Examples in literature</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#static-and-dynamic-models"><i class="fa fa-check"></i><b>9.1</b> Static and Dynamic Models</a></li>
-<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-models"><i class="fa fa-check"></i><b>9.2</b> Regression models</a>
-<ul>
-<li class="chapter" data-level="9.2.1" data-path="regression.html"><a href="regression.html#stationarity"><i class="fa fa-check"></i><b>9.2.1</b> Stationarity</a></li>
-<li class="chapter" data-level="9.2.2" data-path="regression.html"><a href="regression.html#non-autocorrelated-residuals"><i class="fa fa-check"></i><b>9.2.2</b> Non-autocorrelated residuals</a></li>
-<li class="chapter" data-level="9.2.3" data-path="regression.html"><a href="regression.html#regression-with-arma-errors"><i class="fa fa-check"></i><b>9.2.3</b> Regression with ARMA errors</a></li>
-<li class="chapter" data-level="9.2.4" data-path="regression.html"><a href="regression.html#count-regression-models"><i class="fa fa-check"></i><b>9.2.4</b> Count regression models</a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#model-selection-aic-aicc-bic"><i class="fa fa-check"></i><b>9.3</b> Model Selection (AIC, AICc, BIC)</a></li>
-<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#some-examples-in-the-literature"><i class="fa fa-check"></i><b>9.4</b> Some examples in the literature</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="intervention-analysis.html"><a href="intervention-analysis.html"><i class="fa fa-check"></i><b>10</b> Intervention Analysis</a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#types-of-intervention"><i class="fa fa-check"></i><b>10.1</b> Types of intervention</a></li>
-<li class="chapter" data-level="10.2" data-path="intervention-analysis.html"><a href="intervention-analysis.html#intervention-analysis-with-arima"><i class="fa fa-check"></i><b>10.2</b> Intervention analysis with ARIMA</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html"><i class="fa fa-check"></i><b>11</b> Interrupted time series analysis using segmented regression</a></li>
-<li class="chapter" data-level="12" data-path="var.html"><a href="var.html"><i class="fa fa-check"></i><b>12</b> VAR</a>
-<ul>
-<li class="chapter" data-level="12.1" data-path="var.html"><a href="var.html#var-modeling-hands-on-tutorial"><i class="fa fa-check"></i><b>12.1</b> VAR modeling hands-on tutorial</a>
-<ul>
-<li class="chapter" data-level="12.1.1" data-path="var.html"><a href="var.html#assumption-of-stationarity"><i class="fa fa-check"></i><b>12.1.1</b> Assumption of stationarity</a></li>
-<li class="chapter" data-level="12.1.2" data-path="var.html"><a href="var.html#other-assumptions-of-var-models-distribution-of-residuals"><i class="fa fa-check"></i><b>12.1.2</b> Other assumptions of VAR models: distribution of residuals</a></li>
-</ul></li>
-<li class="chapter" data-level="12.2" data-path="var.html"><a href="var.html#var-fitting"><i class="fa fa-check"></i><b>12.2</b> VAR fitting</a></li>
-<li class="chapter" data-level="12.3" data-path="var.html"><a href="var.html#granger-causality-test"><i class="fa fa-check"></i><b>12.3</b> Granger causality test</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html"><i class="fa fa-check"></i><b>13</b> Readings and Bibliographical References</a>
-<ul>
-<li class="chapter" data-level="13.1" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#mandatory"><i class="fa fa-check"></i><b>13.1</b> Mandatory</a></li>
-<li class="chapter" data-level="13.2" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#other-readings"><i class="fa fa-check"></i><b>13.2</b> Other readings</a></li>
-<li class="chapter" data-level="13.3" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#useful-resources"><i class="fa fa-check"></i><b>13.3</b> Useful resources</a></li>
-</ul></li>
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Time Series Analysis With R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series Analysis With R</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Time Series Analysis With R</a></li>
+<li><a class="" href="getting-started-with-r.html"><span class="header-section-number">2</span> Getting started with R</a></li>
+<li><a class="" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">3</span> Basic Data Wrangling with Tidyverse</a></li>
+<li><a class="" href="basic-concepts.html"><span class="header-section-number">4</span> Basic Concepts</a></li>
+<li><a class="" href="time-series-objects.html"><span class="header-section-number">5</span> Time Series Objects</a></li>
+<li><a class="" href="plot-time-series.html"><span class="header-section-number">6</span> Plot Time Series</a></li>
+<li><a class="" href="structural-decomposition.html"><span class="header-section-number">7</span> Structural Decomposition</a></li>
+<li><a class="" href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></li>
+<li><a class="active" href="regression.html"><span class="header-section-number">9</span> Regression</a></li>
+<li><a class="" href="intervention-analysis.html"><span class="header-section-number">10</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">11</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="" href="var.html"><span class="header-section-number">12</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">13</span> Readings and Bibliographical References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="regression" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Chapter9</span> Regression<a href="regression.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="regression" class="section level1" number="9">
+<h1>
+<span class="header-section-number">Chapter9</span> Regression<a class="anchor" aria-label="anchor" href="#regression"><i class="fas fa-link"></i></a>
+</h1>
 <p>In this chapter we are going to see how to conduct a regression analysis with time series data.</p>
 <p><em>Regression analysis</em> is a used for estimating the relationships between a <em>dependent variable (DV)</em> (also called <em>outcome</em> or <em>response</em>) and one or more <em>independent variables (IV)</em> (also called <em>predictors</em> or <em>explanatory variables</em>).</p>
 <p>A standard regression model <span class="math inline">\(Y\)</span> = <span class="math inline">\(\beta\)</span> + <span class="math inline">\(\beta x\)</span> + <span class="math inline">\(\epsilon\)</span> has no time component. Differently, a time series regression model includes a time dimension and can be written, in a simple and general formulation, using just one explanatory variable, as follows:</p>
@@ -299,8 +78,10 @@ y_t = \beta_0 + \beta_1x_t + \epsilon_t
 <p><span class="math display">\[
 y_t = \beta_0 + \beta_1x_{1,t} + \beta_2x_{2,t} + ... + \beta_kx_{k,t} + \epsilon_t
 \]</span></p>
-<div id="static-and-dynamic-models" class="section level2 hasAnchor" number="9.1">
-<h2><span class="header-section-number">9.1</span> Static and Dynamic Models<a href="regression.html#static-and-dynamic-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="static-and-dynamic-models" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> Static and Dynamic Models<a class="anchor" aria-label="anchor" href="#static-and-dynamic-models"><i class="fas fa-link"></i></a>
+</h2>
 <p>From a time series analysis perspective, a general distinction can be made between “static” and “dynamic” regression models:</p>
 <ul>
 <li>A <strong>static regression model</strong> includes just contemporary relations between the explanatory variables (independent variables) and the response (dependent variable). This model could be appropriate when the expected value of the response changes <em>immediately</em> when the value of the explanatory variable changes. Considering a model with <span class="math inline">\(k\)</span> independent variables {<span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, …, <span class="math inline">\(x_k\)</span>}, a static (multiple) regression model, has the form just seen above:</li>
@@ -324,34 +105,40 @@ y_t &amp;= \beta_0
 \]</span></p>
 <p>Despite the differences between these two analytic perspectives, the term <em>dynamic regression</em> is also used, in the literature, in a more general way to refer to regression models with autocorrelated errors (also when they are used to analyze only contemporary relations between variables).</p>
 </div>
-<div id="regression-models" class="section level2 hasAnchor" number="9.2">
-<h2><span class="header-section-number">9.2</span> Regression models<a href="regression.html#regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="regression-models" class="section level2" number="9.2">
+<h2>
+<span class="header-section-number">9.2</span> Regression models<a class="anchor" aria-label="anchor" href="#regression-models"><i class="fas fa-link"></i></a>
+</h2>
 <p>Except for the possible use of lagged regressors, which are typical of time series, the above described statistical models are standard regression models, commonly used with cross-sectional data.</p>
-<p>Standard linear regression models can sometimes work well enough with time series data, <strong>if specific conditions are met</strong>. Besides standard assumptions of linear regression<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, a careful analysis should be done in order to ascertain that <strong>residuals are not autocorrelated</strong>, since this can cause problems in the estimated model.</p>
+<p>Standard linear regression models can sometimes work well enough with time series data, <strong>if specific conditions are met</strong>. Besides standard assumptions of linear regression<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;1) Linearity: The relationship between X and Y must be linear; 2) Independence of errors: There is not a relationship between the residuals and the Y variable; 3) Normality of errors: The residuals must be approximately normally distributed; 4) Equal variances: The variance of the residuals is the same for all values of X&lt;/p&gt;"><sup>1</sup></a>, a careful analysis should be done in order to ascertain that <strong>residuals are not autocorrelated</strong>, since this can cause problems in the estimated model.</p>
 <p>In this chapter we’ll see how to deal with autocorrelated residuals. However, even before that, it is important that the series are <strong>stationary</strong>, in order to avoid possible <em>spurious correlations</em>.</p>
-<div id="stationarity" class="section level3 hasAnchor" number="9.2.1">
-<h3><span class="header-section-number">9.2.1</span> Stationarity<a href="regression.html#stationarity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="stationarity" class="section level3" number="9.2.1">
+<h3>
+<span class="header-section-number">9.2.1</span> Stationarity<a class="anchor" aria-label="anchor" href="#stationarity"><i class="fas fa-link"></i></a>
+</h3>
 <p>We already discussed stationarity in the previous chapters. Here we can observe that time series can be nonstationary due to different reasons, thus different strategies can be employed to <em>stationarize</em> the data.</p>
 <p>For instance, a nonstationary series can be a series with <strong>unequal variance</strong> over time. A common way to try to fix the problem is by applying a log-transformation.</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-162-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-162-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Another reason for nonstationarity is the periodic variation due to <strong>seasonality</strong> (regular fluctuations in a time series that follow a specific time pattern, e.g.: social media activity during week-ends, Christmas effect in consumption, etc.).</p>
 <p>To remove the seasonal pattern, you might want to use a <em>seasonally-adjusted</em> time series. Otherwise, you could create a dummy variable for the seasonal period (that is, a variable that follows the seasonal pattern in the data in order to account, in the model, for these fluctuations).</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-163-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-163-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>An important reason for nonstationarity is also the presence of a trend in the data. There are <strong>stochastic trends</strong> and <strong>deterministic trends</strong>. Deterministic trends are a fixed function of time, while stochastic trends change in an unpredictable way.</p>
 <p>Series with a deterministic trend are also called <em>trend stationary</em> because they can be stationary around a deterministic trend, and it could be possible to achieve stationarity by removing the time trend. In trend stationary processes, the shocks to the process are transitory and the process is <em>mean reverting</em>.</p>
 <p>Processes with a <em>stochastic trend</em> are also called <em>difference stationary</em> because they can become stationary through <em>differencing</em>. In series with stochastic trends we could see that shocks have permanent effects.</p>
 <p>When dealing with <em>deterministic trend</em>, we might want to work with detrended series.</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-164-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-164-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Otherwise, in regression analysis, it is more common to add a dummy variable consisting of a value that increases with time, to account for a linear deterministic time trend. This time-count variable will remove the deterministic trend from the dependent variable, allowing the other predictors to explain the remaining variance.</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-165-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-165-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>When we have a series with a stochastic trend, we can achieve stationarity through differencing.</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-166-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<div id="tests-for-stochastic-and-deterministic-trend" class="section level4 hasAnchor" number="9.2.1.1">
-<h4><span class="header-section-number">9.2.1.1</span> Tests for Stochastic and Deterministic Trend<a href="regression.html#tests-for-stochastic-and-deterministic-trend" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-166-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div id="tests-for-stochastic-and-deterministic-trend" class="section level4" number="9.2.1.1">
+<h4>
+<span class="header-section-number">9.2.1.1</span> Tests for Stochastic and Deterministic Trend<a class="anchor" aria-label="anchor" href="#tests-for-stochastic-and-deterministic-trend"><i class="fas fa-link"></i></a>
+</h4>
 <p>The correct detrending method depends on the type of trend. First differencing is appropriate for intergrated <em>I(1)</em> time series and time-trend regression is appropriate for trend stationary <em>I(0)</em> time series.</p>
 <p>In case of deterministic trend, differencing is the incorrect solution, while detrending the series in function of time (regressing the series on a variable such as time and saving the residuals) is the correct solution. Differencing when none is required (<em>over-differencing</em>) may induce dynamics into the series that are not part of the data-generating process (for instance, it could create a first-order moving average process).</p>
 <p>Specific statistical tests have been developed to distinguish between the two types of trends. In particular, <em>unit root tests</em> and <em>stationary test</em> can be used to determine if trending data should be first differenced or regressed on deterministic functions of time to render the data stationary.</p>
-<p>Considering a simple model like the following, where <span class="math inline">\(Td\)</span> is a deterministic linear trend and <span class="math inline">\(z_t\)</span> is an autoregressive process of order 1 <em>AR(1)</em>. The difference between a process with stochastic and deterministic trend can be traced back to the parameter <span class="math inline">\(|\phi|\)</span>: When <span class="math inline">\(|\phi| = 1\)</span>, then <span class="math inline">\(z_t\)</span> is a <em>stochastic trend</em> and <span class="math inline">\(y_t\)</span> is an integrated process <em>I(1)</em> with <em>drift</em> (the so-called “drift” refers to the presence of a constant term, in this case <span class="math inline">\(\kappa\)</span>). When <span class="math inline">\(\phi &lt; 1\)</span>, the process is not integrated (<em>I(0)</em>) and <span class="math inline">\(y_t\)</span> exhibits a <em>deterministic trend</em><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>:</p>
+<p>Considering a simple model like the following, where <span class="math inline">\(Td\)</span> is a deterministic linear trend and <span class="math inline">\(z_t\)</span> is an autoregressive process of order 1 <em>AR(1)</em>. The difference between a process with stochastic and deterministic trend can be traced back to the parameter <span class="math inline">\(|\phi|\)</span>: When <span class="math inline">\(|\phi| = 1\)</span>, then <span class="math inline">\(z_t\)</span> is a <em>stochastic trend</em> and <span class="math inline">\(y_t\)</span> is an integrated process <em>I(1)</em> with <em>drift</em> (the so-called “drift” refers to the presence of a constant term, in this case <span class="math inline">\(\kappa\)</span>). When <span class="math inline">\(\phi &lt; 1\)</span>, the process is not integrated (<em>I(0)</em>) and <span class="math inline">\(y_t\)</span> exhibits a <em>deterministic trend</em><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Reference of this part is Zivot E., Wang J. (2003), Unit Root Tests, in &lt;em&gt;Modeling Financial Time Series with S-Plus®&lt;/em&gt;. Springer, New York&lt;/p&gt;"><sup>2</sup></a>:</p>
 <p><span class="math display">\[
 \begin{split}
 y_t &amp;= Td_t + z_t \\
@@ -360,7 +147,7 @@ z_t &amp;= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
 \end{split}
 \]</span></p>
 <p>Let’s simulate and visualize the above equation (<span class="math inline">\(y_t = \kappa + \delta_t + \phi z_{t-1} + \epsilon_t\)</span>):</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-167-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-167-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p><strong>Unit root tests</strong> are aimed at testing the null hypothesis that <span class="math inline">\(|\phi| = 1\)</span> (<em>difference stationary</em>), against the alternative hypothesis that <span class="math inline">\(|\phi| &lt; 1\)</span> (<em>trend stationary</em>).</p>
 <p><strong>Stationarity tests</strong> take the null hypothesis that <span class="math inline">\(y_t\)</span> is trend stationary, and are based on testing for a moving average element in <span class="math inline">\(\Delta z_t\)</span> (<span class="math inline">\(\Delta\)</span> represents the operation of differencing).</p>
 <p><span class="math display">\[
@@ -384,8 +171,10 @@ z_t &amp;= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
 \Delta \epsilon_t = \phi \Delta z_{t-1} + \epsilon_t + \theta \epsilon_{t-1}
 \]</span></p>
 <p>with <span class="math inline">\(\theta = -1\)</span>. That is, when the series is trend stationary, taking the first difference results in overdifferencing and in the creation of a moving average (MA) term <span class="math inline">\(\theta \epsilon_{t-1}\)</span>. The creation of a moving average element, which is missing in the original series, is also why differencing a trend-stationary process is problematic.</p>
-<div id="kpss-test" class="section level5 hasAnchor" number="9.2.1.1.1">
-<h5><span class="header-section-number">9.2.1.1.1</span> KPSS Test<a href="regression.html#kpss-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="kpss-test" class="section level5" number="9.2.1.1.1">
+<h5>
+<span class="header-section-number">9.2.1.1.1</span> KPSS Test<a class="anchor" aria-label="anchor" href="#kpss-test"><i class="fas fa-link"></i></a>
+</h5>
 <p>A test to verify if the series is <em>trend stationary</em> is the <strong>Kwiatkowski-Phillips-Schmidt-Shin (KPSS)</strong> test. It is one of the most commonly used stationarity test, and is implemented in the library <em>tseries</em> (function <em>kpss.test</em>). KPSS test the <em>null hypothesis</em> that the series is <em>trend stationary</em>.</p>
 <p>In this case, the <em>p-value</em> of the test is higher than 0.05, so the test cannot reject the null hypothesis of trend stationarity. That is to say, there are some evidence of trend-stationary process.</p>
 <pre><code>## 
@@ -424,8 +213,10 @@ z_t &amp;= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
 ## parameter = 5, p-value = 0.1</code></pre>
 <p>In the above cases the KPSS results are correct, since we have simulated and tested a time series with a deterministic and stochastic trend. However, these kind of tests can also be wrong. For instance, it is possible they reject the null hypothesis when it is actually true (<a href="https://en.wikipedia.org/wiki/Type_I_and_type_II_errors">“Type I error”</a>). For this reason, it can be useful to use more than one test. For instance, the KPSS can be used along with the Augmented Dickey-Fuller Test (ADF), a popular <em>unit root test</em>.</p>
 </div>
-<div id="augmented-dickey-fuller-adf-test" class="section level5 hasAnchor" number="9.2.1.1.2">
-<h5><span class="header-section-number">9.2.1.1.2</span> Augmented Dickey-Fuller (ADF) Test<a href="regression.html#augmented-dickey-fuller-adf-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="augmented-dickey-fuller-adf-test" class="section level5" number="9.2.1.1.2">
+<h5>
+<span class="header-section-number">9.2.1.1.2</span> Augmented Dickey-Fuller (ADF) Test<a class="anchor" aria-label="anchor" href="#augmented-dickey-fuller-adf-test"><i class="fas fa-link"></i></a>
+</h5>
 <p>The Augmented Dickey-Fuller Test (ADF) is a popular <em>unit root test</em>. An R implementation of the test can be found in the library <em>tseries</em> (function <em>adf.test</em>). The null hypothesis is that the series has a unit root, and the alternative hypothesis is that the series is stationary or trend stationary.</p>
 <p>If we use the ADF test on the integrated series (which has a unit root), the test fails to reject the null hypothesis of unit root, which is correct.</p>
 <pre><code>## 
@@ -452,8 +243,10 @@ z_t &amp;= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
 ## p-value = 0.01
 ## alternative hypothesis: stationary</code></pre>
 </div>
-<div id="phillips-perron-test" class="section level5 hasAnchor" number="9.2.1.1.3">
-<h5><span class="header-section-number">9.2.1.1.3</span> Phillips-Perron Test<a href="regression.html#phillips-perron-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<div id="phillips-perron-test" class="section level5" number="9.2.1.1.3">
+<h5>
+<span class="header-section-number">9.2.1.1.3</span> Phillips-Perron Test<a class="anchor" aria-label="anchor" href="#phillips-perron-test"><i class="fas fa-link"></i></a>
+</h5>
 <p>Another <em>unit root test</em> is the <strong>Phillips-Perron</strong> test. It differs from the ADF test in some aspects (how it deals with serial correlation and heteroskedasticity in the errors). Also this test is implemented in the library <em>tseries</em> (funtion <em>pp.test</em>). Results of the test are similar to those of the ADF test:</p>
 <pre><code>## 
 ##  Phillips-Perron Unit Root Test
@@ -480,8 +273,10 @@ z_t &amp;= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
 </div>
 </div>
 </div>
-<div id="non-autocorrelated-residuals" class="section level3 hasAnchor" number="9.2.2">
-<h3><span class="header-section-number">9.2.2</span> Non-autocorrelated residuals<a href="regression.html#non-autocorrelated-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="non-autocorrelated-residuals" class="section level3" number="9.2.2">
+<h3>
+<span class="header-section-number">9.2.2</span> Non-autocorrelated residuals<a class="anchor" aria-label="anchor" href="#non-autocorrelated-residuals"><i class="fas fa-link"></i></a>
+</h3>
 <p>We try to fit a linear regression model. First, we create two series <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, with <span class="math inline">\(x\)</span> correlated with <span class="math inline">\(y\)</span> at lags <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span>.</p>
 <p>The <em>real</em> model (in this case we know it because we created it through the above simulation), is as follows:</p>
 <p><span class="math display">\[
@@ -510,7 +305,7 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ## xy_series[, 3]   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 1.002 on 196 degrees of freedom
 ## Multiple R-squared:  0.873,  Adjusted R-squared:  0.8717 
@@ -519,7 +314,7 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 <p>To check whether these assumptions are met, we can visualize the <em>plot of residuals, its ACF/PACF and histogram</em>, and also test the residuals for possible autocorrelation using a statistical test like the <a href="https://en.wikipedia.org/wiki/Breusch%E2%80%93Godfrey_test">Breusch-Godfrey test</a> (this test is the default in the forecast library when a linear regression object <em>lm</em> is tested).</p>
 <p>To create the plots we can use the base R functions, or we can use the convenient <em>checkresiduals</em> function in the <em>forecast</em> package.</p>
 <p>In this case everything seems fine.</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-180-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-180-1.png" width="100%" style="display: block; margin: auto;"></div>
 <pre><code>## 
 ##  Breusch-Godfrey test for serial correlation
 ##  of order up to 10
@@ -539,7 +334,7 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 #### dynml</p>
 <p>Instead of <em>lm</em>, the package <strong>dynml</strong> and the function with the same name (<em>dynml</em>) can be used to fit a dynamic regression models in R. One of the main advantages of this package is that it allows users to fit time series linear regression models without calculating the lagged values by hand. To add a lagged variable, it can simply be used the <em>L</em> (<em>Lag</em>) function. The <em>L</em> function takes as arguments the name of the variable and the lag length. For instance <em>L(x, 4)</em> corresponds to <span class="math inline">\(x_{t-4}\)</span>.</p>
 <pre><code>## 
-## Time series regression with &quot;ts&quot; data:
+## Time series regression with "ts" data:
 ## Start = 5, End = 203
 ## 
 ## Call:
@@ -560,14 +355,14 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ## L(x_series, 4)   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 1.002 on 196 degrees of freedom
 ## Multiple R-squared:  0.873,  Adjusted R-squared:  0.8717 
 ## F-statistic: 673.5 on 2 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The <em>dynlm</em> function also permits to include trend (function <em>trend</em>) and seasonal (function <em>season</em>) components in the model (it is also possible to change the reference value for the seasonal period, see <em>?dynlm</em>). Just to make an example of the code to perform a dynamic regression with <em>dynlm</em>:</p>
 <pre><code>## 
-## Time series regression with &quot;ts&quot; data:
+## Time series regression with "ts" data:
 ## Start = 1949(7), End = 1960(12)
 ## 
 ## Call:
@@ -610,19 +405,21 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ## L(ap_x, 3)    0.007039 ** 
 ## ---
 ## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 0.05831 on 124 degrees of freedom
 ## Multiple R-squared:  0.9829, Adjusted R-squared:  0.9811 
 ## F-statistic: 546.9 on 13 and 124 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div id="regression-with-arma-errors" class="section level3 hasAnchor" number="9.2.3">
-<h3><span class="header-section-number">9.2.3</span> Regression with ARMA errors<a href="regression.html#regression-with-arma-errors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="regression-with-arma-errors" class="section level3" number="9.2.3">
+<h3>
+<span class="header-section-number">9.2.3</span> Regression with ARMA errors<a class="anchor" aria-label="anchor" href="#regression-with-arma-errors"><i class="fas fa-link"></i></a>
+</h3>
 <p>While in the previous case a standard linear model works well, it is often the case that <em>residuals of times series regressions are autocorrelated</em>, and a linear regression model can be suboptimal or even wrong. For instance, let’s create other two time series that are, as the previous ones, cross-correlated at lag 3 and 4, but with a bit more complicated structure.</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-183-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-183-1.png" width="100%" style="display: block; margin: auto;"></div>
 <pre><code>## $ccf
 ## 
-## Autocorrelations of series &#39;X&#39;, by lag
+## Autocorrelations of series 'X', by lag
 ## 
 ##    -19    -18    -17    -16    -15    -14    -13 
 ## -0.021 -0.029  0.012  0.065  0.024  0.008  0.076 
@@ -685,14 +482,14 @@ y_t &amp;= 15 + 0.8 x_{t-3} + 1.5 x_{t-4} + \eta_t \\
 ## xy2_series[, 3:4]x2Lagged.xLag4  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 2.028 on 189 degrees of freedom
 ##   (12 observations deleted due to missingness)
 ## Multiple R-squared:  0.6735, Adjusted R-squared:   0.67 
 ## F-statistic: 194.9 on 2 and 189 DF,  p-value: &lt; 2.2e-16</code></pre>
 <pre><code>## 
-## Time series regression with &quot;ts&quot; data:
+## Time series regression with "ts" data:
 ## Start = 5, End = 196
 ## 
 ## Call:
@@ -713,7 +510,7 @@ y_t &amp;= 15 + 0.8 x_{t-3} + 1.5 x_{t-4} + \eta_t \\
 ## L(x2_series, 4)  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 2.028 on 189 degrees of freedom
 ## Multiple R-squared:  0.6735, Adjusted R-squared:   0.67 
@@ -726,16 +523,16 @@ y_t &amp;= 14.9005 + 1.0407 x_{t-3} + 1.5171 x_{t-4} + \epsilon_t \\
 \end{split}
 \]</span></p>
 <p>The original series can also be visualized with the fitted values (the values resulting from the model), to visually inspect how well the model represents the original series. The differences between the original and the fitted series are the <em>residuals</em>.</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-185-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-185-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>The diagnostic plots of the residuals show the presence of autocorrelation, and the Breusch-Godfrey test is highly significant (its value is far lower than the critical value <span class="math inline">\(\alpha = 0.05\)</span>)</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-186-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-186-1.png" width="100%" style="display: block; margin: auto;"></div>
 <pre><code>## 
 ##  Breusch-Godfrey test for serial correlation
 ##  of order up to 10
 ## 
 ## data:  Residuals
 ## LM test = 149.45, df = 10, p-value &lt; 2.2e-16</code></pre>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-186-2.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-186-2.png" width="100%" style="display: block; margin: auto;"></div>
 <p>In this case, it’s better to take into account the residuals’ autocorrelation by using a regression model capable to handle autocorrelated time series structures.</p>
 <p>In the previous chapter we said that ARIMA models are a special type of regression model, in which the dependent variable is the time series itself, and the independent variables are all lags of the time series. This model is capable to take into account the <em>autocorrelated</em> structure of time series.</p>
 <p>ARIMA is a modeling technique that can be applied to a single time series, but it can be extended to include additional, <strong>exogenous variables</strong>. The ARIMA model including exogenous regressors (i.e.: other time series besides the lagged dependent variable) is like a multiple regression models for time series. In particular, it can be considered a regression model capable to control for autocorrelation in residuals.</p>
@@ -764,8 +561,8 @@ y_t &amp;= 14.8532 + 0.9506 x_{t-3} + 1.5732 x_{t-4} + \eta_t \\
 \epsilon &amp;\sim N(0, 0.9482)
 \end{split}
 \]</span></p>
-<p>Diagnostic analysis of the residuals, shows that there is no concerning sign of autocorrelation in the residuals, which looks like white noise. Also the test for autocorrelated errors is not significant (the default test for autocorrelation when testing an ARIMA models with external regressors in the <em>forecast</em> package is the <strong>Ljung-Box test</strong>)<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>).</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-189-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Diagnostic analysis of the residuals, shows that there is no concerning sign of autocorrelation in the residuals, which looks like white noise. Also the test for autocorrelated errors is not significant (the default test for autocorrelation when testing an ARIMA models with external regressors in the <em>forecast</em> package is the <strong>Ljung-Box test</strong>)<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;There are many tests for detecting autocorrelation. Besides the already mentioned &lt;em&gt;Breusch-Godfrey test&lt;/em&gt; and &lt;em&gt;Ljung-Box test&lt;/em&gt;, other popular tests are the &lt;em&gt;Durbin Watson test&lt;/em&gt;, and the &lt;em&gt;Box–Pierce test&lt;/em&gt;. Each test has its own characteristics. For instance, the Durbin-Watson test is a popular way to test for autocorrelation, but it &lt;a href="https://www.jstor.org/stable/pdf/1909870.pdf?refreqid=excelsior%3A9526730d9debe4fa8f1a4d5fa601d523"&gt;shouldn’t be used with lagged dependent variables&lt;/a&gt;. In this case it can be used the Breusch-Godfrey test&lt;/p&gt;'><sup>3</sup></a>).</p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-189-1.png" width="100%" style="display: block; margin: auto;"></div>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -774,9 +571,9 @@ y_t &amp;= 14.8532 + 0.9506 x_{t-3} + 1.5732 x_{t-4} + \eta_t \\
 ## 
 ## Model df: 2.   Total lags used: 10</code></pre>
 <p>Also by visually inspect the original series along with the fitted series (the values resulting from the model), it can be seen that the model is better than the previous one.</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-190-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-190-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>We can also compare the fitted versus original values by using a scatterplot. A better model produces a thinner diagonal line.</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-191-1.png" width="100%" style="display: block; margin: auto;" />
+<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-191-1.png" width="100%" style="display: block; margin: auto;">
 The <em>auto.arima</em> function does not give the statistical significance of the coefficients (the approach adopted by the <em>forecast</em> library is different, based on the choice of the best model to do forecasting), but it is possible to get that by using the function <em>coeftest</em> in the library <em>lmtest</em>.</p>
 <pre><code>## 
 ## z test of coefficients:
@@ -795,10 +592,12 @@ The <em>auto.arima</em> function does not give the statistical significance of t
 ## x2Lagged.xLag4 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div id="count-regression-models" class="section level3 hasAnchor" number="9.2.4">
-<h3><span class="header-section-number">9.2.4</span> Count regression models<a href="regression.html#count-regression-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="count-regression-models" class="section level3" number="9.2.4">
+<h3>
+<span class="header-section-number">9.2.4</span> Count regression models<a class="anchor" aria-label="anchor" href="#count-regression-models"><i class="fas fa-link"></i></a>
+</h3>
 <p>The models described above are mostly used with <strong>continuous</strong> variables (expressed as <em>numeric</em> or <em>double</em> in the R data format). However, it is often the case that time series are composed of integer values, or <strong>count data</strong> (expressed as <em>integer</em>).</p>
 <p>Sometimes, the above mentioned methods work well also with this type of data (for instance, when the counts are large). Other times, time series model developed for count data can be a better choice (for instance, when the series include mostly small integer values).</p>
 <p>Two of the most common statistical models to deal with count data are based on the <a href="https://en.wikipedia.org/wiki/Poisson_distribution"><strong>Poisson</strong></a> and the <a href="https://en.wikipedia.org/wiki/Negative_binomial_distribution"><strong>Negative Binomial</strong></a> distributions. These probability distributions are the ones that are usually employed to model count data.</p>
@@ -809,15 +608,15 @@ The <em>auto.arima</em> function does not give the statistical significance of t
 <p>This time series is part of a dataset which was first considered by Harvey and Durbin (1986) for studying the effect of compulsory wearing of seatbelts introduced on 31 January 1983. The dataset, including additional covariates, is available in R in the object Seatbelts. In their paper Harvey and Durbin (1986) analyze the numbers of casualties for drivers and passengers of cars, which are <strong>so large</strong> that they can be treated with <strong>methods for continuous-valued data</strong>. The monthly number of killed drivers of vans analyzed here is <strong>much smaller</strong> (its <em>minimum is 2 and its maximum 17</em>) and <strong>therefore methods for count data are to be preferred</strong>.</p>
 </blockquote>
 <p>We are going to fit a model aimed at capturing a first order autoregressive <em>AR(1)</em> term and a yearly <em>seasonality</em> by a 12th order autoregressive term.</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-195-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-195-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>The function <em>tsglm</em> allows users to declare the autoregressive and seasonal autoregressive terms in a convenient way (in the following part of the function: <em>model = list(past_obs = c(1, 12))</em>).</p>
 <p>It is possible to check the residuals with the usual plots.</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-197-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-197-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>The function <em>summary</em> can be used to get the parameter estimates for the model (in this case the function can also employ a parametric bootstrap procedure (<em>B</em>) to obtain standard errors and confidence intervals of the regression parameters. The authors use <em>B=500</em> in the original paper, since in their experience this value yields stable results. Higher B values can be more precise but require time to be calculated).</p>
 <pre><code>## 
 ## Call:
 ## tsglm(ts = timeseries_until1981, model = list(past_obs = c(1, 
-##     12)), xreg = regressors_until1981, link = &quot;log&quot;, distr = &quot;poisson&quot;)
+##     12)), xreg = regressors_until1981, link = "log", distr = "poisson")
 ## 
 ## Coefficients:
 ##              Estimate  Std.Error  CI(lower)
@@ -848,9 +647,9 @@ log(\lambda_t) = 1.83 + 0.09Y_{t-1} + 0.15Y_{t-12} + 0.83X_t - 0.003t
 \]</span>
 In the above equation notice that, the Poisson regression, models the logarithm of the <em>Y</em> values at times <em>t</em> (expressed as <span class="math inline">\(log(\lambda_t)\)</span>).</p>
 <p>Another example (using the dataset you can download <a href="https://drive.google.com/file/d/1eIOERBLCUCaap3WCoM5QT6I0iTW-Hqwa/view?usp=sharing">here</a>):</p>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-200-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-200-1.png" width="100%" style="display: block; margin: auto;"></div>
 <pre><code>## 
-## Autocorrelations of series &#39;X&#39;, by lag
+## Autocorrelations of series 'X', by lag
 ## 
 ## -1.2500 -1.1667 -1.0833 -1.0000 -0.9167 -0.8333 
 ##  -0.127   0.064  -0.013   0.008   0.033   0.022 
@@ -864,18 +663,18 @@ In the above equation notice that, the Poisson regression, models the logarithm 
 ##  -0.008  -0.045  -0.221  -0.068  -0.039   0.112 
 ##  1.2500 
 ##   0.177</code></pre>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-203-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-203-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Besides checking the residuals, it is possible to plot the <strong>PIT histogram</strong>, provided by the function <strong>pit</strong> in <em>tscount</em>:</p>
 <blockquote>
 <p>A PIT histogram is a tool for evaluating the statistical consistency between the probabilistic forecast and the observation. The predictive distributions of the observations are compared with the actual observations. If the predictive distribution is ideal the result should be a flat PIT histogram with no bin having an extraordinary high or low level. For more information about PIT histograms see the references listed below.</p>
 </blockquote>
-<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-204-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-204-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>In the library are included other diagnostic tools and metrics that can help choosing between poisson and negative binomial models (see the <a href="https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf">paper</a> for further information).</p>
 <p>The function <em>summary</em> prints the coefficients of the model and their confidence interval.</p>
 <pre><code>## 
 ## Call:
-## tsglm(ts = qanon, model = list(past_obs = 1), xreg = reg, link = &quot;log&quot;, 
-##     distr = &quot;poisson&quot;)
+## tsglm(ts = qanon, model = list(past_obs = 1), xreg = reg, link = "log", 
+##     distr = "poisson")
 ## 
 ## Coefficients:
 ##                 Estimate  Std.Error  CI(lower)
@@ -902,8 +701,10 @@ In the above equation notice that, the Poisson regression, models the logarithm 
 ## QIC: 489.3163</code></pre>
 </div>
 </div>
-<div id="model-selection-aic-aicc-bic" class="section level2 hasAnchor" number="9.3">
-<h2><span class="header-section-number">9.3</span> Model Selection (AIC, AICc, BIC)<a href="regression.html#model-selection-aic-aicc-bic" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="model-selection-aic-aicc-bic" class="section level2" number="9.3">
+<h2>
+<span class="header-section-number">9.3</span> Model Selection (AIC, AICc, BIC)<a class="anchor" aria-label="anchor" href="#model-selection-aic-aicc-bic"><i class="fas fa-link"></i></a>
+</h2>
 <p>Statistical modeling is, usually, a recursive process that requires to fit several different models and, eventually, to select the most appropriate one. For instance, the Box and Jenkins approach employed to find an appropriate ARIMA model for a time series (see the previous chapter), requires the fitting of multiple models to find the most suitable one based on the data. Similarly, the “auto.arima” function in the library <em>forecast</em>, that automatizes the search for an appropriate ARIMA model, conducts a search over possible model.</p>
 <p>To compare the models and select the most appropriate one, it is necessary to use some criteria. In the example above we have employed the AIC criterion. Other similar criteria are the AICc, and the BIC. They all can be used to find the most appropriate model, by comparing the <em>goodness-of-fit</em> of different models fitted to the same dataset. For instance, the documentation of the “auto.arima” function says that the function <em>“returns best ARIMA model according to either AIC, AICc or BIC value”</em>.</p>
 <p>The <strong>AIC</strong> criterion is the acronym for <a href="https://en.wikipedia.org/wiki/Akaike_information_criterion"><em>Akaike information criterion)</em></a>. The lower the AIC value, the better the fit (see also the next paragraph).</p>
@@ -1019,103 +820,75 @@ In the above equation notice that, the Poisson regression, models the logarithm 
 ## AIC=99.34   AICc=99.66   BIC=102.72</code></pre>
 <p>Besides these criteria, there are also other strategies for <a href="https://en.wikipedia.org/wiki/Model_selection">model selection</a>.</p>
 </div>
-<div id="some-examples-in-the-literature" class="section level2 hasAnchor" number="9.4">
-<h2><span class="header-section-number">9.4</span> Some examples in the literature<a href="regression.html#some-examples-in-the-literature" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="some-examples-in-the-literature" class="section level2" number="9.4">
+<h2>
+<span class="header-section-number">9.4</span> Some examples in the literature<a class="anchor" aria-label="anchor" href="#some-examples-in-the-literature"><i class="fas fa-link"></i></a>
+</h2>
 <p>There are several examples of the use of time series regression models in the literature in the field of communication science.</p>
-<p>For instance, in <a href="https://ijoc.org/index.php/ijoc/article/viewFile/14843/3344">The Event-Centered Nature of Global Public Spheres: The UN Climate Change Conferences, Fridays for Future, and the (Limited) Transnationalization of Media Debates</a><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, the authors <em>examined whether the UN climate change conferences are conducive to an emergence of a transnational public sphere by triggering issue convergence and increased transnational interconnectedness across national media debates</em>. They authors detail the method they follows in this way:</p>
+<p>For instance, in <a href="https://ijoc.org/index.php/ijoc/article/viewFile/14843/3344">The Event-Centered Nature of Global Public Spheres: The UN Climate Change Conferences, Fridays for Future, and the (Limited) Transnationalization of Media Debates</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Wozniak, A., Wessler, H., Chan, C. H., &amp;amp; Lück, J. (2021). The Event-Centered Nature of Global Public Spheres: The UN Climate Change Conferences, Fridays for Future, and the (Limited) Transnationalization of Media Debates. &lt;em&gt;International Journal of Communication&lt;/em&gt;, 15(27)&lt;/p&gt;"><sup>4</sup></a>, the authors <em>examined whether the UN climate change conferences are conducive to an emergence of a transnational public sphere by triggering issue convergence and increased transnational interconnectedness across national media debates</em>. They authors detail the method they follows in this way:</p>
 <blockquote>
 <p>[…] Given the autoregressive nature and other properties of time series, an ordinary least squares regression analysis would violate the normality of error and the independence of observations assumption (Wells et al., 2019). Instead, <strong>we applied the dynamic regression approach</strong> (Gujarati &amp; Porter, 2009; Hyndman &amp; Athanasopoulos, 2018), which assumes that the <strong>error term follows an autoregressive integrated moving average (ARIMA) model</strong> (…). we found the best ARIMA structure of the error term by using the <em>auto.arima function from the forecast R package</em> (Hyndman &amp; Khandakar, 2008). It searches for an ARIMA structure that can explain the most variance according to the <em>Akaike information criterion</em> (Akaike, 1973).</p>
 </blockquote>
 <p>In this case they use the term “dynamic regression” to refer to a time series regression with ARIMA errors, but they did not include lagged values of their variables, thus analyzing contemporary relationships between variables.</p>
 <p>The found, for instance, that <em>events taking place on a supranational level of governance (…) consistently led to spikes in media attention across countries. In contrast, a bottom-up effort such as Fridays for Future showed an inconsistent relationship with media attention across the four countries.</em></p>
-<p><img src="images/Event-Centered%20Nature%20of%20Global%20Public%20Spheres.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>In <a href="https://ijoc.org/index.php/ijoc/article/viewFile/11666/2819">Online incivility, cyberbalkanization, and the dynamics of opinion polarization during and after a mass protest event</a><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, the authors used both standard regression and regression with ARIMA errors to show that <em>“online incivility — operationalized as the use of foul language — grew as volume of political discussions and levels of cyberbalkanization increased. Incivility led to higher levels of opinion polarization.”</em>. Also in this case the authors analyze a “static process”, that is, focus on contemporary relationships between variables.</p>
-<p><img src="images/Online-Incivility.png" width="100%" style="display: block; margin: auto;" /></p>
-<p>In <a href="https://journals.sagepub.com/doi/abs/10.1177/1077699013493792">Beyond cognitions: A longitudinal study of online search salience and media coverage of the president</a><a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>, the authors used regression models with ARIMA errors to examine <em>shifts in newswire coverage and search interest among Internet users in President Obama during the first two years of his administration (2009-2010)</em>.</p>
-<p><img src="images/Beyond-Cognitions.png" width="100%" style="display: block; margin: auto;" /></p>
+<div class="inline-figure"><img src="images/Event-Centered%20Nature%20of%20Global%20Public%20Spheres.png" width="100%" style="display: block; margin: auto;"></div>
+<p>In <a href="https://ijoc.org/index.php/ijoc/article/viewFile/11666/2819">Online incivility, cyberbalkanization, and the dynamics of opinion polarization during and after a mass protest event</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Lee, F. L., Liang, H., &amp;amp; Tang, G. K. (2019). Online incivility, cyberbalkanization, and the dynamics of opinion polarization during and after a mass protest event. International Journal of Communication, 13, 20.&lt;/p&gt;"><sup>5</sup></a>, the authors used both standard regression and regression with ARIMA errors to show that <em>“online incivility — operationalized as the use of foul language — grew as volume of political discussions and levels of cyberbalkanization increased. Incivility led to higher levels of opinion polarization.”</em>. Also in this case the authors analyze a “static process”, that is, focus on contemporary relationships between variables.</p>
+<div class="inline-figure"><img src="images/Online-Incivility.png" width="100%" style="display: block; margin: auto;"></div>
+<p>In <a href="https://journals.sagepub.com/doi/abs/10.1177/1077699013493792">Beyond cognitions: A longitudinal study of online search salience and media coverage of the president</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Ragas, M. W., &amp;amp; Tran, H. (2013). Beyond cognitions: A longitudinal study of online search salience and media coverage of the president. Journalism &amp;amp; Mass Communication Quarterly, 90(3), 478-499.&lt;/p&gt;"><sup>6</sup></a>, the authors used regression models with ARIMA errors to examine <em>shifts in newswire coverage and search interest among Internet users in President Obama during the first two years of his administration (2009-2010)</em>.</p>
+<div class="inline-figure"><img src="images/Beyond-Cognitions.png" width="100%" style="display: block; margin: auto;"></div>
 <p>In this case, the authors analyze relationships between variables taking into account lagged values, thus adopting a “dynamic process” perspective. For instance, they write:</p>
 <blockquote>
 <p>RQ2 sought to determine the time span of linkages between coverage volume and search volume. (…) <strong>ARIMA</strong> models were run to gauge the <em>dynamics</em> of mutual influence between these two time series. The first model examined the effect of coverage volume on search volume over time (i.e., basic agenda setting) (…) presidential public relations, was included as an additional input series. The first model, with search volume being a single dependent variable, was <strong>identified</strong> through a <strong>close examination of autocorrelation functions (ACFs) and partial autocorrelation functions (PACFs)</strong>. This analysis revealed a classic <strong>autoregressive model for the series (1, 0, 0)</strong>. […] According to the results, <em>shifts in aggregate search volume over this two-year period were significantly</em> <strong>predicted by coverage volume over the prior five weeks</strong> (p &lt; .010)* and by presidential public relations efforts in the preceding two, three (p &lt; .001), and five weeks (p &lt; .005). The ARIMA model with two predictors was correctly specified (<strong>Ljung–Box Q</strong> = 18.132, p = .381) and it explained roughly 35% of the observed variation in the series.</p>
 </blockquote>
-<p>In <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4126885/">AIDS in black and white: The influence of newspaper coverage of HIV/AIDS on HIV/AIDS testing among African Americans and White Americans, 1993–2007</a><a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>, the authors <em>examined the effect of newspaper coverage of HIV/AIDS on HIV testing behavior in a U.S. population.</em>, using a <em>lagged regression</em> to support <em>causal order claims by ensuring that newspaper coverage precedes the testing behavior with the inclusion of the 1-month lagged newspaper coverage variable in the model</em>. Counterintuitively, they found that the news media coverage had a negative effect on testing behavior: <em>For every additional 100 HIV/AIDS risk related newspaper stories published in this group of U.S. newspapers each month, there was a 1.7% decline in HIV testing levels in the following month</em>, with a higher negative effects on African Americans.</p>
-<p><img src="images/AIDS%20in%20Black%20and%20White.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>In <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4126885/">AIDS in black and white: The influence of newspaper coverage of HIV/AIDS on HIV/AIDS testing among African Americans and White Americans, 1993–2007</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;Stevens, R., &amp;amp; Hornik, R. C. (2014). AIDS in black and white: The influence of newspaper coverage of HIV/AIDS on HIV/AIDS testing among African Americans and White Americans, 1993–2007. Journal of health communication, 19(8), 893-906&lt;/p&gt;"><sup>7</sup></a>, the authors <em>examined the effect of newspaper coverage of HIV/AIDS on HIV testing behavior in a U.S. population.</em>, using a <em>lagged regression</em> to support <em>causal order claims by ensuring that newspaper coverage precedes the testing behavior with the inclusion of the 1-month lagged newspaper coverage variable in the model</em>. Counterintuitively, they found that the news media coverage had a negative effect on testing behavior: <em>For every additional 100 HIV/AIDS risk related newspaper stories published in this group of U.S. newspapers each month, there was a 1.7% decline in HIV testing levels in the following month</em>, with a higher negative effects on African Americans.</p>
+<div class="inline-figure"><img src="images/AIDS%20in%20Black%20and%20White.png" width="100%" style="display: block; margin: auto;"></div>
 
 </div>
 </div>
-<div class="footnotes">
-<hr />
-<ol start="1">
-<li id="fn1"><p>1) Linearity: The relationship between X and Y must be linear; 2) Independence of errors: There is not a relationship between the residuals and the Y variable; 3) Normality of errors: The residuals must be approximately normally distributed; 4) Equal variances: The variance of the residuals is the same for all values of X<a href="regression.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Reference of this part is Zivot E., Wang J. (2003), Unit Root Tests, in <em>Modeling Financial Time Series with S-Plus®</em>. Springer, New York<a href="regression.html#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>There are many tests for detecting autocorrelation. Besides the already mentioned <em>Breusch-Godfrey test</em> and <em>Ljung-Box test</em>, other popular tests are the <em>Durbin Watson test</em>, and the <em>Box–Pierce test</em>. Each test has its own characteristics. For instance, the Durbin-Watson test is a popular way to test for autocorrelation, but it <a href="https://www.jstor.org/stable/pdf/1909870.pdf?refreqid=excelsior%3A9526730d9debe4fa8f1a4d5fa601d523">shouldn’t be used with lagged dependent variables</a>. In this case it can be used the Breusch-Godfrey test<a href="regression.html#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>Wozniak, A., Wessler, H., Chan, C. H., &amp; Lück, J. (2021). The Event-Centered Nature of Global Public Spheres: The UN Climate Change Conferences, Fridays for Future, and the (Limited) Transnationalization of Media Debates. <em>International Journal of Communication</em>, 15(27)<a href="regression.html#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p>Lee, F. L., Liang, H., &amp; Tang, G. K. (2019). Online incivility, cyberbalkanization, and the dynamics of opinion polarization during and after a mass protest event. International Journal of Communication, 13, 20.<a href="regression.html#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>Ragas, M. W., &amp; Tran, H. (2013). Beyond cognitions: A longitudinal study of online search salience and media coverage of the president. Journalism &amp; Mass Communication Quarterly, 90(3), 478-499.<a href="regression.html#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p>Stevens, R., &amp; Hornik, R. C. (2014). AIDS in black and white: The influence of newspaper coverage of HIV/AIDS on HIV/AIDS testing among African Americans and White Americans, 1993–2007. Journal of health communication, 19(8), 893-906<a href="regression.html#fnref7" class="footnote-back">↩︎</a></p></li>
-</ol>
-</div>
-            </section>
 
-          </div>
-        </div>
-      </div>
-<a href="correlations-and-arima.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="intervention-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+  <div class="chapter-nav">
+<div class="prev"><a href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></div>
+<div class="next"><a href="intervention-analysis.html"><span class="header-section-number">10</span> Intervention Analysis</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#regression"><span class="header-section-number">9</span> Regression</a></li>
+<li><a class="nav-link" href="#static-and-dynamic-models"><span class="header-section-number">9.1</span> Static and Dynamic Models</a></li>
+<li>
+<a class="nav-link" href="#regression-models"><span class="header-section-number">9.2</span> Regression models</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#stationarity"><span class="header-section-number">9.2.1</span> Stationarity</a></li>
+<li><a class="nav-link" href="#non-autocorrelated-residuals"><span class="header-section-number">9.2.2</span> Non-autocorrelated residuals</a></li>
+<li><a class="nav-link" href="#regression-with-arma-errors"><span class="header-section-number">9.2.3</span> Regression with ARMA errors</a></li>
+<li><a class="nav-link" href="#count-regression-models"><span class="header-section-number">9.2.4</span> Count regression models</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#model-selection-aic-aicc-bic"><span class="header-section-number">9.3</span> Model Selection (AIC, AICc, BIC)</a></li>
+<li><a class="nav-link" href="#some-examples-in-the-literature"><span class="header-section-number">9.4</span> Some examples in the literature</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-14.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -1127,7 +900,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>
