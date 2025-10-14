@@ -16,6 +16,7 @@ The **Trend** component is the longest-term behavior of a time series. The simpl
 ```{r}
 library(xts)
 data("AirPassengers")
+
 AirPassengers_xts <- as.xts(AirPassengers)
 plot.xts(AirPassengers_xts)
 ```  
@@ -121,6 +122,7 @@ The centered moving average is an example of a **smoothing** procedure that is a
 Smoothing procedures like moving average, allows the main underlying trend to emerge by filtering out seasonality and noise, so they are used to get an idea of the long-term underlying process of a time series.
 
 ```{r}
+library(readr)
 elections_news <- read_csv("data/elections-stories-over-time-20210111144254.csv", 
                            col_types = cols(date = col_date(format = "%Y-%m-%d")))
 
@@ -194,6 +196,8 @@ Exploratory methods, such as representing the variability in the data through [b
 ```{r}
 # Run the code to "create" the function 
 ts.year.boxplot <- function(ts) {
+  require(ggplot2)
+  require(dplyr)
   
   ts %>%
     fortify() %>%
@@ -355,6 +359,9 @@ plot.ts(AirPass,
 Below you can find another example with data from social media (you can download them here [art1](https://drive.google.com/file/d/16NyBB1YOICSQ8lmZpcq62ahkJff9Tx6E/view?usp=sharing), and [art2](https://drive.google.com/file/d/1UWodHEAAphThP-jkALA5u1qEbTBPqHiE/view?usp=sharing)), consisting in posts published by pages of news media.
 
 ```{r message=FALSE, warning=FALSE}
+library(readr)
+library(tidyr)
+
 art1 <- read_csv("data/art1.csv")
 art2 <- read_csv("data/art2.csv")
 

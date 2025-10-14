@@ -1,19 +1,3 @@
-# Getting started with R
-
-## RStudio Interface and Data
-
-### Download and Install RStudio
-
-This course is based on the statistical software R. R is easier to use in the development environment RStudio (it works on both Windows, Apple, and other OS).
-
-It is possible to [download a free version of RStudio Desktop](https://rstudio.com/products/rstudio/download/) from the official websites.
-
-You might also use a free *online* version of RStudio by registering to the [RStudio Cloud free plan](https://rstudio.cloud). However, the free plan gives you just 15 hours per months. Our lessons take 4.5 hours per month, and since you also need to practice, the best choice is to install RStudio and R on your computer.
-
-Now we are going to see how to get started with RStudio Desktop.
-
-First, [download and install a free version of RStudio Desktop](https://rstudio.com/products/rstudio/download/) and open the software.
-
 # Getting started with R 
 
 ## RStudio Interface and Data 
@@ -39,7 +23,7 @@ To create a new project with RStudio, follow these steps:
 
 This will create a new folder for the project in the main folder specified in the previous step. In this folder, you will find a file **.Rproj**, which has the same name as the project you assigned. To work on this project, you just need to open the *.Rproj* file.
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.height=3, fig.width=5}
 knitr::include_graphics("images/r-studio-project-creation.png")
 ```
 
@@ -51,7 +35,7 @@ A script is a file containing code. We can create a first script named *basic-r-
 
 You can open, change, and save the file every time you work on it. Saving your code is important; otherwise, you would have to write the same code every time you work on the project!
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.height=3, fig.width=5}
 knitr::include_graphics("images/create-script.png")
 ```
 
@@ -63,10 +47,10 @@ knitr::include_graphics("images/create-script.png")
 
 The interface of RStudio is organized in four main quadrants:
 
-    - The top-left quadrant is the editor. Here you can create or open a script and compose the R commands.
-    - The top-right quadrant shows the R workspace, which holds the data and other objects you have created in the current R session. There is also the *Files* tab, where you can navigate files and folders and find, for instance, the data sets you want to upload.
-    - On the bottom left is the R Console window, where the code gets executed and the output is produced. You can run the commands, sending the code from the editor to the console, by highlighting it and hitting the *Run* button, or the Ctrl-Enter key combination. It is also possible to type and run commands directly into the console window (in this case, nothing will be saved).
-    - The bottom-right quadrant is a window for graphics output. Here you can visualize your plots. There are also tabs for R packages and the R Help facility.
+-    The top-left quadrant is the editor. Here you can create or open a script and compose the R commands.
+-   The top-right quadrant shows the R workspace, which holds the data and other objects you have created in the current R session. There is also the *Files* tab, where you can navigate files and folders and find, for instance, the data sets you want to upload.
+-   On the bottom left is the R Console window, where the code gets executed and the output is produced. You can run the commands, sending the code from the editor to the console, by highlighting it and hitting the *Run* button, or the Ctrl-Enter key combination. It is also possible to type and run commands directly into the console window (in this case, nothing will be saved).
+-   The bottom-right quadrant is a window for graphics output. Here you can visualize your plots. There are also tabs for R packages and the R Help facility.
 
 
 ```{r echo=FALSE}
