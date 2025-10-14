@@ -33,15 +33,19 @@ Each $\beta$ coefficient models the *instant change* in the conditional expected
 *   A **dynamic regression model** includes relations between *both the current and the lagged (past) values of the explanatory (independent) variables*, that is, the expected value of the response variable may change *after* a change in the values of the explanatory variables. 
 
 $$
-\begin{aligned}
+\begin{equation}
+\begin{split}
 y_t &= \beta_0 
      + \beta_{10} x_{1,t} + \beta_{11} x_{1,t-1} + \dots + \beta_{1m} x_{1,t-m} \\
     &\quad + \beta_{20} x_{2,t} + \beta_{21} x_{2,t-1} + \dots + \beta_{2m} x_{2,t-m} \\
-    &\quad \dots \\
+    &\quad + \dots \\
     &\quad + \beta_{k0} x_{k,t} + \beta_{k1} x_{k,t-1} + \dots + \beta_{km} x_{k,t-m} \\
     &\quad + \epsilon_t
-\end{aligned}
+\end{split}
+\end{equation}
 $$
+
+
 
 
 Despite the differences between these two analytic perspectives, the term *dynamic regression* is also used, in the literature, in a more general way to refer to regression models with autocorrelated errors (also when they are used to analyze only contemporary relations between variables).
@@ -166,12 +170,15 @@ Specific statistical tests have been developed to distinguish between the two ty
 Considering a simple model like the following, where $Td$ is a deterministic linear trend and $z_t$ is an autoregressive process of order 1 *AR(1)*. The difference between a process with stochastic and deterministic trend can be traced back to the parameter $|\phi|$: When $|\phi| = 1$, then $z_t$ is a *stochastic trend* and $y_t$ is an integrated process *I(1)* with *drift* (the so-called "drift" refers to the presence of a constant term, in this case $\kappa$). When $\phi < 1$, the process is not integrated (*I(0)*) and $y_t$ exhibits a *deterministic trend*^[Reference of this part is Zivot E., Wang J. (2003), Unit Root Tests, in *Modeling Financial Time Series with S-Plus®*. Springer, New York]: 
 
 $$
-\begin{aligned} 
-& y_t = Td_t + z_t \\
-& Td_t = \kappa + \delta_t \\
-& z_t = \phi z_{t-1} + \epsilon_t, \ \epsilon_t \sim N(0, \sigma^2)
-\end{aligned} 
+\begin{equation}
+\begin{split}
+y_t &= Td_t + z_t \\
+Td_t &= \kappa + \delta_t \\
+z_t &= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
+\end{split}
+\end{equation}
 $$
+
 Let's simulate and visualize the above equation ($y_t = \kappa + \delta_t + \phi z_{t-1} + \epsilon_t$):
 
 ```{r}
@@ -201,22 +208,27 @@ plot.ts(ts_y, plot.type = "single",
 **Stationarity tests** take the null hypothesis that $y_t$ is trend stationary, and are based on testing for a moving average element in $\Delta z_t$ ($\Delta$ represents the operation of differencing).
 
 $$
-\begin{aligned} 
-& Original \\
-& y_t = Td_t + z_t  \\
-& \ Td_t = \kappa + \delta_t \\
-& z_t = \phi z_{t-1} + \epsilon_t, \ \epsilon_t \sim N(0, \sigma^2) 
-\end{aligned} 
+\begin{equation}
+\begin{split}
+\text{Original} \\
+y_t &= Td_t + z_t \\
+Td_t &= \kappa + \delta_t \\
+z_t &= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
+\end{split}
+\end{equation}
 $$
-$$
-\begin{aligned} 
-& First \ difference \\
-& \Delta y_t = \Delta Td_t + \Delta z_t \\
-& \Delta Td_t = \Delta \kappa + \Delta \delta_t = \delta \\
-& \Delta z_t = \phi \Delta z_{t-1} + \Delta \epsilon_t = \phi \Delta z_{t-1} + \epsilon_t - \epsilon_{t-1}
 
-\end{aligned} 
 $$
+\begin{equation}
+\begin{split}
+\text{First difference} \\
+\Delta y_t &= \Delta Td_t + \Delta z_t \\
+\Delta Td_t &= \Delta \kappa + \Delta \delta_t = \delta \\
+\Delta z_t &= \phi \Delta z_{t-1} + \Delta \epsilon_t = \phi \Delta z_{t-1} + \epsilon_t - \epsilon_{t-1}
+\end{split}
+\end{equation}
+$$
+
 
 $\Delta z_t$ can be also written as:
 
@@ -413,12 +425,15 @@ prew
 Considering the autocorrelated structure of the series, the true model can be written as follows:
 
 $$
-\begin{aligned} 
-& y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \eta_t \\
-& \eta_t = 0.7\eta_{t-1} + \epsilon_t + 0.6\epsilon_{t-1} \\
-& \epsilon \sim N(0, 1)
-\end{aligned} 
+\begin{equation}
+\begin{split}
+y_t &= 15 + 0.8 x_{t-3} + 1.5 x_{t-4} + \eta_t \\
+\eta_t &= 0.7 \eta_{t-1} + \epsilon_t + 0.6 \epsilon_{t-1} \\
+\epsilon &\sim N(0, 1)
+\end{split}
+\end{equation}
 $$
+
 It is possible to calculate the regression using the *lm* function, calculating the lagged variables by hand, or to use the *dynml* library and function.
 
 ```{r}
@@ -441,11 +456,14 @@ summary(dynlm.fit2)
 The estimated model is the following:
 
 $$
-\begin{aligned} 
-& y_t = 14.9005 + 1.0407x_{t-3} + 1.5171x_{t-4} + \epsilon_t \\
-& \epsilon \sim N(0, 2.028^2)
-\end{aligned}
+\begin{equation}
+\begin{split}
+y_t &= 14.9005 + 1.0407 x_{t-3} + 1.5171 x_{t-4} + \epsilon_t \\
+\epsilon &\sim N(0, 2.028^2)
+\end{split}
+\end{equation}
 $$
+
 The original series can also be visualized with the fitted values (the values resulting from the model), to visually inspect how well the model represents the original series. The differences between the original and the fitted series are the *residuals*.
 
 ```{r}
@@ -487,12 +505,15 @@ AIC(lm2)
 In this case, the ARIMA regression model results a far better model (*AIC=543.52*) compared with the classic linear model (*AIC=821.45*). 
 
 $$
-\begin{aligned} 
-& y_t = 14.8532 + 0.9506x_{t-3} + 1.5732x_{t-4} + \eta_t \\
-& \eta_t = 0.6863\eta_{t-1} + \epsilon_t + 0.6491\epsilon_{t-1} \\
-& \epsilon \sim N(0, 0.9482)
-\end{aligned} 
+\begin{equation}
+\begin{split}
+y_t &= 14.8532 + 0.9506 x_{t-3} + 1.5732 x_{t-4} + \eta_t \\
+\eta_t &= 0.6863 \eta_{t-1} + \epsilon_t + 0.6491 \epsilon_{t-1} \\
+\epsilon &\sim N(0, 0.9482)
+\end{split}
+\end{equation}
 $$
+
 Diagnostic analysis of the residuals, shows that there is no concerning sign of autocorrelation in the residuals, which looks like white noise. Also the test for autocorrelated errors is not significant (the default test for autocorrelation when testing an ARIMA models with external regressors in the *forecast* package is the **Ljung-Box test**)^[There are many tests for detecting autocorrelation. Besides the already mentioned *Breusch-Godfrey test* and *Ljung-Box test*, other popular tests are the *Durbin Watson test*, and the *Box–Pierce test*. Each test has its own characteristics. For instance, the Durbin-Watson test is a popular way to test for autocorrelation, but it [shouldn't be used with lagged dependent variables](https://www.jstor.org/stable/pdf/1909870.pdf?refreqid=excelsior%3A9526730d9debe4fa8f1a4d5fa601d523). In this case it can be used the Breusch-Godfrey test]).
 
 ```{r}
