@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>2 Getting started with R | Time Series Analysis With R</title>
+<meta name="author" content="Nicola Righetti">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="2 Getting started with R | Time Series Analysis With R">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2 Getting started with R | Time Series Analysis With R">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="2.1 RStudio Interface and Data  2.1.1 Download and Install RStudio This course is based on the statistical software R. R is easier to use within RStudio, which works on Windows, macOS, and other...">
+<meta property="og:description" content="2.1 RStudio Interface and Data  2.1.1 Download and Install RStudio This course is based on the statistical software R. R is easier to use within RStudio, which works on Windows, macOS, and other...">
+<meta name="twitter:description" content="2.1 RStudio Interface and Data  2.1.1 Download and Install RStudio This course is based on the statistical software R. R is easier to use within RStudio, which works on Windows, macOS, and other...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Time Series Analysis With R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Time Series Analysis With R</a></li>
+<li><a class="active" href="getting-started-with-r.html"><span class="header-section-number">2</span> Getting started with R</a></li>
+<li><a class="" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">3</span> Basic Data Wrangling with Tidyverse</a></li>
+<li><a class="" href="basic-concepts.html"><span class="header-section-number">4</span> Basic Concepts</a></li>
+<li><a class="" href="time-series-objects.html"><span class="header-section-number">5</span> Time Series Objects</a></li>
+<li><a class="" href="plot-time-series.html"><span class="header-section-number">6</span> Plot Time Series</a></li>
+<li><a class="" href="structural-decomposition.html"><span class="header-section-number">7</span> Structural Decomposition</a></li>
+<li><a class="" href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></li>
+<li><a class="" href="regression.html"><span class="header-section-number">9</span> Regression</a></li>
+<li><a class="" href="intervention-analysis.html"><span class="header-section-number">10</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">11</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="" href="var.html"><span class="header-section-number">12</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">13</span> Readings and Bibliographical References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="getting-started-with-r" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Getting started with R<a class="anchor" aria-label="anchor" href="#getting-started-with-r"><i class="fas fa-link"></i></a>
+</h1>
+<div id="rstudio-interface-and-data" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> RStudio Interface and Data<a class="anchor" aria-label="anchor" href="#rstudio-interface-and-data"><i class="fas fa-link"></i></a>
+</h2>
+<div id="download-and-install-rstudio" class="section level3" number="2.1.1">
+<h3>
+<span class="header-section-number">2.1.1</span> Download and Install RStudio<a class="anchor" aria-label="anchor" href="#download-and-install-rstudio"><i class="fas fa-link"></i></a>
+</h3>
+<p>This course is based on the statistical software R. R is easier to use within RStudio, which works on Windows, macOS, and other operating systems.</p>
+<p>It is possible to <a href="https://rstudio.com/products/rstudio/download/">download a free version of RStudio Desktop</a> from the official websites. You might also use a free <em>online</em> version of RStudio by registering to the <a href="https://rstudio.cloud">RStudio Cloud free plan</a>. However, the free plan gives you just 15 hours per months.</p>
+<p>Now let’s see how to get started with RStudio Desktop. First, <a href="https://rstudio.com/products/rstudio/download/">download and install a free version of RStudio Desktop</a> and open the software.</p>
+</div>
+<div id="create-a-rstudio-project-and-import-data" class="section level3" number="2.1.2">
+<h3>
+<span class="header-section-number">2.1.2</span> Create a RStudio Project and Import data<a class="anchor" aria-label="anchor" href="#create-a-rstudio-project-and-import-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>When starting a data analysis project with RStudio, we create a new dedicated environment where we will keep all the scripts (files containing the code to perform the analysis), data sets, and outputs of the analysis (such as plots and tables). This dedicated workspace is simply called a <em>project</em>.</p>
+<p>To create a new project with RStudio, follow these steps:</p>
+<ul>
+<li>click on <em>File</em> (on the top left);</li>
+<li>then, click on <em>New Project</em>;</li>
+<li>select <em>New Directory</em>, and <em>New Project</em>;</li>
+<li>Choose a folder for the project and give a name to your project. You can use the name <em>Time-Series-Analysis-With-R</em>.</li>
+</ul>
+<p>This will create a new folder for the project in the main folder specified in the previous step. In this folder, you will find a file <strong>.Rproj</strong>, which has the same name as the project you assigned. To work on this project, you just need to open the <em>.Rproj</em> file.</p>
+<div class="inline-figure"><img src="images/r-studio-project-creation.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="create-a-script" class="section level3" number="2.1.3">
+<h3>
+<span class="header-section-number">2.1.3</span> Create a Script<a class="anchor" aria-label="anchor" href="#create-a-script"><i class="fas fa-link"></i></a>
+</h3>
+<p>Once the project is created, you can open a new <strong>script</strong> and save it.</p>
+<p>A script is a file containing code. We can create a first script named <em>basic-r-syntax</em>, where you will test the basic code we are going to see. The script will be saved with extension <em>.r</em>.</p>
+<p>You can open, change, and save the file every time you work on it. Saving your code is important; otherwise, you would have to write the same code every time you work on the project!</p>
+<div class="inline-figure"><img src="images/create-script.png" width="100%" style="display: block; margin: auto;"></div>
+<p><a href="https://youtu.be/jF28dJS9xgQ">Click here to watch “Create and Save Scripts”</a></p>
+<p><a href="https://youtu.be/Mt3giRtUWZI">Click here to watch “Update Scripts and Run Code”</a></p>
+</div>
+<div id="the-rstudio-user-interface" class="section level3" number="2.1.4">
+<h3>
+<span class="header-section-number">2.1.4</span> The RStudio User Interface<a class="anchor" aria-label="anchor" href="#the-rstudio-user-interface"><i class="fas fa-link"></i></a>
+</h3>
+<p>The interface of RStudio is organized in four main quadrants:</p>
+<ul>
+<li>The top-left quadrant is the editor. Here you can create or open a script and compose the R commands.</li>
+<li>The top-right quadrant shows the R workspace, which holds the data and other objects you have created in the current R session. There is also the <em>Files</em> tab, where you can navigate files and folders and find, for instance, the data sets you want to upload.</li>
+<li>On the bottom left is the R Console window, where the code gets executed and the output is produced. You can run the commands, sending the code from the editor to the console, by highlighting it and hitting the <em>Run</em> button, or the Ctrl-Enter key combination. It is also possible to type and run commands directly into the console window (in this case, nothing will be saved).</li>
+<li>The bottom-right quadrant is a window for graphics output. Here you can visualize your plots. There are also tabs for R packages and the R Help facility.</li>
+</ul>
+<div class="inline-figure"><img src="images/r-environment.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="load-and-save-data" class="section level3" number="2.1.5">
+<h3>
+<span class="header-section-number">2.1.5</span> Load and Save Data<a class="anchor" aria-label="anchor" href="#load-and-save-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>To load data into R, you can click on the Files window in the top-right quadrant, navigate your files and folders, and once you have found your data set file, you can just click it and follow the semi-automated import procedure.</p>
+<div class="inline-figure"><img src="images/load-data.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="images/import-data-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p><a href="https://youtu.be/SRh3N6mSaLA">Click here to watch “Import Data”</a></p>
+<p>Otherwise, you can upload a data set by using a function. For instance, to import a <em>csv</em> file, one of the most common formats for data sets, you can use the function <strong>read.csv</strong>. The main argument of this function is the <em>path</em> of the file you want to upload. To specify the file path, consider that you are working within a specific environment; that is, your working directory is the folder of the project (you can double-check the <em>working directory</em> you are in by running the command <strong>getwd()</strong>). Thus, to indicate the path of the data set you want to upload, you can write a dot followed by a slash <strong>./</strong>, followed by the path of the data set <em>inside the working directory</em>. For instance, in the case below, the data set is saved in a folder named <em>data</em> inside the working directory. The name of the data set is <em>tweets_vienna</em> and its extension is .csv. Therefore, the code to upload the file is as follows:</p>
+<p>To save data, there are a few options. Generally, if you want to save a data set, you can opt for the .csv or the .rds format. The .rds format is only readable by R, while the .csv format is “universal” (you can read it with Excel, for instance).</p>
+<p>To save a file as .csv, you can use the function <strong>write.csv</strong>. The main arguments of this function are the name of the object that has to be saved, the path to the folder where the object will be saved, and the name you want to assign to the file.</p>
+<p>To save a .rds file, the procedure is similar, but the saveRDS function has to be employed. To read an .rds file, the appropriate function is <strong>readRDS</strong>.</p>
+<p>In the code above, you can notice a hash mark sign followed by some text. It is a <strong>comment</strong>. Comments are textual content used to describe the code in order to make it easier to understand and reuse. Comments are written after the <strong>hash mark sign (#)</strong> because the text written after the hash mark sign is ignored by R: you can read the comments, but R does not consider them as code.</p>
+</div>
+<div id="create-new-folders" class="section level3" number="2.1.6">
+<h3>
+<span class="header-section-number">2.1.6</span> Create new Folders<a class="anchor" aria-label="anchor" href="#create-new-folders"><i class="fas fa-link"></i></a>
+</h3>
+<p>It is good practice to create, in the main folder of the project, sub-folders dedicated to different <em>types</em> of files used in the project, such as a folder <em>data</em> for the data sets.</p>
+<p>To create a new folder, you can go to the <em>Files</em> window in the RStudio interface, click <strong>New Folder</strong>, and give it a name.</p>
+<div class="inline-figure"><img src="images/new-folder.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="basic-r" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Basic R<a class="anchor" aria-label="anchor" href="#basic-r"><i class="fas fa-link"></i></a>
+</h2>
+<div id="objects" class="section level3" number="2.2.1">
+<h3>
+<span class="header-section-number">2.2.1</span> Objects<a class="anchor" aria-label="anchor" href="#objects"><i class="fas fa-link"></i></a>
+</h3>
+<p>An <em>object</em> is an R entity composed of a name and a value.</p>
+<p>The <strong>arrow (&lt;-)</strong> sign is used to <em>create objects</em> and <em>assign a value</em> to an object (or to change or “update” its previous value).</p>
+<p>Example: create an object with the name <em>object_consisting_of_a_number</em> and value equal to 2:</p>
+<p>Enter the name of the object in the console and run the command: the value assigned to the object will be displayed.</p>
+<pre><code>## [1] 2</code></pre>
+<p>The object is equal to its value. Therefore, for instance, an object with a numerical value can be used to perform arithmetical operations.</p>
+<pre><code>## [1] 20</code></pre>
+<p>The value of an object can be transformed:</p>
+<pre><code>## [1] 20</code></pre>
+<p>An object can also represent a <strong>function</strong>.</p>
+<p>Example: create an object for the <em>sum</em> (addition) function:</p>
+<p>The function can now be applied to two numerical values:</p>
+<pre><code>## [1] 7</code></pre>
+<p>Actually, we don’t need this function, since mathematical functions are already implemented in R.</p>
+<pre><code>## [1] 7</code></pre>
+<pre><code>## [1] 12</code></pre>
+<pre><code>## [1] 6</code></pre>
+<pre><code>## [1] 9</code></pre>
+<pre><code>## [1] 3</code></pre>
+<p>The value of an object can be a number, a function, or a <strong>vector</strong>. Vectors are sequences of values.</p>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>A vector of numbers can be the argument of mathematical operations.</p>
+<pre><code>##  [1]  2  4  6  8 10 12 14 16 18 20</code></pre>
+<pre><code>##  [1]  4  5  6  7  8  9 10 11 12 13</code></pre>
+<p>Other R objects are <em>matrix</em>, <em>list</em>, and <em>data.frame.</em></p>
+<p>A <strong>matrix</strong> is a table composed of rows and columns containing only numerical values.</p>
+<pre><code>##       [,1] [,2] [,3] [,4] [,5]
+##  [1,]    1   11   21   31   41
+##  [2,]    2   12   22   32   42
+##  [3,]    3   13   23   33   43
+##  [4,]    4   14   24   34   44
+##  [5,]    5   15   25   35   45
+##  [6,]    6   16   26   36   46
+##  [7,]    7   17   27   37   47
+##  [8,]    8   18   28   38   48
+##  [9,]    9   19   29   39   49
+## [10,]   10   20   30   40   50</code></pre>
+<p>A <strong>list</strong> is just a list of other objects. For instance, this list includes a numerical value, a <em>vector</em> of numbers, and a matrix.</p>
+<pre><code>## [[1]]
+## [1] 20
+## 
+## [[2]]
+##  [1]  1  2  3  4  5  6  7  8  9 10
+## 
+## [[3]]
+##       [,1] [,2] [,3] [,4] [,5]
+##  [1,]    1   11   21   31   41
+##  [2,]    2   12   22   32   42
+##  [3,]    3   13   23   33   43
+##  [4,]    4   14   24   34   44
+##  [5,]    5   15   25   35   45
+##  [6,]    6   16   26   36   46
+##  [7,]    7   17   27   37   47
+##  [8,]    8   18   28   38   48
+##  [9,]    9   19   29   39   49
+## [10,]   10   20   30   40   50</code></pre>
+<p>A <strong>data.frame</strong> is like a matrix that can contain <em>numbers</em> but also other types of data, such as <em>characters</em> (a textual type of data) or <em>factors</em> (unordered categorical variables, such as gender, or ordered categories, such as low, medium, high).</p>
+<p>Data sets are usually stored in <em>data.frames</em>. For instance, if you import a <em>csv</em> or an <em>Excel</em> file in R, the corresponding R object is a <em>data.frame</em>.</p>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
+<pre><code>##  [1] "Monday"    "Tuesday"   "Monday"    "Tuesday"   "Monday"   
+##  [6] "Wednesday" "Thursday"  "Wednesday" "Thursday"  "Saturday" 
+## [11] "Sunday"    "Friday"    "Saturday"  "Sunday"</code></pre>
+<pre><code>##    first_variable second_variable
+## 1               1          Monday
+## 2               2         Tuesday
+## 3               3          Monday
+## 4               4         Tuesday
+## 5               5          Monday
+## 6               6       Wednesday
+## 7               7        Thursday
+## 8               8       Wednesday
+## 9               9        Thursday
+## 10             10        Saturday
+## 11             11          Sunday
+## 12             12          Friday
+## 13             13        Saturday
+## 14             14          Sunday</code></pre>
+<p>To access a specific column of a data.frame, you can use the name of the data.frame, the dollar symbol <strong>$</strong>, and the name of the column.</p>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
+<pre><code>##  [1] "Monday"    "Tuesday"   "Monday"    "Tuesday"   "Monday"   
+##  [6] "Wednesday" "Thursday"  "Wednesday" "Thursday"  "Saturday" 
+## [11] "Sunday"    "Friday"    "Saturday"  "Sunday"</code></pre>
+<p>It is possible to add columns to a data.frame by writing:</p>
+<ul>
+<li>the name of the data.frame</li>
+<li>the dollar sign</li>
+<li>a name for the new column</li>
+<li>the <em>arrow sign &lt;-</em>
+</li>
+<li>a vector of values to be stored in the new column (it has to have length equal to the other vectors composing the data.frame)</li>
+</ul>
+<pre><code>##    first_variable second_variable a_new_variable
+## 1               1          Monday             12
+## 2               2         Tuesday            261
+## 3               3          Monday             45
+## 4               4         Tuesday             29
+## 5               5          Monday             54
+## 6               6       Wednesday            234
+## 7               7        Thursday             45
+## 8               8       Wednesday             42
+## 9               9        Thursday              6
+## 10             10        Saturday            267
+## 11             11          Sunday             87
+## 12             12          Friday              3
+## 13             13        Saturday             12
+## 14             14          Sunday              9</code></pre>
+<p>It is possible to visualize the first few rows of a data.frame by using the function <em>head</em>.</p>
+<pre><code>##   first_variable second_variable a_new_variable
+## 1              1          Monday             12
+## 2              2         Tuesday            261
+## 3              3          Monday             45
+## 4              4         Tuesday             29
+## 5              5          Monday             54
+## 6              6       Wednesday            234</code></pre>
+<div class="inline-figure"><img src="images/data-frame-example.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="functions" class="section level3" number="2.2.2">
+<h3>
+<span class="header-section-number">2.2.2</span> Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
+</h3>
+<p>A <strong>function</strong> is a coded operation that applies to an object (e.g.: a number, a textual feature etc.) to transform it based on specific rules. A function has a name (the name of the function) and some <em>arguments</em>. Among the arguments of a function there is always an <em>object</em> or a value, for instance a numerical value, which is the content the function is applied to, and other possible arguments (either mandatory or optional).</p>
+<p>Functions are operations applied to objects that give a certain output. E.g.: the arithmetical operation “addition” is a function that applies to two or more numbers to give, as its output, their sum. The <em>arguments</em> of the “sum” function are the numbers that are added together.</p>
+<p>The name of the function is written out of <em>parentheses</em>, and the arguments of the function inside the parentheses:</p>
+<pre><code>## [1] 8</code></pre>
+<p>Arguments of functions can be numbers but also textual features. For instance, the function <em>paste</em> creates a string composed of the strings that it takes as arguments.</p>
+<pre><code>## [1] "the cat is at home"</code></pre>
+<p>In R you can sometimes find a “nested” syntax, which can be confusing. The best practice is to keep things as simple as possible.</p>
+<pre><code>## [1] "the cat is at home and sleeps on the sofa"</code></pre>
+<p>To sum up, functions manipulate and transform objects. Data wrangling, data visualization, as well as data analysis, are performed through functions.</p>
+</div>
+<div id="data-types" class="section level3" number="2.2.3">
+<h3>
+<span class="header-section-number">2.2.3</span> Data Types<a class="anchor" aria-label="anchor" href="#data-types"><i class="fas fa-link"></i></a>
+</h3>
+<p>Variables can have different R <em>formats</em>, such as:</p>
+<ul>
+<li>
+<strong>double</strong>: numbers that include decimals (0.1, 5.676, 121.67). This format is appropriate for <em>continuous variables</em>;</li>
+<li>
+<strong>integer</strong>: such as 1, 2, 3, 10, 400. It is a format suitable to <em>count data</em>;</li>
+<li>
+<strong>factors</strong>: for categorical variables. Factors can be ordered (e.g.: level of agreement: “high”, “medium”, “low”), or not (e.g.: hair colors “blond”, “dark brown”, “brown”);</li>
+<li>
+<strong>characters</strong>: textual labels;</li>
+<li>
+<strong>logicals</strong>: the format of logical values (i.e.: TRUE and FALSE)</li>
+<li>
+<strong>dates</strong>: used to represent days;</li>
+<li>
+<strong>POSIX</strong>: a class of R format to represent dates and times.</li>
+</ul>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-39"></span>
+<img src="images/r-data-format.png" alt="R data formats. Tables from Gaubatz, K. T. (2014). [A Survivor's Guide to R: An Introduction for the Uninitiated and the Unnerved](https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607). SAGE Publications." width="100%"><p class="caption">
+Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://us.sagepub.com/en-us/nam/a-survivors-guide-to-r/book242607">A Survivor’s Guide to R: An Introduction for the Uninitiated and the Unnerved</a>. SAGE Publications.
+</p>
+</div>
+<p>It is better to specify the appropriate type of data when importing a data set. In the example below, the data format are specified by using the import process of RStudio.</p>
+<p>Notice that the data of type “date” requires users to specify the additional information regarding the format of the dates. Indeed, dates can be written in many different ways, and to read dates in R it is necessary to specify the structure of the date. In the example, dates are in the format Year-Month-Day, which is represented in R as “%Y-%m-%d” (further details will be provided in another section of the book).</p>
+<p><a href="https://youtu.be/2re79pNEy2g">Click here to watch “Import Data and Specify Data Types”</a></p>
+</div>
+<div id="excercise" class="section level3" number="2.2.4">
+<h3>
+<span class="header-section-number">2.2.4</span> Excercise<a class="anchor" aria-label="anchor" href="#excercise"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>Upload the data set “election news small”, using the appropriate data format;</li>
+<li>Open the script “basic-r-script” and perform the following operations:
+<ul>
+<li>Check the first few rows of the data set;</li>
+<li>Access the single columns;</li>
+<li>Save the data frame with the name “election_news_small_test” in the folder “data” by using the function “write.csv” (to review the procedure go to the section “Load and Save Data” on this book);</li>
+<li>Comment the code (the comments have to be written after the hash sign <em>#</em>);</li>
+<li>Save the script.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html"><span class="header-section-number">1</span> Time Series Analysis With R</a></div>
+<div class="next"><a href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">3</span> Basic Data Wrangling with Tidyverse</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#getting-started-with-r"><span class="header-section-number">2</span> Getting started with R</a></li>
+<li>
+<a class="nav-link" href="#rstudio-interface-and-data"><span class="header-section-number">2.1</span> RStudio Interface and Data</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#download-and-install-rstudio"><span class="header-section-number">2.1.1</span> Download and Install RStudio</a></li>
+<li><a class="nav-link" href="#create-a-rstudio-project-and-import-data"><span class="header-section-number">2.1.2</span> Create a RStudio Project and Import data</a></li>
+<li><a class="nav-link" href="#create-a-script"><span class="header-section-number">2.1.3</span> Create a Script</a></li>
+<li><a class="nav-link" href="#the-rstudio-user-interface"><span class="header-section-number">2.1.4</span> The RStudio User Interface</a></li>
+<li><a class="nav-link" href="#load-and-save-data"><span class="header-section-number">2.1.5</span> Load and Save Data</a></li>
+<li><a class="nav-link" href="#create-new-folders"><span class="header-section-number">2.1.6</span> Create new Folders</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#basic-r"><span class="header-section-number">2.2</span> Basic R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#objects"><span class="header-section-number">2.2.1</span> Objects</a></li>
+<li><a class="nav-link" href="#functions"><span class="header-section-number">2.2.2</span> Functions</a></li>
+<li><a class="nav-link" href="#data-types"><span class="header-section-number">2.2.3</span> Data Types</a></li>
+<li><a class="nav-link" href="#excercise"><span class="header-section-number">2.2.4</span> Excercise</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-14.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

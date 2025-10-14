@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>7 Structural Decomposition | Time Series Analysis With R</title>
+<meta name="author" content="Nicola Righetti">
+<meta name="generator" content="bookdown 0.43 with bs4_book()">
+<meta property="og:title" content="7 Structural Decomposition | Time Series Analysis With R">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7 Structural Decomposition | Time Series Analysis With R">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+<meta name="description" content="7.1 Components of a time series A time series can be considered composed of 4 main parts: trend, cycle, seasonality, and the irregular or remainder/residual part.  7.1.1 Trend and Cycle The Trend...">
+<meta property="og:description" content="7.1 Components of a time series A time series can be considered composed of 4 main parts: trend, cycle, seasonality, and the irregular or remainder/residual part.  7.1.1 Trend and Cycle The Trend...">
+<meta name="twitter:description" content="7.1 Components of a time series A time series can be considered composed of 4 main parts: trend, cycle, seasonality, and the irregular or remainder/residual part.  7.1.1 Trend and Cycle The Trend...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Time Series Analysis With R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Time Series Analysis With R</a></li>
+<li><a class="" href="getting-started-with-r.html"><span class="header-section-number">2</span> Getting started with R</a></li>
+<li><a class="" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">3</span> Basic Data Wrangling with Tidyverse</a></li>
+<li><a class="" href="basic-concepts.html"><span class="header-section-number">4</span> Basic Concepts</a></li>
+<li><a class="" href="time-series-objects.html"><span class="header-section-number">5</span> Time Series Objects</a></li>
+<li><a class="" href="plot-time-series.html"><span class="header-section-number">6</span> Plot Time Series</a></li>
+<li><a class="active" href="structural-decomposition.html"><span class="header-section-number">7</span> Structural Decomposition</a></li>
+<li><a class="" href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></li>
+<li><a class="" href="regression.html"><span class="header-section-number">9</span> Regression</a></li>
+<li><a class="" href="intervention-analysis.html"><span class="header-section-number">10</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">11</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="" href="var.html"><span class="header-section-number">12</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">13</span> Readings and Bibliographical References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="structural-decomposition" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> Structural Decomposition<a class="anchor" aria-label="anchor" href="#structural-decomposition"><i class="fas fa-link"></i></a>
+</h1>
+<div id="components-of-a-time-series" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> Components of a time series<a class="anchor" aria-label="anchor" href="#components-of-a-time-series"><i class="fas fa-link"></i></a>
+</h2>
+<p>A time series can be considered composed of 4 main parts: <strong>trend</strong>, <strong>cycle</strong>, <strong>seasonality</strong>, and the <strong>irregular</strong> or remainder/residual part.</p>
+<div class="inline-figure"><img src="images/Structure.png" width="100%" style="display: block; margin: auto;"></div>
+<div id="trend-and-cycle" class="section level3" number="7.1.1">
+<h3>
+<span class="header-section-number">7.1.1</span> Trend and Cycle<a class="anchor" aria-label="anchor" href="#trend-and-cycle"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <strong>Trend</strong> component is the longest-term behavior of a time series. The simplest model for a trend is a linear increase or decrease, but the trend does not have to be linear. In the AirPassengers time series there is a clear upward, linear trend.</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-106-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="stochastic-and-deterministic-trend" class="section level3" number="7.1.2">
+<h3>
+<span class="header-section-number">7.1.2</span> Stochastic and Deterministic Trend<a class="anchor" aria-label="anchor" href="#stochastic-and-deterministic-trend"><i class="fas fa-link"></i></a>
+</h3>
+<p>There is a distinction between <strong>deterministic</strong> and <strong>stochastic</strong> trends.</p>
+<p>A <strong>deterministic trend</strong> is a <em>fixed function of time</em>. If a series has a deterministic trend, the increase (or decrease) in the value of the series is a function of time. For instance, it may appear to grow or decline steadily over time. A deterministic trend can be linear, as well as non linear. Deterministic trends have plausible explanations (for example, a deterministic increasing trend in the data may be related to an increasing population). A series with deterministic trend is also called <em>trend stationary</em>.</p>
+<p>A <strong>stochastic trend</strong> wanders up and down or shows change of direction at unpredictable times. Time series with a stochastic trend are also said to be <em>difference stationary</em>. An example of stochastic trend is provided by the so-called <em>random walk</em> process.</p>
+<p><strong>Random Walk</strong> is a particular time series process in which the current values are combinations of the previous ones (<span class="math inline">\(x_t = x_{t-1} + w_t\)</span>, where <span class="math inline">\(x_{t-1}\)</span> is the value immediately before <span class="math inline">\(x\)</span>, and <span class="math inline">\(w_t\)</span> is a random component). The resulting time series is characterized by a discernible pattern over time which is not exactly predictable (<em>stochastic trend</em>). Starting from the same initial point, the same process can generate different time series.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-107-1.png" width="100%" style="display: block; margin: auto;"><img src="_main_files/figure-html/unnamed-chunk-107-2.png" width="100%" style="display: block; margin: auto;"></p>
+<p>A paper on <a href="https://www.tandfonline.com/doi/full/10.1080/00036846.2020.1789061">The effectiveness of social distancing in containing Covid-19</a> shows an example of stochastic trend and complex, deterministic nonlinear trends represented by polynomials.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-108"></span>
+<img src="images/covid-trends.jpeg" alt="Figure 5 shows the actual number of Covid-19 cases recorded in the UK up to 17 June 2020. The stochastic trend estimated earlier is superimposed on the actual observations and so are two deterministic nonlinear trends represented by polynomials of degrees 5 and 6. We can see that the stochastic trend captures the slow growth at the beginning of the sample period whereas the two deterministic trends do not. The stochastic trend is also better at capturing the sharp increase represented by observation number 72. (original caption)" width="100%"><p class="caption">
+Figure 7.1: Figure 5 shows the actual number of Covid-19 cases recorded in the UK up to 17 June 2020. The stochastic trend estimated earlier is superimposed on the actual observations and so are two deterministic nonlinear trends represented by polynomials of degrees 5 and 6. We can see that the stochastic trend captures the slow growth at the beginning of the sample period whereas the two deterministic trends do not. The stochastic trend is also better at capturing the sharp increase represented by observation number 72. (original caption)
+</p>
+</div>
+<p>The trend component of the series is often considered along with the <strong>cyclic</strong> one (<em>trend-cycle</em>). The <strong>cyclical</strong> component is represented by fluctuations (rises and falls) not occurring at a fixed frequency. The cycle component is therefore different from the seasonal variation (see below) in that it does not follow a fixed calendar frequency.</p>
+</div>
+<div id="seasonality" class="section level3" number="7.1.3">
+<h3>
+<span class="header-section-number">7.1.3</span> Seasonality<a class="anchor" aria-label="anchor" href="#seasonality"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <strong>Seasonal</strong> component is a repeated pattern occurring at a fixed time period such as the time of the year or the day of the week (the frequency of seasonality, which is always a fixed and known frequency). There is a clear seasonal variation in the AirPassenger time series: bookings were highest during the summer months of June, July, and August and lowest during the autumn/winter months.</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-109-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>It is possible to plot the distributions of data by months by using the function <em>boxplot</em> and <em>cycle</em>, to visualize the increasing number of passengers during the summer months. In this case, <em>cycle</em> is used to refer to the positions of each observation in the (yearly, in this case) cycle of observations (every year is considered to be a cycle of 12 observations).</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-110-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>The library <em>forecast</em>, an R package that provides methods and tools for displaying and analysing time series forecasts, includes a function to create a “polar” seasonal plot.</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-111-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>An example of weekly seasonality can be found in the COVID-19 statistics.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:unnamed-chunk-112"></span>
+<img src="images/covid-italy.png" alt="Covid statistics (Google)" width="100%"><p class="caption">
+Figure 7.2: Covid statistics (Google)
+</p>
+</div>
+<p>Cyclic and seasonal variations can look similar. Both cyclic and seasonal variations have ‘peak-and-trough’ patterns. The main difference is that in seasonal patterns the period between successive peaks (or troughs) is constant, while in cyclical patterns the distance between successive peaks is irregular.</p>
+</div>
+<div id="residuals" class="section level3" number="7.1.4">
+<h3>
+<span class="header-section-number">7.1.4</span> Residuals<a class="anchor" aria-label="anchor" href="#residuals"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <strong>irregular</strong> or remainder/residual component is the random-like part of the series.</p>
+<p>In general, when we fit mathematical models to time series data, the <em>residual</em> error series represents the discrepancies between the fitted values, calculated from the model, and the data. A good model encapsulates most of the deterministic features of the time series, and the residual error series should therefore appear to be a realization of independent random variables from some probability distribution.</p>
+<p>The analysis of residuals is thus important to judge the fit of a model. In this case, its residual error series appears to be a realization of <em>independent random variables</em>. Often the random variable is conceived as a Gaussian random variable. We’ll return to these topics in the last part of the chapter.</p>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">AirPassengers_Random</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/decompose.html">decompose</a></span><span class="op">(</span><span class="va">AirPassengers</span>, type<span class="op">=</span><span class="st">"multiplicative"</span><span class="op">)</span><span class="op">$</span><span class="va">random</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-114-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+</div>
+<div id="structural-decomposition-1" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Structural decomposition<a class="anchor" aria-label="anchor" href="#structural-decomposition-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Along with the analysis of the peaks (see previous chapter), analyzing a time series based on these structural parts can be an important exploratory step. It helps understanding the likely causes of the series features and formulate an appropriate time series model. For instance, in the case of the AirPassengers series, we could hypothesize that the <em>increasing trend</em> is due to the rising prosperity in the aftermath of the Second World War, greater availability of aircraft, cheaper flights due to competition between airlines, and an increasing population. The <em>seasonal</em> variation, instead, seems to coincide with vacation periods.</p>
+<p><strong>Decomposition methods</strong> try to identify and separate the above mentioned parts of a time series. Usually they consider together the trend and cycle (<em>trend-cycle</em>) - the longer-term changes in the series - and the <em>seasonal</em> factors - periodic fluctuations of constant length happening at a specific calendar frequency).</p>
+<p>There are two main ways through which these elements can be combined together: in the <strong>additive</strong> and the <strong>multiplicative</strong> form:</p>
+<ul>
+<li>The <strong>additive model</strong> (<span class="math inline">\(x_{t} = m_{t} + s_{t} + z_{t}\)</span>, where <span class="math inline">\(x_{t}\)</span> is the observed time series, <span class="math inline">\(m_{t}\)</span> is the trend-cycle component, <span class="math inline">\(s_{t}\)</span> is the seasonal component and <span class="math inline">\(z_{t}\)</span> is the residual) is useful when the seasonal variation is relatively constant over time</li>
+<li>The <strong>multiplicative model</strong> (<span class="math inline">\(x_{t} = m_{t} * s_{t} * z_{t}\)</span>) is useful when the the seasonal effects tends to increase as the trend increases.</li>
+</ul>
+<p>There are different methods to decompose a time series. Here we consider the function <strong>decompose</strong>. This function is defined as <em>Classical Seasonal Decomposition by Moving Averages</em>. The function <em>decompose</em> uses a <strong>moving average (MA)</strong> approach to filter the data. Moving average is a classical approach to extract the trend from a time series by averaging out the seasonal effects.</p>
+<div id="moving-average" class="section level3" number="7.2.1">
+<h3>
+<span class="header-section-number">7.2.1</span> Moving Average<a class="anchor" aria-label="anchor" href="#moving-average"><i class="fas fa-link"></i></a>
+</h3>
+<p>Moving average is a process that replaces each value <span class="math inline">\(x_{t}\)</span> with an average of its current value <span class="math inline">\(x_{t}\)</span> and its immediate neighbors in the past and future. For instance, it is possible to calculate a simple moving average by using the closest neighbors of a point, as follows: <span class="math inline">\(x_{t} = \frac{1}{3} (x_{t-1} + x_{t} + x_{t+1})\)</span>. This is called <em>Centered Moving Average</em>.</p>
+<p>The number of neighbors in the past and future is determined by the analyst and is also called <em>width of the window</em>. The time window for the moving average is chosen by considering the frequency of the data and their seasonal effects. For instance, monthly data, which are supposed to show monthly seasonality (for instance, in the AirPassengers data there are more passengers during the summer months), can be averaged by using a period of 12 months (six months before and after each point. Since we have an even number of months, some other calculation are necessary. For instance, the moving average value for July, is calculated by averaging the average of January up to December, and the average of February up to January. R functions do this for you).</p>
+<p>The centered moving average is an example of a <strong>smoothing</strong> procedure that is applied retrospectively to a time series with the objective of identifying an underlying signal or trend. Smoothing procedures usually use points before and after the time at which the smoothed estimate is to be calculated. A consequence is that the smoothed series will have <em>some points missing at the beginning and the end</em> unless the smoothing algorithm is adapted for the end points. In the case of monthly data, for instance, the moving average filter determines the lost of the first and last six months of data.</p>
+<p>Smoothing procedures like moving average, allows the main underlying trend to emerge by filtering out seasonality and noise, so they are used to get an idea of the long-term underlying process of a time series.</p>
+<pre><code>##                    en        en2        en4        en8       en16
+## 2015-01-01 0.01456405 0.01334178         NA         NA         NA
+## 2015-01-02 0.01211950 0.01192277 0.01275765         NA         NA
+## 2015-01-03 0.01172604 0.01217353 0.01266199         NA         NA
+## 2015-01-04 0.01262102 0.01340120 0.01332611 0.01285129         NA
+## 2015-01-05 0.01418138 0.01447869 0.01320110 0.01253790         NA
+## 2015-01-06 0.01477600 0.01300100 0.01294493 0.01250958         NA
+## 2015-01-07 0.01122600 0.01141117 0.01241382 0.01267144         NA
+## 2015-01-08 0.01159633 0.01182664 0.01169304 0.01285992 0.01257820
+## 2015-01-09 0.01205695 0.01197492 0.01214178 0.01262867 0.01239793
+## 2015-01-10 0.01189290 0.01245691 0.01277492 0.01226887 0.01234396
+##            en32
+## 2015-01-01   NA
+## 2015-01-02   NA
+## 2015-01-03   NA
+## 2015-01-04   NA
+## 2015-01-05   NA
+## 2015-01-06   NA
+## 2015-01-07   NA
+## 2015-01-08   NA
+## 2015-01-09   NA
+## 2015-01-10   NA</code></pre>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-116-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="decompose" class="section level3" number="7.2.2">
+<h3>
+<span class="header-section-number">7.2.2</span> Decompose<a class="anchor" aria-label="anchor" href="#decompose"><i class="fas fa-link"></i></a>
+</h3>
+<p>To apply the function <em>decompose</em>, we need a <strong>ts</strong> object.</p>
+<p>Considering the AirPassengers time series, since the seasonal effect tends to increase as the trend increases, we can use a multiplicative model.</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-117-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>As an example of an <em>additive model</em> we can use data from the “Seatbelts” dataset.</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-118-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-119-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>The <strong>residual</strong> part of the model should be (approximately) <strong>random</strong>, which indicates that the model explained (most of) the significant patterns in the data (the <em>“signal”</em>), leaving out the <em>“noise”</em>.</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-120-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>We can re-create the original time series starting from its elements (we don’t actually need to do that, it is just for illustrative purposes).</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-121-1.png" width="100%" style="display: block; margin: auto;"></div>
+</div>
+<div id="compare-additive-and-multiplicative-models" class="section level3" number="7.2.3">
+<h3>
+<span class="header-section-number">7.2.3</span> Compare Additive and Multiplicative Models<a class="anchor" aria-label="anchor" href="#compare-additive-and-multiplicative-models"><i class="fas fa-link"></i></a>
+</h3>
+<p>Sometimes it could be hard to choose between additive or multiplicative models. In general, when seasonality or the variation around the trend-cycle component change proportionally to the level of the series (the trend, or the average), the multiplicative model works better. However, it might be difficult to assess the variability of the series from a time series plot.</p>
+<p>Exploratory methods, such as representing the variability in the data through <a href="https://en.wikipedia.org/wiki/Box_plot">box plots</a> can help. The following “custom” function (which I called <em>ts.year.boxplot</em>) takes as argument a time series <em>ts</em>, and shows the <a href="https://en.wikipedia.org/wiki/Statistical_dispersion">spread</a> of the data by year.</p>
+<p>A multiplicative time series like the <em>AirPassengers</em> shows a clear increasing spread as the level of the series goes up:</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-123-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>The box plots of an additive time series look more regular. There is no evident systematic</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-124-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Below you can find another function (I called it <em>compare.decomposition.methods</em>) that compares the additive and multiplicative decomposition models applied to the same <em>ts</em> series. It creates plots of residuals (the time series plot, histogram, acf and pacf plots) and (roughly) measures the total residuals and residuals’ autocorrelation (lower values are better). It also creates a plot showing the different fit of the additive and multiplicative model to the data, and includes the boxplot introduced above. We can try looking at these plots and the total autocorrelation measure to get further hints into the most appropriate method.</p>
+<p>In this case, the multiplicative model looks better.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-126-1.png" width="100%" style="display: block; margin: auto;"><img src="_main_files/figure-html/unnamed-chunk-126-2.png" width="100%" style="display: block; margin: auto;"><img src="_main_files/figure-html/unnamed-chunk-126-3.png" width="100%" style="display: block; margin: auto;"><img src="_main_files/figure-html/unnamed-chunk-126-4.png" width="100%" style="display: block; margin: auto;"></p>
+<pre><code>## ###################################
+## TOTAL AUTOCORRELATION (ABSOLUTE VALUES)
+## ################################### 
+## ADITTIVE MODEL =  7.19 
+## MULTIPLICATIVE MODEL =  0.84 
+## 
+## ###################################
+## SUM OF RESIDUALS (ABSOLUTE VALUES)
+## ################################### 
+## ADITTIVE MODEL =  98.35 
+## MULTIPLICATIVE =  95.97</code></pre>
+</div>
+</div>
+<div id="adjust-time-series" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> Adjust time series<a class="anchor" aria-label="anchor" href="#adjust-time-series"><i class="fas fa-link"></i></a>
+</h2>
+<p>Sometimes the analyst is not interested in the trend or in the seasonal variation in the data, and might want to remove them, in order to let other underlying process to emerge more clearly. Other times, some components of time series can be misleading, leading to inflated or spurious correlations, and can be preferable to remove them before proceding with the analysis.</p>
+<div id="seasonal-adjusted-data" class="section level3" number="7.3.1">
+<h3>
+<span class="header-section-number">7.3.1</span> Seasonal adjusted data<a class="anchor" aria-label="anchor" href="#seasonal-adjusted-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>It is common to find seasonally adjusted data, that is time series from which the seasonal component has been removed. This happen quite often in economics, for instance (but in other disciplines as well), where certain growing trends can be considered trivial, and explained based on solid theory. Other parts of the series are instead considered more important, and removing the seasonal component allow them to emerge more clearly, as summarized by <a href="https://www.nber.org/system/files/chapters/c4321/c4321.pdf">Granger, C. W. (1978), <em>Seasonality: causation, interpretation, and implications</em>. In Seasonal analysis of economic time series</a>:</p>
+<blockquote>
+<p>Presumably, the seasonal is treated in this fashion, because it is economically uninportant, being dull, superficially easily explained, and easy to forecast but, at the same time, being statistically important in that it is a major contributor to the total variance of many series. The presence of the seasonal could be said to obscure movements in other components of greater economic significance. (…) It can be certainly be stated that, when considering the level of an economic variable, the low frequency components (the trend-cycle, ed.) are usually both statistically and economically important. (…) Because of their dual importance, it is desirable to view this component as clearly as possible and, thus, the interference from the season should be removed. (…) the preference for seasonally adjusted data is so that they can more clearly see the position of local trends or the place on the business cycle. It is certainly true that for any series containing a strong season, it is very difficult to observe these local trends without seasonal adjustment.</p>
+</blockquote>
+<p>Moreover, seasonality can lead to spurious correlations:</p>
+<blockquote>
+<p>(…) if the relationship between a pair of economic variables is to be analyzed, it is obviously possible to obtain a spurious relationship if the two series contain important seasonals. By adjusting series, one possible source of spurious relationship is removed.</p>
+</blockquote>
+<p>However, adjust for seasonality a series is application specific, and sometimes this part of the series can be of interest:</p>
+<blockquote>
+<p>Firms having seasonal fluctuations in demand for their products, for example, may need to make decisions based largely on the seasonal component (…) and a local government may try to partially control seasonal fluctuations in unemployment. (…) Only by having both the the adjusted and the unadjusted data available can these potential users gain the maximum benefit from all of the effort that goes into collecting the information.</p>
+</blockquote>
+<p>There are many different methods to adjust data for seasonality. A simple approach is based on the results of the decomposition process, and consists in subtracting (in the case of an additive decomposition model) the seasonal component from the original series, or dividing the original series by the seasonal component (in the case of a multiplicative model).</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-127-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Adjusting for seasonal variations makes it possible to observe potentially noteworthy fluctuations. In the case of the AirPassengers data, for instance, the seasonally adjusted plot shows more clearly an anomaly in the year 1960 that was not noticeable in the raw data.</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-128-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>Below you can find another example with data from social media (you can download them here <a href="https://drive.google.com/file/d/16NyBB1YOICSQ8lmZpcq62ahkJff9Tx6E/view?usp=sharing">art1</a>, and <a href="https://drive.google.com/file/d/1UWodHEAAphThP-jkALA5u1qEbTBPqHiE/view?usp=sharing">art2</a>), consisting in posts published by pages of news media.</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-129-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>By calculating a simple correlation between the original series and the de-seasonalized series, it can be observed that the correlation coefficients changes.</p>
+<pre><code>## [1] 0.9641655</code></pre>
+<pre><code>## [1] 0.7209823</code></pre>
+</div>
+<div id="detrended-series" class="section level3" number="7.3.2">
+<h3>
+<span class="header-section-number">7.3.2</span> Detrended series<a class="anchor" aria-label="anchor" href="#detrended-series"><i class="fas fa-link"></i></a>
+</h3>
+<p>As the series can be adjusted for seasonality, it can also be adjusted for trend based on the same reasons. A similar process can also be used to remove the trend from the data, in particular in the case of a <em>deterministic</em> trend.</p>
+<p>In the case of a <em>stochastic</em> trend, instead, the usual practice is to detrend the data through <strong>differencing</strong>. Differencing means taking the first difference of consecutive points in time <span class="math inline">\(x_t\)</span> - <span class="math inline">\(x_{t-1}\)</span>. In this way, the resulting series represents the <em>relative change from one point in time to another</em>.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-131-1.png" width="100%" style="display: block; margin: auto;"><img src="_main_files/figure-html/unnamed-chunk-131-2.png" width="100%" style="display: block; margin: auto;"></p>
+<p>Detrending a time series can be important before applying some statistical techniques, for instance before calculating the correlation between two time series. Time series with a trend component can reveal spurious correlations, since correlations may exist just because two variables are trending up or down at the same time. By detrending the time series, it can be more appropriately measured if the change in one time series over time is related to the change in another time series.</p>
+<p>Detrending time series is also used when researchers consider irrelevant the trend. This is the case when the trend is considered an obvious characteristic of the process. For instance, economists can take for granted that there is an increasing trend in GDP due to inflation, and thus they may want to “clean” the data to eliminate this trivial trend. They are more interested in deviations from the growth, than in the growth that they consider a “normal” characteristic of the process.</p>
+<p>There are also statistical tests to ascertain the presence of a trend.</p>
+<p>A <em>monotonic</em> trend can be detected with the <strong>Mann–Kendall trend test</strong>. The null hypothesis is that the data come from a population with independent realizations and are identically distributed. For the two sided test, the alternative hypothesis is that the data follow a monotonic trend (read the help: <em>?mk.test</em>). The function to calculate this test is included in the package “trend”.</p>
+<pre><code>## 
+##  Mann-Kendall trend test
+## 
+## data:  AirPassengers
+## z = 14.382, n = 144, p-value &lt; 2.2e-16
+## alternative hypothesis: true S is greater than 0
+## sample estimates:
+##            S         varS          tau 
+## 8.327000e+03 3.351643e+05 8.098232e-01</code></pre>
+</div>
+<div id="other-decomposition-methods-in-r" class="section level3" number="7.3.3">
+<h3>
+<span class="header-section-number">7.3.3</span> Other Decomposition Methods in R<a class="anchor" aria-label="anchor" href="#other-decomposition-methods-in-r"><i class="fas fa-link"></i></a>
+</h3>
+<p>There are many different methods to decompose (and adjust) time series. Besides the classic <em>decompose</em> function, the following can be mentioned:</p>
+<p><a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/stl.html"><strong>STL</strong></a> (in the base-R <em>stats</em> library): Decompose a time series into seasonal, trend and irregular components using loess</p>
+<p>[<strong>X11</strong>], a method for decomposing quarterly and monthly data developed by the US Census Bureau and Statistics Canada, and the [<strong>SEATS</strong>] methods, implemented in the <a href="http://www.seasonal.website/seasonal.html"><em>seasonal</em></a> package.</p>
+</div>
+</div>
+<div id="white-noise-and-stationarity" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> White Noise and Stationarity<a class="anchor" aria-label="anchor" href="#white-noise-and-stationarity"><i class="fas fa-link"></i></a>
+</h2>
+<p>We said that the <strong>residual</strong> part of the model should be (approximately) <strong>random</strong>, which indicates that the model explained most of the significant patterns in the data (the <em>“signal”</em>), leaving out the <em>“noise”</em>.</p>
+<p>The standard model of independent random variation in time series analysis is known as <strong>white noise</strong> (a term coined in an article published in Nature in 1922, where it was used to refer to series that contained all frequencies in equal proportions, analogous to white light). The charts below show how a white noise process looks like.</p>
+<p><img src="_main_files/figure-html/unnamed-chunk-133-1.png" width="100%" style="display: block; margin: auto;"><img src="_main_files/figure-html/unnamed-chunk-133-2.png" width="100%" style="display: block; margin: auto;"></p>
+<p>When we introduced the concept of deterministic and stochastic trend, we said that the series showing the first type of trend are also called <strong>trend stationary</strong>, and the series showing the second type of trend are also called <strong>difference stationary</strong>. Both these names refer to the concept of <strong>stationarity</strong>.</p>
+<p>A process is <em>stationary</em> if it is homogeneous, that is, if it has no distinguished points in times or, in other words, its statistical qualities are the same for any point in time. There are more or less stringent definition of stationarity (<em>strict and weak stationarity</em>), and the most used for practical purposes is the so-called <strong>weak-stationarity</strong>. In this sense, a time series is said to be stationary if there is:</p>
+<ul>
+<li>
+<strong>no trend</strong> (no systematic change in mean, that is, time invariant mean), and no seasonality (no periodic variations);</li>
+<li>
+<strong>no change in variance</strong> over time (time invariant variance);</li>
+<li>
+<strong>no auto-correlation</strong> (we’ll return to this topic in the next chapters)</li>
+</ul>
+<p><em>White noise is an example of stationary time series</em>. As you can see in the chart above, white noise time series is pretty regular, the mean is always the same (0) and there are no changes in variance over time: the plot looks much the same at any point in time!</p>
+<p>Also through differencing, the series can achive a stationary form. This is the case, in particular, of the series with a stochastic trend, that are also called <em>difference-stationary</em>, exactly because through differencing they become stationary.</p>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-134-1.png" width="100%" style="display: block; margin: auto;"></div>
+<p>The process through which stationarity is reached is also called <em>Pre-Whitening</em>, and it can be used as a pre-processing phase before conducting correlation and regression analysis:</p>
+<blockquote>
+<p>Once the form(s) of serial dependency that best account for the series are identified, they are removed from the series. This is called <em>prewhitening</em> and is used to produce a series that is a “white noise” process (i.e., a process that is free of serial dependency with each value statistically independent of other values in the series). Once pre-whitening is accomplished the values of that series can be correlated with, used to predict, or predicted from, the values in other contemporaneous time series (usually also pre-whitened) representing other variables of interest. By removing serial dependency, the pre-whitening process makes these analyses free of correlated errors. It also removes the possibility that a common temporal trend or pattern is a confounding explanation for the observed association between the two variable series (VanLear, <a href="https://us.sagepub.com/en-us/nam/the-sage-encyclopedia-of-communication-research-methods/book244974">“Time Series Analysis”</a>)</p>
+</blockquote>
+<p>The logic behind the process and the importance of white noise is also well explained in these sentences:</p>
+<blockquote>
+<p>This “residual” part of the data, indeed, can be used as a dependent variable, giving the analyst confidence that any time series properties in the data will not account for any observed correlation between the covariates and the dependent variable. In the univariate context, the white noise process is important because it is what we would like to “recover” from our data – after stripping away the ways in which a univariate
+series can essentially explain itself. By removing the time series properties of our data, leaving only white noise, we have a series that can then be explained by other sources of variation. Another way to conceptualize white noise is as the exogenous portion of the data-generating process. Each of our data series is a function of those forces that cause the series to rise or fall (the independent variables we normally include to test our hypotheses) and of time series properties that lead those forces to
+be more or less “sticky”. After we filter away those time series properties, we are left with the forces driving the data higher or lower. We often refer to these forces as <strong>shocks</strong> – and these shocks then reverberate in our data, sometimes for a short spell or a long spell or even infinitely. The goal of time series analysis is to separately model the time series properties (the reverberations) so the shocks (i.e., the white noise) can be captured. (Box-Steffensmeier, J. M., Freeman, J. R., Hitt, M. P., &amp; Pevehouse, J. C. (2014). Time series analysis for the social sciences. Cambridge University Press.)</p>
+</blockquote>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="plot-time-series.html"><span class="header-section-number">6</span> Plot Time Series</a></div>
+<div class="next"><a href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#structural-decomposition"><span class="header-section-number">7</span> Structural Decomposition</a></li>
+<li>
+<a class="nav-link" href="#components-of-a-time-series"><span class="header-section-number">7.1</span> Components of a time series</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#trend-and-cycle"><span class="header-section-number">7.1.1</span> Trend and Cycle</a></li>
+<li><a class="nav-link" href="#stochastic-and-deterministic-trend"><span class="header-section-number">7.1.2</span> Stochastic and Deterministic Trend</a></li>
+<li><a class="nav-link" href="#seasonality"><span class="header-section-number">7.1.3</span> Seasonality</a></li>
+<li><a class="nav-link" href="#residuals"><span class="header-section-number">7.1.4</span> Residuals</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#structural-decomposition-1"><span class="header-section-number">7.2</span> Structural decomposition</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#moving-average"><span class="header-section-number">7.2.1</span> Moving Average</a></li>
+<li><a class="nav-link" href="#decompose"><span class="header-section-number">7.2.2</span> Decompose</a></li>
+<li><a class="nav-link" href="#compare-additive-and-multiplicative-models"><span class="header-section-number">7.2.3</span> Compare Additive and Multiplicative Models</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#adjust-time-series"><span class="header-section-number">7.3</span> Adjust time series</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#seasonal-adjusted-data"><span class="header-section-number">7.3.1</span> Seasonal adjusted data</a></li>
+<li><a class="nav-link" href="#detrended-series"><span class="header-section-number">7.3.2</span> Detrended series</a></li>
+<li><a class="nav-link" href="#other-decomposition-methods-in-r"><span class="header-section-number">7.3.3</span> Other Decomposition Methods in R</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#white-noise-and-stationarity"><span class="header-section-number">7.4</span> White Noise and Stationarity</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-14.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
