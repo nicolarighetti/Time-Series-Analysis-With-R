@@ -6,15 +6,15 @@ version: "v1.0"
 output:
   bookdown::bs4_book:        # HTML moderno
     split_by: chapter
+    remove_toc_float: true
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  echo = FALSE,
-  fig.cap = "",       # caption vuota, non NA
-  fig.width = 6,
-  fig.height = 4,
-  fig.align = "center"
+  echo = FALSE,               # non mostrare codice
+  fig.cap = "",                # caption vuota sicura
+  out.width = "100%",          # immagini larghezza pari al testo
+  fig.align = "center",        # centra le immagini
+  size = "footnotesize"        # riduce font output R/tabelle
 )
 ```
 
