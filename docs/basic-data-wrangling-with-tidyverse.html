@@ -50,13 +50,11 @@
 <li><a class="" href="basic-concepts.html"><span class="header-section-number">5</span> Basic Concepts</a></li>
 <li><a class="" href="time-series-objects.html"><span class="header-section-number">6</span> Time Series Objects</a></li>
 <li><a class="" href="plot-time-series.html"><span class="header-section-number">7</span> Plot Time Series</a></li>
-<li><a class="" href="structural-decomposition.html"><span class="header-section-number">8</span> Structural Decomposition</a></li>
-<li><a class="" href="correlations-and-arima.html"><span class="header-section-number">9</span> Correlations and ARIMA</a></li>
-<li><a class="" href="regression.html"><span class="header-section-number">10</span> Regression</a></li>
-<li><a class="" href="intervention-analysis.html"><span class="header-section-number">11</span> Intervention Analysis</a></li>
-<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">12</span> Interrupted time series analysis using segmented regression</a></li>
-<li><a class="" href="var.html"><span class="header-section-number">13</span> VAR</a></li>
-<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">14</span> Readings and Bibliographical References</a></li>
+<li><a class="" href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></li>
+<li><a class="" href="intervention-analysis.html"><span class="header-section-number">9</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">10</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="" href="var.html"><span class="header-section-number">11</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">12</span> Readings and Bibliographical References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -82,9 +80,7 @@
 <code class="sourceCode R"><span><span class="co"># to load a library used the command library(NAME-OF-THE-LIBRARY)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <p>Besides using the function <em>install.packages(NAME-OF-THE-LIBRARY)</em> by using a line of code, it is also possible to use the RStudio interface.</p>
-<div class="float">
-<video src="videos/install-load-library.mov" style="width:80.0%" controls=""><a href="videos/install-load-library.mov">Install and Load a Library</a></video><div class="figcaption">Install and Load a Library</div>
-</div>
+<p><a href="https://youtu.be/4C60FIZZTRU">Click here to watch “Install and Load Libraries”</a></p>
 <div id="the-pipe-operator" class="section level2" number="4.1">
 <h2>
 <span class="header-section-number">4.1</span> The Pipe Operator %&gt;%<a class="anchor" aria-label="anchor" href="#the-pipe-operator"><i class="fas fa-link"></i></a>
@@ -121,9 +117,7 @@
 ## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App                0
 ## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App                4
 ## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad              96</code></pre>
-<div class="float">
-<video src="videos/upload-covid-tweets-small.mov" style="width:80.0%" controls=""><a href="videos/upload-covid-tweets-small.mov">Import data and specify data types (dates and times)</a></video><div class="figcaption">Import data and specify data types (dates and times)</div>
-</div>
+<p><a href="https://youtu.be/BnUV-hC4fSo">Click here to watch “Import Data and Specify Data Types (Dates and Times)”</a></p>
 </div>
 <div id="mutate" class="section level2" number="4.2">
 <h2>
@@ -191,7 +185,7 @@
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## tibble [100 × 5] (S3: tbl_df/tbl/data.frame)
-##  $ created_at       : POSIXct[1:100], format: "2021-03-24 08:53:52" "2021-03-24 08:53:25" "2021-03-24 08:53:52" ...
+##  $ created_at       : POSIXct[1:100], format: "2021-03-24 08:53:52" "2021-03-24 08:53:25" ...
 ##  $ screen_name      : chr [1:100] "DoYourThingUK" "DoYourThingUK" "AlexS1595" "MakesworthAcc" ...
 ##  $ device           : chr [1:100] "Twitter for iPhone" "Twitter for iPhone" "Twitter for iPhone" "Twitter Web App" ...
 ##  $ retweet_count    : int [1:100] 0 0 3 0 4 96 0 1 0 3 ...
@@ -329,42 +323,42 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">retweet_count</span> <span class="op">&gt;=</span> <span class="fl">500</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">retweet_count</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 10 × 5
-##    created_at          screen_name     device              retweet_count log_retweet_count
-##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                       &lt;int&gt;             &lt;dbl&gt;
-##  1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for Android          1988              7.60
-##  2 2021-03-24 08:53:48 Lil_3arbiii     Twitter for iPhone           1627              7.40
-##  3 2021-03-24 08:53:48 Kittyhawk681    Twitter Web App              1285              7.16
-##  4 2021-03-24 08:53:37 JulesFox12      Twitter for Android          1091              7.00
-##  5 2021-03-24 08:53:42 rosaesaa26      Twitter for Android           983              6.89
-##  6 2021-03-24 08:53:42 lewisabzueta    Twitter for Android           822              6.71
-##  7 2021-03-24 08:53:42 jonvthvn08      Twitter for iPhone            768              6.65
-##  8 2021-03-24 08:53:34 florent61647053 Twitter for Android           768              6.65
-##  9 2021-03-24 08:53:37 Ritu89903967    Twitter for Android           709              6.57
-## 10 2021-03-24 08:53:33 Hurica3         Twitter for iPhone            575              6.36</code></pre>
+##    created_at          screen_name     device          retweet_count log_retweet_count
+##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                   &lt;int&gt;             &lt;dbl&gt;
+##  1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for An…          1988              7.60
+##  2 2021-03-24 08:53:48 Lil_3arbiii     Twitter for iP…          1627              7.40
+##  3 2021-03-24 08:53:48 Kittyhawk681    Twitter Web App          1285              7.16
+##  4 2021-03-24 08:53:37 JulesFox12      Twitter for An…          1091              7.00
+##  5 2021-03-24 08:53:42 rosaesaa26      Twitter for An…           983              6.89
+##  6 2021-03-24 08:53:42 lewisabzueta    Twitter for An…           822              6.71
+##  7 2021-03-24 08:53:42 jonvthvn08      Twitter for iP…           768              6.65
+##  8 2021-03-24 08:53:34 florent61647053 Twitter for An…           768              6.65
+##  9 2021-03-24 08:53:37 Ritu89903967    Twitter for An…           709              6.57
+## 10 2021-03-24 08:53:33 Hurica3         Twitter for iP…           575              6.36</code></pre>
 <p>In the examples below, notice the use of a double equal sign <em>==</em>, and also of the quotation marks to indicate the modalities of a categorical variable.</p>
 <div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">retweet_count</span> <span class="op">==</span> <span class="fl">1988</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
-##   created_at          screen_name    device              retweet_count log_retweet_count
-##   &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;                       &lt;int&gt;             &lt;dbl&gt;
-## 1 2021-03-24 08:53:31 Oliver_Miguel1 Twitter for Android          1988              7.60</code></pre>
+##   created_at          screen_name    device            retweet_count log_retweet_count
+##   &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;                     &lt;int&gt;             &lt;dbl&gt;
+## 1 2021-03-24 08:53:31 Oliver_Miguel1 Twitter for Andr…          1988              7.60</code></pre>
 <div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">device</span> <span class="op">==</span> <span class="st">"Twitter for Android"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 33 × 5
-##    created_at          screen_name     device              retweet_count log_retweet_count
-##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                       &lt;int&gt;             &lt;dbl&gt;
-##  1 2021-03-24 08:53:49 marcin_lukawski Twitter for Android             1             0.693
-##  2 2021-03-24 08:53:49 LebodyRanya     Twitter for Android             0             0    
-##  3 2021-03-24 08:53:47 anshunandanpra4 Twitter for Android             2             1.10 
-##  4 2021-03-24 08:53:44 insoumise007    Twitter for Android             5             1.79 
-##  5 2021-03-24 08:53:43 Metamorfopsies  Twitter for Android             0             0    
-##  6 2021-03-24 08:53:43 keepsmiling_130 Twitter for Android           164             5.11 
-##  7 2021-03-24 08:53:43 lovebresil01    Twitter for Android            81             4.41 
-##  8 2021-03-24 08:53:42 LightHealing    Twitter for Android             1             0.693
-##  9 2021-03-24 08:53:42 lewisabzueta    Twitter for Android           822             6.71 
-## 10 2021-03-24 08:53:42 rosaesaa26      Twitter for Android           983             6.89 
+##    created_at          screen_name     device          retweet_count log_retweet_count
+##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                   &lt;int&gt;             &lt;dbl&gt;
+##  1 2021-03-24 08:53:49 marcin_lukawski Twitter for An…             1             0.693
+##  2 2021-03-24 08:53:49 LebodyRanya     Twitter for An…             0             0    
+##  3 2021-03-24 08:53:47 anshunandanpra4 Twitter for An…             2             1.10 
+##  4 2021-03-24 08:53:44 insoumise007    Twitter for An…             5             1.79 
+##  5 2021-03-24 08:53:43 Metamorfopsies  Twitter for An…             0             0    
+##  6 2021-03-24 08:53:43 keepsmiling_130 Twitter for An…           164             5.11 
+##  7 2021-03-24 08:53:43 lovebresil01    Twitter for An…            81             4.41 
+##  8 2021-03-24 08:53:42 LightHealing    Twitter for An…             1             0.693
+##  9 2021-03-24 08:53:42 lewisabzueta    Twitter for An…           822             6.71 
+## 10 2021-03-24 08:53:42 rosaesaa26      Twitter for An…           983             6.89 
 ## # ℹ 23 more rows</code></pre>
 <p>It is also possible to use several conditions at the same time.</p>
 <div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
@@ -373,16 +367,16 @@
 <span>         <span class="va">retweet_count</span> <span class="op">&gt;</span> <span class="fl">200</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">retweet_count</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 8 × 5
-##   created_at          screen_name     device              retweet_count log_retweet_count
-##   &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                       &lt;int&gt;             &lt;dbl&gt;
-## 1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for Android          1988              7.60
-## 2 2021-03-24 08:53:37 JulesFox12      Twitter for Android          1091              7.00
-## 3 2021-03-24 08:53:42 rosaesaa26      Twitter for Android           983              6.89
-## 4 2021-03-24 08:53:42 lewisabzueta    Twitter for Android           822              6.71
-## 5 2021-03-24 08:53:34 florent61647053 Twitter for Android           768              6.65
-## 6 2021-03-24 08:53:37 Ritu89903967    Twitter for Android           709              6.57
-## 7 2021-03-24 08:53:27 aspeaker66      Twitter for Android           331              5.81
-## 8 2021-03-24 08:53:42 JamesAn26254230 Twitter for Android           201              5.31</code></pre>
+##   created_at          screen_name     device           retweet_count log_retweet_count
+##   &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                    &lt;int&gt;             &lt;dbl&gt;
+## 1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for And…          1988              7.60
+## 2 2021-03-24 08:53:37 JulesFox12      Twitter for And…          1091              7.00
+## 3 2021-03-24 08:53:42 rosaesaa26      Twitter for And…           983              6.89
+## 4 2021-03-24 08:53:42 lewisabzueta    Twitter for And…           822              6.71
+## 5 2021-03-24 08:53:34 florent61647053 Twitter for And…           768              6.65
+## 6 2021-03-24 08:53:37 Ritu89903967    Twitter for And…           709              6.57
+## 7 2021-03-24 08:53:27 aspeaker66      Twitter for And…           331              5.81
+## 8 2021-03-24 08:53:42 JamesAn26254230 Twitter for And…           201              5.31</code></pre>
 </div>
 <div id="select" class="section level2" number="4.7">
 <h2>
@@ -437,7 +431,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-13.</p>
+    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-14.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

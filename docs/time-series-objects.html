@@ -50,13 +50,11 @@
 <li><a class="" href="basic-concepts.html"><span class="header-section-number">5</span> Basic Concepts</a></li>
 <li><a class="active" href="time-series-objects.html"><span class="header-section-number">6</span> Time Series Objects</a></li>
 <li><a class="" href="plot-time-series.html"><span class="header-section-number">7</span> Plot Time Series</a></li>
-<li><a class="" href="structural-decomposition.html"><span class="header-section-number">8</span> Structural Decomposition</a></li>
-<li><a class="" href="correlations-and-arima.html"><span class="header-section-number">9</span> Correlations and ARIMA</a></li>
-<li><a class="" href="regression.html"><span class="header-section-number">10</span> Regression</a></li>
-<li><a class="" href="intervention-analysis.html"><span class="header-section-number">11</span> Intervention Analysis</a></li>
-<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">12</span> Interrupted time series analysis using segmented regression</a></li>
-<li><a class="" href="var.html"><span class="header-section-number">13</span> VAR</a></li>
-<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">14</span> Readings and Bibliographical References</a></li>
+<li><a class="" href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></li>
+<li><a class="" href="intervention-analysis.html"><span class="header-section-number">9</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">10</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="" href="var.html"><span class="header-section-number">11</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">12</span> Readings and Bibliographical References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -120,11 +118,11 @@ Many functions have been developed with reference to specific libraries and obje
 <p>As you can see in the output of the function <em>str</em>, the format of the column date is <em>Factor</em>. The format is, in this case, automatically attributed by R, but (as we have already said) it can be specified before importing the data.</p>
 <p><em>Factor</em> is an appropriate format for categorical variables, but R includes a specific format for dates and times. In this case we have just a date, so we can convert it to a variable of type <em>date</em>. We can change the format of the variable by using the function <strong>as.Date</strong>.</p>
 <div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">elections_news</span><span class="op">$</span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">elections_news</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">elections_news</span><span class="op">$</span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html">as.Date</a></span><span class="op">(</span><span class="va">elections_news</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">elections_news</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 'data.frame':    2192 obs. of  4 variables:
-##  $ date       : Date, format: "2015-01-01" "2015-01-02" "2015-01-03" ...
+##  $ date       : Date, format: "2015-01-01" "2015-01-02" ...
 ##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
 ##  $ total_count: int  25611 31932 24646 25513 39982 42366 45163 44928 44041 29093 ...
 ##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
@@ -133,7 +131,7 @@ Many functions have been developed with reference to specific libraries and obje
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">elections_news</span> <span class="op">&lt;-</span> <span class="va">elections_news</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html">as.Date</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>A data.frame is the common format for data sets, including time series data sets. We can do many things with data stored in this format, such as creating plots and performing various types of analysis. However, to handle time series in R there are more specific data formats.</p>
 </div>
 <div id="time-series-as-ts-objects" class="section level3" number="6.1.2">
@@ -183,8 +181,8 @@ Many functions have been developed with reference to specific libraries and obje
 <p>Importantly, the frequency of a time series is assumed to be <strong>regular</strong> over time. This applies to time series in general, and not just to ts objects. In this case, the time series starts on January 1949 and ends on December 1969, and has <em>monthly</em> frequency. Monthly frequency is indicated in <em>ts</em> as “12”, meaning 12 months. Indeed, the reference unit of a ts object is a year. So, quarterly data, for instance, have frequency equal to 4.</p>
 <p>To create a ts object is necessary to follow specific steps and use specific functions. To exemplify the process of creation of a ts object we take the example of the data contained in the AirPassengers data set, and store them in a data.frame (you don’t need to learn how to do that, just copy and paste the code). A data.frame is the data set format you will probably start with, so it can be useful to see how to create a ts object starting from a data.frame.</p>
 <div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1949-01-01"</span><span class="op">)</span>, </span>
-<span>                 to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1960-12-01"</span><span class="op">)</span>, by<span class="op">=</span><span class="st">"month"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.Date.html">seq.Date</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html">as.Date</a></span><span class="op">(</span><span class="st">"1949-01-01"</span><span class="op">)</span>, </span>
+<span>                 to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html">as.Date</a></span><span class="op">(</span><span class="st">"1960-12-01"</span><span class="op">)</span>, by<span class="op">=</span><span class="st">"month"</span><span class="op">)</span></span>
 <span><span class="va">passengers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data_frame_format</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="st">"Date"</span> <span class="op">=</span> <span class="va">date</span>, </span>
@@ -293,7 +291,7 @@ We can create an <em>xts</em> time series by starting from the data.frame we hav
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-13.</p>
+    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-14.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

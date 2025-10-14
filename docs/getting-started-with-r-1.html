@@ -50,13 +50,11 @@
 <li><a class="" href="basic-concepts.html"><span class="header-section-number">5</span> Basic Concepts</a></li>
 <li><a class="" href="time-series-objects.html"><span class="header-section-number">6</span> Time Series Objects</a></li>
 <li><a class="" href="plot-time-series.html"><span class="header-section-number">7</span> Plot Time Series</a></li>
-<li><a class="" href="structural-decomposition.html"><span class="header-section-number">8</span> Structural Decomposition</a></li>
-<li><a class="" href="correlations-and-arima.html"><span class="header-section-number">9</span> Correlations and ARIMA</a></li>
-<li><a class="" href="regression.html"><span class="header-section-number">10</span> Regression</a></li>
-<li><a class="" href="intervention-analysis.html"><span class="header-section-number">11</span> Intervention Analysis</a></li>
-<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">12</span> Interrupted time series analysis using segmented regression</a></li>
-<li><a class="" href="var.html"><span class="header-section-number">13</span> VAR</a></li>
-<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">14</span> Readings and Bibliographical References</a></li>
+<li><a class="" href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></li>
+<li><a class="" href="intervention-analysis.html"><span class="header-section-number">9</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">10</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="" href="var.html"><span class="header-section-number">11</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">12</span> Readings and Bibliographical References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -103,12 +101,8 @@
 <p>A script is a file containing code. We can create a first script named <em>basic-r-syntax</em>, where you will test the basic code we are going to see. The script will be saved with extension <em>.r</em>.</p>
 <p>You can open, change, and save the file every time you work on it. Saving your code is important; otherwise, you would have to write the same code every time you work on the project!</p>
 <div class="inline-figure"><img src="images/create-script.png" width="1076"></div>
-<div class="float">
-<video src="videos/create-script.mov" style="width:80.0%" controls=""><a href="videos/create-script.mov">Create and save a script</a></video><div class="figcaption">Create and save a script</div>
-</div>
-<div class="float">
-<video src="videos/update-script.mov" style="width:80.0%" controls=""><a href="videos/update-script.mov">Update a script and run code</a></video><div class="figcaption">Update a script and run code</div>
-</div>
+<p><a href="https://youtu.be/jF28dJS9xgQ">Click here to watch “Create and Save Scripts”</a></p>
+<p><a href="https://youtu.be/Mt3giRtUWZI">Click here to watch “Update Scripts and Run Code”</a></p>
 </div>
 <div id="the-rstudio-user-interface" class="section level3" number="3.1.4">
 <h3>
@@ -128,9 +122,7 @@
 <p>To load data into R, you can click on the Files window in the top-right quadrant, navigate your files and folders, and once you have found your data set file, you can just click it and follow the semi-automated import procedure.</p>
 <div class="inline-figure"><img src="images/load-data.png" width="1166"></div>
 <div class="inline-figure"><img src="images/import-data-1.png" width="914"></div>
-<div class="float">
-<video src="videos/import-data.mov" style="width:80.0%" controls=""><a href="videos/import-data.mov">Import Data</a></video><div class="figcaption">Import Data</div>
-</div>
+<p><a href="https://youtu.be/SRh3N6mSaLA">Click here to watch “Import Data”</a></p>
 <p>Otherwise, you can upload a data set by using a function. For instance, to import a <em>csv</em> file, one of the most common formats for data sets, you can use the function <strong>read.csv</strong>. The main argument of this function is the <em>path</em> of the file you want to upload. To specify the file path, consider that you are working within a specific environment; that is, your working directory is the folder of the project (you can double-check the <em>working directory</em> you are in by running the command <strong>getwd()</strong>). Thus, to indicate the path of the data set you want to upload, you can write a dot followed by a slash <strong>./</strong>, followed by the path of the data set <em>inside the working directory</em>. For instance, in the case below, the data set is saved in a folder named <em>data</em> inside the working directory. The name of the data set is <em>tweets_vienna</em> and its extension is .csv. Therefore, the code to upload the file is as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fake_news</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"./data/fake-news-stories-over-time-20210111144200.csv"</span><span class="op">)</span></span></code></pre></div>
@@ -272,8 +264,9 @@
 <code class="sourceCode R"><span><span class="co"># this is another object (vector) consisting of a series of categorical values</span></span>
 <span><span class="va">categorical_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Monday"</span>, <span class="st">"Wednesday"</span>,<span class="st">"Thursday"</span>, <span class="st">"Wednesday"</span>, <span class="st">"Thursday"</span>, <span class="st">"Saturday"</span>, <span class="st">"Sunday"</span>, <span class="st">"Friday"</span>, <span class="st">"Saturday"</span>, <span class="st">"Sunday"</span><span class="op">)</span></span>
 <span><span class="va">categorical_vector</span></span></code></pre></div>
-<pre><code>##  [1] "Monday"    "Tuesday"   "Monday"    "Tuesday"   "Monday"    "Wednesday" "Thursday"  "Wednesday"
-##  [9] "Thursday"  "Saturday"  "Sunday"    "Friday"    "Saturday"  "Sunday"</code></pre>
+<pre><code>##  [1] "Monday"    "Tuesday"   "Monday"    "Tuesday"   "Monday"    "Wednesday"
+##  [7] "Thursday"  "Wednesday" "Thursday"  "Saturday"  "Sunday"    "Friday"   
+## [13] "Saturday"  "Sunday"</code></pre>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># this is an object consisting of a data.frame, created combining vectors through the function "data.frame"</span></span>
 <span><span class="va">a_dataframe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="st">"first_variable"</span> <span class="op">=</span> <span class="va">numerical_vector</span>,</span>
@@ -300,8 +293,9 @@
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_dataframe</span><span class="op">$</span><span class="va">second_variable</span></span></code></pre></div>
-<pre><code>##  [1] "Monday"    "Tuesday"   "Monday"    "Tuesday"   "Monday"    "Wednesday" "Thursday"  "Wednesday"
-##  [9] "Thursday"  "Saturday"  "Sunday"    "Friday"    "Saturday"  "Sunday"</code></pre>
+<pre><code>##  [1] "Monday"    "Tuesday"   "Monday"    "Tuesday"   "Monday"    "Wednesday"
+##  [7] "Thursday"  "Wednesday" "Thursday"  "Saturday"  "Sunday"    "Friday"   
+## [13] "Saturday"  "Sunday"</code></pre>
 <p>It is possible to add columns to a data.frame by writing:</p>
 <ul>
 <li>the name of the data.frame</li>
@@ -341,9 +335,6 @@
 ## 5              5          Monday             54
 ## 6              6       Wednesday            234</code></pre>
 <div class="inline-figure"><img src="images/data-frame-example.png" width="506"></div>
-<div class="float">
-<video src="videos/data-frame-exercise-1.mov" style="width:80.0%" controls=""><a href="videos/data-frame-exercise-1.mov">Exercise: visualize the first rows of a data.frame and access its columns</a></video><div class="figcaption">Exercise: visualize the first rows of a data.frame and access its columns</div>
-</div>
 </div>
 <div id="functions" class="section level3" number="3.2.2">
 <h3>
@@ -395,9 +386,7 @@ Figure 3.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://
 </div>
 <p>It is better to specify the appropriate type of data when importing a data set. In the example below, the data format are specified by using the import process of RStudio.</p>
 <p>Notice that the data of type “date” requires users to specify the additional information regarding the format of the dates. Indeed, dates can be written in many different ways, and to read dates in R it is necessary to specify the structure of the date. In the example, dates are in the format Year-Month-Day, which is represented in R as “%Y-%m-%d” (further details will be provided in another section of the book).</p>
-<div class="float">
-<video src="videos/import-data-types.mov" style="width:80.0%" controls=""><a href="videos/import-data-types.mov">Import data and specify data types</a></video><div class="figcaption">Import data and specify data types</div>
-</div>
+<p><a href="https://youtu.be/2re79pNEy2g">Click here to watch “Import Data and Specify Data Types”</a></p>
 </div>
 <div id="excercise" class="section level3" number="3.2.4">
 <h3>
@@ -459,7 +448,7 @@ Figure 3.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-13.</p>
+    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-14.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
