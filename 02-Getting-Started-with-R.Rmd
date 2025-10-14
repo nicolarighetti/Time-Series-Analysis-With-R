@@ -55,9 +55,9 @@ You can open, change, and save the file every time you work on it. Saving your c
 knitr::include_graphics("images/create-script.png")
 ```
 
-![Create and save a script](videos/create-script.mov){width="80%"}
+[Click here to watch "Create and Save Scripts"](https://youtu.be/jF28dJS9xgQ)
 
-![Update a script and run code](videos/update-script.mov){width="80%"}
+[Click here to watch "Update Scripts and Run Code"](https://youtu.be/Mt3giRtUWZI)
 
 ### The RStudio User Interface
 
@@ -85,7 +85,7 @@ knitr::include_graphics("images/load-data.png")
 knitr::include_graphics("images/import-data-1.png")
 ```
 
-![Import Data](videos/import-data.mov){width="80%"}
+[Click here to watch "Import Data"](https://youtu.be/SRh3N6mSaLA)
 
 Otherwise, you can upload a data set by using a function. For instance, to import a *csv* file, one of the most common formats for data sets, you can use the function **read.csv**. The main argument of this function is the *path* of the file you want to upload. To specify the file path, consider that you are working within a specific environment; that is, your working directory is the folder of the project (you can double-check the *working directory* you are in by running the command **getwd()**). Thus, to indicate the path of the data set you want to upload, you can write a dot followed by a slash **./**, followed by the path of the data set *inside the working directory*. For instance, in the case below, the data set is saved in a folder named *data* inside the working directory. The name of the data set is *tweets_vienna* and its extension is .csv. Therefore, the code to upload the file is as follows:
 
@@ -293,8 +293,6 @@ head(a_dataframe)
 knitr::include_graphics("images/data-frame-example.png")
 ```
 
-![Exercise: visualize the first rows of a data.frame and access its columns](videos/data-frame-exercise-1.mov){width="80%"}
-
 ### Functions
 
 A **function** is a coded operation that applies to an object (e.g.: a number, a textual feature etc.) to transform it based on specific rules. A function has a name (the name of the function) and some *arguments*. Among the arguments of a function there is always an *object* or a value, for instance a numerical value, which is the content the function is applied to, and other possible arguments (either mandatory or optional).
@@ -342,7 +340,7 @@ It is better to specify the appropriate type of data when importing a data set. 
 
 Notice that the data of type "date" requires users to specify the additional information regarding the format of the dates. Indeed, dates can be written in many different ways, and to read dates in R it is necessary to specify the structure of the date. In the example, dates are in the format Year-Month-Day, which is represented in R as "%Y-%m-%d" (further details will be provided in another section of the book).
 
-![Import data and specify data types](videos/import-data-types.mov){width="80%"}
+[Click here to watch "Import Data and Specify Data Types"](https://youtu.be/2re79pNEy2g)
 
 ### Excercise
 
@@ -378,7 +376,7 @@ library(tidyverse)
 
 Besides using the function *install.packages(NAME-OF-THE-LIBRARY)* by using a line of code, it is also possible to use the RStudio interface.
 
-![Install and Load a Library](videos/install-load-library.mov){width="80%"}
+[Click here to watch "Install and Load Libraries"](https://youtu.be/4C60FIZZTRU)
 
 ## The Pipe Operator %\>%
 
@@ -403,7 +401,7 @@ tweets <- read_csv("data/tweets_covid_small.csv",
 head(tweets)
 ```
 
-![Import data and specify data types (dates and times)](videos/upload-covid-tweets-small.mov){width="80%"}
+[Click here to watch "Import Data and Specify Data Types (Dates and Times)"](https://youtu.be/BnUV-hC4fSo)
 
 ## Mutate
 
