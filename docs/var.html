@@ -4,13 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>11 VAR | Time Series Analysis With R</title>
+<title>12 VAR | Time Series Analysis With R</title>
 <meta name="author" content="Nicola Righetti">
 <meta name="generator" content="bookdown 0.43 with bs4_book()">
-<meta property="og:title" content="11 VAR | Time Series Analysis With R">
+<meta property="og:title" content="12 VAR | Time Series Analysis With R">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="11 VAR | Time Series Analysis With R">
+<meta name="twitter:title" content="12 VAR | Time Series Analysis With R">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -45,16 +45,17 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Time Series Analysis With R</a></li>
 <li><a class="" href="getting-started-with-r.html"><span class="header-section-number">2</span> Getting started with R</a></li>
-<li><a class="" href="getting-started-with-r-1.html"><span class="header-section-number">3</span> Getting started with R</a></li>
-<li><a class="" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">4</span> Basic Data Wrangling with Tidyverse</a></li>
-<li><a class="" href="basic-concepts.html"><span class="header-section-number">5</span> Basic Concepts</a></li>
-<li><a class="" href="time-series-objects.html"><span class="header-section-number">6</span> Time Series Objects</a></li>
-<li><a class="" href="plot-time-series.html"><span class="header-section-number">7</span> Plot Time Series</a></li>
+<li><a class="" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">3</span> Basic Data Wrangling with Tidyverse</a></li>
+<li><a class="" href="basic-concepts.html"><span class="header-section-number">4</span> Basic Concepts</a></li>
+<li><a class="" href="time-series-objects.html"><span class="header-section-number">5</span> Time Series Objects</a></li>
+<li><a class="" href="plot-time-series.html"><span class="header-section-number">6</span> Plot Time Series</a></li>
+<li><a class="" href="structural-decomposition.html"><span class="header-section-number">7</span> Structural Decomposition</a></li>
 <li><a class="" href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></li>
-<li><a class="" href="intervention-analysis.html"><span class="header-section-number">9</span> Intervention Analysis</a></li>
-<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">10</span> Interrupted time series analysis using segmented regression</a></li>
-<li><a class="active" href="var.html"><span class="header-section-number">11</span> VAR</a></li>
-<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">12</span> Readings and Bibliographical References</a></li>
+<li><a class="" href="regression.html"><span class="header-section-number">9</span> Regression</a></li>
+<li><a class="" href="intervention-analysis.html"><span class="header-section-number">10</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">11</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="active" href="var.html"><span class="header-section-number">12</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">13</span> Readings and Bibliographical References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -62,9 +63,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="var" class="section level1" number="11">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="var" class="section level1" number="12">
 <h1>
-<span class="header-section-number">11</span> VAR<a class="anchor" aria-label="anchor" href="#var"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12</span> VAR<a class="anchor" aria-label="anchor" href="#var"><i class="fas fa-link"></i></a>
 </h1>
 <p><em>VAR</em> is an acronym that stands for <strong>Vector Autoregressive Model</strong>. It is a common method for the analysis of multivariate time series.</p>
 <p>It can be conceived as a way to model a <strong>system</strong> of time series. In a VAR model, there is no rigid distinction between independent and dependent variables, but each variable is both dependent and independent. Besides these <strong>endogenous</strong> variables that dynamically interact, a VAR model can include <strong>exogenous</strong> variables. Exogenous variables can have an impact on the endogenous variables, while the opposite is not true. To make a simple example, the time series of fans sold by month may be influenced by the quantity of fans produced and distributed by the industry, and by the monthly temperature. While the purchase and production of fans can interact (endogenous variables), the weather is not impacted by these processes, but just impact them as an external force (exogenous variable).</p>
@@ -76,82 +77,27 @@
 <p>An R package to perform VAR modeling is <a href="https://cran.r-project.org/web/packages/vars/vars.pdf"><strong>vars</strong></a>.</p>
 <p>Practical applications of VAR modeling, including Granger causality, can be found, for instance, in the paper <a href="https://academic.oup.com/joc/article-abstract/71/2/305/6104044">Assembling the Networks and Audiences of Disinformation: How Successful Russian IRA Twitter Accounts Built Their Followings,2015–2017</a> or
 <a href="https://www-tandfonline-com.uaccess.univie.ac.at/doi/full/10.1080/10584609.2019.1661889">Coordinating a Multi-Platform Disinformation Campaign: Internet Research Agency Activity on Three U.S. Social Media Platforms, 2015 to 2017</a> <a href="https://github.com/jlukito/timeseries-bootcamp/blob/master/3_multivariate/varmodeling.md">at this link</a>.</p>
-<div id="var-modeling-hands-on-tutorial" class="section level2" number="11.1">
+<div id="var-modeling-hands-on-tutorial" class="section level2" number="12.1">
 <h2>
-<span class="header-section-number">11.1</span> VAR modeling hands-on tutorial<a class="anchor" aria-label="anchor" href="#var-modeling-hands-on-tutorial"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.1</span> VAR modeling hands-on tutorial<a class="anchor" aria-label="anchor" href="#var-modeling-hands-on-tutorial"><i class="fas fa-link"></i></a>
 </h2>
-<div id="assumption-of-stationarity" class="section level3" number="11.1.1">
+<div id="assumption-of-stationarity" class="section level3" number="12.1.1">
 <h3>
-<span class="header-section-number">11.1.1</span> Assumption of stationarity<a class="anchor" aria-label="anchor" href="#assumption-of-stationarity"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.1.1</span> Assumption of stationarity<a class="anchor" aria-label="anchor" href="#assumption-of-stationarity"><i class="fas fa-link"></i></a>
 </h3>
 <p>Like most time series techniques, VAR assumes the series to be <strong>stationary</strong>. To recap:</p>
 <blockquote>
 <p>A stationary time series is one whose properties do not depend on the time at which the series is observed. Thus, time series with trends, or with seasonality, are not stationary — the trend and seasonality will affect the value of the time series at different times. On the other hand, a white noise series is stationary — it does not matter when you observe it, it should look much the same at any point in time. […] In general, a stationary time series will have no predictable patterns in the long-term. Time plots will show the series to be roughly horizontal (although some cyclic behaviour is possible), with constant variance. <a href="https://otexts.com/fpp2/stationarity.html">Rob J. Hyndman and George Athanasopoulos, “Forecasting: Principles and Practice”</a>.</p>
 </blockquote>
 <p>Below are some examples of stationary and non-stationary series.</p>
-<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">3</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">wn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">wn</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Stationary Time Series (White Noise)"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">nonvariance_stat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">1000</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1</span><span class="op">:</span><span class="fl">1000</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">nonvariance_stat</span><span class="op">)</span>, </span>
-<span>     main <span class="op">=</span> <span class="st">"Non stationary in variance"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">linear_trend</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">1000</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.05</span><span class="op">*</span><span class="fl">1</span><span class="op">:</span><span class="fl">1000</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">linear_trend</span><span class="op">)</span>, </span>
-<span>     main <span class="op">=</span> <span class="st">"Non stationary in mean (Linear Trend)"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">seasonality</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">24</span><span class="op">*</span><span class="fl">30</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0.2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">24</span>, <span class="fl">30</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">seasonality</span><span class="op">)</span>, </span>
-<span>     main <span class="op">=</span> <span class="st">"Non stationary in mean (Seasonality)"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">random_walk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">100</span>, <span class="fl">100</span><span class="op">)</span>, <span class="fl">1000</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1000</span>, sd <span class="op">=</span> <span class="fl">44</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">random_walk</span><span class="op">)</span>, </span>
-<span>     main <span class="op">=</span> <span class="st">"Non stationary in mean (Random Walk)"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-145-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-227-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>As we already learnt, <strong>some pre-processing steps are usually carried out to make it stationary</strong> when the series is not stationary. For instance, a series with a linear trend can be made stationary by removing the trend. A seasonal series can be seasonally adjusted. A random-walk-like series can be adjusted using differencing. Visual inspection and <strong>statistical tests</strong> can be performed to support findings on the characteristics of a time series.</p>
 <p>Some of these pre-processing steps may be unnecessary when using the <strong>vars</strong> library, because its function <strong>VAR</strong> (which is used to fit VAR models) allows you to include trend and seasonality components.</p>
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">7</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">4</span>, byrow <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">wn</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Stationary Time Series (White Noise)"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fl">0</span>, col <span class="op">=</span> <span class="st">"red"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">random_walk</span><span class="op">)</span>, </span>
-<span>     main <span class="op">=</span> <span class="st">"Non stationary in mean (Random Walk)"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">random_walk</span><span class="op">)</span><span class="op">)</span>, </span>
-<span>     main <span class="op">=</span> <span class="st">"Differenced"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">linear_trend</span><span class="op">)</span>, </span>
-<span>     main <span class="op">=</span> <span class="st">"Non stationary in mean (Linear Trend)"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">linear_trend</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">linear_trend</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, </span>
-<span>     main <span class="op">=</span> <span class="st">"Detrended"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">seasonality</span><span class="op">)</span>, </span>
-<span>     main <span class="op">=</span> <span class="st">"Non stationary in mean (Seasonality)"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">decomposed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/decompose.html">decompose</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">seasonality</span>, frequency <span class="op">=</span> <span class="fl">24</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">deseasonalized</span> <span class="op">&lt;-</span> <span class="va">seasonality</span> <span class="op">-</span> <span class="va">decomposed</span><span class="op">$</span><span class="va">seasonal</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">deseasonalized</span><span class="op">)</span>, </span>
-<span>     main <span class="op">=</span> <span class="st">"Deseasonalized"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-146-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-228-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 </div>
-<div id="other-assumptions-of-var-models-distribution-of-residuals" class="section level3" number="11.1.2">
+<div id="other-assumptions-of-var-models-distribution-of-residuals" class="section level3" number="12.1.2">
 <h3>
-<span class="header-section-number">11.1.2</span> Other assumptions of VAR models: distribution of residuals<a class="anchor" aria-label="anchor" href="#other-assumptions-of-var-models-distribution-of-residuals"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.1.2</span> Other assumptions of VAR models: distribution of residuals<a class="anchor" aria-label="anchor" href="#other-assumptions-of-var-models-distribution-of-residuals"><i class="fas fa-link"></i></a>
 </h3>
 <p>Besides <strong>stationarity</strong> and <strong>linearity</strong> between variables and their lagged values, VAR cannot be performed in the presence of <strong>structural breaks</strong>. Structural breaks are abrupt changes in the series’ mean or overall process. You can deal with structural breaks in different ways. For example, you might want to split the series into different phases, using the structural breaks as breakpoints.</p>
 <p>Other crucial assumptions of VAR are about <strong>residuals</strong>, which are required to be:</p>
@@ -169,9 +115,9 @@
 <p>Statistical tests are used to determine whether cointegration is present. They have to be performed only when the series are integrated and have the same order of integration (again, cointegration can only exists if at least two series are integrated of the same order). Then, <em>cointegration tests</em> are performed. In presence of cointegration, <strong>Vector Error Correction Models (VECM)</strong> are used instead of VAR. VECM is basically a VAR model with an “error correction term”. This topic is not (yet) covered in this tutorial.</p>
 </div>
 </div>
-<div id="var-fitting" class="section level2" number="11.2">
+<div id="var-fitting" class="section level2" number="12.2">
 <h2>
-<span class="header-section-number">11.2</span> VAR fitting<a class="anchor" aria-label="anchor" href="#var-fitting"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2</span> VAR fitting<a class="anchor" aria-label="anchor" href="#var-fitting"><i class="fas fa-link"></i></a>
 </h2>
 <p>Let’s make a simple example.
 Upload some data:</p>
@@ -183,31 +129,16 @@ Upload some data:</p>
 ## 5 2021-03-16 23:59:00   24  2974
 ## 6 2021-03-17 23:59:00   61  3230</code></pre>
 <p>Let’s visually inspect the series:</p>
-<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">ts_tweets</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pro"</span>, <span class="st">"anti"</span><span class="op">)</span><span class="op">]</span>, </span>
-<span>        plot.type <span class="op">=</span> <span class="st">"multiple"</span>,</span>
-<span>        main <span class="op">=</span> <span class="st">"tweets"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-148-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-230-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>As the variance does not look constant, so we can tentatively <strong>log-transform the series</strong> and work with log-transformed data.</p>
-<div class="sourceCode" id="cb222"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ts_tweets</span><span class="op">$</span><span class="va">pro</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">ts_tweets</span><span class="op">$</span><span class="va">pro</span><span class="op">)</span></span>
-<span><span class="va">ts_tweets</span><span class="op">$</span><span class="va">anti</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">ts_tweets</span><span class="op">$</span><span class="va">anti</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">ts_tweets</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pro"</span>, <span class="st">"anti"</span><span class="op">)</span><span class="op">]</span>, </span>
-<span>        plot.type <span class="op">=</span> <span class="st">"multiple"</span>,</span>
-<span>        main <span class="op">=</span> <span class="st">"tweets"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-149-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-231-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>To check for stationarity, we can perform a test such as the Augmented Dickey-Fuller Test. Integration is suggested only for the “anti” series.</p>
-<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">tseries</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/adf.test.html">adf.test</a></span><span class="op">(</span><span class="va">ts_tweets</span><span class="op">$</span><span class="va">pro</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
 ## 
 ## data:  ts_tweets$pro
 ## Dickey-Fuller = -3.9314, Lag order = 3, p-value = 0.02193
 ## alternative hypothesis: stationary</code></pre>
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">tseries</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/adf.test.html">adf.test</a></span><span class="op">(</span><span class="va">ts_tweets</span><span class="op">$</span><span class="va">anti</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
 ## 
@@ -215,9 +146,6 @@ Upload some data:</p>
 ## Dickey-Fuller = -2.101, Lag order = 3, p-value = 0.5338
 ## alternative hypothesis: stationary</code></pre>
 <p>The series becomes stationary after differencing.</p>
-<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">anti</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="va">ts_tweets</span><span class="op">$</span><span class="va">anti</span>, <span class="fl">1</span><span class="op">)</span></span>
-<span><span class="fu">tseries</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/adf.test.html">adf.test</a></span><span class="op">(</span><span class="va">anti</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning in tseries::adf.test(anti): p-value smaller than printed p-value</code></pre>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
@@ -226,27 +154,12 @@ Upload some data:</p>
 ## Dickey-Fuller = -4.7232, Lag order = 3, p-value = 0.01
 ## alternative hypothesis: stationary</code></pre>
 <p>We can recreate the dataset including the differentiated series. Using a first difference transformation, we lose the first data point.</p>
-<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">anti</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 41</code></pre>
-<div class="sourceCode" id="cb232"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ts_tweets</span><span class="op">$</span><span class="va">pro</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 42</code></pre>
 <p>Indeed, the first point in the differentiated series is obtained by subtracting the first point from the second one. The second point in the differentiated series is obtained by subtracting the second point from the third one, and so on. Hence, the differentiated dataset will start from the second point in time, not the first one as in the original series. Therefore, we need to drop the first data point from the dataset.</p>
-<div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># drop the first data point</span></span>
-<span><span class="va">ts_tweets</span> <span class="op">&lt;-</span> <span class="va">ts_tweets</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span>,<span class="op">]</span></span>
-<span></span>
-<span><span class="co"># replance the anti series with the differentiated anti series</span></span>
-<span><span class="va">ts_tweets</span><span class="op">$</span><span class="va">anti</span> <span class="op">&lt;-</span> <span class="va">anti</span></span></code></pre></div>
 <p>To fit the VAR model we use the library <strong>vars</strong>.</p>
-<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("vars")</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.pfaffikus.de">vars</a></span><span class="op">)</span></span></code></pre></div>
 <p>VAR models require the researcher to specify the number of lags to include in the model. Roughly speaking, lags are auto-regressive predictors. For example, considering a VAR model with two variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, using 1 lag means that we use the value <span class="math inline">\(X_{t-1}\)</span> and <span class="math inline">\(Y_{t-1}\)</span> to predict <span class="math inline">\(X_t\)</span> and <span class="math inline">\(Y_t\)</span>, and 2 lags that we use <span class="math inline">\(X_{t-1}\)</span>, <span class="math inline">\(X_{t-2}\)</span>, <span class="math inline">\(Y_{t-1}\)</span>, and <span class="math inline">\(Y_{t-2}\)</span>. The choice of lags is important. The function <strong>VARselect</strong> implements four different statistical tests to find the “best” number of lags.</p>
 <p>In this case, all the criteria agree on one lag.</p>
-<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">vars</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vars/man/VARselect.html">VARselect</a></span><span class="op">(</span><span class="va">ts_tweets</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pro"</span>, <span class="st">"anti"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $selection
 ## AIC(n)  HQ(n)  SC(n) FPE(n) 
 ##      1      1      1      1 
@@ -265,11 +178,7 @@ Upload some data:</p>
 <p>The function to fit the model is <strong>VAR</strong>, and the number of lags is specified using the <em>p</em> parameter.</p>
 <p>You can also include <strong>trend</strong> and/or <strong>seasonality</strong>, but in this case it doesn’t seem useful. It is also possible to include <strong>exogenous variables</strong>. Exogenous variables are usually defined as variables external to the system: they may affect the system, but are not affected by the system.</p>
 <p>As in the VARselect function, we only use the columns containing the data (the first column in the dataset contains dates).</p>
-<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">var_fit</span> <span class="op">&lt;-</span> <span class="fu">vars</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vars/man/VAR.html">VAR</a></span><span class="op">(</span><span class="va">ts_tweets</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pro"</span>, <span class="st">"anti"</span><span class="op">)</span><span class="op">]</span>, p <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>The model looks like this. As you can see, it is a system of linear regression models that includes lagged predictors. Before analyzing the results we need to confirm that the assumptions of the models are met.</p>
-<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/urca/man/summary-methods.html">summary</a></span><span class="op">(</span><span class="va">var_fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## VAR Estimation Results:
 ## ========================= 
@@ -328,16 +237,12 @@ Upload some data:</p>
 ## pro  1.0000 0.3345
 ## anti 0.3345 1.0000</code></pre>
 <p><em>serial.test</em> is a test for serially correlated errors. The test is okay when not significant. The test is not significant.</p>
-<div class="sourceCode" id="cb241"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">vars</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vars/man/serial.html">serial.test</a></span><span class="op">(</span><span class="va">var_fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Portmanteau Test (asymptotic)
 ## 
 ## data:  Residuals of VAR object var_fit
 ## Chi-squared = 33.632, df = 60, p-value = 0.9977</code></pre>
 <p><em>normality.test</em> performs tests for the normality of residuals. The tests are okay when not significant, like in this case.</p>
-<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">vars</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vars/man/normality.html">normality.test</a></span><span class="op">(</span><span class="va">var_fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $JB
 ## 
 ##  JB-Test (multivariate)
@@ -361,26 +266,17 @@ Upload some data:</p>
 ## data:  Residuals of VAR object var_fit
 ## Chi-squared = 2.1247, df = 2, p-value = 0.3456</code></pre>
 <p>Another fundamental test is performed by the function <em>stability</em>. The test is okay if the series stay within the red bars. It is okay.</p>
-<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu">vars</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vars/man/stability.html">stability</a></span><span class="op">(</span><span class="va">var_fit</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-160-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-242-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p><em>arch.test</em> assesses the null hypothesis that a series of residuals exhibits no heteroscedasticity. Also this test is not significant, which is good.</p>
-<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">vars</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vars/man/arch.html">arch.test</a></span><span class="op">(</span><span class="va">var_fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  ARCH (multivariate)
 ## 
 ## data:  Residuals of VAR object var_fit
 ## Chi-squared = 44.188, df = 45, p-value = 0.5062</code></pre>
 <p>As all the assumptions are met, we can take a look at the overall fit. It doesn’t look amazing, but the assumptions are met, so let’s assume it is good enough and let’s go ahead with the analysis.</p>
-<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">var_fit</span><span class="op">)</span></span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-162-1.png" width="480"><img src="_main_files/figure-html/unnamed-chunk-162-2.png" width="480"></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-244-1.png" width="0.8\textwidth" style="display: block; margin: auto;"><img src="_main_files/figure-html/unnamed-chunk-244-2.png" width="0.8\textwidth" style="display: block; margin: auto;"></p>
 <p>The not-so-good fit is probably related to the fact that both variables in the VAR system are not highly correlated. Most coefficients are not statistically significant and the overall R-square is small.</p>
 <p>Generally, the coefficient table is not interpreted. Instead, VAR models are interpreted using other tools, such as the Granger causality test.</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/urca/man/summary-methods.html">summary</a></span><span class="op">(</span><span class="va">var_fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## VAR Estimation Results:
 ## ========================= 
@@ -439,14 +335,12 @@ Upload some data:</p>
 ## pro  1.0000 0.3345
 ## anti 0.3345 1.0000</code></pre>
 </div>
-<div id="granger-causality-test" class="section level2" number="11.3">
+<div id="granger-causality-test" class="section level2" number="12.3">
 <h2>
-<span class="header-section-number">11.3</span> Granger causality test<a class="anchor" aria-label="anchor" href="#granger-causality-test"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.3</span> Granger causality test<a class="anchor" aria-label="anchor" href="#granger-causality-test"><i class="fas fa-link"></i></a>
 </h2>
 <p>We use the <strong>causality</strong> function to perform the Granger causality test. The Granger causality test is the most basic inferential tool available in VAR analysis. A time series X is considered a Granger cause of another time series Y if past values of X and Y predicts Y significantly better than past values of Y alone. This analysis is frequently performed in <a href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=%28%22granger+causality+test%22+OR+%22granger+test%22%29+AND+%22agenda+setting%22&amp;btnG=">communication studies focused on agenda setting phenomena</a>.</p>
 <p>Let’s see if there’s Granger causality between our series. The researcher needs to specify the “cause” variable (sometimes, the researcher may have a hypothesis about that). In this case, we try both. There is no granger causality effect but some contemporaneous relationship (<em>instant causation</em>).</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">vars</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vars/man/causality.html">causality</a></span><span class="op">(</span><span class="va">var_fit</span>, cause <span class="op">=</span> <span class="st">"pro"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $Granger
 ## 
 ##  Granger causality H0: pro do not Granger-cause anti
@@ -461,8 +355,6 @@ Upload some data:</p>
 ## 
 ## data:  VAR object var_fit
 ## Chi-squared = 4.0242, df = 1, p-value = 0.04485</code></pre>
-<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">vars</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/vars/man/causality.html">causality</a></span><span class="op">(</span><span class="va">var_fit</span>, cause <span class="op">=</span> <span class="st">"anti"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## $Granger
 ## 
 ##  Granger causality H0: anti do not Granger-cause pro
@@ -481,20 +373,20 @@ Upload some data:</p>
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">10</span> Interrupted time series analysis using segmented regression</a></div>
-<div class="next"><a href="readings-and-bibliographical-references.html"><span class="header-section-number">12</span> Readings and Bibliographical References</a></div>
+<div class="prev"><a href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">11</span> Interrupted time series analysis using segmented regression</a></div>
+<div class="next"><a href="readings-and-bibliographical-references.html"><span class="header-section-number">13</span> Readings and Bibliographical References</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#var"><span class="header-section-number">11</span> VAR</a></li>
+<li><a class="nav-link" href="#var"><span class="header-section-number">12</span> VAR</a></li>
 <li>
-<a class="nav-link" href="#var-modeling-hands-on-tutorial"><span class="header-section-number">11.1</span> VAR modeling hands-on tutorial</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#assumption-of-stationarity"><span class="header-section-number">11.1.1</span> Assumption of stationarity</a></li>
-<li><a class="nav-link" href="#other-assumptions-of-var-models-distribution-of-residuals"><span class="header-section-number">11.1.2</span> Other assumptions of VAR models: distribution of residuals</a></li>
+<a class="nav-link" href="#var-modeling-hands-on-tutorial"><span class="header-section-number">12.1</span> VAR modeling hands-on tutorial</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#assumption-of-stationarity"><span class="header-section-number">12.1.1</span> Assumption of stationarity</a></li>
+<li><a class="nav-link" href="#other-assumptions-of-var-models-distribution-of-residuals"><span class="header-section-number">12.1.2</span> Other assumptions of VAR models: distribution of residuals</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#var-fitting"><span class="header-section-number">11.2</span> VAR fitting</a></li>
-<li><a class="nav-link" href="#granger-causality-test"><span class="header-section-number">11.3</span> Granger causality test</a></li>
+<li><a class="nav-link" href="#var-fitting"><span class="header-section-number">12.2</span> VAR fitting</a></li>
+<li><a class="nav-link" href="#granger-causality-test"><span class="header-section-number">12.3</span> Granger causality test</a></li>
 </ul>
 
       <div class="book-extra">

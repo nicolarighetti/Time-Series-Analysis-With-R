@@ -4,13 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>5 Basic Concepts | Time Series Analysis With R</title>
+<title>4 Basic Concepts | Time Series Analysis With R</title>
 <meta name="author" content="Nicola Righetti">
 <meta name="generator" content="bookdown 0.43 with bs4_book()">
-<meta property="og:title" content="5 Basic Concepts | Time Series Analysis With R">
+<meta property="og:title" content="4 Basic Concepts | Time Series Analysis With R">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="5 Basic Concepts | Time Series Analysis With R">
+<meta name="twitter:title" content="4 Basic Concepts | Time Series Analysis With R">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -19,9 +19,9 @@
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
 <link rel="stylesheet" href="style.css">
-<meta name="description" content="5.1 Time Series A time series is a serially sequenced set of values representing a variable value at different points in time (VanLear, “Time Series Analysis”). It consists in measures collected...">
-<meta property="og:description" content="5.1 Time Series A time series is a serially sequenced set of values representing a variable value at different points in time (VanLear, “Time Series Analysis”). It consists in measures collected...">
-<meta name="twitter:description" content="5.1 Time Series A time series is a serially sequenced set of values representing a variable value at different points in time (VanLear, “Time Series Analysis”). It consists in measures collected...">
+<meta name="description" content="4.1 Time Series A time series is a serially sequenced set of values representing a variable value at different points in time (VanLear, “Time Series Analysis”). It consists in measures collected...">
+<meta property="og:description" content="4.1 Time Series A time series is a serially sequenced set of values representing a variable value at different points in time (VanLear, “Time Series Analysis”). It consists in measures collected...">
+<meta name="twitter:description" content="4.1 Time Series A time series is a serially sequenced set of values representing a variable value at different points in time (VanLear, “Time Series Analysis”). It consists in measures collected...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -45,16 +45,17 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Time Series Analysis With R</a></li>
 <li><a class="" href="getting-started-with-r.html"><span class="header-section-number">2</span> Getting started with R</a></li>
-<li><a class="" href="getting-started-with-r-1.html"><span class="header-section-number">3</span> Getting started with R</a></li>
-<li><a class="" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">4</span> Basic Data Wrangling with Tidyverse</a></li>
-<li><a class="active" href="basic-concepts.html"><span class="header-section-number">5</span> Basic Concepts</a></li>
-<li><a class="" href="time-series-objects.html"><span class="header-section-number">6</span> Time Series Objects</a></li>
-<li><a class="" href="plot-time-series.html"><span class="header-section-number">7</span> Plot Time Series</a></li>
+<li><a class="" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">3</span> Basic Data Wrangling with Tidyverse</a></li>
+<li><a class="active" href="basic-concepts.html"><span class="header-section-number">4</span> Basic Concepts</a></li>
+<li><a class="" href="time-series-objects.html"><span class="header-section-number">5</span> Time Series Objects</a></li>
+<li><a class="" href="plot-time-series.html"><span class="header-section-number">6</span> Plot Time Series</a></li>
+<li><a class="" href="structural-decomposition.html"><span class="header-section-number">7</span> Structural Decomposition</a></li>
 <li><a class="" href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></li>
-<li><a class="" href="intervention-analysis.html"><span class="header-section-number">9</span> Intervention Analysis</a></li>
-<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">10</span> Interrupted time series analysis using segmented regression</a></li>
-<li><a class="" href="var.html"><span class="header-section-number">11</span> VAR</a></li>
-<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">12</span> Readings and Bibliographical References</a></li>
+<li><a class="" href="regression.html"><span class="header-section-number">9</span> Regression</a></li>
+<li><a class="" href="intervention-analysis.html"><span class="header-section-number">10</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">11</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="" href="var.html"><span class="header-section-number">12</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">13</span> Readings and Bibliographical References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -62,13 +63,13 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="basic-concepts" class="section level1" number="5">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="basic-concepts" class="section level1" number="4">
 <h1>
-<span class="header-section-number">5</span> Basic Concepts<a class="anchor" aria-label="anchor" href="#basic-concepts"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4</span> Basic Concepts<a class="anchor" aria-label="anchor" href="#basic-concepts"><i class="fas fa-link"></i></a>
 </h1>
-<div id="time-series" class="section level2" number="5.1">
+<div id="time-series" class="section level2" number="4.1">
 <h2>
-<span class="header-section-number">5.1</span> Time Series<a class="anchor" aria-label="anchor" href="#time-series"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1</span> Time Series<a class="anchor" aria-label="anchor" href="#time-series"><i class="fas fa-link"></i></a>
 </h2>
 <p>A <strong>time series</strong> is a serially sequenced set of values representing a variable value at different points in time (VanLear, <a href="https://us.sagepub.com/en-us/nam/the-sage-encyclopedia-of-communication-research-methods/book244974">“Time Series Analysis”</a>). It consists in measures collected through time, at <strong>regular time intervals</strong>, about an unit of observation, resulting in a set of ordered values. This <em>regularity</em> is the <strong>frequency</strong> of time series (which can be, for instance, hourly, weekly, monthly, quarterly, yearly etc.).</p>
 <p>Time series data are different from <em>cross-sectional data</em>, which are set of data observed on a sample of units taken at a <em>given point in time</em>, or where the <em>time dimension is not relevant</em> and can be ignored. Cross-sectional data are a <strong>snapshot</strong> of a population of interest at one particular point in time, while time series show the <strong>dynamical</strong> evolution of a variable over time. <em>Panel data</em> combine cross-sectional and time series data by observing the same units over time.</p>
@@ -81,16 +82,16 @@
 <p>«It is fairly familiar knowledge that we sometimes obtain between quantities varying with the time (time-variables) quite high correlations to which we cannot attach any physical significance whatever, although under the ordinary test the correlation would be held to be certainly “significant.” (…) the occurrence of such “nonsense-correlations” makes one mistrust the serious arguments that are sometimes put forward on the basis of correlations between time-series. […] When the successive x’s and y’s in a sample no longer form a random series, but a series in which successive terms are closely related to one another, the usual conceptions (of correlation, ed.) to which we are accustomed fail totally and entirely to apply» (Yule, G.U. (1926). <a href="https://www.jstor.org/stable/pdf/2341482.pdf">Why do we sometimes get nonsense-correlations between Time-Series? A study in sampling and the nature of time-series</a>. <em>Journal of the royal statistical society</em>, 89(1), 1-63.)</p>
 </blockquote>
 <p>A funny website reporting spurious time series correlation is <a href="https://www.tylervigen.com/spurious-correlations">tylervigen.com</a>.</p>
-<p><img src="images/chart.png" width="1040"><img src="images/chart-2.png" width="1040"></p>
+<p><img src="images/chart.png" width="0.8\textwidth" style="display: block; margin: auto;"><img src="images/chart-2.png" width="0.8\textwidth" style="display: block; margin: auto;"></p>
 <p>Despite it can be funny to see these improbable correlations, we have to keep in mind that adopting the right approach to analyze data is a serious issue when doing research. In a <a href="https://gking.harvard.edu/files/gking/files/epr.pdf">paper in the American Journal of Political Science</a>, we can read, for instance:</p>
 <blockquote>
 <p>The results of the analysis below strongly suggest that the way event counts have been analyzed in hundreds of important political science studies have produced statistically and substantively unreliable results. Misspecification, inefficiency, bias, inconsistency, insufficiency, and other problems result from the unknowing application of two common methods that are without theoretical justification or empirical utility in this type of data.</p>
 </blockquote>
 <p>Due to the peculiarity of time series data, <strong>time series analysis</strong> has been developed as a specific statistical methodology appropriate for the analysis of <strong>time-dependent data</strong>. Time series analysis aims at providing an understanding of the <em>underlying processes and patterns of change over time</em> of a unit of observation and the relations between variables observed over time, handling the time structure of the data in a proper way.</p>
 </div>
-<div id="time-series-analysis" class="section level2" number="5.2">
+<div id="time-series-analysis" class="section level2" number="4.2">
 <h2>
-<span class="header-section-number">5.2</span> Time Series Analysis<a class="anchor" aria-label="anchor" href="#time-series-analysis"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2</span> Time Series Analysis<a class="anchor" aria-label="anchor" href="#time-series-analysis"><i class="fas fa-link"></i></a>
 </h2>
 <p>Time series analysis is an approach employed in many disciplines. Almost every field of study has data characterized by a time development, and every phenomenon with a temporal dimension can be conceived as a time series and analyzed through time series analysis methods. Time series analysis is an important part of data analysis in disciplines such as economics, to analyze, for instance, <em>inflation trends</em>; marketing, to analyze the <em>number of clients</em> of a store or the number of accesses to an e-commerce website; demography, to study the <em>growth of national population</em> over time or <em>trends in population ageing</em>; engineering, to analyze <em>radio frequencies</em>; and neurology, to analyze <em>brain waves</em> detected through electroencephalograms. Political science can be interested in studying patterns in the <em>alternation of political parties in government</em>, and digital communication can use time series analysis to study series of tweets using a hashtag, the <em>news media coverage</em> on a certain topic, or the trends in <em>user searches on search engines</em>, such as those provided by Google Trends.</p>
 <p>About the use of time series analysis in communication science, it can be observed that:</p>
@@ -113,9 +114,9 @@
 </ul>
 <p>We can also distinguish between <strong>univariate</strong> and <strong>multivariate</strong> time series analysis. Time series analysis can be used to explain the temporal dependencies <strong>within</strong> and <strong>between</strong> processes. By temporal dependency within a social process, we mean that the current value of a variable is, in part, a function of previous values of that same variable. To analyze the univariate structure of time series, univariate techniques are used. Temporal dependency between social processes, conversely, indicates that the current value of a variable is in part a function of the previous values of other variables. Multivariate time series analysis is used to explain the relations between time series.</p>
 </div>
-<div id="stochastic-and-deterministic-processes" class="section level2" number="5.3">
+<div id="stochastic-and-deterministic-processes" class="section level2" number="4.3">
 <h2>
-<span class="header-section-number">5.3</span> Stochastic and Deterministic Processes<a class="anchor" aria-label="anchor" href="#stochastic-and-deterministic-processes"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3</span> Stochastic and Deterministic Processes<a class="anchor" aria-label="anchor" href="#stochastic-and-deterministic-processes"><i class="fas fa-link"></i></a>
 </h2>
 <p>A general distinction can be made between time series, based on their deterministic or non-deterministic nature.</p>
 <p>A <strong>deterministic time series</strong> is one which can be explicitly expressed by an analytic expression. It has no random or probabilistic parts. It is always possible to exactly predict its future behavior, and state how it behaved in the past. Deterministic processes are pretty rare when dealing with individual and social behaviors! Predicting future behaviors of a crowd, of a person, of a social group, can be reasonably possible, sometimes, based on past behaviors and other contextual information, since human behavior is partly <em>influenced</em> by the past. However, it is not totally <em>determined</em> by the past. There is always a certain degree of uncertainty in the prediction; human behaviors are, generally speaking, not fully predictable.</p>
@@ -125,15 +126,15 @@
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">4</span> Basic Data Wrangling with Tidyverse</a></div>
-<div class="next"><a href="time-series-objects.html"><span class="header-section-number">6</span> Time Series Objects</a></div>
+<div class="prev"><a href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">3</span> Basic Data Wrangling with Tidyverse</a></div>
+<div class="next"><a href="time-series-objects.html"><span class="header-section-number">5</span> Time Series Objects</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#basic-concepts"><span class="header-section-number">5</span> Basic Concepts</a></li>
-<li><a class="nav-link" href="#time-series"><span class="header-section-number">5.1</span> Time Series</a></li>
-<li><a class="nav-link" href="#time-series-analysis"><span class="header-section-number">5.2</span> Time Series Analysis</a></li>
-<li><a class="nav-link" href="#stochastic-and-deterministic-processes"><span class="header-section-number">5.3</span> Stochastic and Deterministic Processes</a></li>
+<li><a class="nav-link" href="#basic-concepts"><span class="header-section-number">4</span> Basic Concepts</a></li>
+<li><a class="nav-link" href="#time-series"><span class="header-section-number">4.1</span> Time Series</a></li>
+<li><a class="nav-link" href="#time-series-analysis"><span class="header-section-number">4.2</span> Time Series Analysis</a></li>
+<li><a class="nav-link" href="#stochastic-and-deterministic-processes"><span class="header-section-number">4.3</span> Stochastic and Deterministic Processes</a></li>
 </ul>
 
       <div class="book-extra">

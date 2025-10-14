@@ -45,16 +45,17 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Time Series Analysis With R</a></li>
 <li><a class="" href="getting-started-with-r.html"><span class="header-section-number">2</span> Getting started with R</a></li>
-<li><a class="" href="getting-started-with-r-1.html"><span class="header-section-number">3</span> Getting started with R</a></li>
-<li><a class="" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">4</span> Basic Data Wrangling with Tidyverse</a></li>
-<li><a class="" href="basic-concepts.html"><span class="header-section-number">5</span> Basic Concepts</a></li>
-<li><a class="" href="time-series-objects.html"><span class="header-section-number">6</span> Time Series Objects</a></li>
-<li><a class="" href="plot-time-series.html"><span class="header-section-number">7</span> Plot Time Series</a></li>
+<li><a class="" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">3</span> Basic Data Wrangling with Tidyverse</a></li>
+<li><a class="" href="basic-concepts.html"><span class="header-section-number">4</span> Basic Concepts</a></li>
+<li><a class="" href="time-series-objects.html"><span class="header-section-number">5</span> Time Series Objects</a></li>
+<li><a class="" href="plot-time-series.html"><span class="header-section-number">6</span> Plot Time Series</a></li>
+<li><a class="" href="structural-decomposition.html"><span class="header-section-number">7</span> Structural Decomposition</a></li>
 <li><a class="active" href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></li>
-<li><a class="" href="intervention-analysis.html"><span class="header-section-number">9</span> Intervention Analysis</a></li>
-<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">10</span> Interrupted time series analysis using segmented regression</a></li>
-<li><a class="" href="var.html"><span class="header-section-number">11</span> VAR</a></li>
-<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">12</span> Readings and Bibliographical References</a></li>
+<li><a class="" href="regression.html"><span class="header-section-number">9</span> Regression</a></li>
+<li><a class="" href="intervention-analysis.html"><span class="header-section-number">10</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">11</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="" href="var.html"><span class="header-section-number">12</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">13</span> Readings and Bibliographical References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -94,33 +95,17 @@
 <strong>the partial autocorrelation function (PACF)</strong>. The PACF(k) is a measure of correlation between times series observations that are k units apart, after the correlation at intermediate lags has been controlled for or “partialed” out. In other words, the PACF measures the correlation between <span class="math inline">\(x_t\)</span> and <span class="math inline">\(x_{t+k}\)</span> after it has stripped out the effect of the intermediate <em>x</em>’s. In R, the PACF is calculated and visualized with the function “pacf”. It is useful to detect correlations that are not evident in ACF.</li>
 </ul>
 <p>Let’s consider, as an example, the correlogram of a random walk process. We know that this is a particular time series process in which the current values are combinations of the previous ones (<span class="math inline">\(x_t = x_{t-1} + w_t\)</span>, where <span class="math inline">\(x_{t-1}\)</span> is the value immediately before x, and <span class="math inline">\(w_t\)</span> is a random component). The resulting time series is characterized by a discernible pattern over time which is not exactly predictable (<em>stochastic trend</em>). The ACF of a random walk time series, indeed, shows a correlation between values in the series: even values not so close are notwithstanding correlated.</p>
-<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">Random_Walk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">499</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">acf</a></span><span class="op">(</span><span class="va">Random_Walk</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-105-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-135-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>Instead, the PACF, which removes the correlations between intermediate values, shows a correlation at lag 1, that is, it shows that the overall correlation depends on consequent values. The dotted blue lines signal the boundaries of statistical significance.</p>
-<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">Random_Walk</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-106-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-136-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>We can clearly visualize the auto-correlation by using a simple scatterplot, by plotting two consecutive lines of points.</p>
-<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">Random_Walk</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">499</span><span class="op">]</span>, <span class="va">Random_Walk</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">500</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-107-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-137-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>The ACF or PACF of a white noise process is very different. We know that white noise is a stationary process, without distinguishable points in time and no correlation between points. Indeed, the ACF of white noise shows no correlation (the only line above statistical significance is at zero, which is nothing to be worried about, since it just means that each point is correlated with itself).</p>
-<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">White_Noise</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">500</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">acf</a></span><span class="op">(</span><span class="va">White_Noise</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-108-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-138-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>In the PACF we can see that there is nothing above the dotted line (which means that there is nothing statistically significant).</p>
-<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">White_Noise</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-109-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-139-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>If we plot two consecutive lists of points by using a scatterplot, we can see there is no serial correlation (no pattern is visible):</p>
-<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">White_Noise</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">499</span><span class="op">]</span>, <span class="va">White_Noise</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">500</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-110-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-140-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 </div>
 </div>
 <div id="arima-models" class="section level2" number="8.2">
@@ -138,26 +123,13 @@
 <p><span class="math display">\[
 {x_t} = \alpha x_{t-1} + \alpha x_{t-2} + \alpha x_{t-k} + {w_t}
 \]</span></p>
-<div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">AR_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">500</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, ar <span class="op">=</span> <span class="fl">0.90</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">AR_1</span>, main <span class="op">=</span> <span class="st">"AR(1)"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-111-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-141-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>The ACF of an autoregressive process typically shows a slow and gradual decay in autocorrelation over time.</p>
-<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">acf</a></span><span class="op">(</span><span class="va">AR_1</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-112-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-142-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>The PACF of an autoregressive process shows a peak in correspondence with the order of the model. In the case of an AR(1) the peak is at time 1.</p>
-<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">AR_1</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-113-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-143-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>In the case of an AR(3) the peak is at time 1, 2, and 3.</p>
-<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">AR_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">500</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, ar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">AR_3</span>, main <span class="op">=</span> <span class="st">"AR(3)"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-114-1.png" width="672"></div>
-<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">AR_3</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-114-2.png" width="672"></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-144-1.png" width="0.8\textwidth" style="display: block; margin: auto;"><img src="_main_files/figure-html/unnamed-chunk-144-2.png" width="0.8\textwidth" style="display: block; margin: auto;"></p>
 <p>Now we can see that the <strong>random walk</strong> process we have seen above is a particular case of auto-regressive model. In a random walk process, each value is the previous one plus a random part:</p>
 <p><span class="math display">\[
 x_t = x_{t-1} + w_t
@@ -174,72 +146,35 @@ x_t = x_{t-1} + w_t
 {x_t} = w_t + \beta w_{t-1} + ... + \beta w_{t-q}
 \]</span></p>
 <p>The order of a MA process indicates the lags of white noise taken into account in the model (e.g: <em>MA(3)</em>).</p>
-<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">MA_3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">500</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">3</span><span class="op">)</span>, ma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.3</span>, <span class="fl">0.3</span>, <span class="fl">0.3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">MA_3</span>, main <span class="op">=</span> <span class="st">"MA(3)"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-115-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-145-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>The ACF plot of a MA process shows a more clear cut-off after the term corresponding to the order ot the process. It is different from the ACF of an AR process, which shows a more gradual decay.</p>
-<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">acf</a></span><span class="op">(</span><span class="va">MA_3</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-116-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-146-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>The PACF of a MA process shows an up-and-down movement and does not shut off, but instead tapers toward 0 in some manner.</p>
-<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">MA_3</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-117-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-147-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 </div>
 <div id="integrated-i-process" class="section level3" number="8.2.3">
 <h3>
 <span class="header-section-number">8.2.3</span> Integrated (I) process<a class="anchor" aria-label="anchor" href="#integrated-i-process"><i class="fas fa-link"></i></a>
 </h3>
 <p>An integrated process is a non-stationary time series process that becomes stationary when transformed by <strong>differencing</strong>. In other words, an integrated process is a difference-stationary process, that is a process with a stochastic trends (see the previous chapter).</p>
-<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">I_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">500</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">I_1</span>, main <span class="op">=</span> <span class="st">"I(1)"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-118-1.png" width="672"></div>
-<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="va">I_1</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"I(1) after 'differencing'"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-119-1.png" width="672"></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-148-1.png" width="0.8\textwidth" style="display: block; margin: auto;"><img src="_main_files/figure-html/unnamed-chunk-149-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></p>
 </div>
 <div id="seasonal-s-models" class="section level3" number="8.2.4">
 <h3>
 <span class="header-section-number">8.2.4</span> Seasonal (S) models<a class="anchor" aria-label="anchor" href="#seasonal-s-models"><i class="fas fa-link"></i></a>
 </h3>
 <p>We already introduced the seasonal model. For instance, a dataset showing a seasonal component is AirPassengers. The seasonality appears in the yearly fluctuations in the ACF and in the spikes occurring at 12 months from each other in the PACF.</p>
-<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"AirPassengers"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># this function par(mfrow=c(..., ...))</span></span>
-<span><span class="co"># is used to combine more than one plot</span></span>
-<span><span class="co"># in the same frame. The two numerical values</span></span>
-<span><span class="co"># indicates number of rows and columns</span></span>
-<span><span class="co"># the frame is made of</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">acf</a></span><span class="op">(</span><span class="va">AirPassengers</span>, lag.max <span class="op">=</span> <span class="fl">48</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">AirPassengers</span>, lag.max <span class="op">=</span> <span class="fl">48</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-120-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-150-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 </div>
 <div id="fit-sarima-models" class="section level3" number="8.2.5">
 <h3>
 <span class="header-section-number">8.2.5</span> Fit (S)ARIMA models<a class="anchor" aria-label="anchor" href="#fit-sarima-models"><i class="fas fa-link"></i></a>
 </h3>
 <p>The above examples represent simple processes, but real time series are often the result of more complex <strong>mixtures of different types of process</strong>, and therefore it is more complex to identify an appropriate model for the data.</p>
-<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">7623</span><span class="op">)</span></span>
-<span><span class="va">arima_112</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">500</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span>, ar <span class="op">=</span> <span class="fl">0.8</span>, ma <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.7</span>, <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">arima_112</span>, main <span class="op">=</span> <span class="st">"ARIMA(1,1,2)"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-121-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-151-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>A popular methods to find the appropriate model is the <a href="https://en.wikipedia.org/wiki/Box%E2%80%93Jenkins_method">Box-Jenkins method</a>, a recursive process involving the analysis of a time series, the guess of possible (S)ARIMA models, the fit of the hypothesized models, and a meta-analysis to determine the best specification. Once a best-fitting model has been
 found, the correlogram of the <strong>residuals</strong> should be verified as <strong>white noise</strong>.</p>
 <p>The Box-Jenkins method could be time-consuming and requires some expertise. ACF/PACF can also become difficult to read in case of complex models, and their appropriate interpretation could require a lot of expertise as well. Fortunately, experts have developed <strong>automated methods</strong> that allow us to automatically found and fit an ARIMA model. This is the case of the <strong>auto.arima</strong> function implemented in the <strong>forecast</strong> package (a package for time series analysis and especially for forecasting, developed by <a href="https://scholar.google.com/citations?user=vamErfkAAAAJ&amp;hl=en&amp;oi=ao">Rob J. Hyndman</a>, professor of statistics and time series analysis expert).</p>
-<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Install the package if you haven't installed it yet</span></span>
-<span><span class="co"># install.packages("forecast")</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pkg.robjhyndman.com/forecast/">forecast</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">arima_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/auto.arima.html">auto.arima</a></span><span class="op">(</span><span class="va">arima_112</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">arima_fit</span></span></code></pre></div>
 <pre><code>## Series: arima_112 
 ## ARIMA(1,1,2) 
 ## 
@@ -251,18 +186,11 @@ found, the correlogram of the <strong>residuals</strong> should be verified as <
 ## sigma^2 = 1.035:  log likelihood = -717.9
 ## AIC=1443.8   AICc=1443.88   BIC=1460.65</code></pre>
 <p>As said above, to evaluate the fit of a model we should analyze the <strong>residuals</strong>, and ascertain they behave as white noise. The object resulting from the function <em>auto.arima</em> has a slot including the residuals. To ascertain that residuals are white noise we can plot its <strong>ACF and PACF</strong> (no spike should be significant) and also its <strong>histogram</strong>.</p>
-<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">acf</a></span><span class="op">(</span><span class="va">arima_fit</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">arima_fit</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">arima_fit</span><span class="op">$</span><span class="va">residuals</span>, main <span class="op">=</span> <span class="st">"Histogram of residuals"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-123-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-153-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>The <em>forecast</em> package also implements the function <strong>checkresiduals</strong> to create nice and complete plots of residual diagnostics by using a simple function.</p>
 <p>Besides creating the plots, the function calulate the <strong>Ljung-Box test</strong> (default), or the <strong>Breusch-Godfrey test</strong> (if you specify <em>test=“BG”</em> inside the function):</p>
 <p>The <em>Ljung-Box test</em> (and also the Breusch–Godfrey test) is a diagnostic tool, applied to the residuals of a time series after fitting an ARIMA model, to test the lack of fit. The test examines the autocorrelations of the residuals. If there are no significant autocorrelations, it can be concluded that the model does not exhibit significant lack of fit. To pass the test, the p-value has to be above the significance level (usually 0.05)</p>
-<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/checkresiduals.html">checkresiduals</a></span><span class="op">(</span><span class="va">arima_fit</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-124-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-154-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -275,13 +203,8 @@ found, the correlogram of the <strong>residuals</strong> should be verified as <
 <span class="header-section-number">8.2.5.1</span> SARIMA<a class="anchor" aria-label="anchor" href="#sarima"><i class="fas fa-link"></i></a>
 </h4>
 <p>If we fit a model to the <em>AirPassengers</em> dataset, which has a seasonal component, we find a Seasonal Autoregressive Integrated Moving Average model (<strong>SARIMA</strong>). The seasonal component of the AirPassenger dataset is evident in the plot of the series and its ACF and PACF. The <em>forecast</em> package has a useful function <strong>ggtsdisplay</strong> to plot a time series along with its ACF and PACF.</p>
-<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/tsdisplay.html">ggtsdisplay</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-125-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-155-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>The seasonal part of the ARIMA model consists of terms that are similar to the non-seasonal components of the model, but involves lagged values of the seasonal period.</p>
-<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">AirPassengers_sarima</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/auto.arima.html">auto.arima</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/window.html">window</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">AirPassengers_sarima</span></span></code></pre></div>
 <pre><code>## Series: window(AirPassengers) 
 ## ARIMA(2,1,1)(0,1,0)[12] 
 ## 
@@ -298,12 +221,7 @@ found, the correlogram of the <strong>residuals</strong> should be verified as <
 <span class="header-section-number">8.2.5.2</span> Forecasting<a class="anchor" aria-label="anchor" href="#forecasting"><i class="fas fa-link"></i></a>
 </h4>
 <p>Based on the ARIMA models we found, we can also try to <strong>forecast</strong> future values. We can use the function <strong>forecast</strong> of the homonym library. For instance, we could try to forecast the values of the AirPassenger dataset in the next four years.</p>
-<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">AirPassengers_forecast</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://generics.r-lib.org/reference/forecast.html">forecast</a></span><span class="op">(</span><span class="va">AirPassengers_sarima</span>, h<span class="op">=</span><span class="fl">48</span>, level <span class="op">=</span> <span class="fl">90</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span><span class="op">(</span><span class="va">AirPassengers_forecast</span>, main <span class="op">=</span> <span class="st">"AirPassengers forecast"</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-127-1.png" width="672"></div>
-<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">AirPassengers_sarima</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/auto.arima.html">auto.arima</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-157-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 </div>
 </div>
 </div>
@@ -322,37 +240,13 @@ found, the correlogram of the <strong>residuals</strong> should be verified as <
 </ol>
 <p>We can implement this procedure writing all the necessary code, or by using the library <em>forecast</em>, or also, alternatively, the library <em>TSA</em>.</p>
 <p>To make an example, we apply the method to two simulated two series. The Y-variable is created in such a way that it is correlated with the lagged values at time <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span>. Therefore, we should find a correlation at those lags.</p>
-<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">x_series</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">200</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span>, ar <span class="op">=</span> <span class="fl">0.7</span>, sd<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.union.html">ts.intersect</a></span><span class="op">(</span><span class="va">x_series</span>, <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x_series</span>, <span class="op">-</span><span class="fl">3</span><span class="op">)</span>, <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x_series</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span> </span>
-<span><span class="va">y_series</span> <span class="op">&lt;-</span> <span class="fl">15</span> <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span><span class="va">z</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">+</span> <span class="fl">1.5</span><span class="op">*</span><span class="va">z</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">197</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>The cross-correlation applied to the original series results in a plot where everything seems to be correlated. The “real” correlation at <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span> is not discernible at all.</p>
-<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">ccf</a></span><span class="op">(</span><span class="va">x_series</span>, <span class="va">y_series</span>, na.action <span class="op">=</span> <span class="va">na.omit</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-129-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-159-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>By using the <em>forecast</em> library, we can calculate the pre-withened <em>ccf</em> as follows:</p>
-<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># fit an ARIMA model</span></span>
-<span><span class="va">x_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/auto.arima.html">auto.arima</a></span><span class="op">(</span><span class="va">x_series</span><span class="op">)</span></span>
-<span><span class="co"># keep the residuals ("white noise")</span></span>
-<span><span class="va">x_residuals</span> <span class="op">&lt;-</span> <span class="va">x_model</span><span class="op">$</span><span class="va">residuals</span></span>
-<span></span>
-<span><span class="co"># fit the same ARIMA model to the Y-series</span></span>
-<span><span class="co"># by using the "Arima" function in forecast</span></span>
-<span><span class="va">y_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/Arima.html">Arima</a></span><span class="op">(</span><span class="va">y_series</span>, model<span class="op">=</span><span class="va">x_model</span><span class="op">)</span></span>
-<span><span class="co"># keep the residuals</span></span>
-<span><span class="va">y_filtered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">residuals</a></span><span class="op">(</span><span class="va">y_model</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># apply the ccf to the residuals</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">ccf</a></span><span class="op">(</span><span class="va">x_residuals</span>, <span class="va">y_filtered</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-130-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-160-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 <p>Now, it’s clear that the X-variable is correlated with the Y-variable at <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span>.</p>
 <p>The previous steps show in some detail the steps involved in the pre-whitening strategy, but it is possible to use the original series with the <strong>prewhiten</strong> function of the <strong>TSA</strong> library. Although the function can take, as an argument, a pre-fitted ARIMA model, its greater advantage is that it can take care of all the necessary steps to prewithen the series. In particular, if no model is specified, the library automatically applies a simple AR model. Although this model can be just an approximation of the “true” model (which can be more complex), an approximation can be enough to pre-whiten the series and find a proper cross-correlation (that is, also a simpler and approximate model can do the job).</p>
-<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># install.packages("TSA")</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stat.uiowa.edu/~kchan/TSA.htm">TSA</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/TSA/man/prewhiten.html">prewhiten</a></span><span class="op">(</span><span class="va">x_series</span>, <span class="va">y_series</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-131-1.png" width="672"></div>
+<div class="inline-figure"><img src="_main_files/figure-html/unnamed-chunk-161-1.png" width="0.8\textwidth" style="display: block; margin: auto;"></div>
 </div>
 <div id="examples-in-literature" class="section level2" number="8.4">
 <h2>
@@ -379,8 +273,8 @@ In the event that the actual democracy level of any country was greater than the
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="plot-time-series.html"><span class="header-section-number">7</span> Plot Time Series</a></div>
-<div class="next"><a href="intervention-analysis.html"><span class="header-section-number">9</span> Intervention Analysis</a></div>
+<div class="prev"><a href="structural-decomposition.html"><span class="header-section-number">7</span> Structural Decomposition</a></div>
+<div class="next"><a href="regression.html"><span class="header-section-number">9</span> Regression</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">

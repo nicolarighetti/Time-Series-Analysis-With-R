@@ -4,13 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>4 Basic Data Wrangling with Tidyverse | Time Series Analysis With R</title>
+<title>3 Basic Data Wrangling with Tidyverse | Time Series Analysis With R</title>
 <meta name="author" content="Nicola Righetti">
 <meta name="generator" content="bookdown 0.43 with bs4_book()">
-<meta property="og:title" content="4 Basic Data Wrangling with Tidyverse | Time Series Analysis With R">
+<meta property="og:title" content="3 Basic Data Wrangling with Tidyverse | Time Series Analysis With R">
 <meta property="og:type" content="book">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="4 Basic Data Wrangling with Tidyverse | Time Series Analysis With R">
+<meta name="twitter:title" content="3 Basic Data Wrangling with Tidyverse | Time Series Analysis With R">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.8.0/transition.js"></script><script src="libs/bs3compat-0.8.0/tabs.js"></script><script src="libs/bs3compat-0.8.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -45,16 +45,17 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Time Series Analysis With R</a></li>
 <li><a class="" href="getting-started-with-r.html"><span class="header-section-number">2</span> Getting started with R</a></li>
-<li><a class="" href="getting-started-with-r-1.html"><span class="header-section-number">3</span> Getting started with R</a></li>
-<li><a class="active" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">4</span> Basic Data Wrangling with Tidyverse</a></li>
-<li><a class="" href="basic-concepts.html"><span class="header-section-number">5</span> Basic Concepts</a></li>
-<li><a class="" href="time-series-objects.html"><span class="header-section-number">6</span> Time Series Objects</a></li>
-<li><a class="" href="plot-time-series.html"><span class="header-section-number">7</span> Plot Time Series</a></li>
+<li><a class="active" href="basic-data-wrangling-with-tidyverse.html"><span class="header-section-number">3</span> Basic Data Wrangling with Tidyverse</a></li>
+<li><a class="" href="basic-concepts.html"><span class="header-section-number">4</span> Basic Concepts</a></li>
+<li><a class="" href="time-series-objects.html"><span class="header-section-number">5</span> Time Series Objects</a></li>
+<li><a class="" href="plot-time-series.html"><span class="header-section-number">6</span> Plot Time Series</a></li>
+<li><a class="" href="structural-decomposition.html"><span class="header-section-number">7</span> Structural Decomposition</a></li>
 <li><a class="" href="correlations-and-arima.html"><span class="header-section-number">8</span> Correlations and ARIMA</a></li>
-<li><a class="" href="intervention-analysis.html"><span class="header-section-number">9</span> Intervention Analysis</a></li>
-<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">10</span> Interrupted time series analysis using segmented regression</a></li>
-<li><a class="" href="var.html"><span class="header-section-number">11</span> VAR</a></li>
-<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">12</span> Readings and Bibliographical References</a></li>
+<li><a class="" href="regression.html"><span class="header-section-number">9</span> Regression</a></li>
+<li><a class="" href="intervention-analysis.html"><span class="header-section-number">10</span> Intervention Analysis</a></li>
+<li><a class="" href="interrupted-time-series-analysis-using-segmented-regression.html"><span class="header-section-number">11</span> Interrupted time series analysis using segmented regression</a></li>
+<li><a class="" href="var.html"><span class="header-section-number">12</span> VAR</a></li>
+<li><a class="" href="readings-and-bibliographical-references.html"><span class="header-section-number">13</span> Readings and Bibliographical References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -62,9 +63,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="basic-data-wrangling-with-tidyverse" class="section level1" number="4">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="basic-data-wrangling-with-tidyverse" class="section level1" number="3">
 <h1>
-<span class="header-section-number">4</span> Basic Data Wrangling with Tidyverse<a class="anchor" aria-label="anchor" href="#basic-data-wrangling-with-tidyverse"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3</span> Basic Data Wrangling with Tidyverse<a class="anchor" aria-label="anchor" href="#basic-data-wrangling-with-tidyverse"><i class="fas fa-link"></i></a>
 </h1>
 <p><a href="https://en.wikipedia.org/wiki/Data_wrangling">Data wrangling</a> <em>is the process of transforming and mapping data from one “raw” data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.</em></p>
 <p><a href="https://link.springer.com/referenceworkentry/10.1007%2F978-3-319-63962-8_9-1">Another definition</a> is as follows: <em>Data wrangling is the process of profiling and transforming datasets to ensure they are actionable for a set of analysis tasks. One central goal is to make data usable: to put data in a form that can be parsed and manipulated by analysis tools. Another goal is to ensure that data is responsive to the intended analyses: that the data contain the necessary information, at an acceptable level of description and correctness, to support successful modeling and decision-making.</em></p>
@@ -76,20 +77,13 @@
 <p>In R, a <strong>library (or “package”)</strong> is a coherent collection of functions, usually created for specific purposes.</p>
 <p>To work with the <em>tidyverse</em> library, it is necessary to install it first, by using the following command: <em>install.packages(“tidyverse”)</em>.</p>
 <p>After having installed tidyverse (or any other library), it is necessary to load it, so as we can work with its functions in the current R session:</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># to load a library used the command library(NAME-OF-THE-LIBRARY)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 <p>Besides using the function <em>install.packages(NAME-OF-THE-LIBRARY)</em> by using a line of code, it is also possible to use the RStudio interface.</p>
 <p><a href="https://youtu.be/4C60FIZZTRU">Click here to watch “Install and Load Libraries”</a></p>
-<div id="the-pipe-operator" class="section level2" number="4.1">
+<div id="the-pipe-operator" class="section level2" number="3.1">
 <h2>
-<span class="header-section-number">4.1</span> The Pipe Operator %&gt;%<a class="anchor" aria-label="anchor" href="#the-pipe-operator"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1</span> The Pipe Operator %&gt;%<a class="anchor" aria-label="anchor" href="#the-pipe-operator"><i class="fas fa-link"></i></a>
 </h2>
 <p>Tidyverse has a peculiar syntax that makes use of the so-called <a href="https://style.tidyverse.org/pipes.html"><strong>pipe</strong></a> operator <strong>%&gt;%</strong>, like in the following example:</p>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">a_dataframe</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">second_variable</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">a_new_variable</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 7 × 2
 ##   second_variable  mean
 ##   &lt;chr&gt;           &lt;dbl&gt;
@@ -101,13 +95,6 @@
 ## 6 Tuesday         145  
 ## 7 Wednesday       138</code></pre>
 <p>To manipulate data sets we can rely on the functions included in <a href="https://dplyr.tidyverse.org"><strong>dplyr</strong></a>: <em>a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges</em>, such as <em>mutate</em>, <em>rename</em>, <em>summarize</em>.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
-<span><span class="va">tweets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/tweets_covid_small.csv"</span>, </span>
-<span>    col_types <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html">cols</a></span><span class="op">(</span>created_at <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_datetime</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span><span class="op">)</span>, </span>
-<span>        retweet_count <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   created_at          screen_name   source             retweet_count
 ##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                      &lt;int&gt;
@@ -119,16 +106,11 @@
 ## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad              96</code></pre>
 <p><a href="https://youtu.be/BnUV-hC4fSo">Click here to watch “Import Data and Specify Data Types (Dates and Times)”</a></p>
 </div>
-<div id="mutate" class="section level2" number="4.2">
+<div id="mutate" class="section level2" number="3.2">
 <h2>
-<span class="header-section-number">4.2</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
 </h2>
 <p>The function <strong>mutate</strong> adds new variables to a data.frame or overwrites existing variables.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets</span> <span class="op">&lt;-</span> <span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>log_retweet_count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">retweet_count</span><span class="op">)</span><span class="op">)</span></span>
-<span>  </span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ##   created_at          screen_name   source             retweet_count log_retweet_count
 ##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                      &lt;int&gt;             &lt;dbl&gt;
@@ -139,17 +121,11 @@
 ## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App                4              1.39
 ## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad              96              4.56</code></pre>
 </div>
-<div id="rename" class="section level2" number="4.3">
+<div id="rename" class="section level2" number="3.3">
 <h2>
-<span class="header-section-number">4.3</span> Rename<a class="anchor" aria-label="anchor" href="#rename"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3</span> Rename<a class="anchor" aria-label="anchor" href="#rename"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>rename</strong> is a function to change the name of columns (sometimes it can be useful).</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets</span> <span class="op">&lt;-</span> <span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># rename (new_name = old_name)</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>device <span class="op">=</span> <span class="va">source</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ##   created_at          screen_name   device             retweet_count log_retweet_count
 ##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                      &lt;int&gt;             &lt;dbl&gt;
@@ -160,18 +136,6 @@
 ## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App                4              1.39
 ## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad              96              4.56</code></pre>
 <p>The previous two steps can be performed at the same time, by concatenating the operations through the <em>pipe %&gt;%</em> operator.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># load again the data set</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span></span>
-<span><span class="va">tweets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/tweets_covid_small.csv"</span>, </span>
-<span>    col_types <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html">cols</a></span><span class="op">(</span>created_at <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_datetime</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span><span class="op">)</span>, </span>
-<span>        retweet_count <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">tweets</span> <span class="op">&lt;-</span> <span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>log_retweet_count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">retweet_count</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>device <span class="op">=</span> <span class="va">source</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ##   created_at          screen_name   device             retweet_count log_retweet_count
 ##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                      &lt;int&gt;             &lt;dbl&gt;
@@ -182,8 +146,6 @@
 ## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App                4              1.61
 ## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad              96              4.57</code></pre>
 <p>To check the data format of the variables stored in the data.frame, you can use the command <em>str()</em>.</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">tweets</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## tibble [100 × 5] (S3: tbl_df/tbl/data.frame)
 ##  $ created_at       : POSIXct[1:100], format: "2021-03-24 08:53:52" "2021-03-24 08:53:25" ...
 ##  $ screen_name      : chr [1:100] "DoYourThingUK" "DoYourThingUK" "AlexS1595" "MakesworthAcc" ...
@@ -191,10 +153,6 @@
 ##  $ retweet_count    : int [1:100] 0 0 3 0 4 96 0 1 0 3 ...
 ##  $ log_retweet_count: num [1:100] 0 0 1.39 0 1.61 ...</code></pre>
 <p>Sometimes variables are stored in the data.frame in the wrong format (see the paragraph “data type”), so we may want to convert them to a new format. For this purpose, we can use the function <strong>mutate</strong> along with other functions such as <em>as.integer</em>, <em>as.numeric</em>, <em>as.character</em>, <em>as.factor</em>, <em>as.logical</em>, <em>as.Date</em>, or <em>as.POSIXct()</em> depending on the desired data format (it is possible and advisable to upload the data by paying attention to the type of data. If you upload the data in the correct format, you can skip this step).</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>device <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">device</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 5
 ##   created_at          screen_name   device             retweet_count log_retweet_count
 ##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;                      &lt;int&gt;             &lt;dbl&gt;
@@ -205,17 +163,11 @@
 ## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App                4              1.61
 ## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iPad              96              4.57</code></pre>
 </div>
-<div id="summarize-and-group_by" class="section level2" number="4.4">
+<div id="summarize-and-group_by" class="section level2" number="3.4">
 <h2>
-<span class="header-section-number">4.4</span> Summarize and group_by<a class="anchor" aria-label="anchor" href="#summarize-and-group_by"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4</span> Summarize and group_by<a class="anchor" aria-label="anchor" href="#summarize-and-group_by"><i class="fas fa-link"></i></a>
 </h2>
 <p>To aggregate data and calculate summary values (for instance, the average number of tweets <em>by day</em>), you can use the function <em>group_by</em> (to aggregate data, for instance by day) and <em>summarize</em> to calculate the summary values.</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets_summary</span> <span class="op">&lt;-</span> <span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">screen_name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>average_retweets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">retweet_count</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tweets_summary</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 2
 ##   screen_name     average_retweets
 ##   &lt;chr&gt;                      &lt;dbl&gt;
@@ -226,13 +178,6 @@
 ## 5 ApKido                       150
 ## 6 BBVA_Trader                    0</code></pre>
 <p>It is also possible to create more than one summary variables at once.</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets_summary</span> <span class="op">&lt;-</span> <span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">screen_name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>average_retweets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">retweet_count</span><span class="op">)</span>,</span>
-<span>            average_log_retweets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">log_retweet_count</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tweets_summary</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 3
 ##   screen_name     average_retweets average_log_retweets
 ##   &lt;chr&gt;                      &lt;dbl&gt;                &lt;dbl&gt;
@@ -242,19 +187,11 @@
 ## 4 Andecave                      20                 3.04
 ## 5 ApKido                       150                 5.02
 ## 6 BBVA_Trader                    0                 0</code></pre>
-<div id="count-occurrences" class="section level3" number="4.4.1">
+<div id="count-occurrences" class="section level3" number="3.4.1">
 <h3>
-<span class="header-section-number">4.4.1</span> Count occurrences<a class="anchor" aria-label="anchor" href="#count-occurrences"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.1</span> Count occurrences<a class="anchor" aria-label="anchor" href="#count-occurrences"><i class="fas fa-link"></i></a>
 </h3>
 <p>A useful operation to perform when summarizing data is to count the occurrences of a certain variable. For instance, to count the number of tweets sent by each user, you can use the function <strong>n()</strong> inside the <em>summarize</em> function.</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets_summary</span> <span class="op">&lt;-</span> <span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">screen_name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>average_retweets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">retweet_count</span><span class="op">)</span>,</span>
-<span>            average_log_retweets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">log_retweet_count</span><span class="op">)</span>,</span>
-<span>            number_of_tweets <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">tweets_summary</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   screen_name     average_retweets average_log_retweets number_of_tweets
 ##   &lt;chr&gt;                      &lt;dbl&gt;                &lt;dbl&gt;            &lt;int&gt;
@@ -266,16 +203,12 @@
 ## 6 BBVA_Trader                    0                 0                   1</code></pre>
 </div>
 </div>
-<div id="arrange" class="section level2" number="4.5">
+<div id="arrange" class="section level2" number="3.5">
 <h2>
-<span class="header-section-number">4.5</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.5</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
 </h2>
 <p>To explore a data set, it can be useful to sort the data (e.g., from the lowest to the highest value of a variable). With <em>tidyverse</em>, we can order a data.frame by using the function <em>arrange</em>.</p>
 <p>To sort the data from the highest to the lowest value (descending order), the <em>minus</em> sign (or the <em>desc</em> function) has to be added.</p>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets_summary</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">number_of_tweets</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   screen_name     average_retweets average_log_retweets number_of_tweets
 ##   &lt;chr&gt;                      &lt;dbl&gt;                &lt;dbl&gt;            &lt;int&gt;
@@ -285,10 +218,6 @@
 ## 4 benphillips76              3.5                  1.45                 2
 ## 5 viralvideovlogs            3.5                  1.45                 2
 ## 6 2EXvoZ6nublpw1F          164                    5.11                 1</code></pre>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets_summary</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">average_retweets</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   screen_name    average_retweets average_log_retweets number_of_tweets
 ##   &lt;chr&gt;                     &lt;dbl&gt;                &lt;dbl&gt;            &lt;int&gt;
@@ -299,10 +228,6 @@
 ## 5 rosaesaa26                  983                 6.89                1
 ## 6 lewisabzueta                822                 6.71                1</code></pre>
 <p>Without the minus sign (or the “desc” command), data are sorted from the lowest to the highest value.</p>
-<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets_summary</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">number_of_tweets</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 4
 ##   screen_name     average_retweets average_log_retweets number_of_tweets
 ##   &lt;chr&gt;                      &lt;dbl&gt;                &lt;dbl&gt;            &lt;int&gt;
@@ -313,80 +238,61 @@
 ## 5 ApKido                       150                 5.02                1
 ## 6 BBVA_Trader                    0                 0                   1</code></pre>
 </div>
-<div id="filter" class="section level2" number="4.6">
+<div id="filter" class="section level2" number="3.6">
 <h2>
-<span class="header-section-number">4.6</span> Filter<a class="anchor" aria-label="anchor" href="#filter"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.6</span> Filter<a class="anchor" aria-label="anchor" href="#filter"><i class="fas fa-link"></i></a>
 </h2>
 <p>The function <em>filter</em> keeps only the cases (the “rows”) we want to focus on. The arguments of this function are the conditions that must be fulfilled to filter the data: a) the name of the column that we want to filter, and b) the values to be kept.</p>
-<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">retweet_count</span> <span class="op">&gt;=</span> <span class="fl">500</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">retweet_count</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 10 × 5
-##    created_at          screen_name     device          retweet_count log_retweet_count
-##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                   &lt;int&gt;             &lt;dbl&gt;
-##  1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for An…          1988              7.60
-##  2 2021-03-24 08:53:48 Lil_3arbiii     Twitter for iP…          1627              7.40
-##  3 2021-03-24 08:53:48 Kittyhawk681    Twitter Web App          1285              7.16
-##  4 2021-03-24 08:53:37 JulesFox12      Twitter for An…          1091              7.00
-##  5 2021-03-24 08:53:42 rosaesaa26      Twitter for An…           983              6.89
-##  6 2021-03-24 08:53:42 lewisabzueta    Twitter for An…           822              6.71
-##  7 2021-03-24 08:53:42 jonvthvn08      Twitter for iP…           768              6.65
-##  8 2021-03-24 08:53:34 florent61647053 Twitter for An…           768              6.65
-##  9 2021-03-24 08:53:37 Ritu89903967    Twitter for An…           709              6.57
-## 10 2021-03-24 08:53:33 Hurica3         Twitter for iP…           575              6.36</code></pre>
+##    created_at          screen_name     device            retweet_count log_retweet_count
+##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                     &lt;int&gt;             &lt;dbl&gt;
+##  1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for Andr…          1988              7.60
+##  2 2021-03-24 08:53:48 Lil_3arbiii     Twitter for iPho…          1627              7.40
+##  3 2021-03-24 08:53:48 Kittyhawk681    Twitter Web App            1285              7.16
+##  4 2021-03-24 08:53:37 JulesFox12      Twitter for Andr…          1091              7.00
+##  5 2021-03-24 08:53:42 rosaesaa26      Twitter for Andr…           983              6.89
+##  6 2021-03-24 08:53:42 lewisabzueta    Twitter for Andr…           822              6.71
+##  7 2021-03-24 08:53:42 jonvthvn08      Twitter for iPho…           768              6.65
+##  8 2021-03-24 08:53:34 florent61647053 Twitter for Andr…           768              6.65
+##  9 2021-03-24 08:53:37 Ritu89903967    Twitter for Andr…           709              6.57
+## 10 2021-03-24 08:53:33 Hurica3         Twitter for iPho…           575              6.36</code></pre>
 <p>In the examples below, notice the use of a double equal sign <em>==</em>, and also of the quotation marks to indicate the modalities of a categorical variable.</p>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">retweet_count</span> <span class="op">==</span> <span class="fl">1988</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## # A tibble: 1 × 5
-##   created_at          screen_name    device            retweet_count log_retweet_count
-##   &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;                     &lt;int&gt;             &lt;dbl&gt;
-## 1 2021-03-24 08:53:31 Oliver_Miguel1 Twitter for Andr…          1988              7.60</code></pre>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">device</span> <span class="op">==</span> <span class="st">"Twitter for Android"</span><span class="op">)</span></span></code></pre></div>
+##   created_at          screen_name    device              retweet_count log_retweet_count
+##   &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;                       &lt;int&gt;             &lt;dbl&gt;
+## 1 2021-03-24 08:53:31 Oliver_Miguel1 Twitter for Android          1988              7.60</code></pre>
 <pre><code>## # A tibble: 33 × 5
-##    created_at          screen_name     device          retweet_count log_retweet_count
-##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                   &lt;int&gt;             &lt;dbl&gt;
-##  1 2021-03-24 08:53:49 marcin_lukawski Twitter for An…             1             0.693
-##  2 2021-03-24 08:53:49 LebodyRanya     Twitter for An…             0             0    
-##  3 2021-03-24 08:53:47 anshunandanpra4 Twitter for An…             2             1.10 
-##  4 2021-03-24 08:53:44 insoumise007    Twitter for An…             5             1.79 
-##  5 2021-03-24 08:53:43 Metamorfopsies  Twitter for An…             0             0    
-##  6 2021-03-24 08:53:43 keepsmiling_130 Twitter for An…           164             5.11 
-##  7 2021-03-24 08:53:43 lovebresil01    Twitter for An…            81             4.41 
-##  8 2021-03-24 08:53:42 LightHealing    Twitter for An…             1             0.693
-##  9 2021-03-24 08:53:42 lewisabzueta    Twitter for An…           822             6.71 
-## 10 2021-03-24 08:53:42 rosaesaa26      Twitter for An…           983             6.89 
+##    created_at          screen_name     device            retweet_count log_retweet_count
+##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                     &lt;int&gt;             &lt;dbl&gt;
+##  1 2021-03-24 08:53:49 marcin_lukawski Twitter for Andr…             1             0.693
+##  2 2021-03-24 08:53:49 LebodyRanya     Twitter for Andr…             0             0    
+##  3 2021-03-24 08:53:47 anshunandanpra4 Twitter for Andr…             2             1.10 
+##  4 2021-03-24 08:53:44 insoumise007    Twitter for Andr…             5             1.79 
+##  5 2021-03-24 08:53:43 Metamorfopsies  Twitter for Andr…             0             0    
+##  6 2021-03-24 08:53:43 keepsmiling_130 Twitter for Andr…           164             5.11 
+##  7 2021-03-24 08:53:43 lovebresil01    Twitter for Andr…            81             4.41 
+##  8 2021-03-24 08:53:42 LightHealing    Twitter for Andr…             1             0.693
+##  9 2021-03-24 08:53:42 lewisabzueta    Twitter for Andr…           822             6.71 
+## 10 2021-03-24 08:53:42 rosaesaa26      Twitter for Andr…           983             6.89 
 ## # ℹ 23 more rows</code></pre>
 <p>It is also possible to use several conditions at the same time.</p>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">device</span> <span class="op">==</span> <span class="st">"Twitter for Android"</span>,</span>
-<span>         <span class="va">retweet_count</span> <span class="op">&gt;</span> <span class="fl">200</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">retweet_count</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 8 × 5
-##   created_at          screen_name     device           retweet_count log_retweet_count
-##   &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                    &lt;int&gt;             &lt;dbl&gt;
-## 1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for And…          1988              7.60
-## 2 2021-03-24 08:53:37 JulesFox12      Twitter for And…          1091              7.00
-## 3 2021-03-24 08:53:42 rosaesaa26      Twitter for And…           983              6.89
-## 4 2021-03-24 08:53:42 lewisabzueta    Twitter for And…           822              6.71
-## 5 2021-03-24 08:53:34 florent61647053 Twitter for And…           768              6.65
-## 6 2021-03-24 08:53:37 Ritu89903967    Twitter for And…           709              6.57
-## 7 2021-03-24 08:53:27 aspeaker66      Twitter for And…           331              5.81
-## 8 2021-03-24 08:53:42 JamesAn26254230 Twitter for And…           201              5.31</code></pre>
+##   created_at          screen_name     device             retweet_count log_retweet_count
+##   &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;                      &lt;int&gt;             &lt;dbl&gt;
+## 1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for Andro…          1988              7.60
+## 2 2021-03-24 08:53:37 JulesFox12      Twitter for Andro…          1091              7.00
+## 3 2021-03-24 08:53:42 rosaesaa26      Twitter for Andro…           983              6.89
+## 4 2021-03-24 08:53:42 lewisabzueta    Twitter for Andro…           822              6.71
+## 5 2021-03-24 08:53:34 florent61647053 Twitter for Andro…           768              6.65
+## 6 2021-03-24 08:53:37 Ritu89903967    Twitter for Andro…           709              6.57
+## 7 2021-03-24 08:53:27 aspeaker66      Twitter for Andro…           331              5.81
+## 8 2021-03-24 08:53:42 JamesAn26254230 Twitter for Andro…           201              5.31</code></pre>
 </div>
-<div id="select" class="section level2" number="4.7">
+<div id="select" class="section level2" number="3.7">
 <h2>
-<span class="header-section-number">4.7</span> Select<a class="anchor" aria-label="anchor" href="#select"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.7</span> Select<a class="anchor" aria-label="anchor" href="#select"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>select</strong> is used to keep only some of the columns of the original data.frame. For instance, we can apply the function to keep just the columns <em>device</em> and <em>retweet_count</em>.</p>
-<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tweets</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">device</span>, <span class="va">retweet_count</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## # A tibble: 6 × 2
 ##   device             retweet_count
 ##   &lt;chr&gt;                      &lt;int&gt;
@@ -400,21 +306,21 @@
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="getting-started-with-r-1.html"><span class="header-section-number">3</span> Getting started with R</a></div>
-<div class="next"><a href="basic-concepts.html"><span class="header-section-number">5</span> Basic Concepts</a></div>
+<div class="prev"><a href="getting-started-with-r.html"><span class="header-section-number">2</span> Getting started with R</a></div>
+<div class="next"><a href="basic-concepts.html"><span class="header-section-number">4</span> Basic Concepts</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#basic-data-wrangling-with-tidyverse"><span class="header-section-number">4</span> Basic Data Wrangling with Tidyverse</a></li>
-<li><a class="nav-link" href="#the-pipe-operator"><span class="header-section-number">4.1</span> The Pipe Operator %&gt;%</a></li>
-<li><a class="nav-link" href="#mutate"><span class="header-section-number">4.2</span> Mutate</a></li>
-<li><a class="nav-link" href="#rename"><span class="header-section-number">4.3</span> Rename</a></li>
+<li><a class="nav-link" href="#basic-data-wrangling-with-tidyverse"><span class="header-section-number">3</span> Basic Data Wrangling with Tidyverse</a></li>
+<li><a class="nav-link" href="#the-pipe-operator"><span class="header-section-number">3.1</span> The Pipe Operator %&gt;%</a></li>
+<li><a class="nav-link" href="#mutate"><span class="header-section-number">3.2</span> Mutate</a></li>
+<li><a class="nav-link" href="#rename"><span class="header-section-number">3.3</span> Rename</a></li>
 <li>
-<a class="nav-link" href="#summarize-and-group_by"><span class="header-section-number">4.4</span> Summarize and group_by</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#count-occurrences"><span class="header-section-number">4.4.1</span> Count occurrences</a></li></ul>
+<a class="nav-link" href="#summarize-and-group_by"><span class="header-section-number">3.4</span> Summarize and group_by</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#count-occurrences"><span class="header-section-number">3.4.1</span> Count occurrences</a></li></ul>
 </li>
-<li><a class="nav-link" href="#arrange"><span class="header-section-number">4.5</span> Arrange</a></li>
-<li><a class="nav-link" href="#filter"><span class="header-section-number">4.6</span> Filter</a></li>
-<li><a class="nav-link" href="#select"><span class="header-section-number">4.7</span> Select</a></li>
+<li><a class="nav-link" href="#arrange"><span class="header-section-number">3.5</span> Arrange</a></li>
+<li><a class="nav-link" href="#filter"><span class="header-section-number">3.6</span> Filter</a></li>
+<li><a class="nav-link" href="#select"><span class="header-section-number">3.7</span> Select</a></li>
 </ul>
 
       <div class="book-extra">
