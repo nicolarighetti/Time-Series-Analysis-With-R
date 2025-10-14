@@ -1,4 +1,21 @@
+# Folders
 _bookdown_files/
+videos/
+images/
+_main_filese/
+Time-Series-Analysis-With-R_files/
+
+# Project files
+_bookdown.yml
+_output.yml
+basic-r-syntax.R
+bookdownproj.Rmd
+bookdownproj.toc
+causal_impact.txt
+causal_impct.txt
+style.css
+
+# R files
 .Rhistory
 .Rproj.user
 *.Rproj
