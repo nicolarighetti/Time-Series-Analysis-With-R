@@ -1,3 +1,610 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:07b998ee26785fbb787e8b56612c823188be059ad477f270d8bf691150e1d923
-size 28312
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter3 Basic Data Wrangling with Tidyverse | Time Series Analysis With R</title>
+  <meta name="description" content="Chapter3 Basic Data Wrangling with Tidyverse | Time Series Analysis With R" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter3 Basic Data Wrangling with Tidyverse | Time Series Analysis With R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter3 Basic Data Wrangling with Tidyverse | Time Series Analysis With R" />
+  
+  
+  
+
+<meta name="author" content="Nicola Righetti" />
+
+
+<meta name="date" content="2025-10-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="getting-started-with-r.html"/>
+<link rel="next" href="basic-concepts.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Time Series Analysis With R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#citation"><i class="fa fa-check"></i><b>1.1</b> Citation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#rstudio-interface-and-data"><i class="fa fa-check"></i><b>2.1</b> RStudio Interface and Data</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#download-and-install-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Download and Install RStudio</a></li>
+<li class="chapter" data-level="2.1.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-rstudio-project-and-import-data"><i class="fa fa-check"></i><b>2.1.2</b> Create a RStudio Project and Import data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-script"><i class="fa fa-check"></i><b>2.1.3</b> Create a Script</a></li>
+<li class="chapter" data-level="2.1.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-rstudio-user-interface"><i class="fa fa-check"></i><b>2.1.4</b> The RStudio User Interface</a></li>
+<li class="chapter" data-level="2.1.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#load-and-save-data"><i class="fa fa-check"></i><b>2.1.5</b> Load and Save Data</a></li>
+<li class="chapter" data-level="2.1.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-new-folders"><i class="fa fa-check"></i><b>2.1.6</b> Create new Folders</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r"><i class="fa fa-check"></i><b>2.2</b> Basic R</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#objects"><i class="fa fa-check"></i><b>2.2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#functions"><i class="fa fa-check"></i><b>2.2.2</b> Functions</a></li>
+<li class="chapter" data-level="2.2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.2.3</b> Data Types</a></li>
+<li class="chapter" data-level="2.2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#excercise"><i class="fa fa-check"></i><b>2.2.4</b> Excercise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.1</b> The Pipe Operator %&gt;%</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.2</b> Mutate</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.3</b> Rename</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.4.1</b> Count occurrences</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5</b> Arrange</a></li>
+<li class="chapter" data-level="3.6" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.6</b> Filter</a></li>
+<li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.7</b> Select</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series"><i class="fa fa-check"></i><b>4.1</b> Time Series</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>5.1.1</b> Time Series as Data Frames</a></li>
+<li class="chapter" data-level="5.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>5.1.2</b> Time Series as TS objects</a></li>
+<li class="chapter" data-level="5.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>5.1.3</b> Time Series as XTS/ZOO objects</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>6</b> Plot Time Series</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>6.1</b> Plot Time Series Objects</a></li>
+<li class="chapter" data-level="6.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>6.2</b> plot.ts</a></li>
+<li class="chapter" data-level="6.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>6.3</b> plot.xts</a></li>
+<li class="chapter" data-level="6.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>6.4</b> ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#components-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Components of a time series</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#trend-and-cycle"><i class="fa fa-check"></i><b>7.1.1</b> Trend and Cycle</a></li>
+<li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#stochastic-and-deterministic-trend"><i class="fa fa-check"></i><b>7.1.2</b> Stochastic and Deterministic Trend</a></li>
+<li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.3</b> Seasonality</a></li>
+<li class="chapter" data-level="7.1.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.4</b> Residuals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
+<li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
+<li class="chapter" data-level="7.2.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#compare-additive-and-multiplicative-models"><i class="fa fa-check"></i><b>7.2.3</b> Compare Additive and Multiplicative Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
+<li class="chapter" data-level="7.3.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#other-decomposition-methods-in-r"><i class="fa fa-check"></i><b>7.3.3</b> Other Decomposition Methods in R</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html"><i class="fa fa-check"></i><b>8</b> Correlations and ARIMA</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-correlation-acf-and-pacf"><i class="fa fa-check"></i><b>8.1</b> Auto-Correlation (ACF and PACF)</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>8.1.1</b> Correlogram: ACF and PACF</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-regressive-ar-models"><i class="fa fa-check"></i><b>8.2.1</b> Auto Regressive (AR) models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#moving-average-ma-models"><i class="fa fa-check"></i><b>8.2.2</b> Moving Average (MA) models</a></li>
+<li class="chapter" data-level="8.2.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#integrated-i-process"><i class="fa fa-check"></i><b>8.2.3</b> Integrated (I) process</a></li>
+<li class="chapter" data-level="8.2.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#seasonal-s-models"><i class="fa fa-check"></i><b>8.2.4</b> Seasonal (S) models</a></li>
+<li class="chapter" data-level="8.2.5" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#fit-sarima-models"><i class="fa fa-check"></i><b>8.2.5</b> Fit (S)ARIMA models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#cross-correlation"><i class="fa fa-check"></i><b>8.3</b> Cross-correlation</a></li>
+<li class="chapter" data-level="8.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#examples-in-literature"><i class="fa fa-check"></i><b>8.4</b> Examples in literature</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#static-and-dynamic-models"><i class="fa fa-check"></i><b>9.1</b> Static and Dynamic Models</a></li>
+<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-models"><i class="fa fa-check"></i><b>9.2</b> Regression models</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="regression.html"><a href="regression.html#stationarity"><i class="fa fa-check"></i><b>9.2.1</b> Stationarity</a></li>
+<li class="chapter" data-level="9.2.2" data-path="regression.html"><a href="regression.html#non-autocorrelated-residuals"><i class="fa fa-check"></i><b>9.2.2</b> Non-autocorrelated residuals</a></li>
+<li class="chapter" data-level="9.2.3" data-path="regression.html"><a href="regression.html#regression-with-arma-errors"><i class="fa fa-check"></i><b>9.2.3</b> Regression with ARMA errors</a></li>
+<li class="chapter" data-level="9.2.4" data-path="regression.html"><a href="regression.html#count-regression-models"><i class="fa fa-check"></i><b>9.2.4</b> Count regression models</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#model-selection-aic-aicc-bic"><i class="fa fa-check"></i><b>9.3</b> Model Selection (AIC, AICc, BIC)</a></li>
+<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#some-examples-in-the-literature"><i class="fa fa-check"></i><b>9.4</b> Some examples in the literature</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="intervention-analysis.html"><a href="intervention-analysis.html"><i class="fa fa-check"></i><b>10</b> Intervention Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#types-of-intervention"><i class="fa fa-check"></i><b>10.1</b> Types of intervention</a></li>
+<li class="chapter" data-level="10.2" data-path="intervention-analysis.html"><a href="intervention-analysis.html#intervention-analysis-with-arima"><i class="fa fa-check"></i><b>10.2</b> Intervention analysis with ARIMA</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html"><i class="fa fa-check"></i><b>11</b> Interrupted time series analysis using segmented regression</a></li>
+<li class="chapter" data-level="12" data-path="var.html"><a href="var.html"><i class="fa fa-check"></i><b>12</b> VAR</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="var.html"><a href="var.html#var-modeling-hands-on-tutorial"><i class="fa fa-check"></i><b>12.1</b> VAR modeling hands-on tutorial</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="var.html"><a href="var.html#assumption-of-stationarity"><i class="fa fa-check"></i><b>12.1.1</b> Assumption of stationarity</a></li>
+<li class="chapter" data-level="12.1.2" data-path="var.html"><a href="var.html#other-assumptions-of-var-models-distribution-of-residuals"><i class="fa fa-check"></i><b>12.1.2</b> Other assumptions of VAR models: distribution of residuals</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="var.html"><a href="var.html#var-fitting"><i class="fa fa-check"></i><b>12.2</b> VAR fitting</a></li>
+<li class="chapter" data-level="12.3" data-path="var.html"><a href="var.html#granger-causality-test"><i class="fa fa-check"></i><b>12.3</b> Granger causality test</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html"><i class="fa fa-check"></i><b>13</b> Readings and Bibliographical References</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#mandatory"><i class="fa fa-check"></i><b>13.1</b> Mandatory</a></li>
+<li class="chapter" data-level="13.2" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#other-readings"><i class="fa fa-check"></i><b>13.2</b> Other readings</a></li>
+<li class="chapter" data-level="13.3" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#useful-resources"><i class="fa fa-check"></i><b>13.3</b> Useful resources</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series Analysis With R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="basic-data-wrangling-with-tidyverse" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter3</span> Basic Data Wrangling with Tidyverse<a href="basic-data-wrangling-with-tidyverse.html#basic-data-wrangling-with-tidyverse" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><a href="https://en.wikipedia.org/wiki/Data_wrangling">Data wrangling</a> <em>is the process of transforming and mapping data from one “raw” data form into another format with the intent of making it more appropriate and valuable for a variety of downstream purposes such as analytics. The goal of data wrangling is to assure quality and useful data. Data analysts typically spend the majority of their time in the process of data wrangling compared to the actual analysis of the data.</em></p>
+<p><a href="https://link.springer.com/referenceworkentry/10.1007%2F978-3-319-63962-8_9-1">Another definition</a> is as follows: <em>Data wrangling is the process of profiling and transforming datasets to ensure they are actionable for a set of analysis tasks. One central goal is to make data usable: to put data in a form that can be parsed and manipulated by analysis tools. Another goal is to ensure that data is responsive to the intended analyses: that the data contain the necessary information, at an acceptable level of description and correctness, to support successful modeling and decision-making.</em></p>
+<p>How to “manipulate” data sets in R:</p>
+<ul>
+<li>use basic R functions;</li>
+<li>employ specific libraries such as <strong>tidyverse</strong>. Tidyverse is an R library composed of functions that allow users to perform basic and advanced data science operations. <a href="https://www.tidyverse.org" class="uri">https://www.tidyverse.org</a>.</li>
+</ul>
+<p>In R, a <strong>library (or “package”)</strong> is a coherent collection of functions, usually created for specific purposes.</p>
+<p>To work with the <em>tidyverse</em> library, it is necessary to install it first, by using the following command: <em>install.packages(“tidyverse”)</em>.</p>
+<p>After having installed tidyverse (or any other library), it is necessary to load it, so as we can work with its functions in the current R session:</p>
+<p>Besides using the function <em>install.packages(NAME-OF-THE-LIBRARY)</em> by using a line of code, it is also possible to use the RStudio interface.</p>
+<p><a href="https://youtu.be/4C60FIZZTRU">Click here to watch “Install and Load Libraries”</a></p>
+<div id="the-pipe-operator" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> The Pipe Operator %&gt;%<a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Tidyverse has a peculiar syntax that makes use of the so-called <a href="https://style.tidyverse.org/pipes.html"><strong>pipe</strong></a> operator <strong>%&gt;%</strong>, like in the following example:</p>
+<pre><code>## # A tibble: 7 × 2
+##   second_variable  mean
+##   &lt;chr&gt;           &lt;dbl&gt;
+## 1 Friday            3  
+## 2 Monday           37  
+## 3 Saturday        140. 
+## 4 Sunday           48  
+## 5 Thursday         25.5
+## 6 Tuesday         145  
+## 7 Wednesday       138</code></pre>
+<p>To manipulate data sets we can rely on the functions included in <a href="https://dplyr.tidyverse.org"><strong>dplyr</strong></a>: <em>a grammar of data manipulation, providing a consistent set of verbs that help you solve the most common data manipulation challenges</em>, such as <em>mutate</em>, <em>rename</em>, <em>summarize</em>.</p>
+<pre><code>## # A tibble: 6 × 4
+##   created_at          screen_name   source         
+##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;          
+## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iP…
+## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iP…
+## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iP…
+## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App
+## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App
+## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iP…
+## # ℹ 1 more variable: retweet_count &lt;int&gt;</code></pre>
+<p><a href="https://youtu.be/BnUV-hC4fSo">Click here to watch “Import Data and Specify Data Types (Dates and Times)”</a></p>
+</div>
+<div id="mutate" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Mutate<a href="basic-data-wrangling-with-tidyverse.html#mutate" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The function <strong>mutate</strong> adds new variables to a data.frame or overwrites existing variables.</p>
+<pre><code>## # A tibble: 6 × 5
+##   created_at          screen_name   source         
+##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;          
+## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iP…
+## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iP…
+## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iP…
+## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App
+## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App
+## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iP…
+## # ℹ 2 more variables: retweet_count &lt;int&gt;,
+## #   log_retweet_count &lt;dbl&gt;</code></pre>
+</div>
+<div id="rename" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Rename<a href="basic-data-wrangling-with-tidyverse.html#rename" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>rename</strong> is a function to change the name of columns (sometimes it can be useful).</p>
+<pre><code>## # A tibble: 6 × 5
+##   created_at          screen_name   device         
+##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;          
+## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iP…
+## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iP…
+## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iP…
+## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App
+## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App
+## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iP…
+## # ℹ 2 more variables: retweet_count &lt;int&gt;,
+## #   log_retweet_count &lt;dbl&gt;</code></pre>
+<p>The previous two steps can be performed at the same time, by concatenating the operations through the <em>pipe %&gt;%</em> operator.</p>
+<pre><code>## # A tibble: 6 × 5
+##   created_at          screen_name   device         
+##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;          
+## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iP…
+## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iP…
+## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iP…
+## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App
+## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App
+## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iP…
+## # ℹ 2 more variables: retweet_count &lt;int&gt;,
+## #   log_retweet_count &lt;dbl&gt;</code></pre>
+<p>To check the data format of the variables stored in the data.frame, you can use the command <em>str()</em>.</p>
+<pre><code>## tibble [100 × 5] (S3: tbl_df/tbl/data.frame)
+##  $ created_at       : POSIXct[1:100], format:  ...
+##  $ screen_name      : chr [1:100] &quot;DoYourThingUK&quot; &quot;DoYourThingUK&quot; &quot;AlexS1595&quot; &quot;MakesworthAcc&quot; ...
+##  $ device           : chr [1:100] &quot;Twitter for iPhone&quot; &quot;Twitter for iPhone&quot; &quot;Twitter for iPhone&quot; &quot;Twitter Web App&quot; ...
+##  $ retweet_count    : int [1:100] 0 0 3 0 4 96 0 1 0 3 ...
+##  $ log_retweet_count: num [1:100] 0 0 1.39 0 1.61 ...</code></pre>
+<p>Sometimes variables are stored in the data.frame in the wrong format (see the paragraph “data type”), so we may want to convert them to a new format. For this purpose, we can use the function <strong>mutate</strong> along with other functions such as <em>as.integer</em>, <em>as.numeric</em>, <em>as.character</em>, <em>as.factor</em>, <em>as.logical</em>, <em>as.Date</em>, or <em>as.POSIXct()</em> depending on the desired data format (it is possible and advisable to upload the data by paying attention to the type of data. If you upload the data in the correct format, you can skip this step).</p>
+<pre><code>## # A tibble: 6 × 5
+##   created_at          screen_name   device         
+##   &lt;dttm&gt;              &lt;chr&gt;         &lt;chr&gt;          
+## 1 2021-03-24 08:53:52 DoYourThingUK Twitter for iP…
+## 2 2021-03-24 08:53:25 DoYourThingUK Twitter for iP…
+## 3 2021-03-24 08:53:52 AlexS1595     Twitter for iP…
+## 4 2021-03-24 08:53:51 MakesworthAcc Twitter Web App
+## 5 2021-03-24 08:53:39 MakesworthAcc Twitter Web App
+## 6 2021-03-24 08:53:51 GGrahambute   Twitter for iP…
+## # ℹ 2 more variables: retweet_count &lt;int&gt;,
+## #   log_retweet_count &lt;dbl&gt;</code></pre>
+</div>
+<div id="summarize-and-group_by" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Summarize and group_by<a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To aggregate data and calculate summary values (for instance, the average number of tweets <em>by day</em>), you can use the function <em>group_by</em> (to aggregate data, for instance by day) and <em>summarize</em> to calculate the summary values.</p>
+<pre><code>## # A tibble: 6 × 2
+##   screen_name     average_retweets
+##   &lt;chr&gt;                      &lt;dbl&gt;
+## 1 2EXvoZ6nublpw1F              164
+## 2 AdilHaiderMD                  80
+## 3 AlexS1595                      3
+## 4 Andecave                      20
+## 5 ApKido                       150
+## 6 BBVA_Trader                    0</code></pre>
+<p>It is also possible to create more than one summary variables at once.</p>
+<pre><code>## # A tibble: 6 × 3
+##   screen_name average_retweets average_log_retweets
+##   &lt;chr&gt;                  &lt;dbl&gt;                &lt;dbl&gt;
+## 1 2EXvoZ6nub…              164                 5.11
+## 2 AdilHaider…               80                 4.39
+## 3 AlexS1595                  3                 1.39
+## 4 Andecave                  20                 3.04
+## 5 ApKido                   150                 5.02
+## 6 BBVA_Trader                0                 0</code></pre>
+<div id="count-occurrences" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Count occurrences<a href="basic-data-wrangling-with-tidyverse.html#count-occurrences" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A useful operation to perform when summarizing data is to count the occurrences of a certain variable. For instance, to count the number of tweets sent by each user, you can use the function <strong>n()</strong> inside the <em>summarize</em> function.</p>
+<pre><code>## # A tibble: 6 × 4
+##   screen_name average_retweets average_log_retweets
+##   &lt;chr&gt;                  &lt;dbl&gt;                &lt;dbl&gt;
+## 1 2EXvoZ6nub…              164                 5.11
+## 2 AdilHaider…               80                 4.39
+## 3 AlexS1595                  3                 1.39
+## 4 Andecave                  20                 3.04
+## 5 ApKido                   150                 5.02
+## 6 BBVA_Trader                0                 0   
+## # ℹ 1 more variable: number_of_tweets &lt;int&gt;</code></pre>
+</div>
+</div>
+<div id="arrange" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Arrange<a href="basic-data-wrangling-with-tidyverse.html#arrange" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To explore a data set, it can be useful to sort the data (e.g., from the lowest to the highest value of a variable). With <em>tidyverse</em>, we can order a data.frame by using the function <em>arrange</em>.</p>
+<p>To sort the data from the highest to the lowest value (descending order), the <em>minus</em> sign (or the <em>desc</em> function) has to be added.</p>
+<pre><code>## # A tibble: 6 × 4
+##   screen_name average_retweets average_log_retweets
+##   &lt;chr&gt;                  &lt;dbl&gt;                &lt;dbl&gt;
+## 1 iprdhzb                0.667                0.462
+## 2 DoYourThin…            0                    0    
+## 3 Makesworth…            2                    0.805
+## 4 benphillip…            3.5                  1.45 
+## 5 viralvideo…            3.5                  1.45 
+## 6 2EXvoZ6nub…          164                    5.11 
+## # ℹ 1 more variable: number_of_tweets &lt;int&gt;</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   screen_name average_retweets average_log_retweets
+##   &lt;chr&gt;                  &lt;dbl&gt;                &lt;dbl&gt;
+## 1 Oliver_Mig…             1988                 7.60
+## 2 Lil_3arbiii             1627                 7.40
+## 3 Kittyhawk6…             1285                 7.16
+## 4 JulesFox12              1091                 7.00
+## 5 rosaesaa26               983                 6.89
+## 6 lewisabzue…              822                 6.71
+## # ℹ 1 more variable: number_of_tweets &lt;int&gt;</code></pre>
+<p>Without the minus sign (or the “desc” command), data are sorted from the lowest to the highest value.</p>
+<pre><code>## # A tibble: 6 × 4
+##   screen_name average_retweets average_log_retweets
+##   &lt;chr&gt;                  &lt;dbl&gt;                &lt;dbl&gt;
+## 1 2EXvoZ6nub…              164                 5.11
+## 2 AdilHaider…               80                 4.39
+## 3 AlexS1595                  3                 1.39
+## 4 Andecave                  20                 3.04
+## 5 ApKido                   150                 5.02
+## 6 BBVA_Trader                0                 0   
+## # ℹ 1 more variable: number_of_tweets &lt;int&gt;</code></pre>
+</div>
+<div id="filter" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Filter<a href="basic-data-wrangling-with-tidyverse.html#filter" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The function <em>filter</em> keeps only the cases (the “rows”) we want to focus on. The arguments of this function are the conditions that must be fulfilled to filter the data: a) the name of the column that we want to filter, and b) the values to be kept.</p>
+<pre><code>## # A tibble: 10 × 5
+##    created_at          screen_name     device      
+##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;       
+##  1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for…
+##  2 2021-03-24 08:53:48 Lil_3arbiii     Twitter for…
+##  3 2021-03-24 08:53:48 Kittyhawk681    Twitter Web…
+##  4 2021-03-24 08:53:37 JulesFox12      Twitter for…
+##  5 2021-03-24 08:53:42 rosaesaa26      Twitter for…
+##  6 2021-03-24 08:53:42 lewisabzueta    Twitter for…
+##  7 2021-03-24 08:53:42 jonvthvn08      Twitter for…
+##  8 2021-03-24 08:53:34 florent61647053 Twitter for…
+##  9 2021-03-24 08:53:37 Ritu89903967    Twitter for…
+## 10 2021-03-24 08:53:33 Hurica3         Twitter for…
+## # ℹ 2 more variables: retweet_count &lt;int&gt;,
+## #   log_retweet_count &lt;dbl&gt;</code></pre>
+<p>In the examples below, notice the use of a double equal sign <em>==</em>, and also of the quotation marks to indicate the modalities of a categorical variable.</p>
+<pre><code>## # A tibble: 1 × 5
+##   created_at          screen_name    device        
+##   &lt;dttm&gt;              &lt;chr&gt;          &lt;chr&gt;         
+## 1 2021-03-24 08:53:31 Oliver_Miguel1 Twitter for A…
+## # ℹ 2 more variables: retweet_count &lt;int&gt;,
+## #   log_retweet_count &lt;dbl&gt;</code></pre>
+<pre><code>## # A tibble: 33 × 5
+##    created_at          screen_name     device      
+##    &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;       
+##  1 2021-03-24 08:53:49 marcin_lukawski Twitter for…
+##  2 2021-03-24 08:53:49 LebodyRanya     Twitter for…
+##  3 2021-03-24 08:53:47 anshunandanpra4 Twitter for…
+##  4 2021-03-24 08:53:44 insoumise007    Twitter for…
+##  5 2021-03-24 08:53:43 Metamorfopsies  Twitter for…
+##  6 2021-03-24 08:53:43 keepsmiling_130 Twitter for…
+##  7 2021-03-24 08:53:43 lovebresil01    Twitter for…
+##  8 2021-03-24 08:53:42 LightHealing    Twitter for…
+##  9 2021-03-24 08:53:42 lewisabzueta    Twitter for…
+## 10 2021-03-24 08:53:42 rosaesaa26      Twitter for…
+## # ℹ 23 more rows
+## # ℹ 2 more variables: retweet_count &lt;int&gt;,
+## #   log_retweet_count &lt;dbl&gt;</code></pre>
+<p>It is also possible to use several conditions at the same time.</p>
+<pre><code>## # A tibble: 8 × 5
+##   created_at          screen_name     device       
+##   &lt;dttm&gt;              &lt;chr&gt;           &lt;chr&gt;        
+## 1 2021-03-24 08:53:31 Oliver_Miguel1  Twitter for …
+## 2 2021-03-24 08:53:37 JulesFox12      Twitter for …
+## 3 2021-03-24 08:53:42 rosaesaa26      Twitter for …
+## 4 2021-03-24 08:53:42 lewisabzueta    Twitter for …
+## 5 2021-03-24 08:53:34 florent61647053 Twitter for …
+## 6 2021-03-24 08:53:37 Ritu89903967    Twitter for …
+## 7 2021-03-24 08:53:27 aspeaker66      Twitter for …
+## 8 2021-03-24 08:53:42 JamesAn26254230 Twitter for …
+## # ℹ 2 more variables: retweet_count &lt;int&gt;,
+## #   log_retweet_count &lt;dbl&gt;</code></pre>
+</div>
+<div id="select" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Select<a href="basic-data-wrangling-with-tidyverse.html#select" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>select</strong> is used to keep only some of the columns of the original data.frame. For instance, we can apply the function to keep just the columns <em>device</em> and <em>retweet_count</em>.</p>
+<pre><code>## # A tibble: 6 × 2
+##   device             retweet_count
+##   &lt;chr&gt;                      &lt;int&gt;
+## 1 Twitter for iPhone             0
+## 2 Twitter for iPhone             0
+## 3 Twitter for iPhone             3
+## 4 Twitter Web App                0
+## 5 Twitter Web App                4
+## 6 Twitter for iPad              96</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="getting-started-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="basic-concepts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

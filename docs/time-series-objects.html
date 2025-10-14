@@ -1,3 +1,520 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1cf352e2b761959808a876001690cd2d3e3ab47ff928fa579388095a5f75de58
-size 24781
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter5 Time Series Objects | Time Series Analysis With R</title>
+  <meta name="description" content="Chapter5 Time Series Objects | Time Series Analysis With R" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter5 Time Series Objects | Time Series Analysis With R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter5 Time Series Objects | Time Series Analysis With R" />
+  
+  
+  
+
+<meta name="author" content="Nicola Righetti" />
+
+
+<meta name="date" content="2025-10-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basic-concepts.html"/>
+<link rel="next" href="plot-time-series.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Time Series Analysis With R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#citation"><i class="fa fa-check"></i><b>1.1</b> Citation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#rstudio-interface-and-data"><i class="fa fa-check"></i><b>2.1</b> RStudio Interface and Data</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#download-and-install-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Download and Install RStudio</a></li>
+<li class="chapter" data-level="2.1.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-rstudio-project-and-import-data"><i class="fa fa-check"></i><b>2.1.2</b> Create a RStudio Project and Import data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-script"><i class="fa fa-check"></i><b>2.1.3</b> Create a Script</a></li>
+<li class="chapter" data-level="2.1.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-rstudio-user-interface"><i class="fa fa-check"></i><b>2.1.4</b> The RStudio User Interface</a></li>
+<li class="chapter" data-level="2.1.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#load-and-save-data"><i class="fa fa-check"></i><b>2.1.5</b> Load and Save Data</a></li>
+<li class="chapter" data-level="2.1.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-new-folders"><i class="fa fa-check"></i><b>2.1.6</b> Create new Folders</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r"><i class="fa fa-check"></i><b>2.2</b> Basic R</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#objects"><i class="fa fa-check"></i><b>2.2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#functions"><i class="fa fa-check"></i><b>2.2.2</b> Functions</a></li>
+<li class="chapter" data-level="2.2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.2.3</b> Data Types</a></li>
+<li class="chapter" data-level="2.2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#excercise"><i class="fa fa-check"></i><b>2.2.4</b> Excercise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.1</b> The Pipe Operator %&gt;%</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.2</b> Mutate</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.3</b> Rename</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.4.1</b> Count occurrences</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5</b> Arrange</a></li>
+<li class="chapter" data-level="3.6" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.6</b> Filter</a></li>
+<li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.7</b> Select</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series"><i class="fa fa-check"></i><b>4.1</b> Time Series</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>5.1.1</b> Time Series as Data Frames</a></li>
+<li class="chapter" data-level="5.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>5.1.2</b> Time Series as TS objects</a></li>
+<li class="chapter" data-level="5.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>5.1.3</b> Time Series as XTS/ZOO objects</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>6</b> Plot Time Series</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>6.1</b> Plot Time Series Objects</a></li>
+<li class="chapter" data-level="6.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>6.2</b> plot.ts</a></li>
+<li class="chapter" data-level="6.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>6.3</b> plot.xts</a></li>
+<li class="chapter" data-level="6.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>6.4</b> ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#components-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Components of a time series</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#trend-and-cycle"><i class="fa fa-check"></i><b>7.1.1</b> Trend and Cycle</a></li>
+<li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#stochastic-and-deterministic-trend"><i class="fa fa-check"></i><b>7.1.2</b> Stochastic and Deterministic Trend</a></li>
+<li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.3</b> Seasonality</a></li>
+<li class="chapter" data-level="7.1.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.4</b> Residuals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
+<li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
+<li class="chapter" data-level="7.2.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#compare-additive-and-multiplicative-models"><i class="fa fa-check"></i><b>7.2.3</b> Compare Additive and Multiplicative Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
+<li class="chapter" data-level="7.3.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#other-decomposition-methods-in-r"><i class="fa fa-check"></i><b>7.3.3</b> Other Decomposition Methods in R</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html"><i class="fa fa-check"></i><b>8</b> Correlations and ARIMA</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-correlation-acf-and-pacf"><i class="fa fa-check"></i><b>8.1</b> Auto-Correlation (ACF and PACF)</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>8.1.1</b> Correlogram: ACF and PACF</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-regressive-ar-models"><i class="fa fa-check"></i><b>8.2.1</b> Auto Regressive (AR) models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#moving-average-ma-models"><i class="fa fa-check"></i><b>8.2.2</b> Moving Average (MA) models</a></li>
+<li class="chapter" data-level="8.2.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#integrated-i-process"><i class="fa fa-check"></i><b>8.2.3</b> Integrated (I) process</a></li>
+<li class="chapter" data-level="8.2.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#seasonal-s-models"><i class="fa fa-check"></i><b>8.2.4</b> Seasonal (S) models</a></li>
+<li class="chapter" data-level="8.2.5" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#fit-sarima-models"><i class="fa fa-check"></i><b>8.2.5</b> Fit (S)ARIMA models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#cross-correlation"><i class="fa fa-check"></i><b>8.3</b> Cross-correlation</a></li>
+<li class="chapter" data-level="8.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#examples-in-literature"><i class="fa fa-check"></i><b>8.4</b> Examples in literature</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#static-and-dynamic-models"><i class="fa fa-check"></i><b>9.1</b> Static and Dynamic Models</a></li>
+<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-models"><i class="fa fa-check"></i><b>9.2</b> Regression models</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="regression.html"><a href="regression.html#stationarity"><i class="fa fa-check"></i><b>9.2.1</b> Stationarity</a></li>
+<li class="chapter" data-level="9.2.2" data-path="regression.html"><a href="regression.html#non-autocorrelated-residuals"><i class="fa fa-check"></i><b>9.2.2</b> Non-autocorrelated residuals</a></li>
+<li class="chapter" data-level="9.2.3" data-path="regression.html"><a href="regression.html#regression-with-arma-errors"><i class="fa fa-check"></i><b>9.2.3</b> Regression with ARMA errors</a></li>
+<li class="chapter" data-level="9.2.4" data-path="regression.html"><a href="regression.html#count-regression-models"><i class="fa fa-check"></i><b>9.2.4</b> Count regression models</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#model-selection-aic-aicc-bic"><i class="fa fa-check"></i><b>9.3</b> Model Selection (AIC, AICc, BIC)</a></li>
+<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#some-examples-in-the-literature"><i class="fa fa-check"></i><b>9.4</b> Some examples in the literature</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="intervention-analysis.html"><a href="intervention-analysis.html"><i class="fa fa-check"></i><b>10</b> Intervention Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#types-of-intervention"><i class="fa fa-check"></i><b>10.1</b> Types of intervention</a></li>
+<li class="chapter" data-level="10.2" data-path="intervention-analysis.html"><a href="intervention-analysis.html#intervention-analysis-with-arima"><i class="fa fa-check"></i><b>10.2</b> Intervention analysis with ARIMA</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html"><i class="fa fa-check"></i><b>11</b> Interrupted time series analysis using segmented regression</a></li>
+<li class="chapter" data-level="12" data-path="var.html"><a href="var.html"><i class="fa fa-check"></i><b>12</b> VAR</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="var.html"><a href="var.html#var-modeling-hands-on-tutorial"><i class="fa fa-check"></i><b>12.1</b> VAR modeling hands-on tutorial</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="var.html"><a href="var.html#assumption-of-stationarity"><i class="fa fa-check"></i><b>12.1.1</b> Assumption of stationarity</a></li>
+<li class="chapter" data-level="12.1.2" data-path="var.html"><a href="var.html#other-assumptions-of-var-models-distribution-of-residuals"><i class="fa fa-check"></i><b>12.1.2</b> Other assumptions of VAR models: distribution of residuals</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="var.html"><a href="var.html#var-fitting"><i class="fa fa-check"></i><b>12.2</b> VAR fitting</a></li>
+<li class="chapter" data-level="12.3" data-path="var.html"><a href="var.html#granger-causality-test"><i class="fa fa-check"></i><b>12.3</b> Granger causality test</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html"><i class="fa fa-check"></i><b>13</b> Readings and Bibliographical References</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#mandatory"><i class="fa fa-check"></i><b>13.1</b> Mandatory</a></li>
+<li class="chapter" data-level="13.2" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#other-readings"><i class="fa fa-check"></i><b>13.2</b> Other readings</a></li>
+<li class="chapter" data-level="13.3" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#useful-resources"><i class="fa fa-check"></i><b>13.3</b> Useful resources</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series Analysis With R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="time-series-objects" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter5</span> Time Series Objects<a href="time-series-objects.html#time-series-objects" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="time-series-objects-1" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Time Series Objects<a href="time-series-objects.html#time-series-objects-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Every <em>object</em> we manipulate in R is characterized by a specific structure. Objects’ structures vary depending on the type of object: a <em>list</em>, a <em>matrix</em>, or a <em>data.frame</em>, are different objects with different structures. Every structure has its own manipulation methods. For instance, it can be accessed and analyzed by using different functions and strings of code.</p>
+<p>In R there are many different types of object. To get an overview you can refer to this handbook, to the <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.html">R manual</a>, or the chapter 5 of <a href="https://rc2e.com/datastructures">this free online book</a>. In this course we are going to learn more about the data structures we have to deal with when conducting time series analysis in R, that is, the structure of time series objects and data sets.</p>
+<p>Time series data sets in R can be represented by different objects. Specific <em>libraries</em> (coherent collections of functions) can give different structures to time series data sets.</p>
+<p>There are many R libraries for handling and working with time series objects. Some of them are more general and other are useful to perform very specific analysis. <a href="https://cran.r-project.org/web/views/TimeSeries.html">On this page</a> you can find a comprehensive list of the R libraries for time series analysis.</p>
+<p>For now, we just need to know that different libraries can create time series objects with different structures which can be manipulated through different functions. This means that <strong>not all the objects can be analyzed with all the functions</strong>, as well that there is <strong>not always compatibility</strong> between R libraries.
+Many functions have been developed with reference to specific libraries and objects, or require a particular object structure. As a consequence, creating a time series object with a certain structure or a certain library can imply that we can use some functions and perform only a certain type of analysis. In other words, specific type of objects could introduce specific <strong>constrains to data analysis</strong> (and visualization), so it could be wise to plan in advance the necessary analyses, so as to select the necessary libraries and data structure.</p>
+<p>We now introduce three types of objects that are commonly used to store and analyze time series data:</p>
+<ul>
+<li>The <strong>data.frame</strong> (in base R)</li>
+<li>The <strong>ts</strong> object (in base R)</li>
+<li>The <strong>xts</strong> object (created through the library <em>xts</em>).</li>
+</ul>
+<p>We analyze the structures of these objects and their strengths and limitations. In the next chapter, we’ll also learn the methods available to visualize them.</p>
+<div id="time-series-as-data-frames" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Time Series as Data Frames<a href="time-series-objects.html#time-series-as-data-frames" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Data frames (<em>data.frame</em>) are the most common data set structure in R. A data.frame is simply a table <em>cases by variables</em> (each row is a case and each column is a variable).</p>
+<p>To see an example of data.frame containing time series data, we can upload a data set containing the number of news articles mentioning the keyword “elections” published by USA news media. I retrieved this data set from <a href="https://mediacloud.org">MediaCloud</a>, a free and open source platform for studying media ecosystem that tracks millions of stories published online. You can download the data set <a href="https://drive.google.com/file/d/1vzpdPFb_ihBlqqbHxJS7mEvzQ3tNhmEm/view?usp=sharing">at this link</a>.</p>
+<p>We can upload the <em>.csv</em> file by using the function <strong>read.csv</strong>. The main argument of the read.csv function is the path of the file.</p>
+<p>By using the function <strong>class</strong> we can see that this is a data.frame.</p>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p>We can check the first few rows of the data.frame by using the function <strong>head</strong>, which shows the first few rows of the data set, so as to get an idea of the structure of this simple data.frame.</p>
+<pre><code>##         date count total_count      ratio
+## 1 2015-01-01   373       25611 0.01456405
+## 2 2015-01-02   387       31932 0.01211950
+## 3 2015-01-03   289       24646 0.01172604
+## 4 2015-01-04   322       25513 0.01262102
+## 5 2015-01-05   567       39982 0.01418138
+## 6 2015-01-06   626       42366 0.01477600</code></pre>
+<p>This data.frame contains time series data: the first column contains dates, and the other columns contain the values of the observations. We can also see that the data.frame seems to contain daily data, where each row corresponds to a specific day. The data frame also includes, in the column “count”, the number of news articles mentioning the keyword “elections”, in the column “total_count”, the total number of news articles on <em>all the topics</em>, and in the column “ratio” the proportion of news articles mentioning the keyword (count/total_count).</p>
+<p>The function <em>head</em> (and <em>tail</em>) can be impractical with data.frame including a lot of columns, so it could be better to use the function <strong>str</strong> to check the structure of the data.frame.</p>
+<pre><code>## &#39;data.frame&#39;:    2192 obs. of  4 variables:
+##  $ date       : chr  &quot;2015-01-01&quot; &quot;2015-01-02&quot; &quot;2015-01-03&quot; &quot;2015-01-04&quot; ...
+##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
+##  $ total_count: int  25611 31932 24646 25513 39982 42366 45163 44928 44041 29093 ...
+##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
+<p>As you can see in the output of the function <em>str</em>, the format of the column date is <em>Factor</em>. The format is, in this case, automatically attributed by R, but (as we have already said) it can be specified before importing the data.</p>
+<p><em>Factor</em> is an appropriate format for categorical variables, but R includes a specific format for dates and times. In this case we have just a date, so we can convert it to a variable of type <em>date</em>. We can change the format of the variable by using the function <strong>as.Date</strong>.</p>
+<pre><code>## &#39;data.frame&#39;:    2192 obs. of  4 variables:
+##  $ date       : Date, format:  ...
+##  $ count      : int  373 387 289 322 567 626 507 521 531 346 ...
+##  $ total_count: int  25611 31932 24646 25513 39982 42366 45163 44928 44041 29093 ...
+##  $ ratio      : num  0.0146 0.0121 0.0117 0.0126 0.0142 ...</code></pre>
+<p>We can also perform the same operation with tidyverse, by using the function <strong>mutate</strong>.</p>
+<p>A data.frame is the common format for data sets, including time series data sets. We can do many things with data stored in this format, such as creating plots and performing various types of analysis. However, to handle time series in R there are more specific data formats.</p>
+</div>
+<div id="time-series-as-ts-objects" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Time Series as TS objects<a href="time-series-objects.html#time-series-as-ts-objects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The basic object created to handle time series in R is the object of class <em>ts</em>. The name stands for “Time Series”.</p>
+<p>An example of ts object is already present in R under the name of “AirPassengers”, a time series data set in ts format. We can load this data set with the function <strong>data</strong>.</p>
+<p>By applying the function <em>class</em> we can see that this is an object of class ts.</p>
+<pre><code>## [1] &quot;ts&quot;</code></pre>
+<p>AirPassengers is a small data set so we can print all the data set to see its structure, which is an example of the standard structure of a ts object.</p>
+<pre><code>##      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov
+## 1949 112 118 132 129 121 135 148 148 136 119 104
+## 1950 115 126 141 135 125 149 170 170 158 133 114
+## 1951 145 150 178 163 172 178 199 199 184 162 146
+## 1952 171 180 193 181 183 218 230 242 209 191 172
+## 1953 196 196 236 235 229 243 264 272 237 211 180
+## 1954 204 188 235 227 234 264 302 293 259 229 203
+## 1955 242 233 267 269 270 315 364 347 312 274 237
+## 1956 284 277 317 313 318 374 413 405 355 306 271
+## 1957 315 301 356 348 355 422 465 467 404 347 305
+## 1958 340 318 362 348 363 435 491 505 404 359 310
+## 1959 360 342 406 396 420 472 548 559 463 407 362
+## 1960 417 391 419 461 472 535 622 606 508 461 390
+##      Dec
+## 1949 118
+## 1950 140
+## 1951 166
+## 1952 194
+## 1953 201
+## 1954 229
+## 1955 278
+## 1956 306
+## 1957 336
+## 1958 337
+## 1959 405
+## 1960 432</code></pre>
+<p>By calling the <em>str</em> function we get synthetic information on the object.</p>
+<pre><code>##  Time-Series [1:144] from 1949 to 1961: 112 118 132 129 121 135 148 148 136 119 ...</code></pre>
+<p>The AirPassengers data set is a univariate time series representing monthly totals of international airline passengers from 1949 to 1960. As every time series, it has a <strong>start date</strong> and an <strong>end date</strong>. It also has a <strong>frequency</strong>, which is the frequency at which the observations were taken.</p>
+<p>All this characteristics differentiate a ts object from a data.frame. The structure of a data.frame lacks the start and the end date, and the frequency value.</p>
+<p>The functions <strong>start</strong>, <strong>end</strong>, and <strong>frequency</strong>, can be applied to a <em>ts</em> object to check their values. We started by saying that some functions work with some objects but not with other types of objects. This is an example. These functions, indeed, work with <em>ts</em> objects just because they are part of their structures, and are arguments usually specified when this kind of object is created. They do not work if applied to a data.frame object, since a data.frame structure does not include the start and end date, nor the frequency of observations. It can be seen that the ts structure is much more specific for time series data.</p>
+<pre><code>## [1] 1949</code></pre>
+<pre><code>## [1] 1960</code></pre>
+<pre><code>## [1] 12</code></pre>
+<p>Importantly, the frequency of a time series is assumed to be <strong>regular</strong> over time. This applies to time series in general, and not just to ts objects. In this case, the time series starts on January 1949 and ends on December 1969, and has <em>monthly</em> frequency. Monthly frequency is indicated in <em>ts</em> as “12”, meaning 12 months. Indeed, the reference unit of a ts object is a year. So, quarterly data, for instance, have frequency equal to 4.</p>
+<p>To create a ts object is necessary to follow specific steps and use specific functions. To exemplify the process of creation of a ts object we take the example of the data contained in the AirPassengers data set, and store them in a data.frame (you don’t need to learn how to do that, just copy and paste the code). A data.frame is the data set format you will probably start with, so it can be useful to see how to create a ts object starting from a data.frame.</p>
+<p>To create a “ts” time series object starting from a data.frame, we need:</p>
+<ul>
+<li>To specify which column contains the observations. In this case, the column name is “Passengers”.</li>
+<li>We then need to specify the start and end date, which in this case are in the format year/month, but can be just years in case of yearly data. The ts format for the start/end date is the following: <em>c=(YEAR, MONTH)</em>. The <em>c</em> represents the <em>concatenate</em> function, and it concatenates the year and the month in a single vector.</li>
+<li>Finally, we indicate the frequency of the time series observations. The frequency is specified based on the time period of a year, so in this case we have a frequency equal to 12, because we have monthly observation, meaning that we have 12 observation per year.</li>
+</ul>
+<pre><code>##      Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov
+## 1949 112 118 132 129 121 135 148 148 136 119 104
+## 1950 115 126 141 135 125 149 170 170 158 133 114
+## 1951 145 150 178 163 172 178 199 199 184 162 146
+## 1952 171 180 193 181 183 218 230 242 209 191 172
+## 1953 196 196 236 235 229 243 264 272 237 211 180
+## 1954 204 188 235 227 234 264 302 293 259 229 203
+## 1955 242 233 267 269 270 315 364 347 312 274 237
+## 1956 284 277 317 313 318 374 413 405 355 306 271
+## 1957 315 301 356 348 355 422 465 467 404 347 305
+## 1958 340 318 362 348 363 435 491 505 404 359 310
+## 1959 360 342 406 396 420 472 548 559 463 407 362
+## 1960 417 391 419 461 472 535 622 606 508 461 390
+##      Dec
+## 1949 118
+## 1950 140
+## 1951 166
+## 1952 194
+## 1953 201
+## 1954 229
+## 1955 278
+## 1956 306
+## 1957 336
+## 1958 337
+## 1959 405
+## 1960 432</code></pre>
+<pre><code>## [1] &quot;ts&quot;</code></pre>
+<p>It’s important to notice that yearly, quarterly, and monthly data work fine with the <em>ts</em> structure, but <em>more fine grained data create complications and are not totally suitable for a ts structure</em>.</p>
+<p>This is due to the fact that time series objects require the frequency of observations to be regular and in <em>ts</em> the observations have to be regular with reference to a year. Unfortunately, a time series that spans over many years cannot be composed of a constant number of days, since the number of days will be sometimes 365 and other time 366, in case of leap years. This is a limitation of <em>ts</em> objects. However, when dealing with monthly data or data with frequency lower than one month (such as quarterly data), <em>ts</em> works great.</p>
+</div>
+<div id="time-series-as-xtszoo-objects" class="section level3 hasAnchor" number="5.1.3">
+<h3><span class="header-section-number">5.1.3</span> Time Series as XTS/ZOO objects<a href="time-series-objects.html#time-series-as-xtszoo-objects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Time series can be stored in object of class xts/zoo. This class of objects is created with the library <em>xts</em>, which is related and an extension of the package <em>zoo</em> (another package to deal with time series data). As other libraries, it requires to be installed and loaded.</p>
+<p>The <em>xts</em> object is more flexible than the <em>ts</em> one.
+We can create an <em>xts</em> time series by starting from the data.frame we have just created. Similarly to what is required by <em>ts</em>, we need to specify:</p>
+<ul>
+<li>the column of the data.frame (or the vector) containing the data;</li>
+<li>the column of the data.frame (or the vector) containing the dates/times (which has to be in a date/time format);</li>
+<li>the frequency of observations.</li>
+</ul>
+<p>We can use the data.frame already created with the AirPassengers data to create a new <em>xts</em> object.</p>
+<pre><code>## [1] &quot;xts&quot; &quot;zoo&quot;</code></pre>
+<p>Also the structure of this object, like the <em>ts</em> one, includes the range of dates of the time series, with its starting and ending date.</p>
+<pre><code>## An xts object on 1949-01-01 / 1960-12-01 containing: 
+##   Data:    double [144, 1]
+##   Index:   Date [144] (TZ: &quot;UTC&quot;)</code></pre>
+<pre><code>##            [,1]
+## 1949-01-01  112
+## 1949-02-01  118
+## 1949-03-01  132
+## 1949-04-01  129
+## 1949-05-01  121
+## 1949-06-01  135</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basic-concepts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="plot-time-series.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

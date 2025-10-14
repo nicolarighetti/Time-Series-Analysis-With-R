@@ -1,3 +1,693 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f6e9cdbf54992f4c5f3b43150021cec10d3912065e2b352d314ce3eb2f2c9386
-size 34129
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter12 VAR | Time Series Analysis With R</title>
+  <meta name="description" content="Chapter12 VAR | Time Series Analysis With R" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter12 VAR | Time Series Analysis With R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter12 VAR | Time Series Analysis With R" />
+  
+  
+  
+
+<meta name="author" content="Nicola Righetti" />
+
+
+<meta name="date" content="2025-10-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="interrupted-time-series-analysis-using-segmented-regression.html"/>
+<link rel="next" href="readings-and-bibliographical-references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Time Series Analysis With R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#citation"><i class="fa fa-check"></i><b>1.1</b> Citation</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html"><i class="fa fa-check"></i><b>2</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#rstudio-interface-and-data"><i class="fa fa-check"></i><b>2.1</b> RStudio Interface and Data</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#download-and-install-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Download and Install RStudio</a></li>
+<li class="chapter" data-level="2.1.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-rstudio-project-and-import-data"><i class="fa fa-check"></i><b>2.1.2</b> Create a RStudio Project and Import data</a></li>
+<li class="chapter" data-level="2.1.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-a-script"><i class="fa fa-check"></i><b>2.1.3</b> Create a Script</a></li>
+<li class="chapter" data-level="2.1.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#the-rstudio-user-interface"><i class="fa fa-check"></i><b>2.1.4</b> The RStudio User Interface</a></li>
+<li class="chapter" data-level="2.1.5" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#load-and-save-data"><i class="fa fa-check"></i><b>2.1.5</b> Load and Save Data</a></li>
+<li class="chapter" data-level="2.1.6" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#create-new-folders"><i class="fa fa-check"></i><b>2.1.6</b> Create new Folders</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#basic-r"><i class="fa fa-check"></i><b>2.2</b> Basic R</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#objects"><i class="fa fa-check"></i><b>2.2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2.2" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#functions"><i class="fa fa-check"></i><b>2.2.2</b> Functions</a></li>
+<li class="chapter" data-level="2.2.3" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#data-types"><i class="fa fa-check"></i><b>2.2.3</b> Data Types</a></li>
+<li class="chapter" data-level="2.2.4" data-path="getting-started-with-r.html"><a href="getting-started-with-r.html#excercise"><i class="fa fa-check"></i><b>2.2.4</b> Excercise</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html"><i class="fa fa-check"></i><b>3</b> Basic Data Wrangling with Tidyverse</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#the-pipe-operator"><i class="fa fa-check"></i><b>3.1</b> The Pipe Operator %&gt;%</a></li>
+<li class="chapter" data-level="3.2" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#mutate"><i class="fa fa-check"></i><b>3.2</b> Mutate</a></li>
+<li class="chapter" data-level="3.3" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#rename"><i class="fa fa-check"></i><b>3.3</b> Rename</a></li>
+<li class="chapter" data-level="3.4" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#summarize-and-group_by"><i class="fa fa-check"></i><b>3.4</b> Summarize and group_by</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#count-occurrences"><i class="fa fa-check"></i><b>3.4.1</b> Count occurrences</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#arrange"><i class="fa fa-check"></i><b>3.5</b> Arrange</a></li>
+<li class="chapter" data-level="3.6" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#filter"><i class="fa fa-check"></i><b>3.6</b> Filter</a></li>
+<li class="chapter" data-level="3.7" data-path="basic-data-wrangling-with-tidyverse.html"><a href="basic-data-wrangling-with-tidyverse.html#select"><i class="fa fa-check"></i><b>3.7</b> Select</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>4</b> Basic Concepts</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series"><i class="fa fa-check"></i><b>4.1</b> Time Series</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-concepts.html"><a href="basic-concepts.html#time-series-analysis"><i class="fa fa-check"></i><b>4.2</b> Time Series Analysis</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-concepts.html"><a href="basic-concepts.html#stochastic-and-deterministic-processes"><i class="fa fa-check"></i><b>4.3</b> Stochastic and Deterministic Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="time-series-objects.html"><a href="time-series-objects.html"><i class="fa fa-check"></i><b>5</b> Time Series Objects</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-objects-1"><i class="fa fa-check"></i><b>5.1</b> Time Series Objects</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-data-frames"><i class="fa fa-check"></i><b>5.1.1</b> Time Series as Data Frames</a></li>
+<li class="chapter" data-level="5.1.2" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-ts-objects"><i class="fa fa-check"></i><b>5.1.2</b> Time Series as TS objects</a></li>
+<li class="chapter" data-level="5.1.3" data-path="time-series-objects.html"><a href="time-series-objects.html#time-series-as-xtszoo-objects"><i class="fa fa-check"></i><b>5.1.3</b> Time Series as XTS/ZOO objects</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="plot-time-series.html"><a href="plot-time-series.html"><i class="fa fa-check"></i><b>6</b> Plot Time Series</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="plot-time-series.html"><a href="plot-time-series.html#plot-time-series-objects"><i class="fa fa-check"></i><b>6.1</b> Plot Time Series Objects</a></li>
+<li class="chapter" data-level="6.2" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.ts"><i class="fa fa-check"></i><b>6.2</b> plot.ts</a></li>
+<li class="chapter" data-level="6.3" data-path="plot-time-series.html"><a href="plot-time-series.html#plot.xts"><i class="fa fa-check"></i><b>6.3</b> plot.xts</a></li>
+<li class="chapter" data-level="6.4" data-path="plot-time-series.html"><a href="plot-time-series.html#ggplot"><i class="fa fa-check"></i><b>6.4</b> ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="structural-decomposition.html"><a href="structural-decomposition.html"><i class="fa fa-check"></i><b>7</b> Structural Decomposition</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#components-of-a-time-series"><i class="fa fa-check"></i><b>7.1</b> Components of a time series</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#trend-and-cycle"><i class="fa fa-check"></i><b>7.1.1</b> Trend and Cycle</a></li>
+<li class="chapter" data-level="7.1.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#stochastic-and-deterministic-trend"><i class="fa fa-check"></i><b>7.1.2</b> Stochastic and Deterministic Trend</a></li>
+<li class="chapter" data-level="7.1.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonality"><i class="fa fa-check"></i><b>7.1.3</b> Seasonality</a></li>
+<li class="chapter" data-level="7.1.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#residuals"><i class="fa fa-check"></i><b>7.1.4</b> Residuals</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#structural-decomposition-1"><i class="fa fa-check"></i><b>7.2</b> Structural decomposition</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#moving-average"><i class="fa fa-check"></i><b>7.2.1</b> Moving Average</a></li>
+<li class="chapter" data-level="7.2.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#decompose"><i class="fa fa-check"></i><b>7.2.2</b> Decompose</a></li>
+<li class="chapter" data-level="7.2.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#compare-additive-and-multiplicative-models"><i class="fa fa-check"></i><b>7.2.3</b> Compare Additive and Multiplicative Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#adjust-time-series"><i class="fa fa-check"></i><b>7.3</b> Adjust time series</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="structural-decomposition.html"><a href="structural-decomposition.html#seasonal-adjusted-data"><i class="fa fa-check"></i><b>7.3.1</b> Seasonal adjusted data</a></li>
+<li class="chapter" data-level="7.3.2" data-path="structural-decomposition.html"><a href="structural-decomposition.html#detrended-series"><i class="fa fa-check"></i><b>7.3.2</b> Detrended series</a></li>
+<li class="chapter" data-level="7.3.3" data-path="structural-decomposition.html"><a href="structural-decomposition.html#other-decomposition-methods-in-r"><i class="fa fa-check"></i><b>7.3.3</b> Other Decomposition Methods in R</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="structural-decomposition.html"><a href="structural-decomposition.html#white-noise-and-stationarity"><i class="fa fa-check"></i><b>7.4</b> White Noise and Stationarity</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html"><i class="fa fa-check"></i><b>8</b> Correlations and ARIMA</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-correlation-acf-and-pacf"><i class="fa fa-check"></i><b>8.1</b> Auto-Correlation (ACF and PACF)</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#correlogram-acf-and-pacf"><i class="fa fa-check"></i><b>8.1.1</b> Correlogram: ACF and PACF</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#arima-models"><i class="fa fa-check"></i><b>8.2</b> ARIMA models</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#auto-regressive-ar-models"><i class="fa fa-check"></i><b>8.2.1</b> Auto Regressive (AR) models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#moving-average-ma-models"><i class="fa fa-check"></i><b>8.2.2</b> Moving Average (MA) models</a></li>
+<li class="chapter" data-level="8.2.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#integrated-i-process"><i class="fa fa-check"></i><b>8.2.3</b> Integrated (I) process</a></li>
+<li class="chapter" data-level="8.2.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#seasonal-s-models"><i class="fa fa-check"></i><b>8.2.4</b> Seasonal (S) models</a></li>
+<li class="chapter" data-level="8.2.5" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#fit-sarima-models"><i class="fa fa-check"></i><b>8.2.5</b> Fit (S)ARIMA models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#cross-correlation"><i class="fa fa-check"></i><b>8.3</b> Cross-correlation</a></li>
+<li class="chapter" data-level="8.4" data-path="correlations-and-arima.html"><a href="correlations-and-arima.html#examples-in-literature"><i class="fa fa-check"></i><b>8.4</b> Examples in literature</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="regression.html"><a href="regression.html"><i class="fa fa-check"></i><b>9</b> Regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="regression.html"><a href="regression.html#static-and-dynamic-models"><i class="fa fa-check"></i><b>9.1</b> Static and Dynamic Models</a></li>
+<li class="chapter" data-level="9.2" data-path="regression.html"><a href="regression.html#regression-models"><i class="fa fa-check"></i><b>9.2</b> Regression models</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="regression.html"><a href="regression.html#stationarity"><i class="fa fa-check"></i><b>9.2.1</b> Stationarity</a></li>
+<li class="chapter" data-level="9.2.2" data-path="regression.html"><a href="regression.html#non-autocorrelated-residuals"><i class="fa fa-check"></i><b>9.2.2</b> Non-autocorrelated residuals</a></li>
+<li class="chapter" data-level="9.2.3" data-path="regression.html"><a href="regression.html#regression-with-arma-errors"><i class="fa fa-check"></i><b>9.2.3</b> Regression with ARMA errors</a></li>
+<li class="chapter" data-level="9.2.4" data-path="regression.html"><a href="regression.html#count-regression-models"><i class="fa fa-check"></i><b>9.2.4</b> Count regression models</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="regression.html"><a href="regression.html#model-selection-aic-aicc-bic"><i class="fa fa-check"></i><b>9.3</b> Model Selection (AIC, AICc, BIC)</a></li>
+<li class="chapter" data-level="9.4" data-path="regression.html"><a href="regression.html#some-examples-in-the-literature"><i class="fa fa-check"></i><b>9.4</b> Some examples in the literature</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="intervention-analysis.html"><a href="intervention-analysis.html"><i class="fa fa-check"></i><b>10</b> Intervention Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="intervention-analysis.html"><a href="intervention-analysis.html#types-of-intervention"><i class="fa fa-check"></i><b>10.1</b> Types of intervention</a></li>
+<li class="chapter" data-level="10.2" data-path="intervention-analysis.html"><a href="intervention-analysis.html#intervention-analysis-with-arima"><i class="fa fa-check"></i><b>10.2</b> Intervention analysis with ARIMA</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="interrupted-time-series-analysis-using-segmented-regression.html"><a href="interrupted-time-series-analysis-using-segmented-regression.html"><i class="fa fa-check"></i><b>11</b> Interrupted time series analysis using segmented regression</a></li>
+<li class="chapter" data-level="12" data-path="var.html"><a href="var.html"><i class="fa fa-check"></i><b>12</b> VAR</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="var.html"><a href="var.html#var-modeling-hands-on-tutorial"><i class="fa fa-check"></i><b>12.1</b> VAR modeling hands-on tutorial</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="var.html"><a href="var.html#assumption-of-stationarity"><i class="fa fa-check"></i><b>12.1.1</b> Assumption of stationarity</a></li>
+<li class="chapter" data-level="12.1.2" data-path="var.html"><a href="var.html#other-assumptions-of-var-models-distribution-of-residuals"><i class="fa fa-check"></i><b>12.1.2</b> Other assumptions of VAR models: distribution of residuals</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="var.html"><a href="var.html#var-fitting"><i class="fa fa-check"></i><b>12.2</b> VAR fitting</a></li>
+<li class="chapter" data-level="12.3" data-path="var.html"><a href="var.html#granger-causality-test"><i class="fa fa-check"></i><b>12.3</b> Granger causality test</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html"><i class="fa fa-check"></i><b>13</b> Readings and Bibliographical References</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#mandatory"><i class="fa fa-check"></i><b>13.1</b> Mandatory</a></li>
+<li class="chapter" data-level="13.2" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#other-readings"><i class="fa fa-check"></i><b>13.2</b> Other readings</a></li>
+<li class="chapter" data-level="13.3" data-path="readings-and-bibliographical-references.html"><a href="readings-and-bibliographical-references.html#useful-resources"><i class="fa fa-check"></i><b>13.3</b> Useful resources</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series Analysis With R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="var" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter12</span> VAR<a href="var.html#var" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><em>VAR</em> is an acronym that stands for <strong>Vector Autoregressive Model</strong>. It is a common method for the analysis of multivariate time series.</p>
+<p>It can be conceived as a way to model a <strong>system</strong> of time series. In a VAR model, there is no rigid distinction between independent and dependent variables, but each variable is both dependent and independent. Besides these <strong>endogenous</strong> variables that dynamically interact, a VAR model can include <strong>exogenous</strong> variables. Exogenous variables can have an impact on the endogenous variables, while the opposite is not true. To make a simple example, the time series of fans sold by month may be influenced by the quantity of fans produced and distributed by the industry, and by the monthly temperature. While the purchase and production of fans can interact (endogenous variables), the weather is not impacted by these processes, but just impact them as an external force (exogenous variable).</p>
+<p>To make another example (from the paper <a href="http://www.italiansociologicalreview.com/ojs/index.php?journal=ISR&amp;page=article&amp;op=view&amp;path%5B%5D=448&amp;path%5B%5D=346">The Impact of the Politicization of Health on Online Misinformation and Quality Information on Vaccines</a>), the political debate on a certain topic - for instance the political debate that led to the promulgation of the law on mandatory vaccinations in Italy - could be considered an exogenous variable that impacts both the news coverage of the topic and the spread of problematic information on Twitter. While news media coverage and Twitter discussions can be considered part of the same communication system and dependent on each other (news media could set the discussion agenda on Twitter, but also social media can stimulate news media coverage) it could be assumed that the political debate that led to the promulgation of the law on mandatory vaccinations was independent from the Twitter discussions on the topic.</p>
+<p>Stationary tests are usually applied to ascertain that variables are not integrated (the “I” in the ARIMA model). If this is the case, variables are differenced before starting the VAR analysis. Other preliminary analysis (for instance testing for <em>cointegration</em>) and pre-processing can be performed before the analysis. Next, the number of lags to be used has to be selected. This number can be automatically identify through automated methods (lag-length selection criteria methods). The model is then evaluated. Results from a VAR model are usually complicated, and the researchers relies on statistical methods such as <em>Granger causality test</em>. <a href="https://en.wikipedia.org/wiki/Granger_causality"><em>Granger causality test</em></a>, a test developed by the nobel prize winner Clive Granger, has been applied to study agenda setting processes. A variable <span class="math inline">\(X\)</span> is said to <strong>“Granger cause”</strong> another variable <span class="math inline">\(Y\)</span> if <span class="math inline">\(Y\)</span> can be better predicted from the past values of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> together than from the past of <span class="math inline">\(Y\)</span> alone.</p>
+<blockquote>
+<p>The Granger causality test is a statistical hypothesis test for determining whether one time series is useful in forecasting another, first proposed in 1969. Ordinarily, regressions reflect “mere” correlations, but Clive Granger argued that causality (…) could be tested for by measuring the ability to predict the future values of a time series using prior values of another time series. Since the question of “true causality” is deeply philosophical, and because of the post hoc ergo propter hoc fallacy of assuming that one thing preceding another can be used as a proof of causation, (…) the Granger test finds only “predictive causality”.</p>
+</blockquote>
+<p>An R package to perform VAR modeling is <a href="https://cran.r-project.org/web/packages/vars/vars.pdf"><strong>vars</strong></a>.</p>
+<p>Practical applications of VAR modeling, including Granger causality, can be found, for instance, in the paper <a href="https://academic.oup.com/joc/article-abstract/71/2/305/6104044">Assembling the Networks and Audiences of Disinformation: How Successful Russian IRA Twitter Accounts Built Their Followings,2015–2017</a> or
+<a href="https://www-tandfonline-com.uaccess.univie.ac.at/doi/full/10.1080/10584609.2019.1661889">Coordinating a Multi-Platform Disinformation Campaign: Internet Research Agency Activity on Three U.S. Social Media Platforms, 2015 to 2017</a> <a href="https://github.com/jlukito/timeseries-bootcamp/blob/master/3_multivariate/varmodeling.md">at this link</a>.</p>
+<div id="var-modeling-hands-on-tutorial" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> VAR modeling hands-on tutorial<a href="var.html#var-modeling-hands-on-tutorial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="assumption-of-stationarity" class="section level3 hasAnchor" number="12.1.1">
+<h3><span class="header-section-number">12.1.1</span> Assumption of stationarity<a href="var.html#assumption-of-stationarity" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Like most time series techniques, VAR assumes the series to be <strong>stationary</strong>. To recap:</p>
+<blockquote>
+<p>A stationary time series is one whose properties do not depend on the time at which the series is observed. Thus, time series with trends, or with seasonality, are not stationary — the trend and seasonality will affect the value of the time series at different times. On the other hand, a white noise series is stationary — it does not matter when you observe it, it should look much the same at any point in time. […] In general, a stationary time series will have no predictable patterns in the long-term. Time plots will show the series to be roughly horizontal (although some cyclic behaviour is possible), with constant variance. <a href="https://otexts.com/fpp2/stationarity.html">Rob J. Hyndman and George Athanasopoulos, “Forecasting: Principles and Practice”</a>.</p>
+</blockquote>
+<p>Below are some examples of stationary and non-stationary series.</p>
+<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-227-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>As we already learnt, <strong>some pre-processing steps are usually carried out to make it stationary</strong> when the series is not stationary. For instance, a series with a linear trend can be made stationary by removing the trend. A seasonal series can be seasonally adjusted. A random-walk-like series can be adjusted using differencing. Visual inspection and <strong>statistical tests</strong> can be performed to support findings on the characteristics of a time series.</p>
+<p>Some of these pre-processing steps may be unnecessary when using the <strong>vars</strong> library, because its function <strong>VAR</strong> (which is used to fit VAR models) allows you to include trend and seasonality components.</p>
+<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-228-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="other-assumptions-of-var-models-distribution-of-residuals" class="section level3 hasAnchor" number="12.1.2">
+<h3><span class="header-section-number">12.1.2</span> Other assumptions of VAR models: distribution of residuals<a href="var.html#other-assumptions-of-var-models-distribution-of-residuals" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Besides <strong>stationarity</strong> and <strong>linearity</strong> between variables and their lagged values, VAR cannot be performed in the presence of <strong>structural breaks</strong>. Structural breaks are abrupt changes in the series’ mean or overall process. You can deal with structural breaks in different ways. For example, you might want to split the series into different phases, using the structural breaks as breakpoints.</p>
+<p>Other crucial assumptions of VAR are about <strong>residuals</strong>, which are required to be:</p>
+<ul>
+<li>Non serially correlated</li>
+<li>Normal distributed</li>
+<li>Homoskedastic</li>
+</ul>
+<p>Statistical tests included in the <em>vars</em> package can be used to check these assumptions.</p>
+<p>Another fundamental assumption of VAR models is the <strong>absence of cointegration</strong> between series. Two series may be cointegrated only when they are both <strong>integrated of the same order</strong>. Integrated series achieve stationarity after being differentiated. The number of differentiation needed to achieve stationarity is the <strong>order of integration</strong> (usually, it is one: <em>I(1)</em> is the notation).</p>
+<p>Integrated series are non-stationary, but it can happen that <strong>there is a linear combination of integrated series that is stationary. In that case, they are said to be cointegrated</strong>. Although each series follows a seemingly random path, over time, they are characterized by an equilibrium, as if they were driven by a common underlying process. Cointegration has been explained with the help of the story of the <strong>drunk and his dog</strong>:</p>
+<blockquote>
+<p>In fact, the drunk is not the only creature whose behavior follow a random walk. Puppies, too, wander aimlessly when unleashed. Each new scent that crosses the puppy’s nose dictates a direction for the pup’s next step. […] But what if the dog belongs to the drunk? The drunk sets out from the bar, about to wander aimlessly in random-walk fashion. But periodically she intones “Oliver, where are you?”, and Oliver interrupts his aimless wandering to bark. He hears her; she hears him. He thinks: “Oh I can’t let her get too far off; she’ll lock me out”. She thinks, “Oh, I can’t let him get too far off; he’ll wake me up in the middle of the night with his barking”. Each assessed how far away the other is and moves to partially close that gap. Now neither drunk nor dog follows a random walk; each has added what we formally call an error-correction-mechanism to her or his steps. […] The paths of the drunk and the dog are still non-stationary. Significantly, despite the nonstationarity of the paths, one might still say, “If you find her, the dog is unlikely to be very far away”. If this is right, then the distance between the two paths is stationary, and the walks of the woman and her dog are said to be cointegrated (…). […] Notice that cointegration is a probabilistic concept. The dog is not on a leash, which would enforce a fixed distance between the drunk and the dog. The distance between the drunk and the dog is instead a random variable. But a stationary one, despite the nonstationarity of the two paths. <a href="http://www-stat.wharton.upenn.edu/~steele/Courses/434F2005/Context/Co-integration/Murray93DrunkAndDog.pdf">Murray, M. P. (1994). A drunk and her dog: an illustration of cointegration and error correction. The American Statistician, 48(1), 37-39.</a></p>
+</blockquote>
+<p>Statistical tests are used to determine whether cointegration is present. They have to be performed only when the series are integrated and have the same order of integration (again, cointegration can only exists if at least two series are integrated of the same order). Then, <em>cointegration tests</em> are performed. In presence of cointegration, <strong>Vector Error Correction Models (VECM)</strong> are used instead of VAR. VECM is basically a VAR model with an “error correction term”. This topic is not (yet) covered in this tutorial.</p>
+</div>
+</div>
+<div id="var-fitting" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> VAR fitting<a href="var.html#var-fitting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s make a simple example.
+Upload some data:</p>
+<pre><code>##             date_time anti   pro
+## 1 2021-03-12 23:59:00   37 14085
+## 2 2021-03-13 23:59:00  157  5219
+## 3 2021-03-14 23:59:00   40  5106
+## 4 2021-03-15 23:59:00   25  6898
+## 5 2021-03-16 23:59:00   24  2974
+## 6 2021-03-17 23:59:00   61  3230</code></pre>
+<p>Let’s visually inspect the series:</p>
+<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-230-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>As the variance does not look constant, so we can tentatively <strong>log-transform the series</strong> and work with log-transformed data.</p>
+<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-231-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>To check for stationarity, we can perform a test such as the Augmented Dickey-Fuller Test. Integration is suggested only for the “anti” series.</p>
+<pre><code>## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  ts_tweets$pro
+## Dickey-Fuller = -3.9314, Lag order = 3,
+## p-value = 0.02193
+## alternative hypothesis: stationary</code></pre>
+<pre><code>## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  ts_tweets$anti
+## Dickey-Fuller = -2.101, Lag order = 3,
+## p-value = 0.5338
+## alternative hypothesis: stationary</code></pre>
+<p>The series becomes stationary after differencing.</p>
+<pre><code>## Warning in tseries::adf.test(anti): p-value
+## smaller than printed p-value</code></pre>
+<pre><code>## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  anti
+## Dickey-Fuller = -4.7232, Lag order = 3,
+## p-value = 0.01
+## alternative hypothesis: stationary</code></pre>
+<p>We can recreate the dataset including the differentiated series. Using a first difference transformation, we lose the first data point.</p>
+<pre><code>## [1] 41</code></pre>
+<pre><code>## [1] 42</code></pre>
+<p>Indeed, the first point in the differentiated series is obtained by subtracting the first point from the second one. The second point in the differentiated series is obtained by subtracting the second point from the third one, and so on. Hence, the differentiated dataset will start from the second point in time, not the first one as in the original series. Therefore, we need to drop the first data point from the dataset.</p>
+<p>To fit the VAR model we use the library <strong>vars</strong>.</p>
+<p>VAR models require the researcher to specify the number of lags to include in the model. Roughly speaking, lags are auto-regressive predictors. For example, considering a VAR model with two variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, using 1 lag means that we use the value <span class="math inline">\(X_{t-1}\)</span> and <span class="math inline">\(Y_{t-1}\)</span> to predict <span class="math inline">\(X_t\)</span> and <span class="math inline">\(Y_t\)</span>, and 2 lags that we use <span class="math inline">\(X_{t-1}\)</span>, <span class="math inline">\(X_{t-2}\)</span>, <span class="math inline">\(Y_{t-1}\)</span>, and <span class="math inline">\(Y_{t-2}\)</span>. The choice of lags is important. The function <strong>VARselect</strong> implements four different statistical tests to find the “best” number of lags.</p>
+<p>In this case, all the criteria agree on one lag.</p>
+<pre><code>## $selection
+## AIC(n)  HQ(n)  SC(n) FPE(n) 
+##      1      1      1      1 
+## 
+## $criteria
+##                  1           2           3
+## AIC(n) -2.92630038 -2.81403228 -2.64199556
+## HQ(n)  -2.83582733 -2.66324387 -2.43089178
+## SC(n)  -2.64875447 -2.35145577 -1.99438843
+## FPE(n)  0.05366012  0.06030449  0.07235601
+##                  4          5           6
+## AIC(n) -2.42923055 -2.5769659 -2.77801920
+## HQ(n)  -2.15781141 -2.2452314 -2.38596933
+## SC(n)  -1.59659281 -1.5592975 -1.57532025
+## FPE(n)  0.09118664  0.0810697  0.06940455
+##                  7           8          9
+## AIC(n) -2.68597480 -2.68018280 -2.5499629
+## HQ(n)  -2.23360957 -2.16750221 -1.9769669
+## SC(n)  -1.29824525 -1.10742264 -0.7921721
+## FPE(n)  0.08132081  0.08986526  0.1167941
+##                10
+## AIC(n) -2.4424493
+## HQ(n)  -1.8091380
+## SC(n)  -0.4996280
+## FPE(n)  0.1564827</code></pre>
+<p>The function to fit the model is <strong>VAR</strong>, and the number of lags is specified using the <em>p</em> parameter.</p>
+<p>You can also include <strong>trend</strong> and/or <strong>seasonality</strong>, but in this case it doesn’t seem useful. It is also possible to include <strong>exogenous variables</strong>. Exogenous variables are usually defined as variables external to the system: they may affect the system, but are not affected by the system.</p>
+<p>As in the VARselect function, we only use the columns containing the data (the first column in the dataset contains dates).</p>
+<p>The model looks like this. As you can see, it is a system of linear regression models that includes lagged predictors. Before analyzing the results we need to confirm that the assumptions of the models are met.</p>
+<pre><code>## 
+## VAR Estimation Results:
+## ========================= 
+## Endogenous variables: pro, anti 
+## Deterministic variables: const 
+## Sample size: 40 
+## Log Likelihood: -53.79 
+## Roots of the characteristic polynomial:
+## 0.4477 0.2503
+## Call:
+## vars::VAR(y = ts_tweets[, c(&quot;pro&quot;, &quot;anti&quot;)], p = 1)
+## 
+## 
+## Estimation results for equation pro: 
+## ==================================== 
+## pro = pro.l1 + anti.l1 + const 
+## 
+##         Estimate Std. Error t value Pr(&gt;|t|)    
+## pro.l1   0.25131    0.16894   1.488    0.145    
+## anti.l1 -0.05992    0.06722  -0.891    0.379    
+## const    6.27985    1.41950   4.424 8.22e-05 ***
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## 
+## Residual standard error: 0.3364 on 37 degrees of freedom
+## Multiple R-Squared: 0.06146, Adjusted R-squared: 0.01073 
+## F-statistic: 1.212 on 2 and 37 DF,  p-value: 0.3093 
+## 
+## 
+## Estimation results for equation anti: 
+## ===================================== 
+## anti = pro.l1 + anti.l1 + const 
+## 
+##         Estimate Std. Error t value Pr(&gt;|t|)   
+## pro.l1   0.01161    0.38475   0.030  0.97610   
+## anti.l1 -0.44871    0.15309  -2.931  0.00576 **
+## const   -0.10750    3.23284  -0.033  0.97365   
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## 
+## Residual standard error: 0.7661 on 37 degrees of freedom
+## Multiple R-Squared: 0.2029,  Adjusted R-squared: 0.1598 
+## F-statistic: 4.709 on 2 and 37 DF,  p-value: 0.01507 
+## 
+## 
+## 
+## Covariance matrix of residuals:
+##         pro   anti
+## pro  0.1132 0.0862
+## anti 0.0862 0.5870
+## 
+## Correlation matrix of residuals:
+##         pro   anti
+## pro  1.0000 0.3345
+## anti 0.3345 1.0000</code></pre>
+<p><em>serial.test</em> is a test for serially correlated errors. The test is okay when not significant. The test is not significant.</p>
+<pre><code>## 
+##  Portmanteau Test (asymptotic)
+## 
+## data:  Residuals of VAR object var_fit
+## Chi-squared = 33.632, df = 60, p-value =
+## 0.9977</code></pre>
+<p><em>normality.test</em> performs tests for the normality of residuals. The tests are okay when not significant, like in this case.</p>
+<pre><code>## $JB
+## 
+##  JB-Test (multivariate)
+## 
+## data:  Residuals of VAR object var_fit
+## Chi-squared = 3.9951, df = 4, p-value =
+## 0.4067
+## 
+## 
+## $Skewness
+## 
+##  Skewness only (multivariate)
+## 
+## data:  Residuals of VAR object var_fit
+## Chi-squared = 1.8704, df = 2, p-value =
+## 0.3925
+## 
+## 
+## $Kurtosis
+## 
+##  Kurtosis only (multivariate)
+## 
+## data:  Residuals of VAR object var_fit
+## Chi-squared = 2.1247, df = 2, p-value =
+## 0.3456</code></pre>
+<p>Another fundamental test is performed by the function <em>stability</em>. The test is okay if the series stay within the red bars. It is okay.</p>
+<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-242-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><em>arch.test</em> assesses the null hypothesis that a series of residuals exhibits no heteroscedasticity. Also this test is not significant, which is good.</p>
+<pre><code>## 
+##  ARCH (multivariate)
+## 
+## data:  Residuals of VAR object var_fit
+## Chi-squared = 44.188, df = 45, p-value =
+## 0.5062</code></pre>
+<p>As all the assumptions are met, we can take a look at the overall fit. It doesn’t look amazing, but the assumptions are met, so let’s assume it is good enough and let’s go ahead with the analysis.</p>
+<p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-244-1.png" width="100%" style="display: block; margin: auto;" /><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-244-2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>The not-so-good fit is probably related to the fact that both variables in the VAR system are not highly correlated. Most coefficients are not statistically significant and the overall R-square is small.</p>
+<p>Generally, the coefficient table is not interpreted. Instead, VAR models are interpreted using other tools, such as the Granger causality test.</p>
+<pre><code>## 
+## VAR Estimation Results:
+## ========================= 
+## Endogenous variables: pro, anti 
+## Deterministic variables: const 
+## Sample size: 40 
+## Log Likelihood: -53.79 
+## Roots of the characteristic polynomial:
+## 0.4477 0.2503
+## Call:
+## vars::VAR(y = ts_tweets[, c(&quot;pro&quot;, &quot;anti&quot;)], p = 1)
+## 
+## 
+## Estimation results for equation pro: 
+## ==================================== 
+## pro = pro.l1 + anti.l1 + const 
+## 
+##         Estimate Std. Error t value Pr(&gt;|t|)    
+## pro.l1   0.25131    0.16894   1.488    0.145    
+## anti.l1 -0.05992    0.06722  -0.891    0.379    
+## const    6.27985    1.41950   4.424 8.22e-05 ***
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## 
+## Residual standard error: 0.3364 on 37 degrees of freedom
+## Multiple R-Squared: 0.06146, Adjusted R-squared: 0.01073 
+## F-statistic: 1.212 on 2 and 37 DF,  p-value: 0.3093 
+## 
+## 
+## Estimation results for equation anti: 
+## ===================================== 
+## anti = pro.l1 + anti.l1 + const 
+## 
+##         Estimate Std. Error t value Pr(&gt;|t|)   
+## pro.l1   0.01161    0.38475   0.030  0.97610   
+## anti.l1 -0.44871    0.15309  -2.931  0.00576 **
+## const   -0.10750    3.23284  -0.033  0.97365   
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## 
+## Residual standard error: 0.7661 on 37 degrees of freedom
+## Multiple R-Squared: 0.2029,  Adjusted R-squared: 0.1598 
+## F-statistic: 4.709 on 2 and 37 DF,  p-value: 0.01507 
+## 
+## 
+## 
+## Covariance matrix of residuals:
+##         pro   anti
+## pro  0.1132 0.0862
+## anti 0.0862 0.5870
+## 
+## Correlation matrix of residuals:
+##         pro   anti
+## pro  1.0000 0.3345
+## anti 0.3345 1.0000</code></pre>
+</div>
+<div id="granger-causality-test" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Granger causality test<a href="var.html#granger-causality-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We use the <strong>causality</strong> function to perform the Granger causality test. The Granger causality test is the most basic inferential tool available in VAR analysis. A time series X is considered a Granger cause of another time series Y if past values of X and Y predicts Y significantly better than past values of Y alone. This analysis is frequently performed in <a href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=%28%22granger+causality+test%22+OR+%22granger+test%22%29+AND+%22agenda+setting%22&amp;btnG=">communication studies focused on agenda setting phenomena</a>.</p>
+<p>Let’s see if there’s Granger causality between our series. The researcher needs to specify the “cause” variable (sometimes, the researcher may have a hypothesis about that). In this case, we try both. There is no granger causality effect but some contemporaneous relationship (<em>instant causation</em>).</p>
+<pre><code>## $Granger
+## 
+##  Granger causality H0: pro do not
+##  Granger-cause anti
+## 
+## data:  VAR object var_fit
+## F-Test = 0.00090982, df1 = 1, df2 = 74,
+## p-value = 0.976
+## 
+## 
+## $Instant
+## 
+##  H0: No instantaneous causality between: pro
+##  and anti
+## 
+## data:  VAR object var_fit
+## Chi-squared = 4.0242, df = 1, p-value =
+## 0.04485</code></pre>
+<pre><code>## $Granger
+## 
+##  Granger causality H0: anti do not
+##  Granger-cause pro
+## 
+## data:  VAR object var_fit
+## F-Test = 0.79448, df1 = 1, df2 = 74, p-value
+## = 0.3756
+## 
+## 
+## $Instant
+## 
+##  H0: No instantaneous causality between: anti
+##  and pro
+## 
+## data:  VAR object var_fit
+## Chi-squared = 4.0242, df = 1, p-value =
+## 0.04485</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="interrupted-time-series-analysis-using-segmented-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="readings-and-bibliographical-references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
