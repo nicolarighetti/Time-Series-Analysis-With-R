@@ -119,6 +119,7 @@ To plot a *xts* object we can similarly use the **plot.xts** function.
 You can create a xts object with the *xts* function (see the previous chapter), but if you already have a *ts* object, you can also convert it to a *xts* object by using the function **as.xts**
 
 ```{r}
+library(xts)
 
 AirPassengers_xts <- as.xts(AirPassengers)
 
