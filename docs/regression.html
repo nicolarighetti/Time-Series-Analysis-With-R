@@ -118,18 +118,85 @@ y_t &amp;= \beta_0
 </h3>
 <p>We already discussed stationarity in the previous chapters. Here we can observe that time series can be nonstationary due to different reasons, thus different strategies can be employed to <em>stationarize</em> the data.</p>
 <p>For instance, a nonstationary series can be a series with <strong>unequal variance</strong> over time. A common way to try to fix the problem is by applying a log-transformation.</p>
+<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://joshuaulrich.github.io/xts/">xts</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">elections_news</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/elections-stories-over-time-20210111144254.csv"</span><span class="op">)</span></span>
+<span><span class="va">elections_news</span><span class="op">$</span><span class="va">date</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html">as.Date</a></span><span class="op">(</span><span class="va">elections_news</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">elections_news</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xts/man/xts.html">xts</a></span><span class="op">(</span><span class="va">elections_news</span><span class="op">$</span><span class="va">count</span>, order.by <span class="op">=</span> <span class="va">elections_news</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
+<span><span class="va">elections_news_log</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">elections_news</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">elections_news_xts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xts/man/merge.xts.html">merge.xts</a></span><span class="op">(</span><span class="va">elections_news</span>, <span class="va">elections_news_log</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/xts/man/plot.xts.html">plot.xts</a></span><span class="op">(</span><span class="va">elections_news_xts</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"red"</span><span class="op">)</span>,</span>
+<span>         multi.panel <span class="op">=</span> <span class="cn">TRUE</span>, yaxis.same <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>         main <span class="op">=</span> <span class="st">"Original vs Log-transformed series"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-162-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Another reason for nonstationarity is the periodic variation due to <strong>seasonality</strong> (regular fluctuations in a time series that follow a specific time pattern, e.g.: social media activity during week-ends, Christmas effect in consumption, etc.).</p>
 <p>To remove the seasonal pattern, you might want to use a <em>seasonally-adjusted</em> time series. Otherwise, you could create a dummy variable for the seasonal period (that is, a variable that follows the seasonal pattern in the data in order to account, in the model, for these fluctuations).</p>
+<div class="sourceCode" id="cb243"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># load the ts dataset AirPassenger</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"AirPassengers"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># remove seasonality from a multiplicative model</span></span>
+<span><span class="va">AirPassengers_decomposed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/decompose.html">decompose</a></span><span class="op">(</span><span class="va">AirPassengers</span>, type<span class="op">=</span><span class="st">"multiplicative"</span><span class="op">)</span></span>
+<span><span class="va">AirPassengers_seasonal_component</span> <span class="op">&lt;-</span> <span class="va">AirPassengers_decomposed</span><span class="op">$</span><span class="va">seasonal</span></span>
+<span><span class="va">AirPassengers_seasonally_adjusted</span> <span class="op">&lt;-</span> <span class="va">AirPassengers</span><span class="op">/</span><span class="va">AirPassengers_seasonal_component</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">AirPassengers</span>, col <span class="op">=</span> <span class="st">"blue"</span>, main <span class="op">=</span> <span class="st">"Original series"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">AirPassengers_seasonally_adjusted</span>, col <span class="op">=</span> <span class="st">"blue"</span>,  </span>
+<span>        main <span class="op">=</span> <span class="st">"Seasonally-adjusted series"</span>, </span>
+<span>        ylab <span class="op">=</span> <span class="st">"Seasonally-adjusted values"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-163-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>An important reason for nonstationarity is also the presence of a trend in the data. There are <strong>stochastic trends</strong> and <strong>deterministic trends</strong>. Deterministic trends are a fixed function of time, while stochastic trends change in an unpredictable way.</p>
 <p>Series with a deterministic trend are also called <em>trend stationary</em> because they can be stationary around a deterministic trend, and it could be possible to achieve stationarity by removing the time trend. In trend stationary processes, the shocks to the process are transitory and the process is <em>mean reverting</em>.</p>
 <p>Processes with a <em>stochastic trend</em> are also called <em>difference stationary</em> because they can become stationary through <em>differencing</em>. In series with stochastic trends we could see that shocks have permanent effects.</p>
 <p>When dealing with <em>deterministic trend</em>, we might want to work with detrended series.</p>
+<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># remove the trend from a multiplicative model</span></span>
+<span><span class="va">AirPassengers_decomposed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/decompose.html">decompose</a></span><span class="op">(</span><span class="va">AirPassengers</span>, type<span class="op">=</span><span class="st">"multiplicative"</span><span class="op">)</span></span>
+<span><span class="va">AirPassengers_trend_component</span> <span class="op">&lt;-</span> <span class="va">AirPassengers_decomposed</span><span class="op">$</span><span class="va">trend</span></span>
+<span><span class="va">AirPassengers_detrended</span> <span class="op">&lt;-</span> <span class="va">AirPassengers</span><span class="op">/</span><span class="va">AirPassengers_trend_component</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">AirPassengers</span>, col <span class="op">=</span> <span class="st">"blue"</span>, main <span class="op">=</span> <span class="st">"Original series"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">AirPassengers_detrended</span>, col <span class="op">=</span> <span class="st">"blue"</span>,  </span>
+<span>        main <span class="op">=</span> <span class="st">"Detrended series"</span>, </span>
+<span>        ylab <span class="op">=</span> <span class="st">"Detrended values"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-164-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Otherwise, in regression analysis, it is more common to add a dummy variable consisting of a value that increases with time, to account for a linear deterministic time trend. This time-count variable will remove the deterministic trend from the dependent variable, allowing the other predictors to explain the remaining variance.</p>
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># create a simulate series</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1312</span><span class="op">)</span></span>
+<span><span class="va">toy_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># add a deterministic trend to the series</span></span>
+<span><span class="va">toy_data_trend</span> <span class="op">&lt;-</span> <span class="va">toy_data</span> <span class="op">+</span> <span class="fl">0.2</span><span class="op">*</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">toy_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">toy_data</span>, main <span class="op">=</span> <span class="st">"Original series"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">toy_data_trend</span>, main <span class="op">=</span> <span class="st">"Series with Trend"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dummy_trend</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">toy_data_trend</span><span class="op">)</span></span>
+<span><span class="va">lm_toydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">toy_data_trend</span> <span class="op">~</span> <span class="va">dummy_trend</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">lm_toydata</span><span class="op">$</span><span class="va">residuals</span>, main <span class="op">=</span> <span class="st">"Residuals (detrended)"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-165-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>When we have a series with a stochastic trend, we can achieve stationarity through differencing.</p>
+<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">111</span><span class="op">)</span></span>
+<span><span class="va">Random_Walk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">500</span>, model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Random_Walk_diff</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="va">Random_Walk</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">Random_Walk</span>,</span>
+<span>        main <span class="op">=</span> <span class="st">"Random Walk"</span>, </span>
+<span>        col <span class="op">=</span> <span class="st">"blue"</span>, ylab<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">Random_Walk_diff</span>, </span>
+<span>        main <span class="op">=</span> <span class="st">"Differenced Random Walk"</span>, </span>
+<span>        col <span class="op">=</span> <span class="st">"blue"</span>, ylab<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-166-1.png" width="100%" style="display: block; margin: auto;"></div>
 <div id="tests-for-stochastic-and-deterministic-trend" class="section level4" number="9.2.1.1">
 <h4>
@@ -147,6 +214,26 @@ z_t &amp;= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
 \end{split}
 \]</span></p>
 <p>Let’s simulate and visualize the above equation (<span class="math inline">\(y_t = \kappa + \delta_t + \phi z_{t-1} + \epsilon_t\)</span>):</p>
+<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">t</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">500</span> </span>
+<span><span class="va">kappa</span> <span class="op">&lt;-</span> <span class="fl">5</span> <span class="co"># costant term (or "drift")</span></span>
+<span><span class="va">delta</span> <span class="op">&lt;-</span> <span class="fl">0.1</span> </span>
+<span><span class="va">epsilon</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">{</span> <span class="co"># function for the error term</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">500</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> </span>
+<span></span>
+<span><span class="va">y_I1</span> <span class="op">&lt;-</span> <span class="va">kappa</span> <span class="op">+</span> <span class="op">(</span><span class="va">delta</span> <span class="op">*</span> <span class="va">t</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">499</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>                                        rand.gen <span class="op">=</span> <span class="va">epsilon</span><span class="op">)</span></span>
+<span><span class="va">y_I0</span> <span class="op">&lt;-</span> <span class="va">kappa</span> <span class="op">+</span> <span class="op">(</span><span class="va">delta</span> <span class="op">*</span> <span class="va">t</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">500</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, ar <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>,</span>
+<span>                                        rand.gen <span class="op">=</span> <span class="va">epsilon</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ts_y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.union.html">ts.intersect</a></span><span class="op">(</span><span class="va">y_I1</span>, <span class="va">y_I0</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">ts_y</span>, plot.type <span class="op">=</span> <span class="st">"single"</span>, </span>
+<span>        lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span><span class="op">)</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"red"</span>, <span class="st">"blue"</span><span class="op">)</span>,</span>
+<span>        main <span class="op">=</span> <span class="st">"Stochastic w/ drift (red) Deterministic Trend (blue)"</span>,</span>
+<span>        ylab<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-167-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p><strong>Unit root tests</strong> are aimed at testing the null hypothesis that <span class="math inline">\(|\phi| = 1\)</span> (<em>difference stationary</em>), against the alternative hypothesis that <span class="math inline">\(|\phi| &lt; 1\)</span> (<em>trend stationary</em>).</p>
 <p><strong>Stationarity tests</strong> take the null hypothesis that <span class="math inline">\(y_t\)</span> is trend stationary, and are based on testing for a moving average element in <span class="math inline">\(\Delta z_t\)</span> (<span class="math inline">\(\Delta\)</span> represents the operation of differencing).</p>
@@ -177,40 +264,47 @@ z_t &amp;= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
 </h5>
 <p>A test to verify if the series is <em>trend stationary</em> is the <strong>Kwiatkowski-Phillips-Schmidt-Shin (KPSS)</strong> test. It is one of the most commonly used stationarity test, and is implemented in the library <em>tseries</em> (function <em>kpss.test</em>). KPSS test the <em>null hypothesis</em> that the series is <em>trend stationary</em>.</p>
 <p>In this case, the <em>p-value</em> of the test is higher than 0.05, so the test cannot reject the null hypothesis of trend stationarity. That is to say, there are some evidence of trend-stationary process.</p>
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("tseries") # install the library if not yet installed</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tseries</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/kpss.test.html">kpss.test</a></span><span class="op">(</span><span class="va">y_I0</span>, null <span class="op">=</span> <span class="st">"Trend"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Trend Stationarity
 ## 
 ## data:  y_I0
-## KPSS Trend = 0.10404, Truncation lag
-## parameter = 5, p-value = 0.1</code></pre>
+## KPSS Trend = 0.10404, Truncation lag parameter = 5, p-value = 0.1</code></pre>
 <p>By changing the null from “Trend” to “Level”, the KPSS test can also test the <em>null hypothesis</em> of <strong>level stationarity</strong>. A level stationary time series is a <em>time series with a non-zero but constant mean</em>, that is to say, without trend.</p>
+<div class="sourceCode" id="cb250"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/kpss.test.html">kpss.test</a></span><span class="op">(</span><span class="va">y_I0</span>, null <span class="op">=</span> <span class="st">"Level"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  y_I0
-## KPSS Level = 8.4092, Truncation lag
-## parameter = 5, p-value = 0.01</code></pre>
+## KPSS Level = 8.4092, Truncation lag parameter = 5, p-value = 0.01</code></pre>
 <p>In this case, the KPSS test for level stationarity reject the null hypothesis, that is to say, the process seems not to be level stationary. Considered together, the KPSS tests suggest that the series has a deterministic trend.</p>
 <p>If we use the KPSS test to test if the <em>stochastic trend</em> series we created above is trend or level stationary, the test <em>rejects</em> the null hypothesis (i.e.: reject the hypothesis of both a trend and level stationary process).</p>
+<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/kpss.test.html">kpss.test</a></span><span class="op">(</span><span class="va">y_I1</span>, null <span class="op">=</span> <span class="st">"Trend"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Trend Stationarity
 ## 
 ## data:  y_I1
-## KPSS Trend = 1.5, Truncation lag parameter =
-## 5, p-value = 0.01</code></pre>
+## KPSS Trend = 1.5, Truncation lag parameter = 5, p-value = 0.01</code></pre>
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/kpss.test.html">kpss.test</a></span><span class="op">(</span><span class="va">y_I1</span>, null <span class="op">=</span> <span class="st">"Level"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  y_I1
-## KPSS Level = 7.7377, Truncation lag
-## parameter = 5, p-value = 0.01</code></pre>
+## KPSS Level = 7.7377, Truncation lag parameter = 5, p-value = 0.01</code></pre>
 <p>When a series has a stochastic trend, we can achieve stationarity through differencing. Indeed, the KPSS test does not reject the null hypothesis of level stationarity when applied to the the stochastic-trend series, once differenced.</p>
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/kpss.test.html">kpss.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="va">y_I1</span><span class="op">)</span>, null <span class="op">=</span> <span class="st">"Level"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  KPSS Test for Level Stationarity
 ## 
 ## data:  diff(y_I1)
-## KPSS Level = 0.18432, Truncation lag
-## parameter = 5, p-value = 0.1</code></pre>
+## KPSS Level = 0.18432, Truncation lag parameter = 5, p-value = 0.1</code></pre>
 <p>In the above cases the KPSS results are correct, since we have simulated and tested a time series with a deterministic and stochastic trend. However, these kind of tests can also be wrong. For instance, it is possible they reject the null hypothesis when it is actually true (<a href="https://en.wikipedia.org/wiki/Type_I_and_type_II_errors">“Type I error”</a>). For this reason, it can be useful to use more than one test. For instance, the KPSS can be used along with the Augmented Dickey-Fuller Test (ADF), a popular <em>unit root test</em>.</p>
 </div>
 <div id="augmented-dickey-fuller-adf-test" class="section level5" number="9.2.1.1.2">
@@ -219,28 +313,31 @@ z_t &amp;= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
 </h5>
 <p>The Augmented Dickey-Fuller Test (ADF) is a popular <em>unit root test</em>. An R implementation of the test can be found in the library <em>tseries</em> (function <em>adf.test</em>). The null hypothesis is that the series has a unit root, and the alternative hypothesis is that the series is stationary or trend stationary.</p>
 <p>If we use the ADF test on the integrated series (which has a unit root), the test fails to reject the null hypothesis of unit root, which is correct.</p>
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/adf.test.html">adf.test</a></span><span class="op">(</span><span class="va">y_I1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
 ## 
 ## data:  y_I1
-## Dickey-Fuller = -1.7632, Lag order = 7,
-## p-value = 0.6785
+## Dickey-Fuller = -1.7632, Lag order = 7, p-value = 0.6785
 ## alternative hypothesis: stationary</code></pre>
 <p>If we use the ADF test on the trend-stationary series (without unit root), the test rejects the null hypothesis of unit root, which is correct.</p>
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/adf.test.html">adf.test</a></span><span class="op">(</span><span class="va">y_I0</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
 ## 
 ## data:  y_I0
-## Dickey-Fuller = -5.8397, Lag order = 7,
-## p-value = 0.01
+## Dickey-Fuller = -5.8397, Lag order = 7, p-value = 0.01
 ## alternative hypothesis: stationary</code></pre>
 <p>If we use the ADF test on the integrated series, after having transformed it through differencing, the test rejects the null hypothesis of unit root, which is correct.</p>
+<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/adf.test.html">adf.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="va">y_I1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Augmented Dickey-Fuller Test
 ## 
 ## data:  diff(y_I1)
-## Dickey-Fuller = -7.8913, Lag order = 7,
-## p-value = 0.01
+## Dickey-Fuller = -7.8913, Lag order = 7, p-value = 0.01
 ## alternative hypothesis: stationary</code></pre>
 </div>
 <div id="phillips-perron-test" class="section level5" number="9.2.1.1.3">
@@ -248,26 +345,35 @@ z_t &amp;= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
 <span class="header-section-number">9.2.1.1.3</span> Phillips-Perron Test<a class="anchor" aria-label="anchor" href="#phillips-perron-test"><i class="fas fa-link"></i></a>
 </h5>
 <p>Another <em>unit root test</em> is the <strong>Phillips-Perron</strong> test. It differs from the ADF test in some aspects (how it deals with serial correlation and heteroskedasticity in the errors). Also this test is implemented in the library <em>tseries</em> (funtion <em>pp.test</em>). Results of the test are similar to those of the ADF test:</p>
+<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># series with deterministic trend</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/pp.test.html">pp.test</a></span><span class="op">(</span><span class="va">y_I0</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Phillips-Perron Unit Root Test
 ## 
 ## data:  y_I0
-## Dickey-Fuller Z(alpha) = -144.04, Truncation
-## lag parameter = 5, p-value = 0.01
+## Dickey-Fuller Z(alpha) = -144.04, Truncation lag parameter = 5,
+## p-value = 0.01
 ## alternative hypothesis: stationary</code></pre>
+<div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># series with unit roots</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/pp.test.html">pp.test</a></span><span class="op">(</span><span class="va">y_I1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Phillips-Perron Unit Root Test
 ## 
 ## data:  y_I1
-## Dickey-Fuller Z(alpha) = -5.4817, Truncation
-## lag parameter = 5, p-value = 0.8039
+## Dickey-Fuller Z(alpha) = -5.4817, Truncation lag parameter = 5,
+## p-value = 0.8039
 ## alternative hypothesis: stationary</code></pre>
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># series with unit roots, differenced</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/tseries/man/pp.test.html">pp.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/diff.html">diff</a></span><span class="op">(</span><span class="va">y_I1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Phillips-Perron Unit Root Test
 ## 
 ## data:  diff(y_I1)
-## Dickey-Fuller Z(alpha) = -489.82, Truncation
-## lag parameter = 5, p-value = 0.01
+## Dickey-Fuller Z(alpha) = -489.82, Truncation lag parameter = 5,
+## p-value = 0.01
 ## alternative hypothesis: stationary</code></pre>
 <p>In case of uncertainty, more than one test can be used.</p>
 </div>
@@ -278,6 +384,14 @@ z_t &amp;= \phi z_{t-1} + \epsilon_t, \quad \epsilon_t \sim N(0, \sigma^2)
 <span class="header-section-number">9.2.2</span> Non-autocorrelated residuals<a class="anchor" aria-label="anchor" href="#non-autocorrelated-residuals"><i class="fas fa-link"></i></a>
 </h3>
 <p>We try to fit a linear regression model. First, we create two series <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, with <span class="math inline">\(x\)</span> correlated with <span class="math inline">\(y\)</span> at lags <span class="math inline">\(x_{t-3}\)</span> and <span class="math inline">\(x_{t-4}\)</span>.</p>
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># simulated data of x series correlated to y at lag 3 and 4</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">999</span><span class="op">)</span></span>
+<span><span class="va">x_series</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">200</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, ar <span class="op">=</span> <span class="fl">0.7</span>, sd<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.union.html">ts.intersect</a></span><span class="op">(</span><span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x_series</span>, <span class="op">-</span><span class="fl">3</span><span class="op">)</span>, <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x_series</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="va">y_series</span> <span class="op">&lt;-</span> <span class="fl">15</span> <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span><span class="va">z</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">+</span> <span class="fl">1.5</span><span class="op">*</span><span class="va">z</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">196</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">xy_series</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.union.html">ts.intersect</a></span><span class="op">(</span><span class="va">y_series</span>, <span class="va">z</span><span class="op">)</span></span></code></pre></div>
 <p>The <em>real</em> model (in this case we know it because we created it through the above simulation), is as follows:</p>
 <p><span class="math display">\[
 y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
@@ -285,7 +399,11 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 \]</span>
 #### lm</p>
 <p>To fit a linear regression, we can use the function <strong>lm</strong> (the standard funtion to perform linear regression analysis in base R, no additional packages are necessary).</p>
+<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">xy_series</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">~</span> <span class="va">xy_series</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">+</span> <span class="va">xy_series</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>The function <strong>summary</strong> prints the summary of the model, which includes the estimates (the “coefficients” of the variables), the standard errors, the statistical significance of the variables, and other information.</p>
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = xy_series[, 1] ~ xy_series[, 2] + xy_series[, 3])
@@ -295,17 +413,12 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ## -2.57051 -0.73392  0.06238  0.74187  2.14794 
 ## 
 ## Coefficients:
-##                Estimate Std. Error t value
-## (Intercept)    14.96869    0.07238  206.80
-## xy_series[, 2]  0.85549    0.07680   11.14
-## xy_series[, 3]  1.42126    0.07678   18.51
-##                Pr(&gt;|t|)    
-## (Intercept)      &lt;2e-16 ***
-## xy_series[, 2]   &lt;2e-16 ***
-## xy_series[, 3]   &lt;2e-16 ***
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    14.96869    0.07238  206.80   &lt;2e-16 ***
+## xy_series[, 2]  0.85549    0.07680   11.14   &lt;2e-16 ***
+## xy_series[, 3]  1.42126    0.07678   18.51   &lt;2e-16 ***
 ## ---
-## Signif. codes:  
-## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 1.002 on 196 degrees of freedom
 ## Multiple R-squared:  0.873,  Adjusted R-squared:  0.8717 
@@ -314,10 +427,13 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 <p>To check whether these assumptions are met, we can visualize the <em>plot of residuals, its ACF/PACF and histogram</em>, and also test the residuals for possible autocorrelation using a statistical test like the <a href="https://en.wikipedia.org/wiki/Breusch%E2%80%93Godfrey_test">Breusch-Godfrey test</a> (this test is the default in the forecast library when a linear regression object <em>lm</em> is tested).</p>
 <p>To create the plots we can use the base R functions, or we can use the convenient <em>checkresiduals</em> function in the <em>forecast</em> package.</p>
 <p>In this case everything seems fine.</p>
+<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.package("forecast") # install the package if necessary</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pkg.robjhyndman.com/forecast/">forecast</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/checkresiduals.html">checkresiduals</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-180-1.png" width="100%" style="display: block; margin: auto;"></div>
 <pre><code>## 
-##  Breusch-Godfrey test for serial correlation
-##  of order up to 10
+##  Breusch-Godfrey test for serial correlation of order up to 10
 ## 
 ## data:  Residuals
 ## LM test = 8.689, df = 10, p-value = 0.5618</code></pre>
@@ -333,6 +449,12 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 \]</span>
 #### dynml</p>
 <p>Instead of <em>lm</em>, the package <strong>dynml</strong> and the function with the same name (<em>dynml</em>) can be used to fit a dynamic regression models in R. One of the main advantages of this package is that it allows users to fit time series linear regression models without calculating the lagged values by hand. To add a lagged variable, it can simply be used the <em>L</em> (<em>Lag</em>) function. The <em>L</em> function takes as arguments the name of the variable and the lag length. For instance <em>L(x, 4)</em> corresponds to <span class="math inline">\(x_{t-4}\)</span>.</p>
+<div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("dynml") # install the package if necessary</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">dynlm</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dynlm.fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dynlm/man/dynlm.html">dynlm</a></span><span class="op">(</span><span class="va">y_series</span> <span class="op">~</span> <span class="fu">L</span><span class="op">(</span><span class="va">x_series</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu">L</span><span class="op">(</span><span class="va">x_series</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dynlm.fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Time series regression with "ts" data:
 ## Start = 5, End = 203
@@ -345,22 +467,25 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ## -2.57051 -0.73392  0.06238  0.74187  2.14794 
 ## 
 ## Coefficients:
-##                Estimate Std. Error t value
-## (Intercept)    14.96869    0.07238  206.80
-## L(x_series, 3)  0.85549    0.07680   11.14
-## L(x_series, 4)  1.42126    0.07678   18.51
-##                Pr(&gt;|t|)    
-## (Intercept)      &lt;2e-16 ***
-## L(x_series, 3)   &lt;2e-16 ***
-## L(x_series, 4)   &lt;2e-16 ***
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    14.96869    0.07238  206.80   &lt;2e-16 ***
+## L(x_series, 3)  0.85549    0.07680   11.14   &lt;2e-16 ***
+## L(x_series, 4)  1.42126    0.07678   18.51   &lt;2e-16 ***
 ## ---
-## Signif. codes:  
-## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 1.002 on 196 degrees of freedom
 ## Multiple R-squared:  0.873,  Adjusted R-squared:  0.8717 
 ## F-statistic: 673.5 on 2 and 196 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The <em>dynlm</em> function also permits to include trend (function <em>trend</em>) and seasonal (function <em>season</em>) components in the model (it is also possible to change the reference value for the seasonal period, see <em>?dynlm</em>). Just to make an example of the code to perform a dynamic regression with <em>dynlm</em>:</p>
+<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"AirPassengers"</span><span class="op">)</span></span>
+<span><span class="va">ap</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">AirPassengers</span><span class="op">)</span></span>
+<span><span class="va">ap_x</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">*</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">ap</span>, <span class="op">-</span><span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ap</span><span class="op">)</span>, <span class="fl">0</span>, <span class="fl">0.2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ap_fm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dynlm/man/dynlm.html">dynlm</a></span><span class="op">(</span><span class="va">ap</span> <span class="op">~</span> <span class="fu">trend</span><span class="op">(</span><span class="va">ap</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/pkg/TSA/man/season.html">season</a></span><span class="op">(</span><span class="va">ap</span><span class="op">)</span> <span class="op">+</span> <span class="fu">L</span><span class="op">(</span><span class="va">ap_x</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ap_fm</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Time series regression with "ts" data:
 ## Start = 1949(7), End = 1960(12)
@@ -373,39 +498,23 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ## -0.156306 -0.035098  0.007821  0.041535  0.141713 
 ## 
 ## Coefficients:
-##                Estimate Std. Error t value
-## (Intercept)    4.116392   0.224848  18.307
-## trend(ap)      0.105758   0.005596  18.899
-## season(ap)Feb -0.026936   0.024867  -1.083
-## season(ap)Mar  0.127650   0.026209   4.870
-## season(ap)Apr  0.111029   0.028324   3.920
-## season(ap)May  0.132132   0.031750   4.162
-## season(ap)Jun  0.248250   0.030001   8.275
-## season(ap)Jul  0.334578   0.027595  12.125
-## season(ap)Aug  0.333578   0.029138  11.448
-## season(ap)Sep  0.172679   0.026344   6.555
-## season(ap)Oct  0.034292   0.026311   1.303
-## season(ap)Nov -0.101556   0.027526  -3.689
-## season(ap)Dec -0.010445   0.024767  -0.422
-## L(ap_x, 3)     0.061495   0.022439   2.741
-##               Pr(&gt;|t|)    
-## (Intercept)    &lt; 2e-16 ***
-## trend(ap)      &lt; 2e-16 ***
-## season(ap)Feb 0.280811    
-## season(ap)Mar 3.32e-06 ***
-## season(ap)Apr 0.000146 ***
-## season(ap)May 5.86e-05 ***
-## season(ap)Jun 1.71e-13 ***
-## season(ap)Jul  &lt; 2e-16 ***
-## season(ap)Aug  &lt; 2e-16 ***
-## season(ap)Sep 1.35e-09 ***
-## season(ap)Oct 0.194866    
-## season(ap)Nov 0.000335 ***
-## season(ap)Dec 0.673966    
-## L(ap_x, 3)    0.007039 ** 
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    4.116392   0.224848  18.307  &lt; 2e-16 ***
+## trend(ap)      0.105758   0.005596  18.899  &lt; 2e-16 ***
+## season(ap)Feb -0.026936   0.024867  -1.083 0.280811    
+## season(ap)Mar  0.127650   0.026209   4.870 3.32e-06 ***
+## season(ap)Apr  0.111029   0.028324   3.920 0.000146 ***
+## season(ap)May  0.132132   0.031750   4.162 5.86e-05 ***
+## season(ap)Jun  0.248250   0.030001   8.275 1.71e-13 ***
+## season(ap)Jul  0.334578   0.027595  12.125  &lt; 2e-16 ***
+## season(ap)Aug  0.333578   0.029138  11.448  &lt; 2e-16 ***
+## season(ap)Sep  0.172679   0.026344   6.555 1.35e-09 ***
+## season(ap)Oct  0.034292   0.026311   1.303 0.194866    
+## season(ap)Nov -0.101556   0.027526  -3.689 0.000335 ***
+## season(ap)Dec -0.010445   0.024767  -0.422 0.673966    
+## L(ap_x, 3)     0.061495   0.022439   2.741 0.007039 ** 
 ## ---
-## Signif. codes:  
-## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 0.05831 on 124 degrees of freedom
 ## Multiple R-squared:  0.9829, Adjusted R-squared:  0.9811 
@@ -416,23 +525,35 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 <span class="header-section-number">9.2.3</span> Regression with ARMA errors<a class="anchor" aria-label="anchor" href="#regression-with-arma-errors"><i class="fas fa-link"></i></a>
 </h3>
 <p>While in the previous case a standard linear model works well, it is often the case that <em>residuals of times series regressions are autocorrelated</em>, and a linear regression model can be suboptimal or even wrong. For instance, let’s create other two time series that are, as the previous ones, cross-correlated at lag 3 and 4, but with a bit more complicated structure.</p>
+<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># another set of simulated data </span></span>
+<span><span class="co"># the x series is correlated at lag 3 and 4</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">999</span><span class="op">)</span></span>
+<span><span class="va">x2_series</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">200</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, ar <span class="op">=</span> <span class="fl">0.7</span>, sd<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.union.html">ts.intersect</a></span><span class="op">(</span><span class="va">x2_series</span>, <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x2_series</span>, <span class="op">-</span><span class="fl">3</span><span class="op">)</span>, <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x2_series</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span> </span>
+<span><span class="va">y2_series</span> <span class="op">&lt;-</span> <span class="fl">15</span> <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span><span class="va">z2</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">+</span> <span class="fl">1.5</span><span class="op">*</span><span class="va">z2</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span> </span>
+<span><span class="va">y2_errors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/arima.sim.html">arima.sim</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">196</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>order <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>, ar <span class="op">=</span> <span class="fl">0.6</span>, ma <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span>, sd<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">y2_series</span> <span class="op">&lt;-</span> <span class="va">y2_series</span> <span class="op">+</span> <span class="va">y2_errors</span></span>
+<span></span>
+<span><span class="co"># check the cross-correlations at lag 3 and 4</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stat.uiowa.edu/~kchan/TSA.htm">TSA</a></span><span class="op">)</span></span>
+<span><span class="va">prew</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TSA/man/prewhiten.html">prewhiten</a></span><span class="op">(</span><span class="va">x2_series</span>, <span class="va">y2_series</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-183-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/TSA/man/prewhiten.html">prewhiten</a></span><span class="op">(</span><span class="va">x2_series</span>, <span class="va">y2_series</span><span class="op">)</span></span>
+<span><span class="va">prew</span></span></code></pre></div>
 <pre><code>## $ccf
 ## 
 ## Autocorrelations of series 'X', by lag
 ## 
-##    -19    -18    -17    -16    -15    -14    -13 
-## -0.021 -0.029  0.012  0.065  0.024  0.008  0.076 
-##    -12    -11    -10     -9     -8     -7     -6 
-##  0.107  0.001 -0.031 -0.024 -0.039  0.048  0.070 
-##     -5     -4     -3     -2     -1      0      1 
-## -0.021  0.620  0.425  0.036 -0.001  0.052  0.080 
-##      2      3      4      5      6      7      8 
-##  0.068 -0.008 -0.011  0.096  0.124  0.062 -0.022 
-##      9     10     11     12     13     14     15 
-##  0.030  0.023 -0.035 -0.039 -0.008  0.016 -0.059 
-##     16     17     18     19 
-## -0.149 -0.120 -0.027 -0.020 
+##    -19    -18    -17    -16    -15    -14    -13    -12    -11    -10     -9 
+## -0.021 -0.029  0.012  0.065  0.024  0.008  0.076  0.107  0.001 -0.031 -0.024 
+##     -8     -7     -6     -5     -4     -3     -2     -1      0      1      2 
+## -0.039  0.048  0.070 -0.021  0.620  0.425  0.036 -0.001  0.052  0.080  0.068 
+##      3      4      5      6      7      8      9     10     11     12     13 
+## -0.008 -0.011  0.096  0.124  0.062 -0.022  0.030  0.023 -0.035 -0.039 -0.008 
+##     14     15     16     17     18     19 
+##  0.016 -0.059 -0.149 -0.120 -0.027 -0.020 
 ## 
 ## $model
 ## 
@@ -440,12 +561,10 @@ y_t = 15 + 0.8x_{t-3} + 1.5x_{t-4} + \epsilon_t \\
 ## ar.ols(x = x)
 ## 
 ## Coefficients:
-##       1        2        3        4        5  
-##  0.6362   0.1109   0.0496  -0.1533  -0.0240  
-##       6        7        8        9       10  
-## -0.0499   0.2041   0.0221  -0.0990  -0.0981  
-##      11       12       13       14  
-##  0.1703  -0.0558  -0.0812   0.1179  
+##       1        2        3        4        5        6        7        8  
+##  0.6362   0.1109   0.0496  -0.1533  -0.0240  -0.0499   0.2041   0.0221  
+##       9       10       11       12       13       14  
+## -0.0990  -0.0981   0.1703  -0.0558  -0.0812   0.1179  
 ## 
 ## Intercept: 0.006091 (0.06307) 
 ## 
@@ -459,6 +578,17 @@ y_t &amp;= 15 + 0.8 x_{t-3} + 1.5 x_{t-4} + \eta_t \\
 \end{split}
 \]</span></p>
 <p>It is possible to calculate the regression using the <em>lm</em> function, calculating the lagged variables by hand, or to use the <em>dynml</em> library and function.</p>
+<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate the lagged variables by hand and apply the lm function...</span></span>
+<span><span class="va">x2Lagged</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span></span>
+<span>    xLag0 <span class="op">=</span> <span class="va">x2_series</span>,</span>
+<span>    xLag3 <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x2_series</span>,<span class="op">-</span><span class="fl">3</span><span class="op">)</span>,</span>
+<span>    xLag4 <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x2_series</span>,<span class="op">-</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">xy2_series</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.union.html">ts.union</a></span><span class="op">(</span><span class="va">y2_series</span>, <span class="va">x2Lagged</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">lm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">xy2_series</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">~</span> <span class="va">xy2_series</span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lm2</span><span class="op">)</span> <span class="co"># AIC: 821.45</span></span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = xy2_series[, 1] ~ xy2_series[, 3:4])
@@ -468,26 +598,21 @@ y_t &amp;= 15 + 0.8 x_{t-3} + 1.5 x_{t-4} + \eta_t \\
 ## -4.9200 -1.4508  0.0667  1.5395  5.1083 
 ## 
 ## Coefficients:
-##                                 Estimate
-## (Intercept)                      14.9005
-## xy2_series[, 3:4]x2Lagged.xLag3   1.0407
-## xy2_series[, 3:4]x2Lagged.xLag4   1.5171
-##                                 Std. Error t value
-## (Intercept)                         0.1486 100.273
-## xy2_series[, 3:4]x2Lagged.xLag3     0.1595   6.523
-## xy2_series[, 3:4]x2Lagged.xLag4     0.1599   9.488
-##                                 Pr(&gt;|t|)    
-## (Intercept)                      &lt; 2e-16 ***
-## xy2_series[, 3:4]x2Lagged.xLag3 6.14e-10 ***
-## xy2_series[, 3:4]x2Lagged.xLag4  &lt; 2e-16 ***
+##                                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)                      14.9005     0.1486 100.273  &lt; 2e-16 ***
+## xy2_series[, 3:4]x2Lagged.xLag3   1.0407     0.1595   6.523 6.14e-10 ***
+## xy2_series[, 3:4]x2Lagged.xLag4   1.5171     0.1599   9.488  &lt; 2e-16 ***
 ## ---
-## Signif. codes:  
-## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 2.028 on 189 degrees of freedom
 ##   (12 observations deleted due to missingness)
 ## Multiple R-squared:  0.6735, Adjusted R-squared:   0.67 
 ## F-statistic: 194.9 on 2 and 189 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb285"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># ... or use the dynml function</span></span>
+<span><span class="va">dynlm.fit2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/dynlm/man/dynlm.html">dynlm</a></span><span class="op">(</span><span class="va">y2_series</span> <span class="op">~</span> <span class="fu">L</span><span class="op">(</span><span class="va">x2_series</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu">L</span><span class="op">(</span><span class="va">x2_series</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dynlm.fit2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Time series regression with "ts" data:
 ## Start = 5, End = 196
@@ -500,17 +625,12 @@ y_t &amp;= 15 + 0.8 x_{t-3} + 1.5 x_{t-4} + \eta_t \\
 ## -4.9200 -1.4508  0.0667  1.5395  5.1083 
 ## 
 ## Coefficients:
-##                 Estimate Std. Error t value
-## (Intercept)      14.9005     0.1486 100.273
-## L(x2_series, 3)   1.0407     0.1595   6.523
-## L(x2_series, 4)   1.5171     0.1599   9.488
-##                 Pr(&gt;|t|)    
-## (Intercept)      &lt; 2e-16 ***
-## L(x2_series, 3) 6.14e-10 ***
-## L(x2_series, 4)  &lt; 2e-16 ***
+##                 Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)      14.9005     0.1486 100.273  &lt; 2e-16 ***
+## L(x2_series, 3)   1.0407     0.1595   6.523 6.14e-10 ***
+## L(x2_series, 4)   1.5171     0.1599   9.488  &lt; 2e-16 ***
 ## ---
-## Signif. codes:  
-## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 2.028 on 189 degrees of freedom
 ## Multiple R-squared:  0.6735, Adjusted R-squared:   0.67 
@@ -523,35 +643,46 @@ y_t &amp;= 14.9005 + 1.0407 x_{t-3} + 1.5171 x_{t-4} + \epsilon_t \\
 \end{split}
 \]</span></p>
 <p>The original series can also be visualized with the fitted values (the values resulting from the model), to visually inspect how well the model represents the original series. The differences between the original and the fitted series are the <em>residuals</em>.</p>
+<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lm2d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.union.html">ts.intersect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">xy2_series</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="va">lm2</span><span class="op">$</span><span class="va">fitted.values</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">lm2d</span>, plot.type <span class="op">=</span> <span class="st">"single"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"orange"</span>,<span class="st">"blue"</span><span class="op">)</span>, </span>
+<span>        lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">)</span>, lwd<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,</span>
+<span>        main <span class="op">=</span> <span class="st">"'Classic' Linear Model - Original (orange) and Fitted series (blue)"</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-185-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>The diagnostic plots of the residuals show the presence of autocorrelation, and the Breusch-Godfrey test is highly significant (its value is far lower than the critical value <span class="math inline">\(\alpha = 0.05\)</span>)</p>
+<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/checkresiduals.html">checkresiduals</a></span><span class="op">(</span><span class="va">lm2</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-186-1.png" width="100%" style="display: block; margin: auto;"></div>
 <pre><code>## 
-##  Breusch-Godfrey test for serial correlation
-##  of order up to 10
+##  Breusch-Godfrey test for serial correlation of order up to 10
 ## 
 ## data:  Residuals
 ## LM test = 149.45, df = 10, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">lm2</span><span class="op">$</span><span class="va">residuals</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-186-2.png" width="100%" style="display: block; margin: auto;"></div>
 <p>In this case, it’s better to take into account the residuals’ autocorrelation by using a regression model capable to handle autocorrelated time series structures.</p>
 <p>In the previous chapter we said that ARIMA models are a special type of regression model, in which the dependent variable is the time series itself, and the independent variables are all lags of the time series. This model is capable to take into account the <em>autocorrelated</em> structure of time series.</p>
 <p>ARIMA is a modeling technique that can be applied to a single time series, but it can be extended to include additional, <strong>exogenous variables</strong>. The ARIMA model including exogenous regressors (i.e.: other time series besides the lagged dependent variable) is like a multiple regression models for time series. In particular, it can be considered a regression model capable to control for autocorrelation in residuals.</p>
 <p>It is possible to use more than one option to fit an ARIMA model with external regressors. A convenient option is provided by the function <strong>auto.arima</strong>, in the package <em>forecast</em>. This library has an argument <strong>xreg</strong> which can be use with <em>a numerical vector or matrix of external regressors, which must have the same number of rows as y</em> (see ?auto.arima).</p>
+<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">arima1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/auto.arima.html">auto.arima</a></span><span class="op">(</span><span class="va">xy2_series</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, xreg <span class="op">=</span> <span class="va">xy2_series</span><span class="op">[</span>,<span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">arima1</span></span></code></pre></div>
 <pre><code>## Series: xy2_series[, 1] 
 ## Regression with ARIMA(1,0,1) errors 
 ## 
 ## Coefficients:
-##          ar1     ma1  intercept  x2Lagged.xLag3
-##       0.6863  0.6491    14.8532          0.9506
-## s.e.  0.0555  0.0528     0.3607          0.0757
-##       x2Lagged.xLag4
-##               1.5732
-## s.e.          0.0762
+##          ar1     ma1  intercept  x2Lagged.xLag3  x2Lagged.xLag4
+##       0.6863  0.6491    14.8532          0.9506          1.5732
+## s.e.  0.0555  0.0528     0.3607          0.0757          0.0762
 ## 
 ## sigma^2 = 0.9482:  log likelihood = -265.76
 ## AIC=543.52   AICc=543.97   BIC=563.06</code></pre>
 <p>The resulting model seems to be more appropriate than the previous one, fitted by using just a “classic” linear regression. This is clear also by comparing the two models through the <a href="https://en.wikipedia.org/wiki/Akaike_information_criterion"><strong>AIC criterion (Akaike information criterion)</strong></a>. The AIC value is used to compare the <em>goodness-of-fit</em> of different models fitted to the same dataset. The lower the AIC value, the better the fit (see also the next paragraph).</p>
 <p>The auto.arima function prints the AIC value by default, while this value is not given with the <em>lm</em> function. To get it, we need to use the <strong>AIC</strong> function.</p>
+<div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">lm2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 821.4495</code></pre>
 <p>In this case, the ARIMA regression model results a far better model (<em>AIC=543.52</em>) compared with the classic linear model (<em>AIC=821.45</em>).</p>
 <p><span class="math display">\[
@@ -562,6 +693,8 @@ y_t &amp;= 14.8532 + 0.9506 x_{t-3} + 1.5732 x_{t-4} + \eta_t \\
 \end{split}
 \]</span></p>
 <p>Diagnostic analysis of the residuals, shows that there is no concerning sign of autocorrelation in the residuals, which looks like white noise. Also the test for autocorrelated errors is not significant (the default test for autocorrelation when testing an ARIMA models with external regressors in the <em>forecast</em> package is the <strong>Ljung-Box test</strong>)<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;There are many tests for detecting autocorrelation. Besides the already mentioned &lt;em&gt;Breusch-Godfrey test&lt;/em&gt; and &lt;em&gt;Ljung-Box test&lt;/em&gt;, other popular tests are the &lt;em&gt;Durbin Watson test&lt;/em&gt;, and the &lt;em&gt;Box–Pierce test&lt;/em&gt;. Each test has its own characteristics. For instance, the Durbin-Watson test is a popular way to test for autocorrelation, but it &lt;a href="https://www.jstor.org/stable/pdf/1909870.pdf?refreqid=excelsior%3A9526730d9debe4fa8f1a4d5fa601d523"&gt;shouldn’t be used with lagged dependent variables&lt;/a&gt;. In this case it can be used the Breusch-Godfrey test&lt;/p&gt;'><sup>3</sup></a>).</p>
+<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/checkresiduals.html">checkresiduals</a></span><span class="op">(</span><span class="va">arima1</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-189-1.png" width="100%" style="display: block; margin: auto;"></div>
 <pre><code>## 
 ##  Ljung-Box test
@@ -571,28 +704,34 @@ y_t &amp;= 14.8532 + 0.9506 x_{t-3} + 1.5732 x_{t-4} + \eta_t \\
 ## 
 ## Model df: 2.   Total lags used: 10</code></pre>
 <p>Also by visually inspect the original series along with the fitted series (the values resulting from the model), it can be seen that the model is better than the previous one.</p>
+<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">arima1d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.union.html">ts.intersect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">xy2_series</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="va">arima1</span><span class="op">$</span><span class="va">fitted</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">arima1d</span>, plot.type <span class="op">=</span> <span class="st">"single"</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"orange"</span>,<span class="st">"blue"</span><span class="op">)</span>, </span>
+<span>        lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">4</span><span class="op">)</span>, lwd<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>,</span>
+<span>        main <span class="op">=</span> <span class="st">"ARIMA errors model - Original (orange) and Fitted series (blue)"</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-190-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>We can also compare the fitted versus original values by using a scatterplot. A better model produces a thinner diagonal line.</p>
+<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">xy2_series</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="va">lm2</span><span class="op">$</span><span class="va">fitted.values</span>, main <span class="op">=</span> <span class="st">"LM"</span>, xlab<span class="op">=</span><span class="st">"Original"</span>, ylab<span class="op">=</span><span class="st">"Fitted"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">xy2_series</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="va">arima1</span><span class="op">$</span><span class="va">fitted</span>, main <span class="op">=</span> <span class="st">"ARIMA regression model"</span>, xlab<span class="op">=</span><span class="st">"Original"</span>, ylab<span class="op">=</span><span class="st">"Fitted"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-191-1.png" width="100%" style="display: block; margin: auto;">
 The <em>auto.arima</em> function does not give the statistical significance of the coefficients (the approach adopted by the <em>forecast</em> library is different, based on the choice of the best model to do forecasting), but it is possible to get that by using the function <em>coeftest</em> in the library <em>lmtest</em>.</p>
+<div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages(lmtest) # installa the package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lmtest</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/coeftest.html">coeftest</a></span><span class="op">(</span><span class="va">arima1</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## z test of coefficients:
 ## 
-##                 Estimate Std. Error z value
-## ar1             0.686330   0.055525  12.361
-## ma1             0.649134   0.052850  12.283
-## intercept      14.853152   0.360689  41.180
-## x2Lagged.xLag3  0.950588   0.075705  12.557
-## x2Lagged.xLag4  1.573242   0.076224  20.640
-##                 Pr(&gt;|z|)    
-## ar1            &lt; 2.2e-16 ***
-## ma1            &lt; 2.2e-16 ***
-## intercept      &lt; 2.2e-16 ***
-## x2Lagged.xLag3 &lt; 2.2e-16 ***
-## x2Lagged.xLag4 &lt; 2.2e-16 ***
+##                 Estimate Std. Error z value  Pr(&gt;|z|)    
+## ar1             0.686330   0.055525  12.361 &lt; 2.2e-16 ***
+## ma1             0.649134   0.052850  12.283 &lt; 2.2e-16 ***
+## intercept      14.853152   0.360689  41.180 &lt; 2.2e-16 ***
+## x2Lagged.xLag3  0.950588   0.075705  12.557 &lt; 2.2e-16 ***
+## x2Lagged.xLag4  1.573242   0.076224  20.640 &lt; 2.2e-16 ***
 ## ---
-## Signif. codes:  
-## 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div id="count-regression-models" class="section level3" number="9.2.4">
 <h3>
@@ -602,35 +741,62 @@ The <em>auto.arima</em> function does not give the statistical significance of t
 <p>Sometimes, the above mentioned methods work well also with this type of data (for instance, when the counts are large). Other times, time series model developed for count data can be a better choice (for instance, when the series include mostly small integer values).</p>
 <p>Two of the most common statistical models to deal with count data are based on the <a href="https://en.wikipedia.org/wiki/Poisson_distribution"><strong>Poisson</strong></a> and the <a href="https://en.wikipedia.org/wiki/Negative_binomial_distribution"><strong>Negative Binomial</strong></a> distributions. These probability distributions are the ones that are usually employed to model count data.</p>
 <p>There are a few libraries to fit count time series regression models in R. We take into consideration <strong>tscount</strong>, and its function <em>tsglm</em>.</p>
+<div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("tscount")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tscount.r-forge.r-project.org">tscount</a></span><span class="op">)</span></span></code></pre></div>
 <p>We consider, as an example of the <em>tscount</em> function to fit count time series regression models, the dataset “Seatbelts” (monthly number of killed drivers of light goods vehicles in Great Britain between January 1969 and December 1984), following the <a href="https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf">paper</a> that describes the <em>tscount</em> library.</p>
 <p>The authors of the package write in the <a href="https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf">paper (par. 7.2)</a> describing the library:</p>
 <blockquote>
 <p>This time series is part of a dataset which was first considered by Harvey and Durbin (1986) for studying the effect of compulsory wearing of seatbelts introduced on 31 January 1983. The dataset, including additional covariates, is available in R in the object Seatbelts. In their paper Harvey and Durbin (1986) analyze the numbers of casualties for drivers and passengers of cars, which are <strong>so large</strong> that they can be treated with <strong>methods for continuous-valued data</strong>. The monthly number of killed drivers of vans analyzed here is <strong>much smaller</strong> (its <em>minimum is 2 and its maximum 17</em>) and <strong>therefore methods for count data are to be preferred</strong>.</p>
 </blockquote>
+<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"Seatbelts"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">timeseries</span> <span class="op">&lt;-</span> <span class="va">Seatbelts</span><span class="op">[</span>, <span class="st">"VanKilled"</span><span class="op">]</span></span>
+<span></span>
+<span><span class="va">regressors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span>PetrolPrice <span class="op">=</span> <span class="va">Seatbelts</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PetrolPrice"</span><span class="op">)</span><span class="op">]</span>, </span>
+<span>                    linearTrend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>along <span class="op">=</span> <span class="va">timeseries</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">timeseries_until1981</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html">window</a></span><span class="op">(</span><span class="va">timeseries</span>, end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1981</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">regressors_until1981</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html">window</a></span><span class="op">(</span><span class="va">regressors</span>, end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1981</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>We are going to fit a model aimed at capturing a first order autoregressive <em>AR(1)</em> term and a yearly <em>seasonality</em> by a 12th order autoregressive term.</p>
+<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">timeseries</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">timeseries</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">acf</a></span><span class="op">(</span><span class="va">timeseries</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">timeseries</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-195-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>The function <em>tsglm</em> allows users to declare the autoregressive and seasonal autoregressive terms in a convenient way (in the following part of the function: <em>model = list(past_obs = c(1, 12))</em>).</p>
+<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">poisson_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tscount/man/tsglm.html">tsglm</a></span><span class="op">(</span><span class="va">timeseries_until1981</span>,</span>
+<span>                     model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>past_obs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>                     xreg <span class="op">=</span> <span class="va">regressors_until1981</span>,</span>
+<span>                     distr <span class="op">=</span> <span class="st">"poisson"</span>, link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span></span></code></pre></div>
 <p>It is possible to check the residuals with the usual plots.</p>
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">poisson_fit</span><span class="op">$</span><span class="va">residuals</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">poisson_fit</span><span class="op">$</span><span class="va">residuals</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">acf</a></span><span class="op">(</span><span class="va">poisson_fit</span><span class="op">$</span><span class="va">residuals</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">poisson_fit</span><span class="op">$</span><span class="va">residuals</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-197-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>The function <em>summary</em> can be used to get the parameter estimates for the model (in this case the function can also employ a parametric bootstrap procedure (<em>B</em>) to obtain standard errors and confidence intervals of the regression parameters. The authors use <em>B=500</em> in the original paper, since in their experience this value yields stable results. Higher B values can be more precise but require time to be calculated).</p>
+<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">poisson_fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## tsglm(ts = timeseries_until1981, model = list(past_obs = c(1, 
 ##     12)), xreg = regressors_until1981, link = "log", distr = "poisson")
 ## 
 ## Coefficients:
-##              Estimate  Std.Error  CI(lower)
-## (Intercept)   1.83284   0.367830    1.11191
-## beta_1        0.08672   0.080913   -0.07187
-## beta_12       0.15288   0.084479   -0.01269
-## PetrolPrice   0.83069   2.303555   -3.68420
-## linearTrend  -0.00255   0.000653   -0.00383
-##              CI(upper)
-## (Intercept)    2.55377
-## beta_1         0.24530
-## beta_12        0.31846
-## PetrolPrice    5.34557
-## linearTrend   -0.00127
+##              Estimate  Std.Error  CI(lower)  CI(upper)
+## (Intercept)   1.83284   0.367830    1.11191    2.55377
+## beta_1        0.08672   0.080913   -0.07187    0.24530
+## beta_12       0.15288   0.084479   -0.01269    0.31846
+## PetrolPrice   0.83069   2.303555   -3.68420    5.34557
+## linearTrend  -0.00255   0.000653   -0.00383   -0.00127
 ## Standard errors and confidence intervals (level =  95 %) obtained
 ## by normal approximation.
 ## 
@@ -641,54 +807,105 @@ The <em>auto.arima</em> function does not give the statistical significance of t
 ## AIC: 802.3529 
 ## BIC: 817.6022 
 ## QIC: 802.3529</code></pre>
+<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># summary(poisson_fit, B=500) # to use the bootstrap procedure</span></span></code></pre></div>
 <p>The model is as follows:</p>
 <p><span class="math display">\[
 log(\lambda_t) = 1.83 + 0.09Y_{t-1} + 0.15Y_{t-12} + 0.83X_t - 0.003t
 \]</span>
 In the above equation notice that, the Poisson regression, models the logarithm of the <em>Y</em> values at times <em>t</em> (expressed as <span class="math inline">\(log(\lambda_t)\)</span>).</p>
 <p>Another example (using the dataset you can download <a href="https://drive.google.com/file/d/1eIOERBLCUCaap3WCoM5QT6I0iTW-Hqwa/view?usp=sharing">here</a>):</p>
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="va">gtrend_fakenews_qanon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/gtrend_fakenews_qanon.csv"</span>,</span>
+<span>                                  col_types <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html">cols</a></span><span class="op">(</span>date <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_datetime.html">col_date</a></span><span class="op">(</span>format <span class="op">=</span> <span class="st">"%Y-%m"</span><span class="op">)</span>,</span>
+<span>                                                   fake_news <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span>, </span>
+<span>                                                   qanon <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/parse_atomic.html">col_integer</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># head(gtrend_fakenews_qanon$date,1) # 2015-01-01</span></span>
+<span><span class="co"># tail(gtrend_fakenews_qanon$date,1) # 2020-12-01</span></span>
+<span></span>
+<span><span class="va">fake_news</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">gtrend_fakenews_qanon</span><span class="op">$</span><span class="va">fake_news</span>, </span>
+<span>                start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2015</span>,<span class="fl">1</span><span class="op">)</span>, end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2020</span>,<span class="fl">12</span><span class="op">)</span>, frequency <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">qanon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="va">gtrend_fakenews_qanon</span><span class="op">$</span><span class="va">qanon</span>, </span>
+<span>            start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2015</span>,<span class="fl">1</span><span class="op">)</span>, end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2020</span>,<span class="fl">12</span><span class="op">)</span>, frequency <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, <span class="fl">2</span>,<span class="fl">3</span>, byrow<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html">plot.ts</a></span><span class="op">(</span><span class="va">qanon</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">qanon</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">acf</a></span><span class="op">(</span><span class="va">qanon</span>, <span class="fl">48</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">qanon</span>, <span class="fl">48</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="va">qanon_fake_ccf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/TSA/man/prewhiten.html">prewhiten</a></span><span class="op">(</span><span class="va">fake_news</span>, <span class="va">qanon</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-200-1.png" width="100%" style="display: block; margin: auto;"></div>
+<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">qanon_fake_ccf</span><span class="op">$</span><span class="va">ccf</span></span></code></pre></div>
 <pre><code>## 
 ## Autocorrelations of series 'X', by lag
 ## 
-## -1.2500 -1.1667 -1.0833 -1.0000 -0.9167 -0.8333 
-##  -0.127   0.064  -0.013   0.008   0.033   0.022 
-## -0.7500 -0.6667 -0.5833 -0.5000 -0.4167 -0.3333 
-##  -0.041  -0.278   0.120  -0.313   0.417   0.282 
-## -0.2500 -0.1667 -0.0833  0.0000  0.0833  0.1667 
-##  -0.061  -0.025  -0.075  -0.012  -0.180   0.063 
-##  0.2500  0.3333  0.4167  0.5000  0.5833  0.6667 
-##   0.039  -0.154  -0.070  -0.040   0.029   0.068 
-##  0.7500  0.8333  0.9167  1.0000  1.0833  1.1667 
-##  -0.008  -0.045  -0.221  -0.068  -0.039   0.112 
-##  1.2500 
-##   0.177</code></pre>
+## -1.2500 -1.1667 -1.0833 -1.0000 -0.9167 -0.8333 -0.7500 -0.6667 -0.5833 
+##  -0.127   0.064  -0.013   0.008   0.033   0.022  -0.041  -0.278   0.120 
+## -0.5000 -0.4167 -0.3333 -0.2500 -0.1667 -0.0833  0.0000  0.0833  0.1667 
+##  -0.313   0.417   0.282  -0.061  -0.025  -0.075  -0.012  -0.180   0.063 
+##  0.2500  0.3333  0.4167  0.5000  0.5833  0.6667  0.7500  0.8333  0.9167 
+##   0.039  -0.154  -0.070  -0.040   0.029   0.068  -0.008  -0.045  -0.221 
+##  1.0000  1.0833  1.1667  1.2500 
+##  -0.068  -0.039   0.112   0.177</code></pre>
+<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">reg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span>fake_news_lag4 <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">fake_news</span>, <span class="op">-</span><span class="fl">4</span><span class="op">)</span>,</span>
+<span>             fake_news_lag5 <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">fake_news</span>, <span class="op">-</span><span class="fl">5</span><span class="op">)</span>,</span>
+<span>             fake_news_lag6 <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">fake_news</span>, <span class="op">-</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># NA values derives from the application of the "lag" function</span></span>
+<span><span class="co"># and have to be removed, since the regression function cannot</span></span>
+<span><span class="co"># work properly with them</span></span>
+<span><span class="va">reg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="va">reg</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># start(reg) # 2015, 6</span></span>
+<span><span class="co"># end(reg) # 2021, 4</span></span>
+<span></span>
+<span><span class="va">reg</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/stats/window.html">window</a></span><span class="op">(</span><span class="va">reg</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2015</span>, <span class="fl">7</span><span class="op">)</span>, end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">qanon</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/window.html">window</a></span><span class="op">(</span><span class="va">qanon</span>, start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2015</span>, <span class="fl">7</span><span class="op">)</span>, end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2020</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">poisson_gtrend_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tscount/man/tsglm.html">tsglm</a></span><span class="op">(</span><span class="va">qanon</span>,</span>
+<span>                            model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>past_obs <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, </span>
+<span>                            xreg <span class="op">=</span> <span class="va">reg</span>,</span>
+<span>                            distr <span class="op">=</span> <span class="st">"poisson"</span>, link <span class="op">=</span> <span class="st">"log"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/layout.html">layout</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span>, <span class="fl">3</span>,<span class="fl">2</span>, byrow<span class="op">=</span><span class="cn">T</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">poisson_gtrend_fit</span><span class="op">$</span><span class="va">residuals</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">poisson_gtrend_fit</span><span class="op">$</span><span class="va">residuals</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">acf</a></span><span class="op">(</span><span class="va">poisson_gtrend_fit</span><span class="op">$</span><span class="va">residuals</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html">pacf</a></span><span class="op">(</span><span class="va">poisson_gtrend_fit</span><span class="op">$</span><span class="va">residuals</span>, main<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">poisson_gtrend_fit</span><span class="op">$</span><span class="va">response</span><span class="op">)</span>, </span>
+<span>     <span class="fu"><a href="https://rdrr.io/r/base/vector.html">as.vector</a></span><span class="op">(</span><span class="va">poisson_gtrend_fit</span><span class="op">$</span><span class="va">fitted.values</span><span class="op">)</span>,</span>
+<span>     xlab<span class="op">=</span><span class="st">"response"</span>, ylab<span class="op">=</span><span class="st">"fitted"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-203-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>Besides checking the residuals, it is possible to plot the <strong>PIT histogram</strong>, provided by the function <strong>pit</strong> in <em>tscount</em>:</p>
 <blockquote>
 <p>A PIT histogram is a tool for evaluating the statistical consistency between the probabilistic forecast and the observation. The predictive distributions of the observations are compared with the actual observations. If the predictive distribution is ideal the result should be a flat PIT histogram with no bin having an extraordinary high or low level. For more information about PIT histograms see the references listed below.</p>
 </blockquote>
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/tscount/man/pit.html">pit</a></span><span class="op">(</span><span class="va">poisson_gtrend_fit</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1.5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"PIT Poisson"</span><span class="op">)</span> </span></code></pre></div>
 <div class="inline-figure"><img src="Time-Series-Analysis-With-R_files/figure-html/unnamed-chunk-204-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p>In the library are included other diagnostic tools and metrics that can help choosing between poisson and negative binomial models (see the <a href="https://cran.r-project.org/web/packages/tscount/vignettes/tsglm.pdf">paper</a> for further information).</p>
 <p>The function <em>summary</em> prints the coefficients of the model and their confidence interval.</p>
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">poisson_gtrend_fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## tsglm(ts = qanon, model = list(past_obs = 1), xreg = reg, link = "log", 
 ##     distr = "poisson")
 ## 
 ## Coefficients:
-##                 Estimate  Std.Error  CI(lower)
-## (Intercept)      0.58373    0.18036   0.230232
-## beta_1           0.83746    0.04834   0.742715
-## fake_news_lag4   0.00892    0.00274   0.003546
-## fake_news_lag5   0.00638    0.00354  -0.000554
-## fake_news_lag6  -0.01617    0.00272  -0.021506
-##                 CI(upper)
-## (Intercept)        0.9372
-## beta_1             0.9322
-## fake_news_lag4     0.0143
-## fake_news_lag5     0.0133
-## fake_news_lag6    -0.0108
+##                 Estimate  Std.Error  CI(lower)  CI(upper)
+## (Intercept)      0.58373    0.18036   0.230232     0.9372
+## beta_1           0.83746    0.04834   0.742715     0.9322
+## fake_news_lag4   0.00892    0.00274   0.003546     0.0143
+## fake_news_lag5   0.00638    0.00354  -0.000554     0.0133
+## fake_news_lag6  -0.01617    0.00272  -0.021506    -0.0108
 ## Standard errors and confidence intervals (level =  95 %) obtained
 ## by normal approximation.
 ## 
@@ -712,102 +929,83 @@ In the above equation notice that, the Poisson regression, models the logarithm 
 <p>The <strong>BIC</strong> criterion is the <em>Bayesian Information Criterion (or Schwartz’s Bayesian Criterion)</em> and has a stronger penalty than the AIC for overparametrized models (more complex models, with several predictors).</p>
 <p>These criteria can also be used when searching for an appropriate regression model, to compare several different models including different lags of the variables.</p>
 <p>When comparing models by using these criteria, it is important that the models are fitted to <strong>the same dataset</strong>, otherwise the results are not comparable. This is an important aspect to take into account when using lagged predictors. For instance, you may want to try a model including one lagged predictor <span class="math inline">\(x_{t-1}\)</span> and a model including two lagged predictors <span class="math inline">\(x_{t-1}\)</span> and <span class="math inline">\(x_{t-2}\)</span>, and to compare them in order to select the best one according to AIC, AICc or the BIC criterion. However, when you add lagged predictor you loose data points.</p>
+<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x_example</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">40</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">y_example</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">40</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">example_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y_example</span>,</span>
+<span>                      xLag0 <span class="op">=</span> <span class="va">x_example</span>,</span>
+<span>                      xLag1 <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x_example</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>                      xLag2 <span class="op">=</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/lag.html">lag</a></span><span class="op">(</span><span class="va">x_example</span>, <span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">example_data</span></span></code></pre></div>
 <pre><code>## Time Series:
 ## Start = 1 
 ## End = 42 
 ## Frequency = 1 
-##               y       xLag0       xLag1
-##  1  1.075501365  0.48505236          NA
-##  2 -0.276740732 -1.20993027  0.48505236
-##  3 -0.646751445  0.01724609 -1.20993027
-##  4  0.102585633  0.70085715  0.01724609
-##  5 -0.072519610 -0.40170226  0.70085715
-##  6  1.619712305 -0.48727576 -0.40170226
-##  7  0.687751998 -0.76436248 -0.48727576
-##  8  0.234929596  2.97223380 -0.76436248
-##  9 -0.430528202 -0.43578545  2.97223380
-## 10  0.638039146 -1.35197954 -0.43578545
-## 11 -0.217226469 -0.52868886 -1.35197954
-## 12  0.020494309 -0.06027948 -0.52868886
-## 13 -1.913357840 -0.03222441 -0.06027948
-## 14 -0.526191144  0.55290101 -0.03222441
-## 15  0.416282618 -0.25966064  0.55290101
-## 16  0.457627862 -1.01400343 -0.25966064
-## 17 -0.275639625 -0.86452761 -1.01400343
-## 18 -0.353882346  0.11040086 -0.86452761
-## 19 -0.901762561 -0.02452574  0.11040086
-## 20 -1.052145243 -2.51548495 -0.02452574
-## 21  0.832626641  0.44375488 -2.51548495
-## 22  0.056411159  1.56218440  0.44375488
-## 23  0.838708652  0.97180894  1.56218440
-## 24  0.344611778  1.58747428  0.97180894
-## 25 -1.088605832 -1.84530863  1.58747428
-## 26 -0.527820628 -1.27107477 -1.84530863
-## 27  3.061137014  2.03899229 -1.27107477
-## 28 -0.520213835 -0.72914933  2.03899229
-## 29  0.248244201  0.93447357 -0.72914933
-## 30  0.046969519 -0.75324932  0.93447357
-## 31  0.249449596 -0.68448064 -0.75324932
-## 32  1.041843001 -0.59473197 -0.68448064
-## 33 -0.338376495 -0.12412231 -0.59473197
-## 34  0.201287727 -1.39014027 -0.12412231
-## 35  0.602711731 -1.23556534 -1.39014027
-## 36 -0.225018148 -1.28500792 -1.23556534
-## 37 -0.010113590 -1.05225339 -1.28500792
-## 38 -0.193597244  1.36496602 -1.05225339
-## 39  0.009188137 -1.07721180  1.36496602
-## 40  1.441899269  0.67538151 -1.07721180
-## 41           NA          NA  0.67538151
-## 42           NA          NA          NA
-##          xLag2
-##  1          NA
-##  2          NA
-##  3  0.48505236
-##  4 -1.20993027
-##  5  0.01724609
-##  6  0.70085715
-##  7 -0.40170226
-##  8 -0.48727576
-##  9 -0.76436248
-## 10  2.97223380
-## 11 -0.43578545
-## 12 -1.35197954
-## 13 -0.52868886
-## 14 -0.06027948
-## 15 -0.03222441
-## 16  0.55290101
-## 17 -0.25966064
-## 18 -1.01400343
-## 19 -0.86452761
-## 20  0.11040086
-## 21 -0.02452574
-## 22 -2.51548495
-## 23  0.44375488
-## 24  1.56218440
-## 25  0.97180894
-## 26  1.58747428
-## 27 -1.84530863
-## 28 -1.27107477
-## 29  2.03899229
-## 30 -0.72914933
-## 31  0.93447357
-## 32 -0.75324932
-## 33 -0.68448064
-## 34 -0.59473197
-## 35 -0.12412231
-## 36 -1.39014027
-## 37 -1.23556534
-## 38 -1.28500792
-## 39 -1.05225339
-## 40  1.36496602
-## 41 -1.07721180
-## 42  0.67538151</code></pre>
+##               y       xLag0       xLag1       xLag2
+##  1  1.075501365  0.48505236          NA          NA
+##  2 -0.276740732 -1.20993027  0.48505236          NA
+##  3 -0.646751445  0.01724609 -1.20993027  0.48505236
+##  4  0.102585633  0.70085715  0.01724609 -1.20993027
+##  5 -0.072519610 -0.40170226  0.70085715  0.01724609
+##  6  1.619712305 -0.48727576 -0.40170226  0.70085715
+##  7  0.687751998 -0.76436248 -0.48727576 -0.40170226
+##  8  0.234929596  2.97223380 -0.76436248 -0.48727576
+##  9 -0.430528202 -0.43578545  2.97223380 -0.76436248
+## 10  0.638039146 -1.35197954 -0.43578545  2.97223380
+## 11 -0.217226469 -0.52868886 -1.35197954 -0.43578545
+## 12  0.020494309 -0.06027948 -0.52868886 -1.35197954
+## 13 -1.913357840 -0.03222441 -0.06027948 -0.52868886
+## 14 -0.526191144  0.55290101 -0.03222441 -0.06027948
+## 15  0.416282618 -0.25966064  0.55290101 -0.03222441
+## 16  0.457627862 -1.01400343 -0.25966064  0.55290101
+## 17 -0.275639625 -0.86452761 -1.01400343 -0.25966064
+## 18 -0.353882346  0.11040086 -0.86452761 -1.01400343
+## 19 -0.901762561 -0.02452574  0.11040086 -0.86452761
+## 20 -1.052145243 -2.51548495 -0.02452574  0.11040086
+## 21  0.832626641  0.44375488 -2.51548495 -0.02452574
+## 22  0.056411159  1.56218440  0.44375488 -2.51548495
+## 23  0.838708652  0.97180894  1.56218440  0.44375488
+## 24  0.344611778  1.58747428  0.97180894  1.56218440
+## 25 -1.088605832 -1.84530863  1.58747428  0.97180894
+## 26 -0.527820628 -1.27107477 -1.84530863  1.58747428
+## 27  3.061137014  2.03899229 -1.27107477 -1.84530863
+## 28 -0.520213835 -0.72914933  2.03899229 -1.27107477
+## 29  0.248244201  0.93447357 -0.72914933  2.03899229
+## 30  0.046969519 -0.75324932  0.93447357 -0.72914933
+## 31  0.249449596 -0.68448064 -0.75324932  0.93447357
+## 32  1.041843001 -0.59473197 -0.68448064 -0.75324932
+## 33 -0.338376495 -0.12412231 -0.59473197 -0.68448064
+## 34  0.201287727 -1.39014027 -0.12412231 -0.59473197
+## 35  0.602711731 -1.23556534 -1.39014027 -0.12412231
+## 36 -0.225018148 -1.28500792 -1.23556534 -1.39014027
+## 37 -0.010113590 -1.05225339 -1.28500792 -1.23556534
+## 38 -0.193597244  1.36496602 -1.05225339 -1.28500792
+## 39  0.009188137 -1.07721180  1.36496602 -1.05225339
+## 40  1.441899269  0.67538151 -1.07721180  1.36496602
+## 41           NA          NA  0.67538151 -1.07721180
+## 42           NA          NA          NA  0.67538151</code></pre>
 <p>Thus, when you fit models with different lags, you have to fit them on the same dataset. In this case, for instance, you have to skip the NA rows, and use just the rows from 3 to 40.</p>
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Restrict data so models use same fitting period</span></span>
+<span><span class="va">fit1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/auto.arima.html">auto.arima</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">40</span>,<span class="fl">1</span><span class="op">]</span>, xreg<span class="op">=</span><span class="va">example_data</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">40</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">fit2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/auto.arima.html">auto.arima</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">40</span>,<span class="fl">1</span><span class="op">]</span>, xreg<span class="op">=</span><span class="va">example_data</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">40</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">fit3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/auto.arima.html">auto.arima</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">40</span>,<span class="fl">1</span><span class="op">]</span>, xreg<span class="op">=</span><span class="va">example_data</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">40</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>Then you can compare the model, for instance, using the AIC criterion, and choose the model with the smallest value.</p>
+<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit1</span><span class="op">$</span><span class="va">aic</span></span></code></pre></div>
 <pre><code>## [1] 95.11836</code></pre>
+<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit2</span><span class="op">$</span><span class="va">aic</span></span></code></pre></div>
 <pre><code>## [1] 94.31932</code></pre>
+<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit3</span><span class="op">$</span><span class="va">aic</span></span></code></pre></div>
 <pre><code>## [1] 96.07911</code></pre>
 <p>Finally, you fit the model using all the available data.</p>
+<div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://pkg.robjhyndman.com/forecast/reference/auto.arima.html">auto.arima</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, xreg<span class="op">=</span><span class="va">example_data</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">fit1</span></span></code></pre></div>
 <pre><code>## Series: example_data[, 1] 
 ## Regression with ARIMA(0,0,0) errors 
 ## 
@@ -880,7 +1078,7 @@ In the above equation notice that, the Poisson regression, models the logarithm 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-14.</p>
+    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

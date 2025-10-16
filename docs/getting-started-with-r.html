@@ -127,9 +127,17 @@
 <div class="inline-figure"><img src="images/import-data-1.png" width="100%" style="display: block; margin: auto;"></div>
 <p><a href="https://youtu.be/SRh3N6mSaLA">Click here to watch “Import Data”</a></p>
 <p>Otherwise, you can upload a data set by using a function. For instance, to import a <em>csv</em> file, one of the most common formats for data sets, you can use the function <strong>read.csv</strong>. The main argument of this function is the <em>path</em> of the file you want to upload. To specify the file path, consider that you are working within a specific environment; that is, your working directory is the folder of the project (you can double-check the <em>working directory</em> you are in by running the command <strong>getwd()</strong>). Thus, to indicate the path of the data set you want to upload, you can write a dot followed by a slash <strong>./</strong>, followed by the path of the data set <em>inside the working directory</em>. For instance, in the case below, the data set is saved in a folder named <em>data</em> inside the working directory. The name of the data set is <em>tweets_vienna</em> and its extension is .csv. Therefore, the code to upload the file is as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fake_news</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"./data/fake-news-stories-over-time-20210111144200.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>To save data, there are a few options. Generally, if you want to save a data set, you can opt for the .csv or the .rds format. The .rds format is only readable by R, while the .csv format is “universal” (you can read it with Excel, for instance).</p>
 <p>To save a file as .csv, you can use the function <strong>write.csv</strong>. The main arguments of this function are the name of the object that has to be saved, the path to the folder where the object will be saved, and the name you want to assign to the file.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span><span class="op">(</span><span class="va">fake_news</span>, file <span class="op">=</span> <span class="st">"./data/fake_news.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>To save a .rds file, the procedure is similar, but the saveRDS function has to be employed. To read an .rds file, the appropriate function is <strong>readRDS</strong>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span><span class="op">(</span><span class="va">fake_news</span>, file <span class="op">=</span> <span class="st">"./data/fake_news.rds"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">fake_news</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span><span class="op">(</span><span class="st">"./data/fake_news.rds"</span><span class="op">)</span>   <span class="co"># read a .rds file</span></span></code></pre></div>
 <p>In the code above, you can notice a hash mark sign followed by some text. It is a <strong>comment</strong>. Comments are textual content used to describe the code in order to make it easier to understand and reuse. Comments are written after the <strong>hash mark sign (#)</strong> because the text written after the hash mark sign is ignored by R: you can read the comments, but R does not consider them as code.</p>
 </div>
 <div id="create-new-folders" class="section level3" number="2.1.6">
@@ -152,29 +160,68 @@
 <p>An <em>object</em> is an R entity composed of a name and a value.</p>
 <p>The <strong>arrow (&lt;-)</strong> sign is used to <em>create objects</em> and <em>assign a value</em> to an object (or to change or “update” its previous value).</p>
 <p>Example: create an object with the name <em>object_consisting_of_a_number</em> and value equal to 2:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">object_consisting_of_a_number</span> <span class="op">&lt;-</span> <span class="fl">2</span></span></code></pre></div>
 <p>Enter the name of the object in the console and run the command: the value assigned to the object will be displayed.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">object_consisting_of_a_number</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>The object is equal to its value. Therefore, for instance, an object with a numerical value can be used to perform arithmetical operations.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">object_consisting_of_a_number</span> <span class="op">*</span> <span class="fl">10</span></span></code></pre></div>
 <pre><code>## [1] 20</code></pre>
 <p>The value of an object can be transformed:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">object_consisting_of_a_number</span> <span class="op">&lt;-</span> <span class="va">object_consisting_of_a_number</span> <span class="op">*</span> <span class="fl">10</span></span>
+<span></span>
+<span><span class="va">object_consisting_of_a_number</span></span></code></pre></div>
 <pre><code>## [1] 20</code></pre>
 <p>An object can also represent a <strong>function</strong>.</p>
 <p>Example: create an object for the <em>sum</em> (addition) function:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">function_sum</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>The function can now be applied to two numerical values:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">function_sum</span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
 <p>Actually, we don’t need this function, since mathematical functions are already implemented in R.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">5</span> <span class="op">+</span> <span class="fl">7</span></span></code></pre></div>
 <pre><code>## [1] 12</code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">2</span> <span class="op">*</span> <span class="fl">3</span></span></code></pre></div>
 <pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">3</span><span class="op">^</span><span class="fl">2</span></span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">9</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>The value of an object can be a number, a function, or a <strong>vector</strong>. Vectors are sequences of values.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vector_of_numbers</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span>,<span class="fl">6</span>,<span class="fl">7</span>,<span class="fl">8</span>,<span class="fl">9</span>,<span class="fl">10</span><span class="op">)</span> </span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vector_of_numbers</span></span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
 <p>A vector of numbers can be the argument of mathematical operations.</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vector_of_numbers</span> <span class="op">*</span> <span class="fl">2</span></span></code></pre></div>
 <pre><code>##  [1]  2  4  6  8 10 12 14 16 18 20</code></pre>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">vector_of_numbers</span> <span class="op">+</span> <span class="fl">3</span></span></code></pre></div>
 <pre><code>##  [1]  4  5  6  7  8  9 10 11 12 13</code></pre>
 <p>Other R objects are <em>matrix</em>, <em>list</em>, and <em>data.frame.</em></p>
 <p>A <strong>matrix</strong> is a table composed of rows and columns containing only numerical values.</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span>, nrow <span class="op">=</span> <span class="fl">10</span>, ncol <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">a_matrix</span></span></code></pre></div>
 <pre><code>##       [,1] [,2] [,3] [,4] [,5]
 ##  [1,]    1   11   21   31   41
 ##  [2,]    2   12   22   32   42
@@ -187,6 +234,10 @@
 ##  [9,]    9   19   29   39   49
 ## [10,]   10   20   30   40   50</code></pre>
 <p>A <strong>list</strong> is just a list of other objects. For instance, this list includes a numerical value, a <em>vector</em> of numbers, and a matrix.</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">object_consisting_of_a_number</span>, <span class="va">vector_of_numbers</span>, <span class="va">a_matrix</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">a_list</span></span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 20
 ## 
@@ -207,12 +258,23 @@
 ## [10,]   10   20   30   40   50</code></pre>
 <p>A <strong>data.frame</strong> is like a matrix that can contain <em>numbers</em> but also other types of data, such as <em>characters</em> (a textual type of data) or <em>factors</em> (unordered categorical variables, such as gender, or ordered categories, such as low, medium, high).</p>
 <p>Data sets are usually stored in <em>data.frames</em>. For instance, if you import a <em>csv</em> or an <em>Excel</em> file in R, the corresponding R object is a <em>data.frame</em>.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># this is an object (vector) consisting of a series of numerical values</span></span>
+<span><span class="va">numerical_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">8</span>, <span class="fl">9</span>, <span class="fl">10</span>, <span class="fl">11</span>, <span class="fl">12</span>, <span class="fl">13</span>, <span class="fl">14</span><span class="op">)</span></span>
+<span><span class="va">numerical_vector</span></span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
-<pre><code>##  [1] "Monday"    "Tuesday"   "Monday"   
-##  [4] "Tuesday"   "Monday"    "Wednesday"
-##  [7] "Thursday"  "Wednesday" "Thursday" 
-## [10] "Saturday"  "Sunday"    "Friday"   
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># this is another object (vector) consisting of a series of categorical values</span></span>
+<span><span class="va">categorical_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Monday"</span>, <span class="st">"Tuesday"</span>, <span class="st">"Monday"</span>, <span class="st">"Wednesday"</span>,<span class="st">"Thursday"</span>, <span class="st">"Wednesday"</span>, <span class="st">"Thursday"</span>, <span class="st">"Saturday"</span>, <span class="st">"Sunday"</span>, <span class="st">"Friday"</span>, <span class="st">"Saturday"</span>, <span class="st">"Sunday"</span><span class="op">)</span></span>
+<span><span class="va">categorical_vector</span></span></code></pre></div>
+<pre><code>##  [1] "Monday"    "Tuesday"   "Monday"    "Tuesday"   "Monday"    "Wednesday"
+##  [7] "Thursday"  "Wednesday" "Thursday"  "Saturday"  "Sunday"    "Friday"   
 ## [13] "Saturday"  "Sunday"</code></pre>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># this is an object consisting of a data.frame, created combining vectors through the function "data.frame"</span></span>
+<span><span class="va">a_dataframe</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="st">"first_variable"</span> <span class="op">=</span> <span class="va">numerical_vector</span>,</span>
+<span>                          <span class="st">"second_variable"</span> <span class="op">=</span> <span class="va">categorical_vector</span><span class="op">)</span></span>
+<span><span class="va">a_dataframe</span></span></code></pre></div>
 <pre><code>##    first_variable second_variable
 ## 1               1          Monday
 ## 2               2         Tuesday
@@ -229,11 +291,13 @@
 ## 13             13        Saturday
 ## 14             14          Sunday</code></pre>
 <p>To access a specific column of a data.frame, you can use the name of the data.frame, the dollar symbol <strong>$</strong>, and the name of the column.</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a_dataframe</span><span class="op">$</span><span class="va">first_variable</span></span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14</code></pre>
-<pre><code>##  [1] "Monday"    "Tuesday"   "Monday"   
-##  [4] "Tuesday"   "Monday"    "Wednesday"
-##  [7] "Thursday"  "Wednesday" "Thursday" 
-## [10] "Saturday"  "Sunday"    "Friday"   
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a_dataframe</span><span class="op">$</span><span class="va">second_variable</span></span></code></pre></div>
+<pre><code>##  [1] "Monday"    "Tuesday"   "Monday"    "Tuesday"   "Monday"    "Wednesday"
+##  [7] "Thursday"  "Wednesday" "Thursday"  "Saturday"  "Sunday"    "Friday"   
 ## [13] "Saturday"  "Sunday"</code></pre>
 <p>It is possible to add columns to a data.frame by writing:</p>
 <ul>
@@ -244,6 +308,10 @@
 </li>
 <li>a vector of values to be stored in the new column (it has to have length equal to the other vectors composing the data.frame)</li>
 </ul>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a_dataframe</span><span class="op">$</span><span class="va">a_new_variable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fl">261</span>, <span class="fl">45</span>, <span class="fl">29</span>, <span class="fl">54</span>, <span class="fl">234</span>, <span class="fl">45</span>, <span class="fl">42</span>, <span class="fl">6</span>, <span class="fl">267</span>, <span class="fl">87</span>, <span class="fl">3</span>, <span class="fl">12</span>, <span class="fl">9</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a_dataframe</span></span></code></pre></div>
 <pre><code>##    first_variable second_variable a_new_variable
 ## 1               1          Monday             12
 ## 2               2         Tuesday            261
@@ -260,6 +328,8 @@
 ## 13             13        Saturday             12
 ## 14             14          Sunday              9</code></pre>
 <p>It is possible to visualize the first few rows of a data.frame by using the function <em>head</em>.</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">a_dataframe</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##   first_variable second_variable a_new_variable
 ## 1              1          Monday             12
 ## 2              2         Tuesday            261
@@ -276,10 +346,17 @@
 <p>A <strong>function</strong> is a coded operation that applies to an object (e.g.: a number, a textual feature etc.) to transform it based on specific rules. A function has a name (the name of the function) and some <em>arguments</em>. Among the arguments of a function there is always an <em>object</em> or a value, for instance a numerical value, which is the content the function is applied to, and other possible arguments (either mandatory or optional).</p>
 <p>Functions are operations applied to objects that give a certain output. E.g.: the arithmetical operation “addition” is a function that applies to two or more numbers to give, as its output, their sum. The <em>arguments</em> of the “sum” function are the numbers that are added together.</p>
 <p>The name of the function is written out of <em>parentheses</em>, and the arguments of the function inside the parentheses:</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <p>Arguments of functions can be numbers but also textual features. For instance, the function <em>paste</em> creates a string composed of the strings that it takes as arguments.</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"the"</span>, <span class="st">"cat"</span>, <span class="st">"is"</span>, <span class="st">"at"</span>, <span class="st">"home"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "the cat is at home"</code></pre>
 <p>In R you can sometimes find a “nested” syntax, which can be confusing. The best practice is to keep things as simple as possible.</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># this comment, written after the hash mark, describe what is going on here: two "paste" function nested together have been used (improperly! because they make the code more complicated than necessary) to show how functions can be nested together. It would have been better to use the "paste" function just one time!</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"the"</span>, <span class="st">"cat"</span>, <span class="st">"is"</span>, <span class="st">"at"</span>, <span class="st">"home"</span><span class="op">)</span>, <span class="st">"and"</span>, <span class="st">"sleeps"</span>, <span class="st">"on"</span>, <span class="st">"the"</span>, <span class="st">"sofa"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "the cat is at home and sleeps on the sofa"</code></pre>
 <p>To sum up, functions manipulate and transform objects. Data wrangling, data visualization, as well as data analysis, are performed through functions.</p>
 </div>
@@ -374,7 +451,7 @@ Figure 2.1: R data formats. Tables from Gaubatz, K. T. (2014). <a href="https://
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-14.</p>
+    <p>"<strong>Time Series Analysis With R</strong>" was written by Nicola Righetti. It was last built on 2025-10-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
