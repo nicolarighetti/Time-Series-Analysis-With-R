@@ -10,7 +10,7 @@ output:
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  echo = FALSE,               # non mostrare codice
+  echo = TRUE,               # non mostrare codice
   fig.cap = "",                # caption vuota sicura
   out.width = "100%",          # immagini larghezza pari al testo
   fig.align = "center",        # centra le immagini
